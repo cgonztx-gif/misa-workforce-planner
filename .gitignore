@@ -1,0 +1,12 @@
+# Extracted from MISA.zip, which is tracked (extraction command in CLAUDE.md)
+MISA/
+data/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+
+# Office lock files
+~$*

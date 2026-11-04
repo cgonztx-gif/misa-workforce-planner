@@ -1,0 +1,9 @@
+python 3.13.14 | streamlit 1.56.0 | pandas 3.0.1 | altair 6.0.0
+available: {'numpy': True, 'scipy': True, 'openpyxl': True, 'sklearn': False, 'statsmodels': False, 'pytest': False, 'pulp': False, 'ortools': False, 'plotly': False, 'pyodbc': False}
+first run 0.96s, exceptions=0
+BASE     rerun 0.071s hours=10344.0 over_capacity=0 exceptions=0
+PEAK     rerun 0.028s hours=10344.0 over_capacity=0 exceptions=0
+DISRUPT  rerun 0.029s hours=10344.0 over_capacity=12 exceptions=0
+BASE     rerun 0.029s hours=10344.0 over_capacity=0 exceptions=0
+server healthy=True after 8.4s
+page bytes 4876 | URLs in page: ['http://www.apache.org/licenses/LICENSE-2.0']

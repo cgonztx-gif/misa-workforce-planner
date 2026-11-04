@@ -1,0 +1,209 @@
+
+=== F-01: Source versions and the scenario conflict ===
+pptx modified: 2026-10-27T16:51:03Z | slides: 7
+pdf zip timestamp: (2026, 10, 30, 15, 54, 28)
+pptx contains 'at least one changed-condition scenario': True
+README contains 'All three scenarios (BASE, PEAK and DISRUPT) are required': True
+
+=== F-02: Row counts and template alignment ===
+v_ShiftHistory 1134 | v_PlanningWeekGrid 567 | template 567 | benchmark 63
+comp_FactShiftAvailability 1701 | comp_FactShiftSchedule 1323
+history dates: 2026-01-01 to 2026-02-11
+planning dates: 2026-02-12 to 2026-02-18
+template keys == grid keys: True
+template draft values differing from grid: 0
+
+=== F-03: Service against utilization (utilization = demand x standard / worked hours) ===
+Front End: blocks=369 overall met=77.0% max utilization=1.18
+  0.60-0.70 blocks= 33 met=100.0% avg metric=   1.6 min
+  0.70-0.80 blocks=135 met=100.0% avg metric=   2.4 min
+  0.80-0.85 blocks= 86 met= 98.8% avg metric=   3.5 min
+  0.85-0.90 blocks= 52 met= 59.6% avg metric=   4.9 min
+  0.90-0.95 blocks= 32 met=  0.0% avg metric=   9.2 min
+  0.95-1.00 blocks= 15 met=  0.0% avg metric=  20.8 min
+  1.00-99.00 blocks= 16 met=  0.0% avg metric=  23.4 min
+  summary below 0.85: blocks=254 met=99.6%
+  summary 0.85-0.90: blocks=52 met=59.6%
+  summary 0.90+: blocks=63 met=0.0%
+Merchandising: blocks=369 overall met=69.9% max utilization=1.19
+  0.60-0.70 blocks= 37 met=100.0% avg metric=  20.2 min
+  0.70-0.80 blocks=112 met=100.0% avg metric=  28.7 min
+  0.80-0.85 blocks= 67 met=100.0% avg metric=  40.3 min
+  0.85-0.90 blocks= 65 met= 63.1% avg metric=  58.4 min
+  0.90-0.95 blocks= 44 met=  2.3% avg metric=  98.4 min
+  0.95-1.00 blocks= 22 met=  0.0% avg metric= 212.4 min
+  1.00-99.00 blocks= 22 met=  0.0% avg metric= 248.8 min
+  summary below 0.85: blocks=216 met=100.0%
+  summary 0.85-0.90: blocks=65 met=63.1%
+  summary 0.90+: blocks=88 met=1.1%
+Pharmacy: blocks=315 overall met=88.3% max utilization=1.77
+  0.00-0.60 blocks= 38 met=100.0% avg metric=   4.5 min
+  0.60-0.70 blocks=122 met=100.0% avg metric=   6.3 min
+  0.70-0.80 blocks= 68 met=100.0% avg metric=   9.2 min
+  0.80-0.85 blocks= 32 met=100.0% avg metric=  14.4 min
+  0.85-0.90 blocks= 28 met= 64.3% avg metric=  19.5 min
+  0.90-0.95 blocks= 12 met=  0.0% avg metric=  32.6 min
+  0.95-1.00 blocks=  3 met=  0.0% avg metric=  77.7 min
+  1.00-99.00 blocks= 12 met=  0.0% avg metric=  84.8 min
+  summary below 0.85: blocks=260 met=100.0%
+  summary 0.85-0.90: blocks=28 met=64.3%
+  summary 0.90+: blocks=27 met=0.0%
+
+=== F-04: Callouts and backfill in history ===
+callout rate=5.17% of scheduled | backfilled=49.2% of callouts
+
+=== F-05: labor_cost is reproduced by the documented formula ===
+max absolute error=0.0000
+
+=== F-06: Shift demand sums to daily demand ===
+daily rows=378 | open daily rows=369 | max deviation=0.0000
+
+=== F-07: Benchmark equals the same-weekday mean of weeks 3-6, in the same units as daily demand ===
+rows checked=63 | grain unique store/dept/date=63 | max deviation=0.0001
+
+=== F-08: DISRUPT availability changes against BASE (regular, overtime, flex) ===
+WH2 Front End     2026-02-13 EVE  26->18 6->3 1->1 | draft 26
+WH2 Front End     2026-02-13 MID  28->19 6->3 1->1 | draft 28
+WH2 Front End     2026-02-13 OPEN 16->11 4->2 2->2 | draft 15
+WH2 Front End     2026-02-14 EVE  25->17 7->3 1->1 | draft 24
+WH2 Front End     2026-02-14 MID  36->25 9->4 1->1 | draft 31
+WH2 Front End     2026-02-14 OPEN 27->18 7->3 2->2 | draft 27
+WH2 Front End     2026-02-15 EVE  21->14 6->3 1->1 | draft 19
+WH2 Front End     2026-02-15 MID  40->28 10->5 1->1 | draft 32
+WH2 Front End     2026-02-15 OPEN 23->16 6->3 2->2 | draft 25
+WH2 Front End     2026-02-16 EVE  23->16 6->3 1->1 | draft 17
+WH2 Front End     2026-02-16 MID  23->16 6->3 1->1 | draft 17
+WH2 Front End     2026-02-16 OPEN 14->9 4->2 1->1 | draft 10
+WH2 Merchandising 2026-02-13 EVE  14->14 4->4 2->1 | draft 13
+WH2 Merchandising 2026-02-13 MID  16->16 4->4 2->1 | draft 12
+WH2 Merchandising 2026-02-14 EVE  13->13 3->3 2->1 | draft 13
+WH2 Merchandising 2026-02-14 MID  15->15 4->4 3->2 | draft 17
+WH2 Merchandising 2026-02-14 OPEN 20->20 5->5 2->1 | draft 22
+WH2 Merchandising 2026-02-15 EVE  11->11 3->3 2->1 | draft 11
+WH2 Merchandising 2026-02-15 MID  16->16 4->4 4->2 | draft 17
+WH2 Merchandising 2026-02-15 OPEN 21->21 5->5 2->1 | draft 22
+WH2 Merchandising 2026-02-16 EVE  14->14 4->4 2->1 | draft 14
+WH2 Merchandising 2026-02-16 MID  14->14 4->4 2->1 | draft 14
+WH2 Merchandising 2026-02-16 OPEN 19->19 5->5 1->0 | draft 21
+WH2 Pharmacy      2026-02-13 EVE  6->5 2->1 0->0 | draft 5
+WH2 Pharmacy      2026-02-13 MID  5->4 2->1 0->0 | draft 5
+WH2 Pharmacy      2026-02-13 OPEN 6->5 2->1 0->0 | draft 5
+WH2 Pharmacy      2026-02-14 MID  2->1 1->1 0->0 | draft 3
+WH2 Pharmacy      2026-02-14 OPEN 3->2 1->1 0->0 | draft 4
+WH2 Pharmacy      2026-02-15 MID  3->2 1->1 0->0 | draft 3
+WH2 Pharmacy      2026-02-16 EVE  4->3 2->1 0->0 | draft 5
+WH2 Pharmacy      2026-02-16 MID  5->4 2->1 0->0 | draft 5
+WH2 Pharmacy      2026-02-16 OPEN 3->2 2->1 0->0 | draft 5
+WH4 Front End     2026-02-12 OPEN 17->17 4->4 2->1 | draft 13
+WH4 Front End     2026-02-13 OPEN 17->17 4->4 2->1 | draft 16
+WH4 Merchandising 2026-02-12 OPEN 22->14 5->5 1->1 | draft 19
+WH4 Merchandising 2026-02-13 OPEN 22->14 5->5 1->1 | draft 22
+
+=== F-09: Draft schedule above capacity, by scenario ===
+{'DISRUPT': 12}
+DISRUPT WH2 Front End     2026-02-13 EVE  draft=26 capacity=22
+DISRUPT WH2 Front End     2026-02-13 MID  draft=28 capacity=23
+DISRUPT WH2 Front End     2026-02-14 EVE  draft=24 capacity=21
+DISRUPT WH2 Front End     2026-02-14 MID  draft=31 capacity=30
+DISRUPT WH2 Front End     2026-02-14 OPEN draft=27 capacity=23
+DISRUPT WH2 Front End     2026-02-15 EVE  draft=19 capacity=18
+DISRUPT WH2 Front End     2026-02-15 OPEN draft=25 capacity=21
+DISRUPT WH2 Pharmacy      2026-02-14 MID  draft=3 capacity=2
+DISRUPT WH2 Pharmacy      2026-02-14 OPEN draft=4 capacity=3
+DISRUPT WH2 Pharmacy      2026-02-16 EVE  draft=5 capacity=4
+DISRUPT WH2 Pharmacy      2026-02-16 OPEN draft=5 capacity=3
+DISRUPT WH4 Merchandising 2026-02-13 OPEN draft=22 capacity=20
+draft below min_staff: 0
+
+=== F-10: PEAK changes demand only ===
+PEAK availability rows differing from BASE: 0
+2026-02-13 WH1 Front End     multiplier 1.10-1.20
+2026-02-13 WH1 Merchandising multiplier 1.10-1.25
+2026-02-13 WH1 Pharmacy      multiplier 1.05-1.05
+2026-02-13 WH2 Front End     multiplier 1.10-1.20
+2026-02-13 WH2 Merchandising multiplier 1.10-1.25
+2026-02-13 WH2 Pharmacy      multiplier 1.05-1.05
+2026-02-13 WH4 Front End     multiplier 1.15-1.25
+2026-02-13 WH4 Merchandising multiplier 1.15-1.30
+2026-02-13 WH4 Pharmacy      multiplier 1.05-1.05
+2026-02-14 WH1 Front End     multiplier 1.10-1.20
+2026-02-14 WH1 Merchandising multiplier 1.10-1.25
+2026-02-14 WH1 Pharmacy      multiplier 1.05-1.05
+2026-02-14 WH2 Front End     multiplier 1.10-1.20
+2026-02-14 WH2 Merchandising multiplier 1.10-1.25
+2026-02-14 WH2 Pharmacy      multiplier 1.05-1.05
+2026-02-14 WH4 Front End     multiplier 1.15-1.25
+2026-02-14 WH4 Merchandising multiplier 1.15-1.30
+2026-02-14 WH4 Pharmacy      multiplier 1.05-1.05
+2026-02-15 WH1 Front End     multiplier 1.06-1.06
+2026-02-15 WH1 Merchandising multiplier 1.06-1.06
+2026-02-15 WH2 Front End     multiplier 1.06-1.06
+2026-02-15 WH2 Merchandising multiplier 1.06-1.06
+2026-02-15 WH4 Front End     multiplier 1.06-1.06
+2026-02-15 WH4 Merchandising multiplier 1.06-1.06
+BASE: multiplier range 1.00-1.00
+PEAK: multiplier range 1.00-1.30
+DISRUPT: multiplier range 1.00-1.00
+
+=== F-11: min_staff is reachable without flex ===
+open blocks where regular + overtime < min_staff: 0
+
+=== F-12: Columns present in only one of the two main views ===
+planning grid only: ['adjustment_reason', 'demand_multiplier', 'draft_scheduled_employees', 'draft_scheduled_labor_hours', 'holiday_name', 'is_post_holiday_rebound', 'is_pre_holiday_stockup', 'loaded_overtime_hourly_cost', 'loaded_regular_hourly_cost', 'promotion_index', 'scenario_code', 'scenario_id', 'service_target_value']
+history only: ['backfill_employees', 'callout_employees', 'daily_demand_units', 'is_costco_closed', 'labor_cost', 'met_target', 'metric_value', 'scheduled_employees', 'scheduled_labor_hours', 'shift_demand_units', 'shift_sequence', 'shift_share_of_day', 'target_value', 'week_of_year', 'week_start_date', 'worked_employees', 'worked_labor_hours', 'worked_overtime_employees', 'worked_overtime_hours', 'worked_regular_employees', 'worked_regular_hours']
+
+=== F-13: Holiday labels and calendar ===
+history:
+  2026-01-01 Closed_Holiday closed=1
+  2026-01-02 Post_New_Year_Rebound closed=0
+  2026-01-03 Post_New_Year_Rebound closed=0
+  2026-01-04 Post_New_Year_Rebound closed=0
+  2026-01-16 Pre_MLK_Weekend closed=0
+  2026-01-17 Pre_MLK_Weekend closed=0
+  2026-01-18 Pre_MLK_Weekend closed=0
+  2026-01-19 MLK_Holiday closed=0
+planning week (date, day, day_type, holiday, role, stockup, rebound, has_promotion, promotion_index):
+  ('2026-02-12', 'Thursday', 'Weekday', '', 'Normal', '0', '0', '0', '0.65')
+  ('2026-02-13', 'Friday', 'Weekday', '', 'Pre_Presidents_Day_Weekend', '1', '0', '1', '0.8')
+  ('2026-02-14', 'Saturday', 'Saturday', "Valentine's Day", 'Pre_Presidents_Day_Weekend', '1', '0', '1', '0.8')
+  ('2026-02-15', 'Sunday', 'Sunday', '', 'Pre_Presidents_Day_Weekend', '1', '0', '1', '0.8')
+  ('2026-02-16', 'Monday', 'Weekday', "Presidents' Day", 'Presidents_Day_Holiday', '0', '0', '1', '0.75')
+  ('2026-02-17', 'Tuesday', 'Weekday', '', 'Normal', '0', '1', '0', '0.65')
+  ('2026-02-18', 'Wednesday', 'Weekday', '', 'Normal', '0', '0', '0', '0.65')
+
+=== F-14: Closed blocks ===
+history closed blocks: 81 | open blocks with a NULL metric: 0
+template closed rows: 27 Counter({('Saturday', 'EVE'): 1, ('Sunday', 'EVE'): 1, ('Sunday', 'OPEN'): 1})
+
+=== F-15: Submission template ===
+first three shift codes: ['EVE', 'MID', 'OPEN']
+team_id values: ['TEAM_NAME']
+rows with submitted_employees already filled: 0
+
+=== F-16: Where the daily core tables live ===
+promotion_index: in CSV headers of ['v_PlanningWeekGrid.csv']
+traffic_index: in CSV headers of []
+markdown1: in CSV headers of []
+fuel_price: in CSV headers of []
+predicted_traffic_index: in CSV headers of ['PlanningWeek_BenchmarkForecast.csv']
+02_Load_Core_Data.sql loads FactDailyFeatures: True | partition train: True | test: False
+04_Load_Shift_Planning_Data.sql loads FactDailyFeatures: True | partition train: False | test: True
+database name: ['LaunchProject']
+
+=== F-17: Weaknesses the starter query Q5 declares ===
+Known simplifications teams should challenge: naive forecast, one target utilization for all depts, no expected callout buffer, flex borrowed without reducing the other department.
+default target_util in the starter queries: ['0.85']
+
+=== F-18: Flex pool sizes in the planning grid (min-max per block) ===
+Front End: 0-2
+Merchandising: 0-4
+Pharmacy: 0-0
+
+=== F-19: Draft schedule does not vary by scenario ===
+blocks whose draft differs between scenarios: 0
+BASE: draft labor hours=10344.0
+PEAK: draft labor hours=10344.0
+DISRUPT: draft labor hours=10344.0
+
+=== F-20: Paid hours per open block ===
+min=2.5 max=6.0
