@@ -2684,7 +2684,7 @@
     "trigger": "No promotion surge or illness has been confirmed. This is the default.",
     "actions": [
      "Schedule the BASE plan: 11,658 hours, at a cost of $377,504.",
-     "Approve 974 hours of overtime ahead of time, mostly for the holiday weekend, so it isn't arranged at the last minute.",
+     "Approve 975 hours of overtime ahead of time, mostly for the holiday weekend, so it isn't arranged at the last minute.",
      "Deal with the 43-person gap across 25 blocks before the week starts. The largest is Warehouse 2 Front End on Sat Feb 14, at 6 people across its shifts. Limiting holiday PTO is the most direct fix."
     ]
    },
@@ -2693,7 +2693,7 @@
     "actions": [
      "Switch to the PEAK plan: +266 hours against BASE, at a cost of $387,926.",
      "Put extra staff first into Warehouse 4 Merchandising, which gains the most (12 more employee shifts across the week).",
-     "Approve 1,224 hours of overtime, against 974 in BASE.",
+     "Approve 1,224 hours of overtime, against 975 in BASE.",
      "Expect waits even with this plan. It is 190 people short across 45 blocks, led by Warehouse 4 Front End on Sat Feb 14 (26 people across its shifts). Arrange outside cover, or tell members and staff what to expect."
     ]
    },

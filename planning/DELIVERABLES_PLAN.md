@@ -343,13 +343,13 @@ One presenter drives and talks. It's timed, rehearsed, and backed by a recording
 
 | Time | Do | Say (the point) |
 |---|---|---|
-| 0:00 | Overview, BASE, all warehouses | "This is the answer: 14% more hours, placed where history says they're missing, take expected service from 70% to 96%." |
-| 0:40 | Schedule, Warehouse 1. Point at the holiday weekend | "Days across, shifts down. Blue is where we add people. The draft ignored the holiday." |
+| 0:00 | Overview, BASE, all warehouses | "This is the answer: about 13% more hours, placed where history says they're missing, take expected service from about 69% to 96%." (Read the exact figures off the Overview: BASE is 68.5% to 95.6% after D-29) |
+| 0:40 | Schedule, Warehouse 1. Point at the holiday weekend | "Days across, shifts down. The deeper purple, the more people we add. The draft ignored the holiday." |
 | 1:10 | Click Sat Feb 14, Front End, Midday | "Every block explains itself with its own numbers: demand driver, staff sources, cost, risk, cushion." |
 | 1:50 | Switch to PEAK, then DISRUPT at Warehouse 2 | "The plan changes with the conditions. Here illness takes out Front End, and the plan responds." |
 | 2:40 | Demand page | "We forecast the holiday effects ourselves. The benchmark misses them." |
 | 3:10 | Scenario lab: demand +10%, callouts 150%, Run | "This isn't three saved answers. It recalculates the plan live." |
-| 4:00 | Playbook: holiday PTO | "The single best action: keep 2 people per block from holiday PTO. Service rises and cost falls." |
+| 4:00 | Playbook: holiday PTO | "The single best action: keep people from holiday PTO. Even 2 per block lifts service and cuts cost, because regular staff replace overtime." |
 | 4:40 | Schedule, Export | "And this is the file we submitted, straight from the tool." |
 
 ---

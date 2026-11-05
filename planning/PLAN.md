@@ -163,8 +163,8 @@ Section numbers refer to `DELIVERABLES_PLAN.md`, which has the details, checks a
 | T-86 | Scenario lab (7.4) | T-81 | A what-if finishes in under 8 seconds and Reset works | Done: settings incl. staff availability, presets, what-if boards and changes, Reset, settings in the URL. Demo what-ifs warmed at server startup |
 | T-87 | Playbook page (7.4) | T-81 | Checked in a browser | Done: PTO small multiples, scenario cards, rules for the day, least-cushion blocks linking to the Schedule |
 | T-88 | Methods page (7.4) | T-81 | Checked in a browser | Done: engine diagram, why totals per block (gap 3), validation, assumptions ours and the case's, data notice |
-| T-89 | Browser checks, screenshots, offline and timing checks (7.8) | T-82 to T-88 | `planning/evidence/drive_web.py` passes | In progress |
-| T-90 | Polish, fresh-eyes review, the M4 decision, then update the README, `CLAUDE.md`, `DESIGN.md` and the UI guide (7.9) | T-89 | M4 met with the new app or the fallback | Not started |
+| T-89 | Browser checks, screenshots, offline and timing checks (7.8) | T-82 to T-88 | `planning/evidence/drive_web.py` passes | Done: 26 of 27 pass, the miss is machine load (F-74) |
+| T-90 | Polish, fresh-eyes review, the M4 decision, then update the README, `CLAUDE.md`, `DESIGN.md` and the UI guide (7.9) | T-89 | M4 met with the new app or the fallback | In progress: fixes from T-89 and a fresh-eyes review; docs cutover done |
 | T-91 | Jupyter appendix (section 8) | T-78, T-79 | Runs with no errors, and its reproducibility cell passes | In progress |
 | T-92 | Rewrite the report (section 9) | T-78, T-79, then T-89 for screenshots | Every page checked as rendered, and the PDF exported | In progress |
 | T-93 | Build the presentation, main and appendix slides (section 10) | T-78, T-90 | `validate.py` passes, every slide checked as rendered, and the PDF exported | In progress (started before M4 for speed; slide 9's screenshot is swapped after T-90) |

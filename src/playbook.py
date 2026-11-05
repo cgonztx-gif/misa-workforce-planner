@@ -4,6 +4,8 @@ The actions are advice, but every number comes from the plan, so the text update
 """
 from __future__ import annotations
 
+import math
+
 import numpy as np
 import pandas as pd
 
@@ -15,6 +17,12 @@ from src.service import Curve
 WAREHOUSE_NAMES = {1: "Warehouse 1", 2: "Warehouse 2", 4: "Warehouse 4"}
 PTO_NOTE = "Holiday-weekend PTO requests"
 KEYS = ["store_id", "dept_id", "day_of_week", "shift_code"]
+
+
+def _whole(value: float) -> int:
+    """Round halves away from zero, as the web app's number formatting does. Python's own formatting rounds a
+    half to the even number, so 974.5 overtime hours would read 974 here and 975 on every page (F-74)."""
+    return int(math.floor(abs(value) + 0.5)) * (1 if value >= 0 else -1)
 
 
 def pto_drop(inputs: pd.DataFrame) -> pd.Series:
@@ -89,24 +97,24 @@ def scenario_actions(explained: pd.DataFrame) -> dict[str, dict]:
         "BASE": {
             "trigger": "No promotion surge or illness has been confirmed. This is the default.",
             "actions": [
-                f"Schedule the BASE plan: {hours['BASE']:,.0f} hours, at a cost of ${cost['BASE']:,.0f}.",
-                f"Approve {overtime['BASE']:,.0f} hours of overtime ahead of time, mostly for the holiday weekend, so it isn't arranged at the last minute.",
+                f"Schedule the BASE plan: {_whole(hours['BASE']):,} hours, at a cost of ${_whole(cost['BASE']):,}.",
+                f"Approve {_whole(overtime['BASE']):,} hours of overtime ahead of time, mostly for the holiday weekend, so it isn't arranged at the last minute.",
                 f"Deal with the {int(short['BASE'])}-person gap across {int(blocks_short['BASE'])} blocks before the week starts. The largest is {base_where}, at {base_people} people across its shifts. Limiting holiday PTO is the most direct fix.",
             ],
         },
         "PEAK": {
             "trigger": "The Feb 13 member promotion is confirmed, or a winter-storm advisory covers Feb 13-14.",
             "actions": [
-                f"Switch to the PEAK plan: {hours['PEAK'] - hours['BASE']:+,.0f} hours against BASE, at a cost of ${cost['PEAK']:,.0f}.",
+                f"Switch to the PEAK plan: {_whole(hours['PEAK'] - hours['BASE']):+,} hours against BASE, at a cost of ${_whole(cost['PEAK']):,}.",
                 f"Put extra staff first into {WAREHOUSE_NAMES[peak_store]} {DEPT_NAMES[peak_dept]}, which gains the most ({int(peak_move.max())} more employee shifts across the week).",
-                f"Approve {overtime['PEAK']:,.0f} hours of overtime, against {overtime['BASE']:,.0f} in BASE.",
+                f"Approve {_whole(overtime['PEAK']):,} hours of overtime, against {_whole(overtime['BASE']):,} in BASE.",
                 f"Expect waits even with this plan. It is {int(short['PEAK'])} people short across {int(blocks_short['PEAK'])} blocks, led by {peak_where} ({peak_people} people across its shifts). Arrange outside cover, or tell members and staff what to expect.",
             ],
         },
         "DISRUPT": {
             "trigger": "Warehouse 2 reports the illness cluster for Feb 13-16 (about 30% of Front End unavailable, one Pharmacy team member out per block), or Warehouse 4's opening stocking crew is about 35% short on Feb 12-13.",
             "actions": [
-                f"Switch to the DISRUPT plan: {hours['DISRUPT'] - hours['BASE']:+,.0f} hours against BASE, because fewer people are available, at a cost of ${cost['DISRUPT']:,.0f}.",
+                f"Switch to the DISRUPT plan: {_whole(hours['DISRUPT'] - hours['BASE']):+,} hours against BASE, because fewer people are available, at a cost of ${_whole(cost['DISRUPT']):,}.",
                 f"Don't use the current draft here: it schedules 36 more people than can be fielded, across 12 blocks.",
                 f"{WAREHOUSE_NAMES[disrupt_store]} {DEPT_NAMES[disrupt_dept]} loses the most ({-int(disrupt_move.min())} fewer employee shifts across the week). Move every available cross-trained person there once Merchandising's own need is met.",
                 f"Escalate early. The plan is {int(short['DISRUPT'])} people short across {int(blocks_short['DISRUPT'])} blocks, led by {disrupt_where} ({disrupt_people} people across its shifts), and no schedule can close that gap.",
