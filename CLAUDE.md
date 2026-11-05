@@ -8,7 +8,7 @@ Entry for the Texas MISA Fall 2026 case competition: the Costco workforce planni
 
 **Submission is due the morning of Saturday, Nov 7, 2026.**
 
-So far, only a data loader, a placeholder app and basic tests exist. Git is local only, on `main`. `MISA/` and `data/` aren't tracked because they extract from `MISA.zip`.
+The analysis engine and a first valid staffing CSV exist. The app is still a placeholder. Git is local only, on `main`. `MISA/` and `data/` aren't tracked because they extract from `MISA.zip`.
 
 ## Stack
 
@@ -35,6 +35,11 @@ unzip -o MISA.zip -d . && unzip -o "MISA/Student Teams/Costco_Case_Competition_T
 python -m pytest
 python -m pytest tests/test_data.py::test_row_counts
 
+# Rebuild the analysis (writes outputs/), its charts, and the team's Word file (run npm install once)
+python -m src.pipeline
+python -m src.charts
+node scripts/build_analysis_doc.js
+
 # Start the app, then open http://localhost:8501
 python -m streamlit run app.py
 
@@ -52,3 +57,5 @@ python -I planning/evidence/verify_findings.py
 - **Solve Front End and Merchandising together.** They share cross-trained staff in each shift.
 - **Read availability per scenario from the grid.** The docs understate what DISRUPT changes.
 - **Join the submission template on keys, never row position.** It needs all 567 rows, total employees per block, and 0 for closed blocks.
+- **The team name is still a placeholder.** Replace `TEAM_ID` in `src/submission.py` before submitting.
+- **Figures in the Word file come from `outputs/`.** Change the code or `scripts/build_analysis_doc.js`, and don't type numbers in by hand. Rebuilding replaces hand edits.

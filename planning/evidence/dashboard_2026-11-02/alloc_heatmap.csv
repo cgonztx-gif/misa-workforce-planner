@@ -1,0 +1,73 @@
+warehouse,dept,day_type,shift,blocks,util,pct_met
+W1,Front End,Saturday,EVE,6,0.8071,1.0
+W1,Front End,Saturday,MID,6,0.8265,0.6667
+W1,Front End,Saturday,OPEN,6,0.8016,0.8333
+W1,Front End,Sunday,EVE,6,0.8231,0.6667
+W1,Front End,Sunday,MID,6,0.807,0.8333
+W1,Front End,Sunday,OPEN,6,0.8188,1.0
+W1,Front End,Weekday,EVE,29,0.7403,1.0
+W1,Front End,Weekday,MID,29,0.7506,0.8966
+W1,Front End,Weekday,OPEN,29,0.7487,0.8966
+W1,Merchandising,Saturday,EVE,6,0.8793,0.3333
+W1,Merchandising,Saturday,MID,6,0.8668,0.5
+W1,Merchandising,Saturday,OPEN,6,0.9026,0.3333
+W1,Merchandising,Sunday,EVE,6,0.8437,0.8333
+W1,Merchandising,Sunday,MID,6,0.8982,0.3333
+W1,Merchandising,Sunday,OPEN,6,0.8249,0.6667
+W1,Merchandising,Weekday,EVE,29,0.8637,0.5862
+W1,Merchandising,Weekday,MID,29,0.8736,0.6207
+W1,Merchandising,Weekday,OPEN,29,0.8504,0.7241
+W1,Pharmacy,Saturday,MID,6,0.6094,1.0
+W1,Pharmacy,Saturday,OPEN,6,0.6926,0.8333
+W1,Pharmacy,Sunday,MID,6,0.788,0.8333
+W1,Pharmacy,Weekday,EVE,29,0.7172,0.931
+W1,Pharmacy,Weekday,MID,29,0.6859,1.0
+W1,Pharmacy,Weekday,OPEN,29,0.722,0.8621
+W2,Front End,Saturday,EVE,6,1.0297,0.1667
+W2,Front End,Saturday,MID,6,0.9923,0.3333
+W2,Front End,Saturday,OPEN,6,0.8167,0.8333
+W2,Front End,Sunday,EVE,6,0.9869,0.0
+W2,Front End,Sunday,MID,6,1.0273,0.0
+W2,Front End,Sunday,OPEN,6,0.8377,0.6667
+W2,Front End,Weekday,EVE,29,0.8282,0.7241
+W2,Front End,Weekday,MID,29,0.8269,0.6552
+W2,Front End,Weekday,OPEN,29,0.8148,0.7931
+W2,Merchandising,Saturday,EVE,6,0.799,0.8333
+W2,Merchandising,Saturday,MID,6,0.8113,0.8333
+W2,Merchandising,Saturday,OPEN,6,0.8507,0.6667
+W2,Merchandising,Sunday,EVE,6,0.8462,0.6667
+W2,Merchandising,Sunday,MID,6,0.8451,0.8333
+W2,Merchandising,Sunday,OPEN,6,0.8042,1.0
+W2,Merchandising,Weekday,EVE,29,0.8246,0.8276
+W2,Merchandising,Weekday,MID,29,0.8398,0.7586
+W2,Merchandising,Weekday,OPEN,29,0.8209,0.8966
+W2,Pharmacy,Saturday,MID,6,0.53,1.0
+W2,Pharmacy,Saturday,OPEN,6,0.7684,1.0
+W2,Pharmacy,Sunday,MID,6,0.55,1.0
+W2,Pharmacy,Weekday,EVE,29,0.6331,1.0
+W2,Pharmacy,Weekday,MID,29,0.6337,1.0
+W2,Pharmacy,Weekday,OPEN,29,0.6721,0.931
+W4,Front End,Saturday,EVE,6,0.813,0.8333
+W4,Front End,Saturday,MID,6,0.8181,0.6667
+W4,Front End,Saturday,OPEN,6,0.8277,0.6667
+W4,Front End,Sunday,EVE,6,0.8552,0.6667
+W4,Front End,Sunday,MID,6,0.823,0.8333
+W4,Front End,Sunday,OPEN,6,0.8554,0.6667
+W4,Front End,Weekday,EVE,29,0.8225,0.8966
+W4,Front End,Weekday,MID,29,0.8368,0.7586
+W4,Front End,Weekday,OPEN,29,0.8058,0.8276
+W4,Merchandising,Saturday,EVE,6,0.908,0.3333
+W4,Merchandising,Saturday,MID,6,0.8439,0.8333
+W4,Merchandising,Saturday,OPEN,6,0.6845,1.0
+W4,Merchandising,Sunday,EVE,6,0.9686,0.1667
+W4,Merchandising,Sunday,MID,6,0.8503,0.5
+W4,Merchandising,Sunday,OPEN,6,0.6825,1.0
+W4,Merchandising,Weekday,EVE,29,0.9199,0.2759
+W4,Merchandising,Weekday,MID,29,0.8045,0.7931
+W4,Merchandising,Weekday,OPEN,29,0.6712,1.0
+W4,Pharmacy,Saturday,MID,6,0.7892,1.0
+W4,Pharmacy,Saturday,OPEN,6,0.8628,0.8333
+W4,Pharmacy,Sunday,MID,6,1.0199,0.1667
+W4,Pharmacy,Weekday,EVE,29,0.8241,0.7931
+W4,Pharmacy,Weekday,MID,29,0.8135,0.7241
+W4,Pharmacy,Weekday,OPEN,29,0.836,0.7586

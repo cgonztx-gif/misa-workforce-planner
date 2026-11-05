@@ -1,0 +1,22 @@
+date,day,window,dept,benchmark,analog,gap_pct
+2026-02-12,Thu,Normal,Front End,333.36,333.36,0.0
+2026-02-12,Thu,Normal,Merchandising,416.1,416.1,0.0
+2026-02-12,Thu,Normal,Pharmacy,566.51,566.51,0.0
+2026-02-13,Fri,Pre-Presidents' Day weekend,Front End,420.16,456.33,-0.0793
+2026-02-13,Fri,Pre-Presidents' Day weekend,Merchandising,473.9,501.24,-0.0545
+2026-02-13,Fri,Pre-Presidents' Day weekend,Pharmacy,542.73,522.36,0.039
+2026-02-14,Sat,Pre-Presidents' Day weekend,Front End,471.09,511.65,-0.0793
+2026-02-14,Sat,Pre-Presidents' Day weekend,Merchandising,473.9,501.24,-0.0545
+2026-02-14,Sat,Pre-Presidents' Day weekend,Pharmacy,296.03,284.92,0.039
+2026-02-15,Sun,Pre-Presidents' Day weekend,Front End,420.16,456.33,-0.0793
+2026-02-15,Sun,Pre-Presidents' Day weekend,Merchandising,424.88,449.38,-0.0545
+2026-02-15,Sun,Pre-Presidents' Day weekend,Pharmacy,148.02,142.46,0.039
+2026-02-16,Mon,Presidents' Day,Front End,275.16,285.21,-0.0352
+2026-02-16,Mon,Presidents' Day,Merchandising,535.09,554.53,-0.0351
+2026-02-16,Mon,Presidents' Day,Pharmacy,537.85,408.22,0.3175
+2026-02-17,Tue,Normal,Front End,283.97,283.97,0.0
+2026-02-17,Tue,Normal,Merchandising,480.11,480.11,0.0
+2026-02-17,Tue,Normal,Pharmacy,599.84,599.84,-0.0
+2026-02-18,Wed,Normal,Front End,308.67,308.67,0.0
+2026-02-18,Wed,Normal,Merchandising,432.1,432.1,-0.0
+2026-02-18,Wed,Normal,Pharmacy,583.18,583.18,0.0

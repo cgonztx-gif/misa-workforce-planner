@@ -1,0 +1,19 @@
+dept,week,week_start,level
+Front End,1,2026-01-01,0.9795
+Front End,2,2026-01-08,0.9837
+Front End,3,2026-01-15,1.0498
+Front End,4,2026-01-22,0.9931
+Front End,5,2026-01-29,0.9601
+Front End,6,2026-02-05,1.0309
+Merchandising,1,2026-01-01,0.9527
+Merchandising,2,2026-01-08,1.0223
+Merchandising,3,2026-01-15,1.0601
+Merchandising,4,2026-01-22,0.9939
+Merchandising,5,2026-01-29,0.9608
+Merchandising,6,2026-02-05,1.0034
+Pharmacy,1,2026-01-01,0.9587
+Pharmacy,2,2026-01-08,0.9909
+Pharmacy,3,2026-01-15,1.048
+Pharmacy,4,2026-01-22,1.0194
+Pharmacy,5,2026-01-29,0.9671
+Pharmacy,6,2026-02-05,1.0099

@@ -1,0 +1,4 @@
+{
+ "date": "2026-11-04",
+ "summary": "**Had a separate check recompute the tables from the raw CSVs,** without using our code. Every table it could recompute matched: history, staffing gaps, callouts, holiday factors, the forecast backtest, and the cost, hours and shortfall of both the draft and our plan. It confirmed the submission file's format and limits too. It got similar results for expected service (BASE 95.4% against our 95.8%). It also flagged wording that went further than the numbers, which we fixed."
+}

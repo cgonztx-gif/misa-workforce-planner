@@ -4,6 +4,19 @@ Newest first. Add an entry at the end of every work session.
 
 ## 2026-11-04
 
+**Dashboard rebuilt, build started, Word file started (Wednesday evening).** The user asked to rebuild the Nov 2 dashboard's numbers, start the build, verify findings, document everything, and start a Word file for group members.
+
+- Saved the dashboard's tables as evidence (D-21) and rebuilt them from the CSVs. 80 of 85 calculated figures match, and the rest are explained (F-40). Two corrections: the draft is 36 people short in DISRUPT, not 29 (F-42), and the 0.908 limit for Warehouse 1 Pharmacy is too thin to use (F-46).
+- Built the allocation rule, diagnosis, forecast, service curves, risk model, staffing search, submission validator and pipeline. T-11 to T-13, T-20 to T-24, T-30 to T-35 and T-40 are done, so M2 is met, and T-33 to T-35 and T-40 are ahead of schedule.
+- Checking results caught four real problems, all fixed: the forecast overstated holiday effects without a weekly term (D-19), the search fell back to minimum staff on hopeless blocks, the search cut overloaded departments to lend staff (F-53, D-17), and the risk calculation was 0.7 points off simulation (F-47).
+- First plan in BASE: $376,176 against the draft's $329,108 (+14.3%), with expected service of 95.8% against 69.8%. It is within capacity in all three scenarios (F-48).
+- Added A-11 to A-15 and D-17 to D-21. A-07 is confirmed, and A-08 is no longer needed.
+- Started `deliverables/Costco_Case_Analysis.docx`, built from `outputs/analysis_summary.json` (T-67, D-20).
+- A separate agent recomputed the tables from the raw CSVs. It found no numeric errors in them, but did find overstated wording. We rechecked its 9 main points, confirmed 8 and fixed that wording, and kept the weekly-swing figures it questioned, because they hold by department (F-54, `evidence/independent_check.md`). The biggest change: we no longer claim the forecast beats the benchmark in the planning week, so R-28 is Partial.
+- All tests pass, and the Word file was checked page by page after exporting it to PDF through Word.
+
+**Still open:** the service goal and callout allowance are the team's calls (F-49, F-51). The organizer questions, the real team name and the exact deadline remain open. The app, explanations, playbook and deck haven't started. Commit and rebuild steps are in `CLAUDE.md`.
+
 **Git, team name and organizer questions (Wednesday afternoon).** The user said to skip the questions for now, use a placeholder for the team name, and use git.
 
 - Created a local repository on `main` with a baseline commit and no remote (T-08, Q-08, D-16). `MISA/` and `data/` are ignored because they extract from the tracked `MISA.zip`.

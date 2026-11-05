@@ -1,0 +1,36 @@
+dept,band,blocks,pct_met,median_ratio
+Front End,0.6,4,1.0,0.25
+Front End,0.65,29,1.0,0.34
+Front End,0.7,61,1.0,0.38
+Front End,0.75,74,1.0,0.54
+Front End,0.8,86,0.9884,0.68
+Front End,0.85,52,0.5962,0.96
+Front End,0.9,32,0.0,1.73
+Front End,0.95,15,0.0,4.34
+Front End,1.0,7,0.0,4.62
+Front End,1.05,3,0.0,4.24
+Front End,1.1,3,0.0,4.76
+Front End,1.15,3,0.0,4.94
+Merchandising,0.6,13,1.0,0.317
+Merchandising,0.65,24,1.0,0.338
+Merchandising,0.7,37,1.0,0.418
+Merchandising,0.75,75,1.0,0.5
+Merchandising,0.8,67,1.0,0.673
+Merchandising,0.85,65,0.6308,0.93
+Merchandising,0.9,44,0.0227,1.629
+Merchandising,0.95,22,0.0,3.598
+Merchandising,1.0,12,0.0,4.255
+Merchandising,1.05,7,0.0,4.007
+Pharmacy,0.4,3,1.0,0.165
+Pharmacy,0.45,10,1.0,0.19
+Pharmacy,0.5,7,1.0,0.21
+Pharmacy,0.55,17,1.0,0.26
+Pharmacy,0.6,53,1.0,0.28
+Pharmacy,0.65,69,1.0,0.33
+Pharmacy,0.7,41,1.0,0.415
+Pharmacy,0.75,27,1.0,0.52
+Pharmacy,0.8,32,1.0,0.685
+Pharmacy,0.85,28,0.6429,0.95
+Pharmacy,0.9,12,0.0,1.705
+Pharmacy,0.95,3,0.0,4.435
+Pharmacy,1.0,3,0.0,3.98

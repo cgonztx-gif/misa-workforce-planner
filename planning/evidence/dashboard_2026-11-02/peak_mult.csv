@@ -1,0 +1,181 @@
+warehouse,dept,date,day,shift,multiplier,reason
+W1,Front End,2026-02-12,Thu,EVE,1.0,No adjustment (baseline demand)
+W1,Front End,2026-02-12,Thu,MID,1.0,No adjustment (baseline demand)
+W1,Front End,2026-02-12,Thu,OPEN,1.0,No adjustment (baseline demand)
+W1,Front End,2026-02-13,Fri,EVE,1.18,Promotion launch + storm stock-up trips
+W1,Front End,2026-02-13,Fri,MID,1.2,Promotion launch + storm stock-up trips
+W1,Front End,2026-02-13,Fri,OPEN,1.1,Promotion launch + storm stock-up trips
+W1,Front End,2026-02-14,Sat,EVE,1.18,Promotion launch + storm stock-up trips
+W1,Front End,2026-02-14,Sat,MID,1.2,Promotion launch + storm stock-up trips
+W1,Front End,2026-02-14,Sat,OPEN,1.1,Promotion launch + storm stock-up trips
+W1,Front End,2026-02-15,Sun,EVE,1.06,Residual promotion traffic
+W1,Front End,2026-02-15,Sun,MID,1.06,Residual promotion traffic
+W1,Front End,2026-02-15,Sun,OPEN,1.06,Residual promotion traffic
+W1,Front End,2026-02-16,Mon,EVE,1.0,No adjustment (baseline demand)
+W1,Front End,2026-02-16,Mon,MID,1.0,No adjustment (baseline demand)
+W1,Front End,2026-02-16,Mon,OPEN,1.0,No adjustment (baseline demand)
+W1,Front End,2026-02-17,Tue,EVE,1.0,No adjustment (baseline demand)
+W1,Front End,2026-02-17,Tue,MID,1.0,No adjustment (baseline demand)
+W1,Front End,2026-02-17,Tue,OPEN,1.0,No adjustment (baseline demand)
+W1,Front End,2026-02-18,Wed,EVE,1.0,No adjustment (baseline demand)
+W1,Front End,2026-02-18,Wed,MID,1.0,No adjustment (baseline demand)
+W1,Front End,2026-02-18,Wed,OPEN,1.0,No adjustment (baseline demand)
+W1,Merchandising,2026-02-12,Thu,EVE,1.0,No adjustment (baseline demand)
+W1,Merchandising,2026-02-12,Thu,MID,1.0,No adjustment (baseline demand)
+W1,Merchandising,2026-02-12,Thu,OPEN,1.0,No adjustment (baseline demand)
+W1,Merchandising,2026-02-13,Fri,EVE,1.1,Promotion pallet build-out and faster sell-through
+W1,Merchandising,2026-02-13,Fri,MID,1.12,Promotion pallet build-out and faster sell-through
+W1,Merchandising,2026-02-13,Fri,OPEN,1.25,Promotion pallet build-out and faster sell-through
+W1,Merchandising,2026-02-14,Sat,EVE,1.1,Promotion pallet build-out and faster sell-through
+W1,Merchandising,2026-02-14,Sat,MID,1.12,Promotion pallet build-out and faster sell-through
+W1,Merchandising,2026-02-14,Sat,OPEN,1.25,Promotion pallet build-out and faster sell-through
+W1,Merchandising,2026-02-15,Sun,EVE,1.06,Residual promotion traffic
+W1,Merchandising,2026-02-15,Sun,MID,1.06,Residual promotion traffic
+W1,Merchandising,2026-02-15,Sun,OPEN,1.06,Residual promotion traffic
+W1,Merchandising,2026-02-16,Mon,EVE,1.0,No adjustment (baseline demand)
+W1,Merchandising,2026-02-16,Mon,MID,1.0,No adjustment (baseline demand)
+W1,Merchandising,2026-02-16,Mon,OPEN,1.0,No adjustment (baseline demand)
+W1,Merchandising,2026-02-17,Tue,EVE,1.0,No adjustment (baseline demand)
+W1,Merchandising,2026-02-17,Tue,MID,1.0,No adjustment (baseline demand)
+W1,Merchandising,2026-02-17,Tue,OPEN,1.0,No adjustment (baseline demand)
+W1,Merchandising,2026-02-18,Wed,EVE,1.0,No adjustment (baseline demand)
+W1,Merchandising,2026-02-18,Wed,MID,1.0,No adjustment (baseline demand)
+W1,Merchandising,2026-02-18,Wed,OPEN,1.0,No adjustment (baseline demand)
+W1,Pharmacy,2026-02-12,Thu,EVE,1.0,No adjustment (baseline demand)
+W1,Pharmacy,2026-02-12,Thu,MID,1.0,No adjustment (baseline demand)
+W1,Pharmacy,2026-02-12,Thu,OPEN,1.0,No adjustment (baseline demand)
+W1,Pharmacy,2026-02-13,Fri,EVE,1.05,Minor spillover traffic from promotion/storm
+W1,Pharmacy,2026-02-13,Fri,MID,1.05,Minor spillover traffic from promotion/storm
+W1,Pharmacy,2026-02-13,Fri,OPEN,1.05,Minor spillover traffic from promotion/storm
+W1,Pharmacy,2026-02-14,Sat,MID,1.05,Minor spillover traffic from promotion/storm
+W1,Pharmacy,2026-02-14,Sat,OPEN,1.05,Minor spillover traffic from promotion/storm
+W1,Pharmacy,2026-02-15,Sun,MID,1.0,No adjustment (baseline demand)
+W1,Pharmacy,2026-02-16,Mon,EVE,1.0,No adjustment (baseline demand)
+W1,Pharmacy,2026-02-16,Mon,MID,1.0,No adjustment (baseline demand)
+W1,Pharmacy,2026-02-16,Mon,OPEN,1.0,No adjustment (baseline demand)
+W1,Pharmacy,2026-02-17,Tue,EVE,1.0,No adjustment (baseline demand)
+W1,Pharmacy,2026-02-17,Tue,MID,1.0,No adjustment (baseline demand)
+W1,Pharmacy,2026-02-17,Tue,OPEN,1.0,No adjustment (baseline demand)
+W1,Pharmacy,2026-02-18,Wed,EVE,1.0,No adjustment (baseline demand)
+W1,Pharmacy,2026-02-18,Wed,MID,1.0,No adjustment (baseline demand)
+W1,Pharmacy,2026-02-18,Wed,OPEN,1.0,No adjustment (baseline demand)
+W2,Front End,2026-02-12,Thu,EVE,1.0,No adjustment (baseline demand)
+W2,Front End,2026-02-12,Thu,MID,1.0,No adjustment (baseline demand)
+W2,Front End,2026-02-12,Thu,OPEN,1.0,No adjustment (baseline demand)
+W2,Front End,2026-02-13,Fri,EVE,1.18,Promotion launch + storm stock-up trips
+W2,Front End,2026-02-13,Fri,MID,1.2,Promotion launch + storm stock-up trips
+W2,Front End,2026-02-13,Fri,OPEN,1.1,Promotion launch + storm stock-up trips
+W2,Front End,2026-02-14,Sat,EVE,1.18,Promotion launch + storm stock-up trips
+W2,Front End,2026-02-14,Sat,MID,1.2,Promotion launch + storm stock-up trips
+W2,Front End,2026-02-14,Sat,OPEN,1.1,Promotion launch + storm stock-up trips
+W2,Front End,2026-02-15,Sun,EVE,1.06,Residual promotion traffic
+W2,Front End,2026-02-15,Sun,MID,1.06,Residual promotion traffic
+W2,Front End,2026-02-15,Sun,OPEN,1.06,Residual promotion traffic
+W2,Front End,2026-02-16,Mon,EVE,1.0,No adjustment (baseline demand)
+W2,Front End,2026-02-16,Mon,MID,1.0,No adjustment (baseline demand)
+W2,Front End,2026-02-16,Mon,OPEN,1.0,No adjustment (baseline demand)
+W2,Front End,2026-02-17,Tue,EVE,1.0,No adjustment (baseline demand)
+W2,Front End,2026-02-17,Tue,MID,1.0,No adjustment (baseline demand)
+W2,Front End,2026-02-17,Tue,OPEN,1.0,No adjustment (baseline demand)
+W2,Front End,2026-02-18,Wed,EVE,1.0,No adjustment (baseline demand)
+W2,Front End,2026-02-18,Wed,MID,1.0,No adjustment (baseline demand)
+W2,Front End,2026-02-18,Wed,OPEN,1.0,No adjustment (baseline demand)
+W2,Merchandising,2026-02-12,Thu,EVE,1.0,No adjustment (baseline demand)
+W2,Merchandising,2026-02-12,Thu,MID,1.0,No adjustment (baseline demand)
+W2,Merchandising,2026-02-12,Thu,OPEN,1.0,No adjustment (baseline demand)
+W2,Merchandising,2026-02-13,Fri,EVE,1.1,Promotion pallet build-out and faster sell-through
+W2,Merchandising,2026-02-13,Fri,MID,1.12,Promotion pallet build-out and faster sell-through
+W2,Merchandising,2026-02-13,Fri,OPEN,1.25,Promotion pallet build-out and faster sell-through
+W2,Merchandising,2026-02-14,Sat,EVE,1.1,Promotion pallet build-out and faster sell-through
+W2,Merchandising,2026-02-14,Sat,MID,1.12,Promotion pallet build-out and faster sell-through
+W2,Merchandising,2026-02-14,Sat,OPEN,1.25,Promotion pallet build-out and faster sell-through
+W2,Merchandising,2026-02-15,Sun,EVE,1.06,Residual promotion traffic
+W2,Merchandising,2026-02-15,Sun,MID,1.06,Residual promotion traffic
+W2,Merchandising,2026-02-15,Sun,OPEN,1.06,Residual promotion traffic
+W2,Merchandising,2026-02-16,Mon,EVE,1.0,No adjustment (baseline demand)
+W2,Merchandising,2026-02-16,Mon,MID,1.0,No adjustment (baseline demand)
+W2,Merchandising,2026-02-16,Mon,OPEN,1.0,No adjustment (baseline demand)
+W2,Merchandising,2026-02-17,Tue,EVE,1.0,No adjustment (baseline demand)
+W2,Merchandising,2026-02-17,Tue,MID,1.0,No adjustment (baseline demand)
+W2,Merchandising,2026-02-17,Tue,OPEN,1.0,No adjustment (baseline demand)
+W2,Merchandising,2026-02-18,Wed,EVE,1.0,No adjustment (baseline demand)
+W2,Merchandising,2026-02-18,Wed,MID,1.0,No adjustment (baseline demand)
+W2,Merchandising,2026-02-18,Wed,OPEN,1.0,No adjustment (baseline demand)
+W2,Pharmacy,2026-02-12,Thu,EVE,1.0,No adjustment (baseline demand)
+W2,Pharmacy,2026-02-12,Thu,MID,1.0,No adjustment (baseline demand)
+W2,Pharmacy,2026-02-12,Thu,OPEN,1.0,No adjustment (baseline demand)
+W2,Pharmacy,2026-02-13,Fri,EVE,1.05,Minor spillover traffic from promotion/storm
+W2,Pharmacy,2026-02-13,Fri,MID,1.05,Minor spillover traffic from promotion/storm
+W2,Pharmacy,2026-02-13,Fri,OPEN,1.05,Minor spillover traffic from promotion/storm
+W2,Pharmacy,2026-02-14,Sat,MID,1.05,Minor spillover traffic from promotion/storm
+W2,Pharmacy,2026-02-14,Sat,OPEN,1.05,Minor spillover traffic from promotion/storm
+W2,Pharmacy,2026-02-15,Sun,MID,1.0,No adjustment (baseline demand)
+W2,Pharmacy,2026-02-16,Mon,EVE,1.0,No adjustment (baseline demand)
+W2,Pharmacy,2026-02-16,Mon,MID,1.0,No adjustment (baseline demand)
+W2,Pharmacy,2026-02-16,Mon,OPEN,1.0,No adjustment (baseline demand)
+W2,Pharmacy,2026-02-17,Tue,EVE,1.0,No adjustment (baseline demand)
+W2,Pharmacy,2026-02-17,Tue,MID,1.0,No adjustment (baseline demand)
+W2,Pharmacy,2026-02-17,Tue,OPEN,1.0,No adjustment (baseline demand)
+W2,Pharmacy,2026-02-18,Wed,EVE,1.0,No adjustment (baseline demand)
+W2,Pharmacy,2026-02-18,Wed,MID,1.0,No adjustment (baseline demand)
+W2,Pharmacy,2026-02-18,Wed,OPEN,1.0,No adjustment (baseline demand)
+W4,Front End,2026-02-12,Thu,EVE,1.0,No adjustment (baseline demand)
+W4,Front End,2026-02-12,Thu,MID,1.0,No adjustment (baseline demand)
+W4,Front End,2026-02-12,Thu,OPEN,1.0,No adjustment (baseline demand)
+W4,Front End,2026-02-13,Fri,EVE,1.23,Promotion launch + storm stock-up trips (stronger storm impact at Warehouse 4)
+W4,Front End,2026-02-13,Fri,MID,1.25,Promotion launch + storm stock-up trips (stronger storm impact at Warehouse 4)
+W4,Front End,2026-02-13,Fri,OPEN,1.15,Promotion launch + storm stock-up trips (stronger storm impact at Warehouse 4)
+W4,Front End,2026-02-14,Sat,EVE,1.23,Promotion launch + storm stock-up trips (stronger storm impact at Warehouse 4)
+W4,Front End,2026-02-14,Sat,MID,1.25,Promotion launch + storm stock-up trips (stronger storm impact at Warehouse 4)
+W4,Front End,2026-02-14,Sat,OPEN,1.15,Promotion launch + storm stock-up trips (stronger storm impact at Warehouse 4)
+W4,Front End,2026-02-15,Sun,EVE,1.06,Residual promotion traffic
+W4,Front End,2026-02-15,Sun,MID,1.06,Residual promotion traffic
+W4,Front End,2026-02-15,Sun,OPEN,1.06,Residual promotion traffic
+W4,Front End,2026-02-16,Mon,EVE,1.0,No adjustment (baseline demand)
+W4,Front End,2026-02-16,Mon,MID,1.0,No adjustment (baseline demand)
+W4,Front End,2026-02-16,Mon,OPEN,1.0,No adjustment (baseline demand)
+W4,Front End,2026-02-17,Tue,EVE,1.0,No adjustment (baseline demand)
+W4,Front End,2026-02-17,Tue,MID,1.0,No adjustment (baseline demand)
+W4,Front End,2026-02-17,Tue,OPEN,1.0,No adjustment (baseline demand)
+W4,Front End,2026-02-18,Wed,EVE,1.0,No adjustment (baseline demand)
+W4,Front End,2026-02-18,Wed,MID,1.0,No adjustment (baseline demand)
+W4,Front End,2026-02-18,Wed,OPEN,1.0,No adjustment (baseline demand)
+W4,Merchandising,2026-02-12,Thu,EVE,1.0,No adjustment (baseline demand)
+W4,Merchandising,2026-02-12,Thu,MID,1.0,No adjustment (baseline demand)
+W4,Merchandising,2026-02-12,Thu,OPEN,1.0,No adjustment (baseline demand)
+W4,Merchandising,2026-02-13,Fri,EVE,1.15,Promotion pallet build-out and faster sell-through (stronger storm impact at Warehouse 4)
+W4,Merchandising,2026-02-13,Fri,MID,1.17,Promotion pallet build-out and faster sell-through (stronger storm impact at Warehouse 4)
+W4,Merchandising,2026-02-13,Fri,OPEN,1.3,Promotion pallet build-out and faster sell-through (stronger storm impact at Warehouse 4)
+W4,Merchandising,2026-02-14,Sat,EVE,1.15,Promotion pallet build-out and faster sell-through (stronger storm impact at Warehouse 4)
+W4,Merchandising,2026-02-14,Sat,MID,1.17,Promotion pallet build-out and faster sell-through (stronger storm impact at Warehouse 4)
+W4,Merchandising,2026-02-14,Sat,OPEN,1.3,Promotion pallet build-out and faster sell-through (stronger storm impact at Warehouse 4)
+W4,Merchandising,2026-02-15,Sun,EVE,1.06,Residual promotion traffic
+W4,Merchandising,2026-02-15,Sun,MID,1.06,Residual promotion traffic
+W4,Merchandising,2026-02-15,Sun,OPEN,1.06,Residual promotion traffic
+W4,Merchandising,2026-02-16,Mon,EVE,1.0,No adjustment (baseline demand)
+W4,Merchandising,2026-02-16,Mon,MID,1.0,No adjustment (baseline demand)
+W4,Merchandising,2026-02-16,Mon,OPEN,1.0,No adjustment (baseline demand)
+W4,Merchandising,2026-02-17,Tue,EVE,1.0,No adjustment (baseline demand)
+W4,Merchandising,2026-02-17,Tue,MID,1.0,No adjustment (baseline demand)
+W4,Merchandising,2026-02-17,Tue,OPEN,1.0,No adjustment (baseline demand)
+W4,Merchandising,2026-02-18,Wed,EVE,1.0,No adjustment (baseline demand)
+W4,Merchandising,2026-02-18,Wed,MID,1.0,No adjustment (baseline demand)
+W4,Merchandising,2026-02-18,Wed,OPEN,1.0,No adjustment (baseline demand)
+W4,Pharmacy,2026-02-12,Thu,EVE,1.0,No adjustment (baseline demand)
+W4,Pharmacy,2026-02-12,Thu,MID,1.0,No adjustment (baseline demand)
+W4,Pharmacy,2026-02-12,Thu,OPEN,1.0,No adjustment (baseline demand)
+W4,Pharmacy,2026-02-13,Fri,EVE,1.05,Minor spillover traffic from promotion/storm
+W4,Pharmacy,2026-02-13,Fri,MID,1.05,Minor spillover traffic from promotion/storm
+W4,Pharmacy,2026-02-13,Fri,OPEN,1.05,Minor spillover traffic from promotion/storm
+W4,Pharmacy,2026-02-14,Sat,MID,1.05,Minor spillover traffic from promotion/storm
+W4,Pharmacy,2026-02-14,Sat,OPEN,1.05,Minor spillover traffic from promotion/storm
+W4,Pharmacy,2026-02-15,Sun,MID,1.0,No adjustment (baseline demand)
+W4,Pharmacy,2026-02-16,Mon,EVE,1.0,No adjustment (baseline demand)
+W4,Pharmacy,2026-02-16,Mon,MID,1.0,No adjustment (baseline demand)
+W4,Pharmacy,2026-02-16,Mon,OPEN,1.0,No adjustment (baseline demand)
+W4,Pharmacy,2026-02-17,Tue,EVE,1.0,No adjustment (baseline demand)
+W4,Pharmacy,2026-02-17,Tue,MID,1.0,No adjustment (baseline demand)
+W4,Pharmacy,2026-02-17,Tue,OPEN,1.0,No adjustment (baseline demand)
+W4,Pharmacy,2026-02-18,Wed,EVE,1.0,No adjustment (baseline demand)
+W4,Pharmacy,2026-02-18,Wed,MID,1.0,No adjustment (baseline demand)
+W4,Pharmacy,2026-02-18,Wed,OPEN,1.0,No adjustment (baseline demand)

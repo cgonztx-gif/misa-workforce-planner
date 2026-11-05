@@ -1,0 +1,3003 @@
+{
+ "service_goal": 0.95,
+ "level_weeks": 4,
+ "valentine_uplift": {
+  "Front End": 0.03,
+  "Merchandising": 0.03,
+  "Pharmacy": 0.0
+ },
+ "team_id": "TEAM_NAME",
+ "kpi": {
+  "hist_blocks": 1134.0,
+  "plan_blocks": 567.0,
+  "open_blocks": 1053.0,
+  "closed_blocks": 81.0,
+  "r2_dow": 0.9768771677418748,
+  "r2_dow_hol": 0.9946916706854328,
+  "r2_full": 0.9999972026086027,
+  "err_dow_hol": 0.026017015826515832,
+  "corr_temp_resid": -0.005620714464328953,
+  "corr_promo_resid": -0.0174405943862295,
+  "corr_temp_raw_fe": -0.567456741239574,
+  "dow_spread_store": 0.0004554760755648424,
+  "week_level_min": 0.9526659831595803,
+  "week_level_max": 1.0601119051846986,
+  "rebound_extra": 0.0010319585322804414,
+  "fe_mid_shift_pts": 0.03185994397759112,
+  "shift_noise": 0.025573846900803637,
+  "bench_week_gap_38": -0.04664739628163761,
+  "bench_week_gap_92": -0.029572335543791683,
+  "bench_week_gap_95": 0.05363054969418446,
+  "met_below_84": 1.0,
+  "met_85_90": 0.6206896551724138,
+  "met_above_90": 0.0056179775280898875,
+  "blocks_above_90": 178.0,
+  "pct_met_all": 0.7787274453941121,
+  "pct_met_38": 0.7696476964769647,
+  "sat_ratio_38": 4.593333333333333,
+  "pct_met_92": 0.6991869918699187,
+  "sat_ratio_92": 4.109114583333333,
+  "pct_met_95": 0.8825396825396825,
+  "sat_ratio_95": 4.274642857142857,
+  "worked_hours": 59197.5,
+  "sched_hours": 60709.5,
+  "req85_hours": 58485.5,
+  "req80_hours": 62042.0,
+  "worked_vs_req85": 0.01217395764762208,
+  "raw_need85_hours": 56234.026905882354,
+  "worked_vs_raw_need85": 0.05269893082843846,
+  "over_hours": 3184.0,
+  "short_hours": 2472.0,
+  "over_value": 103458.23999999999,
+  "sched_corr_fr": 0.4787583113297588,
+  "sched_corr_me": 0.27512522623425306,
+  "sched_corr_ph": 0.15343275190363884,
+  "hours_index_spread": 0.022121014964215924,
+  "demand_index_spread": 0.10093767848005175,
+  "callout_rate_all": 0.0517130849775625,
+  "backfill_share": 0.49173553719008267,
+  "backfill_when_no_ot": 0.0,
+  "netloss_fe": 0.030793948319721515,
+  "callout_fe": 0.060784576248493774,
+  "met_loss_fe": 0.6459627329192547,
+  "met_noloss_fe": 0.8653846153846154,
+  "netloss_ms": 0.020481699222454013,
+  "callout_ms": 0.041153043808078896,
+  "met_loss_ms": 0.47191011235955055,
+  "met_noloss_ms": 0.7714285714285715,
+  "netloss_rx": 0.023901310717039322,
+  "callout_rx": 0.04240555127216654,
+  "met_loss_rx": 0.4838709677419355,
+  "met_noloss_rx": 0.926056338028169,
+  "labor_cost_6wk": 1890242.255,
+  "ot_hours_share": 0.034790320537184845,
+  "ot_premium_6wk": 21345.375,
+  "ot_premium_share": 0.011292401777358426,
+  "cost_per_week": 322792.75999999995,
+  "draft_within1": 0.9888888888888889,
+  "draft_eq_wk6": 0.7277777777777777,
+  "draft_over85_base": 0.6111111111111112,
+  "draft_over85_all_base": 0.3055555555555556,
+  "draft_over85_peak": 0.8611111111111112,
+  "draft_over85_all_peak": 0.4111111111111111,
+  "draft_over85_disrupt": 0.625,
+  "draft_over85_all_disrupt": 0.3111111111111111,
+  "draft_over85_bench": 0.14444444444444443,
+  "beyond_fr": 23.0,
+  "beyond_me": 33.0,
+  "beyond_ph": 15.0,
+  "disrupt_blocks": 12.0,
+  "disrupt_shortfall": 29.0,
+  "disrupt_shortfall_usable_flex": 36.0,
+  "disrupt_blocks_usable_flex": 12.0,
+  "draft_cost_base": 329108.19,
+  "draft_cost_peak": 329108.19,
+  "draft_cost_disrupt": 326367.24,
+  "pto_fe_satsun": -4.166666666666666,
+  "rx_block_median": 4.0,
+  "rx_one_person": 0.25,
+  "minstaff_binds": 0.0
+ },
+ "gap_value": [
+  {
+   "dept_id": 38,
+   "blocks": 369,
+   "worked_hours": 26855.5,
+   "required_hours": 26573.5,
+   "over_hours": 1284.0,
+   "short_hours": 1002.0,
+   "over_value": 37395.74,
+   "missed_blocks": 85,
+   "labor_cost": 797144.28,
+   "department": "Front End"
+  },
+  {
+   "dept_id": 92,
+   "blocks": 369,
+   "worked_hours": 27955.5,
+   "required_hours": 27680.5,
+   "over_hours": 1528.0,
+   "short_hours": 1253.0,
+   "over_value": 46860.0,
+   "missed_blocks": 111,
+   "labor_cost": 865083.58,
+   "department": "Merchandising"
+  },
+  {
+   "dept_id": 95,
+   "blocks": 315,
+   "worked_hours": 4386.5,
+   "required_hours": 4231.5,
+   "over_hours": 372.0,
+   "short_hours": 217.0,
+   "over_value": 19202.5,
+   "missed_blocks": 37,
+   "labor_cost": 228014.4,
+   "department": "Pharmacy"
+  }
+ ],
+ "worst_short": [
+  {
+   "store_id": 4,
+   "dept_id": 92,
+   "day_type": "Weekday",
+   "shift_code": "EVE",
+   "blocks": 29,
+   "avg_utilization": 0.9199,
+   "met_target": 0.2759,
+   "missed_blocks": 21,
+   "over_hours": 0.0,
+   "short_hours": 234.0,
+   "scheduled_net_hours": -222.0,
+   "department": "Merchandising",
+   "net_hours": -234.0
+  },
+  {
+   "store_id": 2,
+   "dept_id": 38,
+   "day_type": "Sunday",
+   "shift_code": "MID",
+   "blocks": 6,
+   "avg_utilization": 1.0273,
+   "met_target": 0.0,
+   "missed_blocks": 6,
+   "over_hours": 0.0,
+   "short_hours": 123.0,
+   "scheduled_net_hours": -90.0,
+   "department": "Front End",
+   "net_hours": -123.0
+  },
+  {
+   "store_id": 2,
+   "dept_id": 38,
+   "day_type": "Saturday",
+   "shift_code": "MID",
+   "blocks": 6,
+   "avg_utilization": 0.9923,
+   "met_target": 0.3333,
+   "missed_blocks": 4,
+   "over_hours": 0.0,
+   "short_hours": 112.0,
+   "scheduled_net_hours": -80.5,
+   "department": "Front End",
+   "net_hours": -112.0
+  },
+  {
+   "store_id": 1,
+   "dept_id": 92,
+   "day_type": "Weekday",
+   "shift_code": "MID",
+   "blocks": 29,
+   "avg_utilization": 0.8736,
+   "met_target": 0.6207,
+   "missed_blocks": 11,
+   "over_hours": 35.0,
+   "short_hours": 140.0,
+   "scheduled_net_hours": -80.0,
+   "department": "Merchandising",
+   "net_hours": -105.0
+  },
+  {
+   "store_id": 1,
+   "dept_id": 92,
+   "day_type": "Weekday",
+   "shift_code": "EVE",
+   "blocks": 29,
+   "avg_utilization": 0.8637,
+   "met_target": 0.5862,
+   "missed_blocks": 12,
+   "over_hours": 30.0,
+   "short_hours": 126.0,
+   "scheduled_net_hours": -54.0,
+   "department": "Merchandising",
+   "net_hours": -96.0
+  },
+  {
+   "store_id": 1,
+   "dept_id": 92,
+   "day_type": "Weekday",
+   "shift_code": "OPEN",
+   "blocks": 29,
+   "avg_utilization": 0.8504,
+   "met_target": 0.7241,
+   "missed_blocks": 8,
+   "over_hours": 30.0,
+   "short_hours": 120.0,
+   "scheduled_net_hours": -48.0,
+   "department": "Merchandising",
+   "net_hours": -90.0
+  },
+  {
+   "store_id": 2,
+   "dept_id": 38,
+   "day_type": "Saturday",
+   "shift_code": "EVE",
+   "blocks": 6,
+   "avg_utilization": 1.0297,
+   "met_target": 0.1667,
+   "missed_blocks": 5,
+   "over_hours": 0.0,
+   "short_hours": 77.5,
+   "scheduled_net_hours": -55.0,
+   "department": "Front End",
+   "net_hours": -77.5
+  },
+  {
+   "store_id": 2,
+   "dept_id": 38,
+   "day_type": "Sunday",
+   "shift_code": "EVE",
+   "blocks": 6,
+   "avg_utilization": 0.9869,
+   "met_target": 0.0,
+   "missed_blocks": 6,
+   "over_hours": 0.0,
+   "short_hours": 52.5,
+   "scheduled_net_hours": -45.0,
+   "department": "Front End",
+   "net_hours": -52.5
+  }
+ ],
+ "worst_over": [
+  {
+   "store_id": 4,
+   "dept_id": 92,
+   "day_type": "Weekday",
+   "shift_code": "OPEN",
+   "blocks": 29,
+   "avg_utilization": 0.6712,
+   "met_target": 1.0,
+   "missed_blocks": 0,
+   "over_hours": 702.0,
+   "short_hours": 0.0,
+   "scheduled_net_hours": 762.0,
+   "department": "Merchandising",
+   "net_hours": 702.0
+  },
+  {
+   "store_id": 1,
+   "dept_id": 38,
+   "day_type": "Weekday",
+   "shift_code": "EVE",
+   "blocks": 29,
+   "avg_utilization": 0.7403,
+   "met_target": 1.0,
+   "missed_blocks": 0,
+   "over_hours": 216.0,
+   "short_hours": 0.0,
+   "scheduled_net_hours": 256.0,
+   "department": "Front End",
+   "net_hours": 216.0
+  },
+  {
+   "store_id": 1,
+   "dept_id": 38,
+   "day_type": "Weekday",
+   "shift_code": "MID",
+   "blocks": 29,
+   "avg_utilization": 0.7506,
+   "met_target": 0.8966,
+   "missed_blocks": 3,
+   "over_hours": 236.0,
+   "short_hours": 32.0,
+   "scheduled_net_hours": 296.0,
+   "department": "Front End",
+   "net_hours": 204.0
+  },
+  {
+   "store_id": 4,
+   "dept_id": 92,
+   "day_type": "Saturday",
+   "shift_code": "OPEN",
+   "blocks": 6,
+   "avg_utilization": 0.6845,
+   "met_target": 1.0,
+   "missed_blocks": 0,
+   "over_hours": 154.0,
+   "short_hours": 0.0,
+   "scheduled_net_hours": 181.5,
+   "department": "Merchandising",
+   "net_hours": 154.0
+  },
+  {
+   "store_id": 4,
+   "dept_id": 92,
+   "day_type": "Sunday",
+   "shift_code": "OPEN",
+   "blocks": 6,
+   "avg_utilization": 0.6825,
+   "met_target": 1.0,
+   "missed_blocks": 0,
+   "over_hours": 140.0,
+   "short_hours": 0.0,
+   "scheduled_net_hours": 170.0,
+   "department": "Merchandising",
+   "net_hours": 140.0
+  },
+  {
+   "store_id": 1,
+   "dept_id": 38,
+   "day_type": "Weekday",
+   "shift_code": "OPEN",
+   "blocks": 29,
+   "avg_utilization": 0.7487,
+   "met_target": 0.8966,
+   "missed_blocks": 3,
+   "over_hours": 112.0,
+   "short_hours": 20.0,
+   "scheduled_net_hours": 128.0,
+   "department": "Front End",
+   "net_hours": 92.0
+  },
+  {
+   "store_id": 2,
+   "dept_id": 95,
+   "day_type": "Weekday",
+   "shift_code": "EVE",
+   "blocks": 29,
+   "avg_utilization": 0.6331,
+   "met_target": 1.0,
+   "missed_blocks": 0,
+   "over_hours": 94.5,
+   "short_hours": 3.5,
+   "scheduled_net_hours": 105.0,
+   "department": "Pharmacy",
+   "net_hours": 91.0
+  },
+  {
+   "store_id": 2,
+   "dept_id": 95,
+   "day_type": "Weekday",
+   "shift_code": "MID",
+   "blocks": 29,
+   "avg_utilization": 0.6337,
+   "met_target": 1.0,
+   "missed_blocks": 0,
+   "over_hours": 75.0,
+   "short_hours": 0.0,
+   "scheduled_net_hours": 81.0,
+   "department": "Pharmacy",
+   "net_hours": 75.0
+  }
+ ],
+ "callout_rates": [
+  {
+   "dept_id": 38,
+   "department": "Front End",
+   "context": "day_after_holiday",
+   "callouts": 27,
+   "scheduled": 336,
+   "backfilled": 15,
+   "rate": 0.0804,
+   "backfill_share": 0.5556
+  },
+  {
+   "dept_id": 38,
+   "department": "Front End",
+   "context": "weekday",
+   "callouts": 195,
+   "scheduled": 3912,
+   "backfilled": 90,
+   "rate": 0.0498,
+   "backfill_share": 0.4615
+  },
+  {
+   "dept_id": 38,
+   "department": "Front End",
+   "context": "weekend",
+   "callouts": 180,
+   "scheduled": 2799,
+   "backfilled": 92,
+   "rate": 0.0643,
+   "backfill_share": 0.5111
+  },
+  {
+   "dept_id": 92,
+   "department": "Merchandising",
+   "context": "day_after_holiday",
+   "callouts": 10,
+   "scheduled": 250,
+   "backfilled": 5,
+   "rate": 0.04,
+   "backfill_share": 0.5
+  },
+  {
+   "dept_id": 92,
+   "department": "Merchandising",
+   "context": "weekday",
+   "callouts": 112,
+   "scheduled": 3309,
+   "backfilled": 63,
+   "rate": 0.0338,
+   "backfill_share": 0.5625
+  },
+  {
+   "dept_id": 92,
+   "department": "Merchandising",
+   "context": "weekend",
+   "callouts": 95,
+   "scheduled": 1714,
+   "backfilled": 41,
+   "rate": 0.0554,
+   "backfill_share": 0.4316
+  },
+  {
+   "dept_id": 95,
+   "department": "Pharmacy",
+   "context": "day_after_holiday",
+   "callouts": 9,
+   "scheduled": 82,
+   "backfilled": 4,
+   "rate": 0.1098,
+   "backfill_share": 0.4444
+  },
+  {
+   "dept_id": 95,
+   "department": "Pharmacy",
+   "context": "weekday",
+   "callouts": 29,
+   "scheduled": 999,
+   "backfilled": 14,
+   "rate": 0.029,
+   "backfill_share": 0.4828
+  },
+  {
+   "dept_id": 95,
+   "department": "Pharmacy",
+   "context": "weekend",
+   "callouts": 8,
+   "scheduled": 132,
+   "backfilled": 1,
+   "rate": 0.0606,
+   "backfill_share": 0.125
+  },
+  {
+   "dept_id": 38,
+   "department": "Front End",
+   "context": "flu_cluster",
+   "callouts": 52,
+   "scheduled": 422,
+   "backfilled": 27,
+   "rate": 0.1232,
+   "backfill_share": 0.5192
+  },
+  {
+   "dept_id": 95,
+   "department": "Pharmacy",
+   "context": "flu_cluster",
+   "callouts": 9,
+   "scheduled": 84,
+   "backfilled": 5,
+   "rate": 0.1071,
+   "backfill_share": 0.5556
+  }
+ ],
+ "service_bands": [
+  {
+   "dept_id": 38,
+   "band": 0.6,
+   "blocks": 4,
+   "met_target": 1.0,
+   "median_ratio": 0.25,
+   "department": "Front End"
+  },
+  {
+   "dept_id": 38,
+   "band": 0.65,
+   "blocks": 29,
+   "met_target": 1.0,
+   "median_ratio": 0.34,
+   "department": "Front End"
+  },
+  {
+   "dept_id": 38,
+   "band": 0.7,
+   "blocks": 61,
+   "met_target": 1.0,
+   "median_ratio": 0.38,
+   "department": "Front End"
+  },
+  {
+   "dept_id": 38,
+   "band": 0.75,
+   "blocks": 74,
+   "met_target": 1.0,
+   "median_ratio": 0.54,
+   "department": "Front End"
+  },
+  {
+   "dept_id": 38,
+   "band": 0.8,
+   "blocks": 86,
+   "met_target": 0.9884,
+   "median_ratio": 0.68,
+   "department": "Front End"
+  },
+  {
+   "dept_id": 38,
+   "band": 0.85,
+   "blocks": 52,
+   "met_target": 0.5962,
+   "median_ratio": 0.96,
+   "department": "Front End"
+  },
+  {
+   "dept_id": 38,
+   "band": 0.9,
+   "blocks": 32,
+   "met_target": 0.0,
+   "median_ratio": 1.73,
+   "department": "Front End"
+  },
+  {
+   "dept_id": 38,
+   "band": 0.95,
+   "blocks": 15,
+   "met_target": 0.0,
+   "median_ratio": 4.34,
+   "department": "Front End"
+  },
+  {
+   "dept_id": 38,
+   "band": 1.0,
+   "blocks": 7,
+   "met_target": 0.0,
+   "median_ratio": 4.62,
+   "department": "Front End"
+  },
+  {
+   "dept_id": 38,
+   "band": 1.05,
+   "blocks": 3,
+   "met_target": 0.0,
+   "median_ratio": 4.24,
+   "department": "Front End"
+  },
+  {
+   "dept_id": 38,
+   "band": 1.1,
+   "blocks": 3,
+   "met_target": 0.0,
+   "median_ratio": 4.76,
+   "department": "Front End"
+  },
+  {
+   "dept_id": 38,
+   "band": 1.15,
+   "blocks": 3,
+   "met_target": 0.0,
+   "median_ratio": 4.94,
+   "department": "Front End"
+  },
+  {
+   "dept_id": 92,
+   "band": 0.6,
+   "blocks": 13,
+   "met_target": 1.0,
+   "median_ratio": 0.3167,
+   "department": "Merchandising"
+  },
+  {
+   "dept_id": 92,
+   "band": 0.65,
+   "blocks": 24,
+   "met_target": 1.0,
+   "median_ratio": 0.3375,
+   "department": "Merchandising"
+  },
+  {
+   "dept_id": 92,
+   "band": 0.7,
+   "blocks": 37,
+   "met_target": 1.0,
+   "median_ratio": 0.4183,
+   "department": "Merchandising"
+  },
+  {
+   "dept_id": 92,
+   "band": 0.75,
+   "blocks": 75,
+   "met_target": 1.0,
+   "median_ratio": 0.5,
+   "department": "Merchandising"
+  },
+  {
+   "dept_id": 92,
+   "band": 0.8,
+   "blocks": 67,
+   "met_target": 1.0,
+   "median_ratio": 0.6733,
+   "department": "Merchandising"
+  },
+  {
+   "dept_id": 92,
+   "band": 0.85,
+   "blocks": 65,
+   "met_target": 0.6308,
+   "median_ratio": 0.93,
+   "department": "Merchandising"
+  },
+  {
+   "dept_id": 92,
+   "band": 0.9,
+   "blocks": 44,
+   "met_target": 0.0227,
+   "median_ratio": 1.6292,
+   "department": "Merchandising"
+  },
+  {
+   "dept_id": 92,
+   "band": 0.95,
+   "blocks": 22,
+   "met_target": 0.0,
+   "median_ratio": 3.5983,
+   "department": "Merchandising"
+  },
+  {
+   "dept_id": 92,
+   "band": 1.0,
+   "blocks": 12,
+   "met_target": 0.0,
+   "median_ratio": 4.255,
+   "department": "Merchandising"
+  },
+  {
+   "dept_id": 92,
+   "band": 1.05,
+   "blocks": 7,
+   "met_target": 0.0,
+   "median_ratio": 4.0067,
+   "department": "Merchandising"
+  },
+  {
+   "dept_id": 92,
+   "band": 1.1,
+   "blocks": 1,
+   "met_target": 0.0,
+   "median_ratio": 3.785,
+   "department": "Merchandising"
+  },
+  {
+   "dept_id": 92,
+   "band": 1.15,
+   "blocks": 2,
+   "met_target": 0.0,
+   "median_ratio": 3.895,
+   "department": "Merchandising"
+  },
+  {
+   "dept_id": 95,
+   "band": 0.35,
+   "blocks": 1,
+   "met_target": 1.0,
+   "median_ratio": 0.165,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 0.4,
+   "blocks": 3,
+   "met_target": 1.0,
+   "median_ratio": 0.165,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 0.45,
+   "blocks": 10,
+   "met_target": 1.0,
+   "median_ratio": 0.19,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 0.5,
+   "blocks": 7,
+   "met_target": 1.0,
+   "median_ratio": 0.21,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 0.55,
+   "blocks": 17,
+   "met_target": 1.0,
+   "median_ratio": 0.26,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 0.6,
+   "blocks": 53,
+   "met_target": 1.0,
+   "median_ratio": 0.28,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 0.65,
+   "blocks": 69,
+   "met_target": 1.0,
+   "median_ratio": 0.33,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 0.7,
+   "blocks": 41,
+   "met_target": 1.0,
+   "median_ratio": 0.415,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 0.75,
+   "blocks": 27,
+   "met_target": 1.0,
+   "median_ratio": 0.52,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 0.8,
+   "blocks": 32,
+   "met_target": 1.0,
+   "median_ratio": 0.685,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 0.85,
+   "blocks": 28,
+   "met_target": 0.6429,
+   "median_ratio": 0.95,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 0.9,
+   "blocks": 12,
+   "met_target": 0.0,
+   "median_ratio": 1.705,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 0.95,
+   "blocks": 3,
+   "met_target": 0.0,
+   "median_ratio": 4.435,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 1.0,
+   "blocks": 3,
+   "met_target": 0.0,
+   "median_ratio": 3.98,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 1.05,
+   "blocks": 1,
+   "met_target": 0.0,
+   "median_ratio": 4.335,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 1.1,
+   "blocks": 2,
+   "met_target": 0.0,
+   "median_ratio": 4.3175,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 1.15,
+   "blocks": 1,
+   "met_target": 0.0,
+   "median_ratio": 4.035,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 1.2,
+   "blocks": 2,
+   "met_target": 0.0,
+   "median_ratio": 4.2675,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 1.25,
+   "blocks": 1,
+   "met_target": 0.0,
+   "median_ratio": 4.54,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 1.3,
+   "blocks": 1,
+   "met_target": 0.0,
+   "median_ratio": 4.85,
+   "department": "Pharmacy"
+  },
+  {
+   "dept_id": 95,
+   "band": 1.75,
+   "blocks": 1,
+   "met_target": 0.0,
+   "median_ratio": 3.89,
+   "department": "Pharmacy"
+  }
+ ],
+ "holiday_factors": [
+  {
+   "dept_id": 38,
+   "department": "Front End",
+   "window": "holiday_monday",
+   "factor": 1.05
+  },
+  {
+   "dept_id": 38,
+   "department": "Front End",
+   "window": "new_year_rebound",
+   "factor": 1.1
+  },
+  {
+   "dept_id": 38,
+   "department": "Front End",
+   "window": "normal",
+   "factor": 1.0
+  },
+  {
+   "dept_id": 38,
+   "department": "Front End",
+   "window": "pre_holiday_weekend",
+   "factor": 1.12
+  },
+  {
+   "dept_id": 92,
+   "department": "Merchandising",
+   "window": "holiday_monday",
+   "factor": 1.05
+  },
+  {
+   "dept_id": 92,
+   "department": "Merchandising",
+   "window": "new_year_rebound",
+   "factor": 1.06
+  },
+  {
+   "dept_id": 92,
+   "department": "Merchandising",
+   "window": "normal",
+   "factor": 1.0
+  },
+  {
+   "dept_id": 92,
+   "department": "Merchandising",
+   "window": "pre_holiday_weekend",
+   "factor": 1.08
+  },
+  {
+   "dept_id": 95,
+   "department": "Pharmacy",
+   "window": "holiday_monday",
+   "factor": 0.7
+  },
+  {
+   "dept_id": 95,
+   "department": "Pharmacy",
+   "window": "new_year_rebound",
+   "factor": 0.9
+  },
+  {
+   "dept_id": 95,
+   "department": "Pharmacy",
+   "window": "normal",
+   "factor": 1.0
+  },
+  {
+   "dept_id": 95,
+   "department": "Pharmacy",
+   "window": "pre_holiday_weekend",
+   "factor": 0.95
+  }
+ ],
+ "backtest_daily": [
+  {
+   "group": "All",
+   "rows": 189,
+   "model": 0.0242,
+   "model_all_weeks": 0.0258,
+   "benchmark": 0.0406
+  },
+  {
+   "group": 38,
+   "rows": 63,
+   "model": 0.029,
+   "model_all_weeks": 0.0301,
+   "benchmark": 0.0457
+  },
+  {
+   "group": 92,
+   "rows": 63,
+   "model": 0.0229,
+   "model_all_weeks": 0.0233,
+   "benchmark": 0.0433
+  },
+  {
+   "group": 95,
+   "rows": 63,
+   "model": 0.0208,
+   "model_all_weeks": 0.0241,
+   "benchmark": 0.0327
+  }
+ ],
+ "backtest_by_week": [
+  {
+   "group": "All",
+   "rows": 63,
+   "model": 0.016,
+   "benchmark": 0.0484,
+   "week": 4
+  },
+  {
+   "group": "All",
+   "rows": 63,
+   "model": 0.0424,
+   "benchmark": 0.0549,
+   "week": 5
+  },
+  {
+   "group": "All",
+   "rows": 63,
+   "model": 0.0143,
+   "benchmark": 0.0184,
+   "week": 6
+  }
+ ],
+ "backtest_block": [
+  {
+   "group": "All",
+   "rows": 540,
+   "model": 0.0415,
+   "benchmark": 0.0541
+  },
+  {
+   "group": 38,
+   "rows": 189,
+   "model": 0.0435,
+   "benchmark": 0.0589
+  },
+  {
+   "group": 92,
+   "rows": 189,
+   "model": 0.0439,
+   "benchmark": 0.0559
+  },
+  {
+   "group": 95,
+   "rows": 162,
+   "model": 0.0365,
+   "benchmark": 0.0463
+  }
+ ],
+ "backtest_by_day_group": [
+  {
+   "group": "Fri-Mon",
+   "rows": 108,
+   "model": 0.0242,
+   "benchmark": 0.0508
+  },
+  {
+   "group": "Tue-Thu",
+   "rows": 81,
+   "model": 0.0242,
+   "benchmark": 0.0269
+  },
+  {
+   "group": "Tue-Wed",
+   "rows": 54,
+   "model": 0.0242,
+   "benchmark": 0.0245
+  }
+ ],
+ "base_shortfall": {
+  "blocks": 25,
+  "average_chance": 0.8405445728472023,
+  "near_goal_blocks": 11,
+  "holiday_blocks": 22,
+  "feb14_front_merch_blocks": 18,
+  "feb14_front_merch_at_capacity": 10,
+  "feb17_pharmacy_short": 3,
+  "feb17_pharmacy_short_at_weekday_rate": 1,
+  "feb17_weekday_rate": 0.02902902902902903
+ },
+ "analog_test": [
+  {
+   "group": "All",
+   "rows": 27,
+   "model": 0.0961,
+   "model_no_holiday": 0.1085,
+   "benchmark": 0.1021
+  },
+  {
+   "group": 38,
+   "rows": 9,
+   "model": 0.0819,
+   "model_no_holiday": 0.1654,
+   "benchmark": 0.1238
+  },
+  {
+   "group": 92,
+   "rows": 9,
+   "model": 0.0869,
+   "model_no_holiday": 0.1386,
+   "benchmark": 0.1131
+  },
+  {
+   "group": 95,
+   "rows": 9,
+   "model": 0.1194,
+   "model_no_holiday": 0.0216,
+   "benchmark": 0.0695
+  }
+ ],
+ "split_test": [
+  {
+   "option": "pooled",
+   "all_days": 0.0336,
+   "holiday_window_days": 0.0378,
+   "front_end_holiday_window_days": 0.0563
+  },
+  {
+   "option": "front_end_holiday_shares",
+   "all_days": 0.0323,
+   "holiday_window_days": 0.0326,
+   "front_end_holiday_window_days": 0.0422
+  },
+  {
+   "option": "all_departments_holiday_shares",
+   "all_days": 0.0328,
+   "holiday_window_days": 0.0344,
+   "front_end_holiday_window_days": 0.0422
+  }
+ ],
+ "forecast_sd": [
+  {
+   "dept_id": 38,
+   "sd": 0.0557
+  },
+  {
+   "dept_id": 92,
+   "sd": 0.0527
+  },
+  {
+   "dept_id": 95,
+   "sd": 0.0454
+  }
+ ],
+ "forecast_by_day": [
+  {
+   "dept_id": 38,
+   "day_date": "2026-02-12",
+   "model_forecast": 333.2,
+   "daily_forecast": 333.2,
+   "benchmark": 333.4
+  },
+  {
+   "dept_id": 38,
+   "day_date": "2026-02-13",
+   "model_forecast": 456.1,
+   "daily_forecast": 456.1,
+   "benchmark": 420.2
+  },
+  {
+   "dept_id": 38,
+   "day_date": "2026-02-14",
+   "model_forecast": 511.4,
+   "daily_forecast": 526.7,
+   "benchmark": 471.1
+  },
+  {
+   "dept_id": 38,
+   "day_date": "2026-02-15",
+   "model_forecast": 456.1,
+   "daily_forecast": 456.1,
+   "benchmark": 420.2
+  },
+  {
+   "dept_id": 38,
+   "day_date": "2026-02-16",
+   "model_forecast": 285.0,
+   "daily_forecast": 285.0,
+   "benchmark": 275.2
+  },
+  {
+   "dept_id": 38,
+   "day_date": "2026-02-17",
+   "model_forecast": 283.8,
+   "daily_forecast": 283.8,
+   "benchmark": 284.0
+  },
+  {
+   "dept_id": 38,
+   "day_date": "2026-02-18",
+   "model_forecast": 308.5,
+   "daily_forecast": 308.5,
+   "benchmark": 308.7
+  },
+  {
+   "dept_id": 92,
+   "day_date": "2026-02-12",
+   "model_forecast": 415.8,
+   "daily_forecast": 415.8,
+   "benchmark": 416.1
+  },
+  {
+   "dept_id": 92,
+   "day_date": "2026-02-13",
+   "model_forecast": 500.9,
+   "daily_forecast": 500.9,
+   "benchmark": 473.9
+  },
+  {
+   "dept_id": 92,
+   "day_date": "2026-02-14",
+   "model_forecast": 500.9,
+   "daily_forecast": 516.0,
+   "benchmark": 473.9
+  },
+  {
+   "dept_id": 92,
+   "day_date": "2026-02-15",
+   "model_forecast": 449.1,
+   "daily_forecast": 449.1,
+   "benchmark": 424.9
+  },
+  {
+   "dept_id": 92,
+   "day_date": "2026-02-16",
+   "model_forecast": 554.2,
+   "daily_forecast": 554.2,
+   "benchmark": 535.1
+  },
+  {
+   "dept_id": 92,
+   "day_date": "2026-02-17",
+   "model_forecast": 479.8,
+   "daily_forecast": 479.8,
+   "benchmark": 480.1
+  },
+  {
+   "dept_id": 92,
+   "day_date": "2026-02-18",
+   "model_forecast": 431.8,
+   "daily_forecast": 431.8,
+   "benchmark": 432.1
+  },
+  {
+   "dept_id": 95,
+   "day_date": "2026-02-12",
+   "model_forecast": 566.3,
+   "daily_forecast": 566.3,
+   "benchmark": 566.5
+  },
+  {
+   "dept_id": 95,
+   "day_date": "2026-02-13",
+   "model_forecast": 522.2,
+   "daily_forecast": 522.2,
+   "benchmark": 542.7
+  },
+  {
+   "dept_id": 95,
+   "day_date": "2026-02-14",
+   "model_forecast": 284.8,
+   "daily_forecast": 284.8,
+   "benchmark": 296.0
+  },
+  {
+   "dept_id": 95,
+   "day_date": "2026-02-15",
+   "model_forecast": 142.4,
+   "daily_forecast": 142.4,
+   "benchmark": 148.0
+  },
+  {
+   "dept_id": 95,
+   "day_date": "2026-02-16",
+   "model_forecast": 408.1,
+   "daily_forecast": 408.1,
+   "benchmark": 537.8
+  },
+  {
+   "dept_id": 95,
+   "day_date": "2026-02-17",
+   "model_forecast": 599.6,
+   "daily_forecast": 599.6,
+   "benchmark": 599.8
+  },
+  {
+   "dept_id": 95,
+   "day_date": "2026-02-18",
+   "model_forecast": 582.9,
+   "daily_forecast": 582.9,
+   "benchmark": 583.2
+  }
+ ],
+ "forecast_week": [
+  {
+   "dept_id": 38,
+   "model_forecast": 2634.0,
+   "daily_forecast": 2649.3,
+   "benchmark": 2512.6
+  },
+  {
+   "dept_id": 92,
+   "model_forecast": 3332.6,
+   "daily_forecast": 3347.7,
+   "benchmark": 3236.1
+  },
+  {
+   "dept_id": 95,
+   "model_forecast": 3106.3,
+   "daily_forecast": 3106.3,
+   "benchmark": 3274.2
+  }
+ ],
+ "service_limits": [
+  {
+   "dept_id": 38,
+   "store_id": 1,
+   "u95": 0.861,
+   "u90": 0.87,
+   "u50": 0.897
+  },
+  {
+   "dept_id": 38,
+   "store_id": 2,
+   "u95": 0.832,
+   "u90": 0.841,
+   "u50": 0.874
+  },
+  {
+   "dept_id": 38,
+   "store_id": 4,
+   "u95": 0.851,
+   "u90": 0.86,
+   "u50": 0.892
+  },
+  {
+   "dept_id": 92,
+   "store_id": 1,
+   "u95": 0.862,
+   "u90": 0.871,
+   "u50": 0.885
+  },
+  {
+   "dept_id": 92,
+   "store_id": 2,
+   "u95": 0.877,
+   "u90": 0.88,
+   "u50": 0.892
+  },
+  {
+   "dept_id": 92,
+   "store_id": 4,
+   "u95": 0.844,
+   "u90": 0.853,
+   "u50": 0.878
+  },
+  {
+   "dept_id": 95,
+   "store_id": 1,
+   "u95": 0.852,
+   "u90": 0.856,
+   "u50": 0.872
+  },
+  {
+   "dept_id": 95,
+   "store_id": 2,
+   "u95": 0.843,
+   "u90": 0.847,
+   "u50": 0.863
+  },
+  {
+   "dept_id": 95,
+   "store_id": 4,
+   "u95": 0.844,
+   "u90": 0.849,
+   "u50": 0.864
+  }
+ ],
+ "service_brier": {
+  "model": 0.02610922839643154,
+  "base_rate": 0.1772952989439962
+ },
+ "service_calibration": [
+  {
+   "bin": "0-10%",
+   "blocks": 191,
+   "predicted": 0.004,
+   "observed": 0.016
+  },
+  {
+   "bin": "10-30%",
+   "blocks": 15,
+   "predicted": 0.213,
+   "observed": 0.2
+  },
+  {
+   "bin": "30-50%",
+   "blocks": 18,
+   "predicted": 0.403,
+   "observed": 0.5
+  },
+  {
+   "bin": "50-70%",
+   "blocks": 17,
+   "predicted": 0.617,
+   "observed": 0.647
+  },
+  {
+   "bin": "70-90%",
+   "blocks": 38,
+   "predicted": 0.809,
+   "observed": 0.684
+  },
+  {
+   "bin": "90-95%",
+   "blocks": 31,
+   "predicted": 0.925,
+   "observed": 0.903
+  },
+  {
+   "bin": "95-99%",
+   "blocks": 53,
+   "predicted": 0.973,
+   "observed": 0.943
+  },
+  {
+   "bin": "99-100%",
+   "blocks": 690,
+   "predicted": 1.0,
+   "observed": 1.0
+  }
+ ],
+ "curves": {
+  "Front End": {
+   "levels": {
+    "1": -4.811099974297387,
+    "2": -4.65580145053352,
+    "4": -4.7537666600348105
+   },
+   "slope": 5.329283261969612,
+   "extra_slope": 12.086294518308218,
+   "knot": 0.8948390393597196,
+   "cap": 1.518830852162402,
+   "scatter": 0.13432310485573362
+  },
+  "Merchandising": {
+   "levels": {
+    "1": -4.450735020620577,
+    "2": -4.552740894398717,
+    "4": -4.3612236356336815
+   },
+   "slope": 4.915366377230079,
+   "extra_slope": 9.210584602657521,
+   "knot": 0.8736273539837723,
+   "cap": 1.4055641419277942,
+   "scatter": 0.1305812264228117
+  },
+  "Pharmacy": {
+   "levels": {
+    "1": -3.4917030354474017,
+    "2": -3.3962070488916365,
+    "4": -3.4128014874201478
+   },
+   "slope": 3.533861181570609,
+   "extra_slope": 6.8072707363741705,
+   "knot": 0.8116205564243358,
+   "cap": 1.4440485682700133,
+   "scatter": 0.12662917043399793
+  }
+ },
+ "plan_summary": [
+  {
+   "scenario_code": "BASE",
+   "hours": 11618.0,
+   "cost": 376176.165,
+   "expected_met": 0.958,
+   "lowest_chance": 0.616,
+   "below_goal": 25,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 958.0,
+   "flex_hours": 95.0,
+   "avg_utilization": 0.7
+  },
+  {
+   "scenario_code": "PEAK",
+   "hours": 11897.5,
+   "cost": 387092.18,
+   "expected_met": 0.874,
+   "lowest_chance": 0.004,
+   "below_goal": 44,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 1215.5,
+   "flex_hours": 67.0,
+   "avg_utilization": 0.72
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "hours": 11248.5,
+   "cost": 365320.695,
+   "expected_met": 0.897,
+   "lowest_chance": 0.0,
+   "below_goal": 39,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 997.5,
+   "flex_hours": 74.0,
+   "avg_utilization": 0.722
+  }
+ ],
+ "draft_summary": [
+  {
+   "scenario_code": "BASE",
+   "hours": 10344.0,
+   "cost": 329108.19,
+   "expected_met": 0.698,
+   "lowest_chance": 0.0,
+   "below_goal": 134,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 223.0,
+   "flex_hours": 83.0,
+   "avg_utilization": 0.787
+  },
+  {
+   "scenario_code": "PEAK",
+   "hours": 10344.0,
+   "cost": 329108.19,
+   "expected_met": 0.591,
+   "lowest_chance": 0.0,
+   "below_goal": 138,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 223.0,
+   "flex_hours": 83.0,
+   "avg_utilization": 0.826
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "hours": 10206.5,
+   "cost": 326367.24,
+   "expected_met": 0.678,
+   "lowest_chance": 0.0,
+   "below_goal": 141,
+   "over_capacity": 12,
+   "unfilled": 36,
+   "below_min_staff": 0,
+   "overtime_hours": 404.5,
+   "flex_hours": 92.0,
+   "avg_utilization": 0.8
+  }
+ ],
+ "plan_by_dept": [
+  {
+   "scenario_code": "BASE",
+   "dept_id": 38,
+   "hours": 5386.5,
+   "hours_draft": 4728.5,
+   "cost": 162549.815,
+   "cost_draft": 139229.925,
+   "expected_met": 0.956,
+   "expected_met_draft": 0.646,
+   "department": "Front End"
+  },
+  {
+   "scenario_code": "BASE",
+   "dept_id": 92,
+   "hours": 5387.5,
+   "hours_draft": 4846.0,
+   "cost": 168923.81,
+   "cost_draft": 149672.745,
+   "expected_met": 0.953,
+   "expected_met_draft": 0.602,
+   "department": "Merchandising"
+  },
+  {
+   "scenario_code": "BASE",
+   "dept_id": 95,
+   "hours": 844.0,
+   "hours_draft": 769.5,
+   "cost": 44702.54,
+   "cost_draft": 40205.52,
+   "expected_met": 0.965,
+   "expected_met_draft": 0.87,
+   "department": "Pharmacy"
+  },
+  {
+   "scenario_code": "PEAK",
+   "dept_id": 38,
+   "hours": 5477.5,
+   "hours_draft": 4728.5,
+   "cost": 166335.145,
+   "cost_draft": 139229.925,
+   "expected_met": 0.806,
+   "expected_met_draft": 0.51,
+   "department": "Front End"
+  },
+  {
+   "scenario_code": "PEAK",
+   "dept_id": 92,
+   "hours": 5576.0,
+   "hours_draft": 4846.0,
+   "cost": 176054.495,
+   "cost_draft": 149672.745,
+   "expected_met": 0.87,
+   "expected_met_draft": 0.45,
+   "department": "Merchandising"
+  },
+  {
+   "scenario_code": "PEAK",
+   "dept_id": 95,
+   "hours": 844.0,
+   "hours_draft": 769.5,
+   "cost": 44702.54,
+   "cost_draft": 40205.52,
+   "expected_met": 0.959,
+   "expected_met_draft": 0.852,
+   "department": "Pharmacy"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "dept_id": 38,
+   "hours": 5041.5,
+   "hours_draft": 4622.5,
+   "cost": 151879.465,
+   "cost_draft": 137027.095,
+   "expected_met": 0.806,
+   "expected_met_draft": 0.61,
+   "department": "Front End"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "dept_id": 92,
+   "hours": 5375.5,
+   "hours_draft": 4834.0,
+   "cost": 169197.33,
+   "cost_draft": 150023.825,
+   "expected_met": 0.948,
+   "expected_met_draft": 0.599,
+   "department": "Merchandising"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "dept_id": 95,
+   "hours": 831.5,
+   "hours_draft": 750.0,
+   "cost": 44243.9,
+   "cost_draft": 39316.32,
+   "expected_met": 0.943,
+   "expected_met_draft": 0.849,
+   "department": "Pharmacy"
+  }
+ ],
+ "plan_by_day": [
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-12",
+   "hours": 1493.5,
+   "hours_draft": 1407.0,
+   "expected_met": 0.978,
+   "expected_met_draft": 0.847
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-13",
+   "hours": 1859.0,
+   "hours_draft": 1649.5,
+   "expected_met": 0.974,
+   "expected_met_draft": 0.694
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-14",
+   "hours": 1946.0,
+   "hours_draft": 1647.0,
+   "expected_met": 0.885,
+   "expected_met_draft": 0.481
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-15",
+   "hours": 1702.0,
+   "hours_draft": 1424.5,
+   "expected_met": 0.947,
+   "expected_met_draft": 0.463
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-16",
+   "hours": 1600.0,
+   "hours_draft": 1427.5,
+   "expected_met": 0.977,
+   "expected_met_draft": 0.739
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-17",
+   "hours": 1544.5,
+   "hours_draft": 1411.0,
+   "expected_met": 0.957,
+   "expected_met_draft": 0.765
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-18",
+   "hours": 1473.0,
+   "hours_draft": 1377.5,
+   "expected_met": 0.976,
+   "expected_met_draft": 0.818
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-12",
+   "hours": 1493.5,
+   "hours_draft": 1407.0,
+   "expected_met": 0.978,
+   "expected_met_draft": 0.847
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-13",
+   "hours": 2050.0,
+   "hours_draft": 1649.5,
+   "expected_met": 0.835,
+   "expected_met_draft": 0.344
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-14",
+   "hours": 1990.0,
+   "hours_draft": 1647.0,
+   "expected_met": 0.482,
+   "expected_met_draft": 0.239
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-15",
+   "hours": 1746.5,
+   "hours_draft": 1424.5,
+   "expected_met": 0.871,
+   "expected_met_draft": 0.28
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-16",
+   "hours": 1600.0,
+   "hours_draft": 1427.5,
+   "expected_met": 0.977,
+   "expected_met_draft": 0.739
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-17",
+   "hours": 1544.5,
+   "hours_draft": 1411.0,
+   "expected_met": 0.957,
+   "expected_met_draft": 0.765
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-18",
+   "hours": 1473.0,
+   "hours_draft": 1377.5,
+   "expected_met": 0.976,
+   "expected_met_draft": 0.818
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-12",
+   "hours": 1493.5,
+   "hours_draft": 1407.0,
+   "expected_met": 0.978,
+   "expected_met_draft": 0.847
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-13",
+   "hours": 1751.0,
+   "hours_draft": 1601.5,
+   "expected_met": 0.851,
+   "expected_met_draft": 0.64
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-14",
+   "hours": 1803.0,
+   "hours_draft": 1597.0,
+   "expected_met": 0.757,
+   "expected_met_draft": 0.45
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-15",
+   "hours": 1595.0,
+   "hours_draft": 1395.5,
+   "expected_met": 0.813,
+   "expected_met_draft": 0.442
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-16",
+   "hours": 1588.5,
+   "hours_draft": 1417.0,
+   "expected_met": 0.913,
+   "expected_met_draft": 0.705
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-17",
+   "hours": 1544.5,
+   "hours_draft": 1411.0,
+   "expected_met": 0.957,
+   "expected_met_draft": 0.765
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-18",
+   "hours": 1473.0,
+   "hours_draft": 1377.5,
+   "expected_met": 0.976,
+   "expected_met_draft": 0.818
+  }
+ ],
+ "below_goal_by_day": [
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-13",
+   "blocks": 3,
+   "average_chance": 0.925
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-14",
+   "blocks": 11,
+   "average_chance": 0.781
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-15",
+   "blocks": 7,
+   "average_chance": 0.9
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-16",
+   "blocks": 1,
+   "average_chance": 0.917
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-17",
+   "blocks": 3,
+   "average_chance": 0.81
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-13",
+   "blocks": 8,
+   "average_chance": 0.501
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-14",
+   "blocks": 18,
+   "average_chance": 0.319
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-15",
+   "blocks": 14,
+   "average_chance": 0.824
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-16",
+   "blocks": 1,
+   "average_chance": 0.917
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-17",
+   "blocks": 3,
+   "average_chance": 0.81
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-13",
+   "blocks": 7,
+   "average_chance": 0.494
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-14",
+   "blocks": 14,
+   "average_chance": 0.604
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-15",
+   "blocks": 9,
+   "average_chance": 0.604
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-16",
+   "blocks": 6,
+   "average_chance": 0.684
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-17",
+   "blocks": 3,
+   "average_chance": 0.81
+  }
+ ],
+ "goal_tradeoff": [
+  {
+   "goal": 0.85,
+   "scenario_code": "BASE",
+   "hours": 11035.5,
+   "cost": 354039.955,
+   "expected_met": 0.91,
+   "lowest_chance": 0.616,
+   "below_goal": 11,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 683.0,
+   "flex_hours": 89.0,
+   "avg_utilization": 0.746
+  },
+  {
+   "goal": 0.85,
+   "scenario_code": "PEAK",
+   "hours": 11457.5,
+   "cost": 370658.43,
+   "expected_met": 0.839,
+   "lowest_chance": 0.004,
+   "below_goal": 30,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 1046.0,
+   "flex_hours": 65.0,
+   "avg_utilization": 0.756
+  },
+  {
+   "goal": 0.85,
+   "scenario_code": "DISRUPT",
+   "hours": 10738.0,
+   "cost": 346268.42,
+   "expected_met": 0.856,
+   "lowest_chance": 0.0,
+   "below_goal": 25,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 754.0,
+   "flex_hours": 82.0,
+   "avg_utilization": 0.759
+  },
+  {
+   "goal": 0.9,
+   "scenario_code": "BASE",
+   "hours": 11266.5,
+   "cost": 362575.715,
+   "expected_met": 0.936,
+   "lowest_chance": 0.616,
+   "below_goal": 14,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 790.0,
+   "flex_hours": 90.0,
+   "avg_utilization": 0.728
+  },
+  {
+   "goal": 0.9,
+   "scenario_code": "PEAK",
+   "hours": 11611.5,
+   "cost": 376119.395,
+   "expected_met": 0.856,
+   "lowest_chance": 0.004,
+   "below_goal": 37,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 1091.5,
+   "flex_hours": 66.0,
+   "avg_utilization": 0.744
+  },
+  {
+   "goal": 0.9,
+   "scenario_code": "DISRUPT",
+   "hours": 10942.5,
+   "cost": 353648.28,
+   "expected_met": 0.878,
+   "lowest_chance": 0.0,
+   "below_goal": 27,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 850.0,
+   "flex_hours": 74.0,
+   "avg_utilization": 0.746
+  },
+  {
+   "goal": 0.925,
+   "scenario_code": "BASE",
+   "hours": 11414.5,
+   "cost": 368102.605,
+   "expected_met": 0.947,
+   "lowest_chance": 0.616,
+   "below_goal": 18,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 853.0,
+   "flex_hours": 95.0,
+   "avg_utilization": 0.717
+  },
+  {
+   "goal": 0.925,
+   "scenario_code": "PEAK",
+   "hours": 11743.0,
+   "cost": 381117.5,
+   "expected_met": 0.866,
+   "lowest_chance": 0.004,
+   "below_goal": 41,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 1148.0,
+   "flex_hours": 67.0,
+   "avg_utilization": 0.734
+  },
+  {
+   "goal": 0.925,
+   "scenario_code": "DISRUPT",
+   "hours": 11075.0,
+   "cost": 358702.385,
+   "expected_met": 0.888,
+   "lowest_chance": 0.0,
+   "below_goal": 32,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 912.5,
+   "flex_hours": 74.0,
+   "avg_utilization": 0.735
+  },
+  {
+   "goal": 0.95,
+   "scenario_code": "BASE",
+   "hours": 11618.0,
+   "cost": 376176.165,
+   "expected_met": 0.958,
+   "lowest_chance": 0.616,
+   "below_goal": 25,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 958.0,
+   "flex_hours": 95.0,
+   "avg_utilization": 0.7
+  },
+  {
+   "goal": 0.95,
+   "scenario_code": "PEAK",
+   "hours": 11897.5,
+   "cost": 387092.18,
+   "expected_met": 0.874,
+   "lowest_chance": 0.004,
+   "below_goal": 44,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 1215.5,
+   "flex_hours": 67.0,
+   "avg_utilization": 0.72
+  },
+  {
+   "goal": 0.95,
+   "scenario_code": "DISRUPT",
+   "hours": 11248.5,
+   "cost": 365320.695,
+   "expected_met": 0.897,
+   "lowest_chance": 0.0,
+   "below_goal": 39,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 997.5,
+   "flex_hours": 74.0,
+   "avg_utilization": 0.722
+  },
+  {
+   "goal": 0.975,
+   "scenario_code": "BASE",
+   "hours": 11875.0,
+   "cost": 386598.89,
+   "expected_met": 0.966,
+   "lowest_chance": 0.616,
+   "below_goal": 35,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 1098.5,
+   "flex_hours": 87.0,
+   "avg_utilization": 0.68
+  },
+  {
+   "goal": 0.975,
+   "scenario_code": "PEAK",
+   "hours": 12111.5,
+   "cost": 396127.18,
+   "expected_met": 0.882,
+   "lowest_chance": 0.004,
+   "below_goal": 53,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 1321.5,
+   "flex_hours": 67.0,
+   "avg_utilization": 0.701
+  },
+  {
+   "goal": 0.975,
+   "scenario_code": "DISRUPT",
+   "hours": 11492.5,
+   "cost": 375657.31,
+   "expected_met": 0.905,
+   "lowest_chance": 0.0,
+   "below_goal": 48,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 1139.0,
+   "flex_hours": 66.0,
+   "avg_utilization": 0.702
+  },
+  {
+   "goal": 0.99,
+   "scenario_code": "BASE",
+   "hours": 12170.5,
+   "cost": 397648.79,
+   "expected_met": 0.97,
+   "lowest_chance": 0.616,
+   "below_goal": 54,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 1233.5,
+   "flex_hours": 56.0,
+   "avg_utilization": 0.66
+  },
+  {
+   "goal": 0.99,
+   "scenario_code": "PEAK",
+   "hours": 12366.5,
+   "cost": 405672.19,
+   "expected_met": 0.886,
+   "lowest_chance": 0.004,
+   "below_goal": 66,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 1415.0,
+   "flex_hours": 44.0,
+   "avg_utilization": 0.683
+  },
+  {
+   "goal": 0.99,
+   "scenario_code": "DISRUPT",
+   "hours": 11749.0,
+   "cost": 385054.13,
+   "expected_met": 0.908,
+   "lowest_chance": 0.0,
+   "below_goal": 68,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 1240.0,
+   "flex_hours": 44.0,
+   "avg_utilization": 0.685
+  }
+ ],
+ "history_tradeoff": [
+  {
+   "target_util": 0.72,
+   "hours": 68685.625,
+   "cost": 2164076.5971,
+   "cost_vs_actual": 0.1449,
+   "exp_pct_met": 0.9871
+  },
+  {
+   "target_util": 0.74,
+   "hours": 66920.525,
+   "cost": 2109069.7708,
+   "cost_vs_actual": 0.1158,
+   "exp_pct_met": 0.9799
+  },
+  {
+   "target_util": 0.76,
+   "hours": 65205.5625,
+   "cost": 2055545.0086,
+   "cost_vs_actual": 0.0875,
+   "exp_pct_met": 0.9693
+  },
+  {
+   "target_util": 0.78,
+   "hours": 63624.825,
+   "cost": 2006087.882,
+   "cost_vs_actual": 0.0613,
+   "exp_pct_met": 0.9532
+  },
+  {
+   "target_util": 0.8,
+   "hours": 62125.4375,
+   "cost": 1959058.6476,
+   "cost_vs_actual": 0.0364,
+   "exp_pct_met": 0.9275
+  },
+  {
+   "target_util": 0.82,
+   "hours": 60622.5,
+   "cost": 1911632.9905,
+   "cost_vs_actual": 0.0113,
+   "exp_pct_met": 0.8863
+  },
+  {
+   "target_util": 0.84,
+   "hours": 59222.675,
+   "cost": 1867506.5646,
+   "cost_vs_actual": -0.012,
+   "exp_pct_met": 0.8253
+  },
+  {
+   "target_util": 0.86,
+   "hours": 57912.5375,
+   "cost": 1825846.804,
+   "cost_vs_actual": -0.0341,
+   "exp_pct_met": 0.7551
+  },
+  {
+   "target_util": 0.88,
+   "hours": 56633.7,
+   "cost": 1785497.5966,
+   "cost_vs_actual": -0.0554,
+   "exp_pct_met": 0.663
+  }
+ ],
+ "valentine_sensitivity": [
+  {
+   "true_uplift": 0.0,
+   "our_plan_expected_met": 0.918,
+   "replanned_expected_met": 0.909,
+   "replanned_feb14_cost": 57464.115,
+   "our_plan_feb14_cost": 58907.73
+  },
+  {
+   "true_uplift": 0.03,
+   "our_plan_expected_met": 0.865,
+   "replanned_expected_met": 0.865,
+   "replanned_feb14_cost": 58907.73,
+   "our_plan_feb14_cost": 58907.73
+  },
+  {
+   "true_uplift": 0.05,
+   "our_plan_expected_met": 0.819,
+   "replanned_expected_met": 0.823,
+   "replanned_feb14_cost": 59960.24,
+   "our_plan_feb14_cost": 58907.73
+  },
+  {
+   "true_uplift": 0.1,
+   "our_plan_expected_met": 0.666,
+   "replanned_expected_met": 0.683,
+   "replanned_feb14_cost": 60459.235,
+   "our_plan_feb14_cost": 58907.73
+  }
+ ],
+ "buffer_test": [
+  {
+   "plan": "Allows for both risks (recommended)",
+   "scenario_code": "BASE",
+   "cost": 376176.165,
+   "hours": 11618.0,
+   "met_both_risks": 0.958,
+   "met_forecast_error_only": 0.996,
+   "met_neither": 1.0
+  },
+  {
+   "plan": "Allows for both risks (recommended)",
+   "scenario_code": "PEAK",
+   "cost": 387092.18,
+   "hours": 11897.5,
+   "met_both_risks": 0.874,
+   "met_forecast_error_only": 0.932,
+   "met_neither": 0.93
+  },
+  {
+   "plan": "Allows for both risks (recommended)",
+   "scenario_code": "DISRUPT",
+   "cost": 365320.695,
+   "hours": 11248.5,
+   "met_both_risks": 0.897,
+   "met_forecast_error_only": 0.945,
+   "met_neither": 0.949
+  },
+  {
+   "plan": "Allows for forecast error only",
+   "scenario_code": "BASE",
+   "cost": 353421.485,
+   "hours": 11028.0,
+   "met_both_risks": 0.907,
+   "met_forecast_error_only": 0.984,
+   "met_neither": 1.0
+  },
+  {
+   "plan": "Allows for forecast error only",
+   "scenario_code": "PEAK",
+   "cost": 370426.49,
+   "hours": 11459.5,
+   "met_both_risks": 0.837,
+   "met_forecast_error_only": 0.924,
+   "met_neither": 0.93
+  },
+  {
+   "plan": "Allows for forecast error only",
+   "scenario_code": "DISRUPT",
+   "cost": 344821.935,
+   "hours": 10717.5,
+   "met_both_risks": 0.849,
+   "met_forecast_error_only": 0.936,
+   "met_neither": 0.954
+  },
+  {
+   "plan": "Allows for neither",
+   "scenario_code": "BASE",
+   "cost": 328201.08,
+   "hours": 10325.5,
+   "met_both_risks": 0.752,
+   "met_forecast_error_only": 0.876,
+   "met_neither": 0.993
+  },
+  {
+   "plan": "Allows for neither",
+   "scenario_code": "PEAK",
+   "cost": 347611.665,
+   "hours": 10839.0,
+   "met_both_risks": 0.7,
+   "met_forecast_error_only": 0.827,
+   "met_neither": 0.929
+  },
+  {
+   "plan": "Allows for neither",
+   "scenario_code": "DISRUPT",
+   "cost": 322424.555,
+   "hours": 10098.0,
+   "met_both_risks": 0.707,
+   "met_forecast_error_only": 0.838,
+   "met_neither": 0.948
+  },
+  {
+   "plan": "Current draft",
+   "scenario_code": "BASE",
+   "cost": 329108.19,
+   "hours": 10344.0,
+   "met_both_risks": 0.698,
+   "met_forecast_error_only": 0.781,
+   "met_neither": 0.811
+  },
+  {
+   "plan": "Current draft",
+   "scenario_code": "PEAK",
+   "cost": 329108.19,
+   "hours": 10344.0,
+   "met_both_risks": 0.591,
+   "met_forecast_error_only": 0.656,
+   "met_neither": 0.662
+  },
+  {
+   "plan": "Current draft",
+   "scenario_code": "DISRUPT",
+   "cost": 326367.24,
+   "hours": 10206.5,
+   "met_both_risks": 0.678,
+   "met_forecast_error_only": 0.769,
+   "met_neither": 0.8
+  }
+ ],
+ "capacity_gaps": [
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-13",
+   "dept_id": 38,
+   "gap_people": 4,
+   "gap_hours": 16.0,
+   "blocks_short": 3,
+   "department": "Front End"
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-14",
+   "dept_id": 38,
+   "gap_people": 11,
+   "gap_hours": 34.5,
+   "blocks_short": 4,
+   "department": "Front End"
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-15",
+   "dept_id": 38,
+   "gap_people": 5,
+   "gap_hours": 16.5,
+   "blocks_short": 4,
+   "department": "Front End"
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-14",
+   "dept_id": 92,
+   "gap_people": 12,
+   "gap_hours": 59.0,
+   "blocks_short": 6,
+   "department": "Merchandising"
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-15",
+   "dept_id": 92,
+   "gap_people": 4,
+   "gap_hours": 18.5,
+   "blocks_short": 3,
+   "department": "Merchandising"
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-14",
+   "dept_id": 95,
+   "gap_people": 1,
+   "gap_hours": 4.0,
+   "blocks_short": 1,
+   "department": "Pharmacy"
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-16",
+   "dept_id": 95,
+   "gap_people": 1,
+   "gap_hours": 3.5,
+   "blocks_short": 1,
+   "department": "Pharmacy"
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-17",
+   "dept_id": 95,
+   "gap_people": 4,
+   "gap_hours": 13.5,
+   "blocks_short": 3,
+   "department": "Pharmacy"
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-13",
+   "dept_id": 38,
+   "gap_people": 40,
+   "gap_hours": 160.0,
+   "blocks_short": 7,
+   "department": "Front End"
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-14",
+   "dept_id": 38,
+   "gap_people": 69,
+   "gap_hours": 224.0,
+   "blocks_short": 9,
+   "department": "Front End"
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-15",
+   "dept_id": 38,
+   "gap_people": 18,
+   "gap_hours": 55.0,
+   "blocks_short": 7,
+   "department": "Front End"
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-13",
+   "dept_id": 92,
+   "gap_people": 1,
+   "gap_hours": 6.0,
+   "blocks_short": 1,
+   "department": "Merchandising"
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-14",
+   "dept_id": 92,
+   "gap_people": 41,
+   "gap_hours": 209.5,
+   "blocks_short": 8,
+   "department": "Merchandising"
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-15",
+   "dept_id": 92,
+   "gap_people": 11,
+   "gap_hours": 51.0,
+   "blocks_short": 7,
+   "department": "Merchandising"
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-14",
+   "dept_id": 95,
+   "gap_people": 2,
+   "gap_hours": 8.0,
+   "blocks_short": 1,
+   "department": "Pharmacy"
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-16",
+   "dept_id": 95,
+   "gap_people": 1,
+   "gap_hours": 3.5,
+   "blocks_short": 1,
+   "department": "Pharmacy"
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-17",
+   "dept_id": 95,
+   "gap_people": 4,
+   "gap_hours": 13.5,
+   "blocks_short": 3,
+   "department": "Pharmacy"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-13",
+   "dept_id": 38,
+   "gap_people": 39,
+   "gap_hours": 156.0,
+   "blocks_short": 5,
+   "department": "Front End"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-14",
+   "dept_id": 38,
+   "gap_people": 62,
+   "gap_hours": 206.0,
+   "blocks_short": 5,
+   "department": "Front End"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-15",
+   "dept_id": 38,
+   "gap_people": 51,
+   "gap_hours": 161.0,
+   "blocks_short": 5,
+   "department": "Front End"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-16",
+   "dept_id": 38,
+   "gap_people": 13,
+   "gap_hours": 52.0,
+   "blocks_short": 3,
+   "department": "Front End"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-13",
+   "dept_id": 92,
+   "gap_people": 2,
+   "gap_hours": 12.0,
+   "blocks_short": 1,
+   "department": "Merchandising"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-14",
+   "dept_id": 92,
+   "gap_people": 12,
+   "gap_hours": 59.0,
+   "blocks_short": 6,
+   "department": "Merchandising"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-15",
+   "dept_id": 92,
+   "gap_people": 4,
+   "gap_hours": 18.5,
+   "blocks_short": 3,
+   "department": "Merchandising"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-13",
+   "dept_id": 95,
+   "gap_people": 1,
+   "gap_hours": 3.0,
+   "blocks_short": 1,
+   "department": "Pharmacy"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-14",
+   "dept_id": 95,
+   "gap_people": 4,
+   "gap_hours": 17.0,
+   "blocks_short": 3,
+   "department": "Pharmacy"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-15",
+   "dept_id": 95,
+   "gap_people": 1,
+   "gap_hours": 5.0,
+   "blocks_short": 1,
+   "department": "Pharmacy"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-16",
+   "dept_id": 95,
+   "gap_people": 4,
+   "gap_hours": 14.0,
+   "blocks_short": 3,
+   "department": "Pharmacy"
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-17",
+   "dept_id": 95,
+   "gap_people": 4,
+   "gap_hours": 13.5,
+   "blocks_short": 3,
+   "department": "Pharmacy"
+  }
+ ],
+ "stress_share_over85": [
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-12",
+   "dept_id": 38,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-13",
+   "dept_id": 38,
+   "over": 0.333
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-14",
+   "dept_id": 38,
+   "over": 0.667
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-15",
+   "dept_id": 38,
+   "over": 0.778
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-16",
+   "dept_id": 38,
+   "over": 0.222
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-17",
+   "dept_id": 38,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-18",
+   "dept_id": 38,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-12",
+   "dept_id": 92,
+   "over": 0.111
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-13",
+   "dept_id": 92,
+   "over": 0.667
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-14",
+   "dept_id": 92,
+   "over": 0.667
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-15",
+   "dept_id": 92,
+   "over": 0.778
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-16",
+   "dept_id": 92,
+   "over": 0.778
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-17",
+   "dept_id": 92,
+   "over": 0.222
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-18",
+   "dept_id": 92,
+   "over": 0.222
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-12",
+   "dept_id": 95,
+   "over": 0.222
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-13",
+   "dept_id": 95,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-14",
+   "dept_id": 95,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-15",
+   "dept_id": 95,
+   "over": 0.333
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-16",
+   "dept_id": 95,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-17",
+   "dept_id": 95,
+   "over": 0.111
+  },
+  {
+   "scenario_code": "BASE",
+   "day_date": "2026-02-18",
+   "dept_id": 95,
+   "over": 0.222
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-12",
+   "dept_id": 38,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-13",
+   "dept_id": 38,
+   "over": 1.0
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-14",
+   "dept_id": 38,
+   "over": 1.0
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-15",
+   "dept_id": 38,
+   "over": 1.0
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-16",
+   "dept_id": 38,
+   "over": 0.222
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-17",
+   "dept_id": 38,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-18",
+   "dept_id": 38,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-12",
+   "dept_id": 92,
+   "over": 0.111
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-13",
+   "dept_id": 92,
+   "over": 1.0
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-14",
+   "dept_id": 92,
+   "over": 1.0
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-15",
+   "dept_id": 92,
+   "over": 0.889
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-16",
+   "dept_id": 92,
+   "over": 0.778
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-17",
+   "dept_id": 92,
+   "over": 0.222
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-18",
+   "dept_id": 92,
+   "over": 0.222
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-12",
+   "dept_id": 95,
+   "over": 0.222
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-13",
+   "dept_id": 95,
+   "over": 0.111
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-14",
+   "dept_id": 95,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-15",
+   "dept_id": 95,
+   "over": 0.333
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-16",
+   "dept_id": 95,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-17",
+   "dept_id": 95,
+   "over": 0.111
+  },
+  {
+   "scenario_code": "PEAK",
+   "day_date": "2026-02-18",
+   "dept_id": 95,
+   "over": 0.222
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-12",
+   "dept_id": 38,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-13",
+   "dept_id": 38,
+   "over": 0.444
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-14",
+   "dept_id": 38,
+   "over": 0.667
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-15",
+   "dept_id": 38,
+   "over": 0.778
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-16",
+   "dept_id": 38,
+   "over": 0.222
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-17",
+   "dept_id": 38,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-18",
+   "dept_id": 38,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-12",
+   "dept_id": 92,
+   "over": 0.111
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-13",
+   "dept_id": 92,
+   "over": 0.667
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-14",
+   "dept_id": 92,
+   "over": 0.667
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-15",
+   "dept_id": 92,
+   "over": 0.778
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-16",
+   "dept_id": 92,
+   "over": 0.778
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-17",
+   "dept_id": 92,
+   "over": 0.222
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-18",
+   "dept_id": 92,
+   "over": 0.222
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-12",
+   "dept_id": 95,
+   "over": 0.222
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-13",
+   "dept_id": 95,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-14",
+   "dept_id": 95,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-15",
+   "dept_id": 95,
+   "over": 0.333
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-16",
+   "dept_id": 95,
+   "over": 0.0
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-17",
+   "dept_id": 95,
+   "over": 0.111
+  },
+  {
+   "scenario_code": "DISRUPT",
+   "day_date": "2026-02-18",
+   "dept_id": 95,
+   "over": 0.222
+  }
+ ],
+ "validator_problems": []
+}

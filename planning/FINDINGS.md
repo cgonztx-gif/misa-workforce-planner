@@ -1,6 +1,6 @@
 # Findings
 
-Verified facts, with what to do about each. **Measured** findings (F-01 to F-20) reproduce with `evidence/verify_findings.py`; the section codes in its saved output match these IDs. **Docs** findings cite the data pack. F-21 to F-25 and F-36 to F-38 come from checks on this machine.
+Verified facts, with what to do about each. **Measured** findings (F-01 to F-20) reproduce with `evidence/verify_findings.py`; the section codes in its saved output match these IDs. **Docs** findings cite the data pack. F-21 to F-25 and F-36 to F-38 come from checks on this machine. F-39 to F-53 reproduce with `python -m src.pipeline`, whose results are in `outputs/`. F-54 records an independent check of them.
 
 ## Sources
 
@@ -42,7 +42,7 @@ Verified facts, with what to do about each. **Measured** findings (F-01 to F-20)
 ## Scenarios
 
 - **F-08: DISRUPT cuts more than the docs describe (measured).** Beyond the listed cuts, partner flex also falls: Warehouse 2 Merchandising on Feb 13-16, and Warehouse 4 Front End OPEN on Feb 12-13. *Use:* read availability per scenario from the grid and never hardcode the described cuts. The saved output lists all 36 changed blocks.
-- **F-09: The draft is above capacity in 12 DISRUPT blocks (measured).** 7 at Warehouse 2 Front End, 4 at Warehouse 2 Pharmacy, and Warehouse 4 Merchandising OPEN on Feb 13. It has none in BASE or PEAK, and is never below `min_staff`.
+- **F-09: The draft is above capacity in 12 DISRUPT blocks (measured).** 7 at Warehouse 2 Front End, 4 at Warehouse 2 Pharmacy, and Warehouse 4 Merchandising OPEN on Feb 13. It has none in BASE or PEAK, and is never below `min_staff`. That is 29 people short at raw capacity, and 36 under the allocation rule (F-42).
 - **F-10: PEAK changes demand only (measured).** Availability matches BASE exactly. Multipliers on Feb 13-14 are 1.10-1.25 at Warehouses 1 and 2, 1.15-1.30 at Warehouse 4, and 1.05 for Pharmacy. On Feb 15, Front End and Merchandising are 1.06.
 - **F-19: The draft is identical in all three scenarios (measured).** 10,344 labor hours in each.
 - **F-32: Holiday-weekend PTO reduces availability on Feb 14-16 (docs).** This is already in the BASE availability figures.
@@ -77,3 +77,60 @@ Verified facts, with what to do about each. **Measured** findings (F-01 to F-20)
 - **F-36: The confirmed stack is installed and works together.** Versions are pinned in `requirements.txt`: statsmodels 0.15.0, pytest 9.2.0, NumPy 2.4.2 and SciPy 1.17.1, alongside the versions in F-21. A statsmodels regression on log daily demand ran successfully with pandas 3.0.1 on all 369 open daily rows. That was a compatibility check, not a forecast result.
 - **F-37: The scaffold runs (reproduce with `python -m pytest`).** All 7 tests pass, covering row counts, template keys, closed rows, over-capacity blocks and scenario switching. One deprecation warning comes from a third-party plugin (anyio), not our code. `python -m streamlit run app.py` was healthy after 1.6 seconds on `http://localhost:8501`. **Not tested:** a real browser or Wi-Fi off (T-63).
 - **F-38: The tracked files are enough to run the project (reproduce with `git clone`, the extraction command in `CLAUDE.md`, then `python -m pytest`).** On 2026-11-04, a copy of only the tracked files extracted the data and passed all 7 tests. It used this machine's installed packages, so it doesn't test a clean environment (T-56). Git's warnings about LF becoming CRLF when staging are expected on this machine, and the tests passed on that converted copy.
+
+## Diagnosis (as of 2026-11-04)
+
+- **F-39: Hours are about right in total but in the wrong places (T-11, T-12).** Worked hours were 59,198 against 58,486 needed at 85% utilization, within 1.2%. That need is in whole people and above minimum staff. Before rounding, need is 56,234 hours, and worked hours are 5.3% above it. But 3,184 hours sat above need, worth $103,458 at loaded regular rates, and 2,472 were missing elsewhere. By department, blocks missing target: Front End 85, Merchandising 111, Pharmacy 37. Largest gaps: Warehouse 4 Merchandising weekday opening (702 hours over, 67% utilization) and weekday evening (234 short as worked and 222 as scheduled, 92%, 28% met), and Warehouse 2 Front End weekends (Sunday midday at 103%, 0% met). Some gaps are partly callouts: Warehouse 1 Merchandising weekday evening is 96 short as worked and 54 as scheduled. By department over weeks 2-6, weekly demand moved by up to 10%, scheduled hours by at most 2%. Ranked table: `outputs/diagnosis_staffing_gaps.csv`. *Use:* moving hours comes before adding them.
+- **F-40: The Nov 2 dashboard holds up, with corrections (reproduce with `planning/evidence/reconcile_dashboard.py`).** Of its 97 headline figures, 85 are calculated, and 80 match within 0.15%. Of the other 5, three correlation figures and one noise figure can't be reproduced because their definitions aren't recorded, and none is relied on; the fifth is the correction in F-42. The remaining 12 are inputs and settings. Its tables for hours, service bands, holiday factors, callouts, raw capacity and the trade-off simulation also match. *Use:* the dashboard's analysis can be trusted except as noted here and in F-42 and F-46.
+- **F-41: Demand is warehouse x weekday x holiday x weekly level.** R-squared on log daily demand: 0.977 for warehouse and weekday, 0.995 with holidays, 0.999997 with weekly level. Temperature and promotions add nothing once the weekday is known (correlations of -0.006 and -0.017), and Front End's raw -0.57 with temperature is a calendar artifact. Jan 20, flagged like Feb 17 as a post-holiday rebound, ran just 0.1% above its own week. *Use:* leave those features and the rebound flag out of the forecast, which also supports dropping T-25.
+- **F-42: Correction: the draft is 36 people short in DISRUPT, not 29.** Same 12 blocks. Limiting flex to what the partner can spare (A-01) takes Warehouse 2 Front End's shortfall from 22 to 29, with Warehouse 2 Pharmacy at 5 and Warehouse 4 Merchandising at 2. The draft's DISRUPT cost is $326,367. The dashboard's $327,334 comes from fielding staff up to raw capacity and letting overtime run past its limit, which reproduces its figure exactly. Its mean utilization differs for the same reason, only on DISRUPT Front End on Feb 14-15.
+- **F-43: Callout rates (T-13).** With the flu cluster separated, by weekday, weekend and day after a holiday: Front End 5.0%, 6.4%, 8.0%; Merchandising 3.4%, 5.5%, 4.0%; Pharmacy 2.9%, 6.1%, 11.0%. Flu week: Front End 12.3%, Pharmacy 10.7%. Day-after-holiday rates rest on two days, and Pharmacy's on 82 scheduled employees. Backfill is 49.2% overall, and 0% once overtime is used up. Table: `outputs/diagnosis_callout_rates.csv`.
+
+## Forecast results (as of 2026-11-04)
+
+- **F-44: The forecast beats the benchmark on held-out weeks (T-21, T-24, R-28).** Mean absolute percentage error on weeks 4-6, each from earlier weeks only. Daily: 2.4% against 4.1%. By week: 1.6% vs 4.8%, 4.2% vs 5.5%, 1.4% vs 1.8%. By block: 4.2% against 5.4%. The last four weeks' level beats all weeks slightly (2.42% vs 2.58%). Held-out log error per block, used for risk: Front End 5.6%, Merchandising 5.3%, Pharmacy 4.5%. **Limit:** these weeks hold no holidays, and three folds is few. The edge also comes entirely from Fri-Mon, where the benchmark's average held earlier holiday days: 2.42% vs 5.08%, against 2.42% vs 2.69% on Tue-Thu and 2.42% vs 2.45% on Tue-Wed. In the planning week, the two match within 0.1% on normal days. *Use:* say that the forecast removes holiday distortion, not that it beats the benchmark in the planning week.
+- **F-45: Holiday effects are measured exactly, but borrowing them is unproven (T-22, T-23).** With weekly level in the model, factors match the build script (`sql/02_Load_Core_Data.sql`): Fri-Sun before the holiday 1.12, 1.08, 0.95; holiday Monday 1.05, 1.05, 0.70; New Year rebound 1.10, 1.06, 0.90 (Front End, Merchandising, Pharmacy). Forecasting the MLK weekend from weeks 1-2 with the New Year effect gave 9.6% error against the benchmark's 10.2%: better for Front End (8.2 vs 12.4) and Merchandising (8.7 vs 11.3), worse for Pharmacy (11.9 vs 7.0). On the shift split, holiday shares for Front End only do best when leaving one week out (3.2% error, and 4.2% vs 5.6% on Front End holiday days), which confirms F-31. *Use:* A-05 and A-11 stay assumptions.
+
+## Service and risk (as of 2026-11-04)
+
+- **F-46: Service limits by warehouse (T-31, A-09).** Utilization for a 95% chance of meeting target, Warehouses 1, 2, 4: Front End 0.861, 0.832, 0.851; Merchandising 0.862, 0.877, 0.844; Pharmacy 0.852, 0.843, 0.844. Fitted on log(metric / target) with a kink and a cap. Leaving one week out, the Brier score is 0.026 against 0.177 for the average rate. Predicted chances track outcomes, though they run slightly high near the goal: 97.3% predicted against 94.3% observed in the 95-99% group, and 80.9% against 68.4% in the 70-90% group. **Correction:** the dashboard's 0.908 for Warehouse 1 Pharmacy rests on 6 blocks between 0.85 and 0.95, so don't quote it. Our largest other gap from the dashboard is Warehouse 4 Merchandising, 0.844 vs 0.866. Table: `outputs/service_limits.csv`.
+- **F-47: The risk calculation agrees with simulation, after a fix (T-40, D-18).** A 21-point integration rule was 0.7 points off a 200,000-draw simulation, because the curve is steep near the cliff. A fine 181-point grid agrees to within 0.5 points in `tests/test_service_and_risk.py`.
+
+## The first plan (as of 2026-11-04)
+
+Expected service below means the average chance of meeting target across open blocks, from our risk model. It is a prediction, not a measured result.
+
+- **F-48: Plan against the draft (T-32, T-34, T-35).**
+
+  | | BASE | PEAK | DISRUPT |
+  |---|---|---|---|
+  | Draft cost | $329,108 | $329,108 | $326,367 |
+  | Plan cost | $376,176 | $387,092 | $365,321 |
+  | Change | +14.3% | +17.6% | +11.9% |
+  | Draft hours | 10,344 | 10,344 | 10,206.5 |
+  | Plan hours | 11,618 | 11,897.5 | 11,248.5 |
+  | Draft expected service | 69.8% | 59.1% | 67.8% |
+  | Plan expected service | 95.8% | 87.4% | 89.7% |
+  | Draft blocks above capacity | 0 | 0 | 12 |
+  | Plan blocks above capacity | 0 | 0 | 0 |
+  | Plan blocks below the 95% goal | 25 | 44 | 39 |
+
+  The filled template is `outputs/TEAM_SUBMISSION_TEMPLATE_filled.csv`, and it passes the validator with the placeholder team name. Block by block: `outputs/plan_vs_draft.csv`.
+- **F-49: Service goal trade-off in BASE (T-33, A-13).** Goal, cost, expected service: 85%, $354,040, 91.0%; 90%, $362,576, 93.6%; 92.5%, $368,103, 94.7%; 95%, $376,176, 95.8%; 97.5%, $386,599, 96.6%; 99%, $397,649, 97.0%. Each extra point costs more than the last: about $3,300 from 85% to 90%, $7,300 from 92.5% to 95%, and $27,600 from 97.5% to 99%. Full table: `outputs/goal_tradeoff.csv`.
+- **F-50: Capacity runs out on the holiday weekend, above all Feb 14.** Blocks below the goal already use all their own regular staff and overtime, and a test enforces this. People short of need, BASE, PEAK, DISRUPT: total 42, 187, 197; Feb 14 alone 24, 112, 78. In BASE, 22 of the 25 short blocks fall on Feb 13-16, with 11 on Feb 14. Their average chance is 84%, and 11 sit at 90-95%, so being short of the goal doesn't mean expected failure. On Feb 14, 10 of 18 Front End and Merchandising blocks are at capacity. The other 3 short blocks are Pharmacy on Feb 17, which rest on the thin 11% rate: at the weekday rate, only 1 stays short (A-15). Front End regular staff is down about 4 to 5 per block on Feb 14-15 against recent weekends. Table: `outputs/capacity_gaps.csv`. *Use:* this is an availability problem for the playbook (T-42), such as limiting PTO approvals, since rearranging the schedule can't solve it.
+- **F-51: What the allowance for risk costs (Q-02, A-03).** In BASE, by plan: cost, then expected service with both risks, with forecast error only, and with neither.
+
+  | Plan allows for | Cost | Both | Forecast error only | Neither |
+  |---|---|---|---|---|
+  | Both risks (recommended) | $376,176 | 95.8% | 99.6% | 100% |
+  | Forecast error only | $353,421 | 90.7% | 98.4% | 100% |
+  | Neither | $328,201 | 75.2% | 87.6% | 99.3% |
+  | Current draft | $329,108 | 69.8% | 78.1% | 81.1% |
+
+  *Use:* moving hours alone, at about the draft's cost, beats the draft under every condition. The callout allowance costs $22,755, which Q-02 would settle.
+- **F-52: Valentine's Day sensitivity (T-22, A-06).** BASE, Front End and Merchandising on Feb 14. If the true uplift is 0%, 3%, 5% or 10%, our plan's expected service is 91.8%, 86.5%, 81.9% or 66.6%. Having planned for that uplift would give 90.9%, 86.5%, 82.3% or 68.3%, at $57,464, $58,908, $59,960 or $60,459. *Use:* planning for more barely helps because 10 of those 18 blocks are at capacity, so the choice of 3% matters little (R-29).
+- **F-53: Two search failures, found by checking results and now fixed (T-32, D-17).** First, blocks that couldn't reach the goal fell back to minimum staff, because extra staff don't change a saturated block's chance of meeting target. This made PEAK's hours lower than BASE's. Second, the search cut overloaded departments to lend staff (D-17). Tests now cover both.
+
+## Independent check (as of 2026-11-04)
+
+- **F-54: A separate recomputation found no numeric errors in the tables, but did find overstated wording (`evidence/independent_check.md`).** Every table it could recompute from the raw CSVs matched, and its model-based results were close (BASE plan service 95.4% against 95.8%). Its service model shares our structure, so that supports the arithmetic, not the assumptions. Of its 9 main points, we reproduced 8 and fixed the wording. We didn't reproduce the point about weekly swings, because the Word file's 10% and 2% are correct by department. The most important fix is that we no longer claim the forecast beats the benchmark in the planning week (F-44). *Use:* quote these figures with the limits stated.

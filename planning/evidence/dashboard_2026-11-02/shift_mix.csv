@@ -1,0 +1,49 @@
+dept,day_type,days,shift,share
+Front End,Saturday,Holiday window,EVE,0.2218
+Front End,Saturday,Holiday window,MID,0.4321
+Front End,Saturday,Holiday window,OPEN,0.346
+Front End,Saturday,Normal,EVE,0.2395
+Front End,Saturday,Normal,MID,0.4028
+Front End,Saturday,Normal,OPEN,0.3578
+Front End,Sunday,Holiday window,EVE,0.205
+Front End,Sunday,Holiday window,MID,0.4338
+Front End,Sunday,Holiday window,OPEN,0.3613
+Front End,Sunday,Normal,EVE,0.2153
+Front End,Sunday,Normal,MID,0.4104
+Front End,Sunday,Normal,OPEN,0.3743
+Front End,Weekday,Holiday window,EVE,0.3582
+Front End,Weekday,Holiday window,MID,0.4297
+Front End,Weekday,Holiday window,OPEN,0.2121
+Front End,Weekday,Normal,EVE,0.3822
+Front End,Weekday,Normal,MID,0.3976
+Front End,Weekday,Normal,OPEN,0.2202
+Merchandising,Saturday,Holiday window,EVE,0.224
+Merchandising,Saturday,Holiday window,MID,0.2898
+Merchandising,Saturday,Holiday window,OPEN,0.4862
+Merchandising,Saturday,Normal,EVE,0.2218
+Merchandising,Saturday,Normal,MID,0.2856
+Merchandising,Saturday,Normal,OPEN,0.4926
+Merchandising,Sunday,Holiday window,EVE,0.226
+Merchandising,Sunday,Holiday window,MID,0.2993
+Merchandising,Sunday,Holiday window,OPEN,0.4747
+Merchandising,Sunday,Normal,EVE,0.2179
+Merchandising,Sunday,Normal,MID,0.304
+Merchandising,Sunday,Normal,OPEN,0.4781
+Merchandising,Weekday,Holiday window,EVE,0.3009
+Merchandising,Weekday,Holiday window,MID,0.251
+Merchandising,Weekday,Holiday window,OPEN,0.4481
+Merchandising,Weekday,Normal,EVE,0.3001
+Merchandising,Weekday,Normal,MID,0.2519
+Merchandising,Weekday,Normal,OPEN,0.4481
+Pharmacy,Saturday,Holiday window,MID,0.445
+Pharmacy,Saturday,Holiday window,OPEN,0.555
+Pharmacy,Saturday,Normal,MID,0.4461
+Pharmacy,Saturday,Normal,OPEN,0.5539
+Pharmacy,Sunday,Holiday window,MID,1.0
+Pharmacy,Sunday,Normal,MID,1.0
+Pharmacy,Weekday,Holiday window,EVE,0.3355
+Pharmacy,Weekday,Holiday window,MID,0.2965
+Pharmacy,Weekday,Holiday window,OPEN,0.3679
+Pharmacy,Weekday,Normal,EVE,0.3401
+Pharmacy,Weekday,Normal,MID,0.3005
+Pharmacy,Weekday,Normal,OPEN,0.3594

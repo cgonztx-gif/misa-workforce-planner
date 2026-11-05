@@ -49,3 +49,5 @@ python planning/evidence/smoke_test.py 2>/dev/null > planning/evidence/smoke_tes
 ```
 
 The first uses `-I` to stay isolated. The second must not, because `-I` hides installed packages (F-24).
+
+To compare the rebuilt figures with the Nov 2 dashboard, run `python -m src.pipeline`, then `python planning/evidence/reconcile_dashboard.py > planning/evidence/reconcile_dashboard.output.txt`. It also writes `reconcile_dashboard.json`, which the Word file reads.

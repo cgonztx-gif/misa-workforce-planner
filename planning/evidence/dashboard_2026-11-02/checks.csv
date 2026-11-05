@@ -1,0 +1,14 @@
+area,check,expected,result,status
+Coverage,History grid: 3 warehouses x 3 depts x 42 days x 3 shifts,1134 rows,1134 rows,Pass
+Coverage,Planning grid: 3 scenarios x 189 blocks,567 rows,567 rows,Pass
+Keys,Duplicate warehouse-dept-date-shift keys (history and planning),0,0,Pass
+Demand,Shift demand sums to the daily total,0 mismatched days,0 mismatched days,Pass
+Staffing,worked = scheduled - callouts + backfill,0 violations,0 violations,Pass
+Staffing,regular + overtime = worked; hours = employees x paid hours,0 violations,0 violations,Pass
+Staffing,Worked regular <= available regular; overtime <= overtime capacity,0 violations,0 violations,Pass
+Staffing,Open blocks worked below minimum staff (after callouts),informational,2 blocks (Pharmacy),Info
+Cost,labor_cost = regular hrs x loaded regular rate + OT hrs x loaded OT rate,0 mismatches,0 mismatches,Pass
+Service,met_target = metric <= target on every open block,0 mismatches,0 mismatches,Pass
+Forecast,"Benchmark = mean of the same weekday, weeks 3-6",exact,max diff 0.0001 units,Pass
+Planning,Draft covers minimum staff in every open block,0 violations,0 violations,Pass
+Planning,Draft exceeds total capacity (regular + OT + flex),intended in DISRUPT,"12 blocks, all DISRUPT",Info

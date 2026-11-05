@@ -1,0 +1,162 @@
+== Headline figures (kpi.csv)
+Dashboard figures: 97
+Matched within tolerance: 80
+Differ: 5
+Not rebuilt (fixed inputs and analysis settings): 12
+
+DIFFER (id, dashboard, rebuilt)
+  shift_noise                  0.040057       0.025574  Typical shift-level deviation from the average split
+      The grouping behind this figure can't be recovered. Standard deviation is 3.7% to 4.2% across the groupings tried, so 'about 4%' holds.
+  sched_corr_fr                0.836319       0.478758  Median corr(scheduled hrs, workload) within block type, Front End
+      Definition can't be recovered and the page text doesn't use it. Not relied on.
+  sched_corr_me                0.465259       0.275125  Median corr(scheduled hrs, workload) within block type, Merchandising
+      Definition can't be recovered and the page text doesn't use it. Not relied on.
+  sched_corr_ph                0.138925       0.153433  Median corr(scheduled hrs, workload) within block type, Pharmacy
+      Definition can't be recovered and the page text doesn't use it. Not relied on.
+  draft_cost_disrupt      327334.255000  326367.240000  Draft labor cost, DISRUPT
+      CORRECTION. The dashboard fields staff up to raw capacity and lets overtime run past its limit, which reproduces its figure exactly. Under the allocation rule (A-01), we get the lower figure.
+
+Not in the dashboard's table, new from the rebuild:
+  disrupt_shortfall_usable_flex: 36
+  disrupt_blocks_usable_flex: 12
+
+NOT REBUILT
+  thr_cliff                    0.850000  Service cliff threshold used in this analysis
+  thr_fail                     0.900000  Utilization above which blocks almost never meet target
+  thr_safe                     0.840000  Utilization below which every block met target
+  thr_sat                      0.970000  Utilization at which waits saturate
+  thr_slack                    0.750000  Utilization treated as slack
+  std_38                       1.500000  Labor standard (hours per unit), Front End
+  target_38                    5.000000  Service target (minutes), Front End
+  std_92                       1.200000  Labor standard (hours per unit), Merchandising
+  target_92                   60.000000  Service target (minutes), Merchandising
+  std_95                       0.165000  Labor standard (hours per unit), Pharmacy
+  target_95                   20.000000  Service target (minutes), Pharmacy
+  frontier_fcst_err            0.050000  Forecast error assumed in frontier (sd)
+
+MATCHED (id, dashboard, rebuilt)
+  hist_blocks                       1134.000000    1134.000000
+  plan_blocks                        567.000000     567.000000
+  open_blocks                       1053.000000    1053.000000
+  closed_blocks                       81.000000      81.000000
+  r2_dow                               0.976877       0.976877
+  r2_dow_hol                           0.994692       0.994692
+  r2_full                              1.000000       0.999997
+  err_dow_hol                          0.026017       0.026017
+  corr_temp_resid                     -0.005621      -0.005621
+  corr_promo_resid                    -0.017441      -0.017441
+  corr_temp_raw_fe                    -0.567457      -0.567457
+  dow_spread_store                     0.000446       0.000455
+  week_level_min                       0.952700       0.952666
+  week_level_max                       1.060100       1.060112
+  rebound_extra                        0.001032       0.001032
+  fe_mid_shift_pts                     0.031860       0.031860
+  bench_week_gap_38                   -0.046647      -0.046647
+  bench_week_gap_92                   -0.029572      -0.029572
+  bench_week_gap_95                    0.053631       0.053631
+  met_below_84                         1.000000       1.000000
+  met_85_90                            0.620690       0.620690
+  met_above_90                         0.005618       0.005618
+  blocks_above_90                    178.000000     178.000000
+  pct_met_all                          0.778727       0.778727
+  pct_met_38                           0.769648       0.769648
+  pct_met_92                           0.699187       0.699187
+  pct_met_95                           0.882540       0.882540
+  sat_ratio_38                         4.593333       4.593333
+  sat_ratio_92                         4.109115       4.109115
+  sat_ratio_95                         4.274643       4.274643
+  worked_hours                     59197.500000   59197.500000
+  sched_hours                      60709.500000   60709.500000
+  req85_hours                      58485.500000   58485.500000
+  req80_hours                      62042.000000   62042.000000
+  worked_vs_req85                      0.012174       0.012174
+  over_hours                        3184.000000    3184.000000
+  short_hours                       2472.000000    2472.000000
+  over_value                      103458.240000  103458.240000
+  minstaff_binds                       0.000000       0.000000
+  hours_index_spread                   0.022100       0.022121
+  demand_index_spread                  0.100900       0.100938
+  callout_rate_all                     0.051713       0.051713
+  backfill_share                       0.491736       0.491736
+  backfill_when_no_ot                  0.000000       0.000000
+  netloss_fe                           0.030794       0.030794
+  callout_fe                           0.060785       0.060785
+  met_loss_fe                          0.645963       0.645963
+  met_noloss_fe                        0.865385       0.865385
+  netloss_ms                           0.020482       0.020482
+  callout_ms                           0.041153       0.041153
+  met_loss_ms                          0.471910       0.471910
+  met_noloss_ms                        0.771429       0.771429
+  netloss_rx                           0.023901       0.023901
+  callout_rx                           0.042406       0.042406
+  met_loss_rx                          0.483871       0.483871
+  met_noloss_rx                        0.926056       0.926056
+  labor_cost_6wk                 1890242.255000 1890242.255000
+  ot_hours_share                       0.034790       0.034790
+  ot_premium_6wk                   21345.375000   21345.375000
+  ot_premium_share                     0.011292       0.011292
+  cost_per_week                   322792.760000  322792.760000
+  draft_within1                        0.988889       0.988889
+  draft_eq_wk6                         0.727778       0.727778
+  draft_over85_base                    0.611111       0.611111
+  draft_over85_all_base                0.305556       0.305556
+  draft_over85_peak                    0.861111       0.861111
+  draft_over85_all_peak                0.411111       0.411111
+  draft_over85_disrupt                 0.625000       0.625000
+  draft_over85_all_disrupt             0.311111       0.311111
+  draft_over85_bench                   0.144444       0.144444
+  beyond_fr                           23.000000      23.000000
+  beyond_me                           33.000000      33.000000
+  beyond_ph                           15.000000      15.000000
+  pto_fe_satsun                       -4.166667      -4.166667
+  disrupt_blocks                      12.000000      12.000000
+  disrupt_shortfall                   29.000000      29.000000
+  draft_cost_base                 329108.190000  329108.190000
+  draft_cost_peak                 329108.190000  329108.190000
+  rx_block_median                      4.000000       4.000000
+  rx_one_person                        0.250000       0.250000
+
+== Hours above and below need (alloc_hours.csv): 3 rows joined
+  worked_h         vs worked_hours     largest gap 0.0000  (ok, tolerance 0.01)
+  req85_h          vs required_hours   largest gap 0.0000  (ok, tolerance 0.01)
+  over_h           vs over_hours       largest gap 0.0000  (ok, tolerance 0.01)
+  short_h          vs short_hours      largest gap 0.0000  (ok, tolerance 0.01)
+
+== Service by utilization band (service_curve.csv): 35 rows joined
+  blocks_x         vs blocks_y         largest gap 0.0000  (ok, tolerance 0.006)
+  pct_met          vs met_target       largest gap 0.0000  (ok, tolerance 0.006)
+  median_ratio_x   vs median_ratio_y   largest gap 0.0005  (ok, tolerance 0.006)
+
+== Holiday factors (holiday.csv): 12 rows joined
+  demand_factor    vs factor           largest gap 0.0000  (ok, tolerance 0.005)
+
+== Callouts (callouts.csv): 12 rows joined
+  callouts         vs our_callouts     largest gap 0.0000  (ok, tolerance 0)
+  scheduled        vs our_scheduled    largest gap 0.0000  (ok, tolerance 0)
+
+== DISRUPT shortfalls at raw capacity (disrupt_short.csv): 12 rows joined
+  capacity         vs raw_capacity     largest gap 0.0000  (ok, tolerance 0)
+  shortfall        vs raw_short        largest gap 0.0000  (ok, tolerance 0)
+
+== Draft stress test (draft_util.csv): 63 rows joined
+  util_mean        vs util             largest gap 0.0211  (DIFFERS, tolerance 0.005)
+  share_over_85    vs share            largest gap 0.0000  (ok, tolerance 0.005)
+
+== Simulated trade-off (frontier.csv), a random simulation so small gaps are expected: 9 rows joined
+  cost_vs_actual_dash vs cost_vs_actual_ours largest gap 0.0021  (ok, tolerance 0.02)
+  exp_pct_met_dash vs exp_pct_met_ours largest gap 0.0166  (ok, tolerance 0.02)
+
+== 95% break points (service_thresholds.csv). The methods differ on purpose, see F-46
+         dept warehouse  u95_dash  u95_ours
+    Front End        W1     0.852     0.861
+    Front End        W2     0.833     0.832
+    Front End        W4     0.851     0.851
+Merchandising        W1     0.860     0.862
+Merchandising        W2     0.872     0.877
+Merchandising        W4     0.866     0.844
+     Pharmacy        W1     0.908     0.852
+     Pharmacy        W2     0.828     0.843
+     Pharmacy        W4     0.858     0.844
+Warehouse 1 Pharmacy blocks between 0.85 and 0.95 behind the dashboard's 0.908 figure: 6
+The draft stress test's mean utilization differs only on DISRUPT Front End, Feb 14-15,
+because the dashboard fields more Front End staff than the allocation rule allows (F-42).

@@ -1,0 +1,13 @@
+warehouse,dept,date,day,shift,draft,capacity,shortfall,regular_cut,ot_cut
+W2,Front End,2026-02-13,Fri,EVE,26,22,4,-8,-3
+W2,Front End,2026-02-13,Fri,MID,28,23,5,-9,-3
+W2,Front End,2026-02-14,Sat,EVE,24,21,3,-8,-4
+W2,Front End,2026-02-14,Sat,MID,31,30,1,-11,-5
+W2,Front End,2026-02-14,Sat,OPEN,27,23,4,-9,-4
+W2,Front End,2026-02-15,Sun,EVE,19,18,1,-7,-3
+W2,Front End,2026-02-15,Sun,OPEN,25,21,4,-7,-3
+W2,Pharmacy,2026-02-14,Sat,MID,3,2,1,-1,0
+W2,Pharmacy,2026-02-14,Sat,OPEN,4,3,1,-1,0
+W2,Pharmacy,2026-02-16,Mon,EVE,5,4,1,-1,-1
+W2,Pharmacy,2026-02-16,Mon,OPEN,5,3,2,-1,-1
+W4,Merchandising,2026-02-13,Fri,OPEN,22,20,2,-8,0

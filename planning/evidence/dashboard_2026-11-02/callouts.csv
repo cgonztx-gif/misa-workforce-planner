@@ -1,0 +1,13 @@
+dept,context,rate,callouts,scheduled
+Front End,Weekdays,0.0554,250,4511
+Front End,Weekends,0.069,204,2958
+Front End,Day after a holiday,0.0804,27,336
+Front End,W2 flu week (Jan 22-28),0.1232,52,422
+Merchandising,Weekdays,0.0343,122,3559
+Merchandising,Weekends,0.0554,95,1714
+Merchandising,Day after a holiday,0.04,10,250
+Merchandising,W2 flu week (Jan 22-28),0.0286,9,315
+Pharmacy,Weekdays,0.0389,45,1156
+Pharmacy,Weekends,0.0709,10,141
+Pharmacy,Day after a holiday,0.1098,9,82
+Pharmacy,W2 flu week (Jan 22-28),0.1071,9,84

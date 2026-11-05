@@ -1,0 +1,22 @@
+dept,dow,day,index,share
+Front End,1,Mon,0.7656,0.1094
+Front End,2,Tue,0.8086,0.1155
+Front End,3,Wed,0.8789,0.1256
+Front End,4,Thu,0.9531,0.1362
+Front End,5,Fri,1.1514,0.1645
+Front End,6,Sat,1.291,0.1844
+Front End,7,Sun,1.1514,0.1645
+Merchandising,1,Mon,1.1434,0.1633
+Merchandising,2,Tue,1.0524,0.1503
+Merchandising,3,Wed,0.9472,0.1353
+Merchandising,4,Thu,0.9207,0.1315
+Merchandising,5,Fri,1.0137,0.1448
+Merchandising,6,Sat,1.0137,0.1448
+Merchandising,7,Sun,0.9089,0.1298
+Pharmacy,1,Mon,1.2141,0.1734
+Pharmacy,2,Tue,1.2612,0.1802
+Pharmacy,3,Wed,1.2261,0.1752
+Pharmacy,4,Thu,1.2009,0.1716
+Pharmacy,5,Fri,1.1538,0.1648
+Pharmacy,6,Sat,0.6293,0.0899
+Pharmacy,7,Sun,0.3147,0.045

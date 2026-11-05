@@ -1,6 +1,6 @@
 # Decisions
 
-**Proposed** means recommended but not yet confirmed. The user confirmed the stack on 2026-11-03 (D-03 to D-10).
+**Proposed** means recommended but not yet confirmed. The user confirmed the stack on 2026-11-03 (D-03 to D-10). D-05 and D-07 have since been refined by D-19 and D-18.
 
 ## D-01: Trust the data pack docs and the PDF over the `.pptx`
 
@@ -102,3 +102,32 @@
   - One repository on `main`, with a commit after each finished task once the tests pass.
   - `MISA.zip` and the `.pptx` are tracked. `MISA/` and `data/` are ignored because they extract from the zip, and a copy of the tracked files runs after extracting (F-38).
 - **Not decided:** a remote such as GitHub, which the team would need to share files this way. Nothing gets pushed without asking, and any remote should be private because the repository holds the case files.
+
+## D-17: A department only lends staff it doesn't need itself
+
+- **Status:** Proposed, 2026-11-04
+- **Why:** without this, the search cut the most overloaded blocks to lend their people, for example Warehouse 4 Front End to 36 people at 124% utilization, below its own 40 regular staff. Those blocks can't meet target either way, so this scores well on blocks meeting target. No warehouse leader would accept it, and it would be badly exposed if judges score waits rather than pass or fail (F-53).
+- **Cost:** a slightly lower expected-service figure, about one point in PEAK and less in DISRUPT, measured before the D-18 fix. We accept this.
+
+## D-18: Use an exact risk calculation in the search, and check it with Monte Carlo
+
+- **Status:** Proposed, 2026-11-04. Refines D-07.
+- **Why:** a calculation over the callout distribution and a fine grid of demand error gives the same answer every run, so plans don't change between runs, and it is fast enough to try every headcount. `monte_carlo_chance()` simulates the same model, and a test keeps the two within half a point (F-47).
+
+## D-19: Include weekly level in the forecast, and forecast at the last four weeks' average
+
+- **Status:** Proposed, 2026-11-04. Refines D-05.
+- **Why:** without a weekly term, the regression mistakes MLK week's high volume for a holiday effect and overstates it. With the term, the holiday factors match the data pack's build script exactly (F-45). A future week's level can't be known, so the forecast uses the last four weeks' average, which did slightly better than all weeks in the backtest (F-44, A-14).
+
+## D-20: Build the team's Word file from the pipeline's results
+
+- **Status:** Proposed, 2026-11-04. The user asked for a Word file to give to group members.
+- **Choice:** `scripts/build_analysis_doc.js` writes `deliverables/Costco_Case_Analysis.docx`, reading every figure from `outputs/analysis_summary.json`.
+- **Why:** figures can't drift from the code, and rebuilding after a change takes seconds.
+- **Limit:** a rebuild replaces the file, so hand edits are lost unless they are also made in the script. If the team starts editing the Word file directly, stop rebuilding it and update it by hand instead.
+- **Cost:** a small Node dependency (`docx`, in `package.json`), used only for this.
+
+## D-21: Keep a copy of the Nov 2 dashboard's tables as evidence
+
+- **Status:** Accepted, 2026-11-04. The user asked for the dashboard to be rebuilt and verified.
+- **Why:** `planning/evidence/dashboard_2026-11-02/` holds the tables we compare against, so the comparison still runs if the dashboard changes. The dashboard itself wasn't changed, including the figures we've corrected (F-40, F-42, F-46).

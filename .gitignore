@@ -10,3 +10,6 @@ __pycache__/
 
 # Office lock files
 ~$*
+
+# Node packages for the document builder
+node_modules/
