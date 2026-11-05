@@ -42,7 +42,7 @@ The first page load takes about 15 seconds, and after that it's fast. **Before a
 
 ## Rebuild the results
 
-Do this after changing the code. The pipeline takes about 90 seconds.
+Do this after changing the code. The pipeline takes a minute or two.
 
 ```bash
 python -m pytest                     # all tests
