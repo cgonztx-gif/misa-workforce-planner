@@ -26,7 +26,16 @@ export interface Meta {
   warehouses: { id: number | string; label: string; size: string }[];
   departments: { id: number; name: string; service_target: string | number | Record<string, unknown> }[];
   shifts: { code: string; name: string }[];
-  days: { date: string; label: string; holiday: string | null }[];
+  days: {
+    date: string;
+    label: string;
+    holiday: string | null;
+    /** Fri Feb 13 to Mon Feb 16, the Presidents' Day window. */
+    holiday_window?: boolean;
+    short?: string;
+    weekday?: string;
+    day_type?: string;
+  }[];
   defaults: { goal: number; callouts: number; demand: number; [key: string]: unknown };
   glossary: { term: string; definition: string }[];
   assumptions: { id: string; text: string; source: string }[];

@@ -168,5 +168,5 @@ Section numbers refer to `DELIVERABLES_PLAN.md`, which has the details, checks a
 | T-91 | Jupyter appendix (section 8) | T-78, T-79 | Runs with no errors, and its reproducibility cell passes | In progress |
 | T-92 | Rewrite the report (section 9) | T-78, T-79, then T-89 for screenshots | Every page checked as rendered, and the PDF exported | In progress |
 | T-93 | Build the presentation, main and appendix slides (section 10) | T-78, T-90 | `validate.py` passes, every slide checked as rendered, and the PDF exported | In progress (started before M4 for speed; slide 9's screenshot is swapped after T-90) |
-| T-94 | Q&A prep sheet (10.6) | T-78 | Saved in `deliverables/` | In progress |
+| T-94 | Q&A prep sheet (10.6) | T-78 | Saved in `deliverables/` | Done: `deliverables/Costco_QA_Prep.docx` and `.pdf`, 22 questions, built from `outputs/` by `scripts/build_qa_sheet.js` |
 | T-95 | Package the hand-in and tag `submission` (section 11) | T-62, T-66 | The folder is complete and the tag exists | Not started |

@@ -39,6 +39,14 @@ export interface View {
   carry: string;
 }
 
+/** The search params in the address bar right now. React Router's functional update hands over the params
+ *  from the last render, so two quick changes in one render could undo each other; reading the hash can't. */
+function liveParams(): URLSearchParams {
+  const hash = window.location.hash;
+  const query = hash.indexOf("?");
+  return new URLSearchParams(query >= 0 ? hash.slice(query + 1) : "");
+}
+
 /** Read and change the shared view. Changing scenario or warehouse keeps the page and the block. */
 export function useView(): View {
   const [params, setParams] = useSearchParams();
@@ -54,8 +62,8 @@ export function useView(): View {
   const update = useCallback(
     (changes: Record<string, string | null>) => {
       setParams(
-        (prev) => {
-          const next = new URLSearchParams(prev);
+        () => {
+          const next = liveParams();
           for (const [key, value] of Object.entries(changes)) {
             if (value === null) next.delete(key);
             else next.set(key, value);
@@ -72,10 +80,11 @@ export function useView(): View {
     (s: ScenarioCode) => {
       // A selected block keeps its place (store|dept|date|shift) in the new scenario.
       const changes: Record<string, string | null> = { scenario: s };
-      if (block) changes.block = [s, ...block.split("|").slice(1)].join("|");
+      const current = liveParams().get("block");
+      if (current) changes.block = [s, ...current.split("|").slice(1)].join("|");
       update(changes);
     },
-    [block, update],
+    [update],
   );
   const setWarehouse = useCallback((w: WarehouseKey) => update({ wh: w }), [update]);
   const setBlock = useCallback((key: string | null) => update({ block: key }), [update]);

@@ -60,7 +60,10 @@ Each block's chance of meeting target combines forecast error (T-24, plus A-11 o
 All of this is built.
 
 ```text
-app.py               Streamlit entry point: the views below
+server/              FastAPI app (D-24): the JSON API over src/ and the built front end, on localhost:8501. API.md lists every endpoint
+web/                 React front end (Vite, TypeScript, Tailwind, Radix, Recharts); web/dist is the built copy the server serves
+design/              tokens.json: one palette, type scale and chart settings for the app, deck, report and notebook (D-26)
+app.py               The Streamlit fallback (D-27), on port 8502
 src/data.py          Load CSVs, join them, map holiday labels
 src/diagnosis.py     Staffing gaps, callouts, and the rebuilt dashboard figures
 src/forecast.py      Daily regression and shift split
@@ -73,16 +76,19 @@ src/playbook.py      Triggers, actions and the holiday PTO test
 src/app_data.py      What the app shows, kept testable without Streamlit
 src/submission.py    Export and validate the template; team_id is one constant, TEAM_NAME until Q-07
 src/pipeline.py      Runs everything and writes outputs/
-src/charts.py        Charts for the Word file
-scripts/             Builds the Word file (Node, D-20)
+src/charts.py        Charts for the report, drawn with src/viz_style.py (the tokens as a matplotlib style)
+scripts/             Builds the report, deck (scripts/deck/), Q&A sheet, notebook and CSS tokens
+notebooks/           The notebook appendix's source, as a # %% script
 tests/               Unit and integration tests
 outputs/             Generated CSVs, charts and analysis_summary.json
-deliverables/        Costco_Case_Analysis.docx, for the team
+deliverables/        The report, presentation, notebook appendix and Q&A sheet, each with a PDF or HTML copy
 ```
 
 ## App views
 
-`UI_FRAMEWORK.md` covers the look, behavior and demo path in full.
+The demo app is the React app in `web/` (D-24). Its pages, behavior, look and 5-minute demo script are in `DELIVERABLES_PLAN.md` sections 6 and 7, and the look is in `design/README.md`. The pages are Overview, Schedule (the board, a drawer per block, Changes and Export), Demand, Cost and service, Scenario lab, Playbook and Methods. Only the Scenario lab shows what-if results, and with default settings every page shows exactly the submitted plan (`tests/test_api.py`). The server prepares all three scenarios at startup (about 15-20 seconds) and warms the demo's what-if.
+
+The table below describes the Streamlit fallback (`app.py`), which `UI_FRAMEWORK.md` covers in full.
 
 | View | Shows | Requirements |
 |---|---|---|
@@ -97,7 +103,7 @@ An answer in words and totals across all warehouses sit above the tabs, and the 
 
 ## Charts
 
-Front End, Merchandising and Pharmacy use blue, orange and green, which pass the color-blind check. Word file charts are drawn by `src/charts.py`, and app charts in `app.py`. `UI_FRAMEWORK.md` describes the rest of the current look.
+Every medium reads `design/tokens.json` (D-26): the web app through generated CSS variables, the report and notebook through `src/viz_style.py`, and the deck through `scripts/deck/theme.js`. The plan is iris, the draft gray and the benchmark dashed gray. Front End, Merchandising and Pharmacy are cerulean, bronze and plum, checked for color blindness. The Streamlit fallback keeps its own colors in `app.py`.
 
 ## Outputs
 
@@ -127,7 +133,9 @@ Front End, Merchandising and Pharmacy use blue, orange and green, which pass the
 | `tests/test_service_and_risk.py` | Service curves, and the risk calculation against simulation |
 | `tests/test_search_and_submission.py` | The search's rules and the submission validator |
 | `tests/test_explain_and_playbook.py` | Reasons, assumptions, cushions, playbook and the PTO test |
-| `tests/test_app.py` | The app, run without a browser, plus readable numbers on the board. `planning/evidence/drive_app.py` covers a real browser |
+| `tests/test_app.py` | The Streamlit fallback, run without a browser, plus readable numbers on the board. `planning/evidence/drive_app.py` covers a real browser |
+| `tests/test_api.py` | The web app's API: the default plan equals the submission on all 567 rows, costs, what-ifs, bad settings, no NaN, the warmed demo what-if. `planning/evidence/drive_web.py` covers a real browser |
+| `tests/test_explanations_match.py` | Every explanation quotes its own block's numbers, with the right articles (V-09) |
 
 ## Commands
 
@@ -148,11 +156,14 @@ python -m src.charts
 python planning/evidence/reconcile_dashboard.py > planning/evidence/reconcile_dashboard.output.txt
 node scripts/build_analysis_doc.js   # needs npm install once
 
-# Start the app, then open http://localhost:8501
-python -m streamlit run app.py
+# Start the app; it opens http://localhost:8501 once ready (or double-click start_app.bat)
+python -m server
+
+# The Streamlit fallback
+python -m streamlit run app.py --server.port 8502
 ```
 
-The start command reads `.streamlit/config.toml`, which runs headless, binds to `localhost`, turns off usage stats and sets a light theme with a minimal toolbar. It also holds the current theme, which can change freely (D-23). It was tested in Chrome and in a clean environment (F-56, F-57). `README.md` has the full setup steps.
+The server binds to localhost only and needs no internet. The Streamlit fallback reads `.streamlit/config.toml`, which runs headless, binds to `localhost`, turns off usage stats and sets a light theme with a minimal toolbar. It also holds the current theme, which can change freely (D-23). It was tested in Chrome and in a clean environment (F-56, F-57). `README.md` has the full setup steps.
 
 ## Optional SQL Server build
 

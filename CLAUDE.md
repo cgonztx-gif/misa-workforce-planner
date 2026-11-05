@@ -6,13 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Entry for the Texas MISA Fall 2026 case competition: the Costco workforce planning challenge. The output is a locally hosted web app, a staffing plan CSV, and a presentation with supporting analysis. All data is simulated and is not real Costco data, so label it that way in deliverables.
 
-**Submission is due the morning of Saturday, Nov 7, 2026.**
+**Submission is due Saturday, Nov 7, 2026 at 7:00 AM (Q-11).**
 
-First versions of the analysis, staffing CSV, explanations, playbook and Streamlit app all work. **The final push is planned in `planning/DELIVERABLES_PLAN.md`:** a new React web app, a rewritten report, the deck and a notebook appendix. Start there. Git is local only, on `main`. `MISA/` and `data/` aren't tracked because they extract from `MISA.zip`.
+The analysis, staffing CSV and the new web app work, and **the numbers are frozen at the `numbers-freeze` tag (M6, D-28)**: after it, only a bug fix changes a number, and then every deliverable is rebuilt. **The final push is planned in `planning/DELIVERABLES_PLAN.md`:** the app, the rewritten report, the deck, a notebook appendix and a Q&A sheet. Start there, with "Current focus" in `planning/PLAN.md`. Git is local only, on `main`. `MISA/` and `data/` aren't tracked because they extract from `MISA.zip`.
 
 ## Stack
 
-Python for the analysis: pandas on the CSVs, a statsmodels regression forecast, SciPy service curves, a risk model checked by NumPy simulation, and an exhaustive per-shift staffing search with no optimization solver. The web app is being rebuilt in React with a thin FastAPI layer (D-24). The Streamlit app, with Altair charts, stays as the fallback until M4 (D-27). Small Node scripts build the Word file and the deck. The reasons are in `planning/DECISIONS.md`.
+Python for the analysis: pandas on the CSVs, a statsmodels regression forecast, SciPy service curves, a risk model checked by NumPy simulation, and an exhaustive per-shift staffing search with no optimization solver. The web app is a React front end (`web/`, Vite and TypeScript) served with a JSON API by a thin FastAPI layer (`server/`) over `src/` (D-24). The service curve has a smooth bend (D-29). The Streamlit app (`app.py`, Altair charts) is the fallback on port 8502 (D-27). Small Node scripts build the Word file, the deck and the Q&A sheet, and `scripts/build_notebook.py` builds the notebook. The reasons are in `planning/DECISIONS.md`.
 
 ## Planning system
 
@@ -46,8 +46,18 @@ python -m src.pipeline
 python -m src.charts
 node scripts/build_analysis_doc.js
 
-# Start the app, then open http://localhost:8501
-python -m streamlit run app.py
+# Start the app (opens http://localhost:8501 once ready; restart it after rerunning the pipeline)
+python -m server
+
+# The Streamlit fallback
+python -m streamlit run app.py --server.port 8502
+
+# Rebuild the front end after changing web/ (needs Node; run npm install in web/ once)
+cd web && npm run build
+
+# Independent accuracy checks, and the browser acceptance checks
+python planning/evidence/ws1_checks.py --full
+python planning/evidence/drive_web.py
 
 # Reproduce the data findings (reads MISA.zip directly)
 python -I planning/evidence/verify_findings.py
@@ -65,4 +75,4 @@ python -I planning/evidence/verify_findings.py
 - **Join the submission template on keys, never row position.** It needs all 567 rows, total employees per block, and 0 for closed blocks.
 - **For UI work, the goal is that it looks good, with no strict design system (D-23).** The new app's direction is in sections 6 and 7 of `planning/DELIVERABLES_PLAN.md`, and the deck, report and notebook charts match it through `design/tokens.json` (D-26). Use `frontend-design`, `dataviz` and `webapp-testing` for the app, and `pptx`, `docx` and `theme-factory` for the deck and report. Check every change in a real browser or as rendered pages, because tests miss visual problems. The demo must work offline, so use no CDNs, remote fonts or the Streamlit skill's themes. The Streamlit fallback stays on 1.56 (D-22).
 - **The team name is still a placeholder.** Replace `TEAM_ID` in `src/submission.py` before submitting.
-- **Calculated figures in the Word file come from `outputs/`.** Change the code or `scripts/build_analysis_doc.js`, and don't type those numbers in by hand. Rebuilding replaces hand edits and fails while the file is open.
+- **Calculated figures in every deliverable come from `outputs/` (D-20, D-28).** Change the code or the builders (`scripts/`), and don't type numbers into the report, deck, Q&A sheet or notebook by hand. Rebuilding replaces hand edits and fails while the file is open.
