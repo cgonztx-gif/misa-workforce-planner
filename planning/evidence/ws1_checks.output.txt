@@ -1,31 +1,31 @@
-WS1 checks, 2026-11-05 15:14, mode --full
-git HEAD 88ae56f; uncommitted changes in src/: [' M src/charts.py', ' M src/explain.py', ' M src/pipeline.py', ' M src/playbook.py', ' M src/service.py', '?? src/viz_style.py']
+WS1 checks, 2026-11-05 15:39, mode --full
+git HEAD 981069f; uncommitted changes in src/: none
 
-FAIL V-01 Everything reproduces: tests, pipeline and findings reproduce, outputs identical
-     13 files in outputs/ outside charts/; differ from the last commit before this run: [' M outputs/TEAM_SUBMISSION_TEMPLATE_filled.csv', ' M outputs/analysis_summary.json', ' M outputs/capacity_gaps.csv', ' M outputs/explanations.csv', ' M outputs/goal_tradeoff.csv', ' M outputs/plan_vs_draft.csv', ' M outputs/pto_what_if.csv', ' M outputs/service_limits.csv']
-     pytest: 134 passed, 3 warnings in 122.99s (0:02:02)
+PASS V-01 Everything reproduces: tests, pipeline and findings reproduce, outputs identical
+     13 files in outputs/ outside charts/; differ from the last commit before this run: none
+     pytest: 135 passed, 3 warnings in 150.66s (0:02:30)
      pipeline exit 0; Validator problems: none
      byte-identical after the pipeline: yes
-     git status outputs/ (outside charts/) after the run: [' M outputs/TEAM_SUBMISSION_TEMPLATE_filled.csv', ' M outputs/analysis_summary.json', ' M outputs/capacity_gaps.csv', ' M outputs/explanations.csv', ' M outputs/goal_tradeoff.csv', ' M outputs/plan_vs_draft.csv', ' M outputs/pto_what_if.csv', ' M outputs/service_limits.csv']
+     git status outputs/ (outside charts/) after the run: clean
      verify_findings.py exit 0, 209 lines, identical to the saved output: True
-     (216 s)
+     (277 s)
 PASS V-02a Submission valid (own rebuild, no src/): 567 rows, 27 closed all 0, 540 open, problems: ['team_id is still the placeholder TEAM_NAME']
      keys joined on keys; row order also matches the template: True
      open blocks at capacity: 154; total employees 8081; rows differing from plan_vs_draft.csv: 0; team_id ['TEAM_NAME']
-FAIL V-08 Cost rule matches the README: plan and draft costs equal plan_vs_draft.csv and analysis_summary.json to the half cent
+PASS V-08 Cost rule matches the README: plan and draft costs equal plan_vs_draft.csv and analysis_summary.json to the half cent
      plan: BASE $377,504.480 vs $377,504.480, PEAK $387,926.420 vs $387,926.420, DISRUPT $366,649.010 vs $366,649.010
      draft: BASE $329,108.190 vs $329,108.190, PEAK $329,108.190 vs $329,108.190, DISRUPT $326,367.240 vs $326,367.240
      largest per-block gaps: {'plan cost per block': 4.547473508864641e-13, 'draft cost per block': 4.547473508864641e-13, 'plan usable flex': 0.0, 'plan capacity': 0.0, 'plan fills': 0.0, 'draft unfilled': 0.0}
      plan_by_dept largest gap $0.000000
      grid rates vs comp_LaborCostAssumption gap 0.0
-     F-48 rounded (doc, ours): {'Draft cost': ([329108.0, 329108.0, 326367.0], [329108, 329108, 326367]), 'Plan cost': ([376176.0, 387092.0, 365321.0], [377504, 387926, 366649])}
+     F-48 rounded (doc, ours): {'Draft cost': ([329108.0, 329108.0, 326367.0], [329108, 329108, 326367]), 'Plan cost': ([377504.0, 387926.0, 366649.0], [377504, 387926, 366649])}
      note: the draft's 36 unfieldable people in 12 DISRUPT blocks are not costed; paying them at overtime would add $6,006.98 (the README doesn't say)
-PASS V-09 Every explanation matches its numbers: tests/test_explanations_match.py: 11 passed, 1 warning in 0.70s (567 rows, 540 open)
-FAIL V-05 Forecast inputs hold up: multipliers, Feb 17, promotions and Valentine's all hold
+PASS V-09 Every explanation matches its numbers: tests/test_explanations_match.py: 11 passed, 1 warning in 0.66s (567 rows, 540 open)
+PASS V-05 Forecast inputs hold up: multipliers, Feb 17, promotions and Valentine's all hold
      [ok] scenario / BASE demand = grid multiplier: BASE 180 blocks, largest gap 0.0e+00, PEAK 180 blocks, largest gap 2.2e-16, DISRUPT 180 blocks, largest gap 0.0e+00
      [ok] Feb 17: grid role Normal, rebound flag 1, forecast window ['normal'], no Valentine uplift, same demand_sd as Feb 18: True; the data pack's history generator ignores the rebound flag (Jan 20 flagged, role ['Normal']), and Jan 20 ran +0.10% against its own week
      [ok] F-61: 42/42 history days follow Fri-Sun + MLK Monday + New Year's Day, planning promotions on ['2026-02-13', '2026-02-14', '2026-02-15', '2026-02-16']
-     [FAIL] F-52 vs analysis_summary.json: expected service [91.0, 85.3, 80.4, 64.5] / replanned [90.3, 85.3, 80.7, 65.9], replanned cost [57868, 59195, 60096, 60459], at capacity 11 of 18
+     [ok] F-52 vs analysis_summary.json: expected service [91.0, 85.3, 80.4, 64.5] / replanned [90.3, 85.3, 80.7, 65.9], replanned cost [57868, 59195, 60096, 60459], at capacity 11 of 18
 PASS V-07 Search is optimal: 20/20 seeded shifts (seed 20261107), 189/189 of all open shifts, Pharmacy 162/162
      ties at the top: 0; plan meets the D-17 floors in 189/189 shifts; the guard changes the pick in 11
      closed not 0: 0 of 27; below min_staff: 0; over capacity: 0; largest gap between plan_vs_draft chance and the scorer: 4.4e-16
@@ -61,7 +61,7 @@ PASS V-07 Search is optimal: 20/20 seeded shifts (seed 20261107), 189/189 of all
      D-17 binds 3/2/2026-02-14/MID: guarded (29, 19), unguarded (24, 20)
      D-17 binds 3/2/2026-02-14/OPEN: guarded (21, 25), unguarded (17, 26)
      D-17 binds 3/2/2026-02-15/MID: guarded (33, 20), unguarded (27, 21)
-     (6 s)
+     (9 s)
 PASS V-02b Submission valid (src.submission.validate): validate(): no problems; validate(final=True): ['team_id still holds the placeholder TEAM_NAME (Q-07)']
 PASS V-06 DISRUPT doesn't count the illness twice: A-12 kept with evidence: January's flu week cut Warehouse 2's availability and raised callouts together
      January flu week vs normal weeks, same weekday and shift: W2 Front End regular -17.9%, Pharmacy -21.0%, overtime pool unchanged; callouts 12.3% and 10.7%; every other warehouse-department within 3.7%; flu-note blocks {'W2 38': 21, 'W2 95': 18}
@@ -71,6 +71,6 @@ PASS V-06 DISRUPT doesn't count the illness twice: A-12 kept with evidence: Janu
      plan without A-12: 11,288.0 h, $366,649.01, expected service 90.3%, 35 blocks below goal
      staffing changes from dropping A-12: 0 blocks, 0 people
      draft scored with / without A-12: 66.6% / 67.3%
-     (6 s)
+     (11 s)
 
-5 of 8 checks passed: V-01 FAIL, V-02a PASS, V-08 FAIL, V-09 PASS, V-05 FAIL, V-07 PASS, V-02b PASS, V-06 PASS
+8 of 8 checks passed: V-01 PASS, V-02a PASS, V-08 PASS, V-09 PASS, V-05 PASS, V-07 PASS, V-02b PASS, V-06 PASS

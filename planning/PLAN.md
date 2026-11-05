@@ -148,11 +148,11 @@ Section numbers refer to `DELIVERABLES_PLAN.md`, which has the details, checks a
 | T-71 | Install and smoke-test the skills and tools for the deck, notebook and browser checks (D-25) | | Installed, pinned and smoke-tested (F-60) | Done |
 | T-72 | Write the final deliverables plan | | `DELIVERABLES_PLAN.md` exists and the planning files point to it | Done |
 | T-73 | Complete the case coverage matrix and close its gaps (5.1, 5.2, V-03) | | No ✗ remains except deliverables being built | Done |
-| T-74 | Reproduce everything and check the submission independently (V-01, V-02) | | Tests pass, outputs are identical, the submission checks pass | Done (F-66, F-67). Rerun after D-29 |
+| T-74 | Reproduce everything and check the submission independently (V-01, V-02) | | Tests pass, outputs are identical, the submission checks pass | Done (F-66, F-67). Rerun after D-29: 8 of 8 pass |
 | T-75 | Calibration study and model-free check of expected service (V-04, V-11) | T-74 | Result recorded, and any change to the plan decided by the user | Done: F-62 to F-65. The user chose the smooth bend (D-29), which is being applied before the freeze |
 | T-76 | Check the forecast's and scenarios' inputs (V-05, V-06) | T-74 | All hold, or the changes go to the user | Done (F-68, F-69) |
-| T-77 | Independent checks of the search and cost, plus a test that explanations match their numbers (V-07 to V-09) | T-74 | 20 of 20 shifts agree, costs match to the cent, the test passes | Done (F-70 to F-72). Rerun after D-29 |
-| T-78 | Freeze the numbers (5.4, D-28) | T-73 to T-77 | Pipeline rerun, committed, tagged `numbers-freeze` (M6) | Not started |
+| T-77 | Independent checks of the search and cost, plus a test that explanations match their numbers (V-07 to V-09) | T-74 | 20 of 20 shifts agree, costs match to the cent, the test passes | Done (F-70 to F-72). Rerun after D-29: 8 of 8 pass |
+| T-78 | Freeze the numbers (5.4, D-28) | T-73 to T-77 | Pipeline rerun, committed, tagged `numbers-freeze` (M6) | Done: tagged `numbers-freeze` (M6 met Thu Nov 5) |
 | T-79 | Shared look: `design/tokens.json`, `src/viz_style.py`, the deck theme (section 6, D-26) | | A sample chart in each medium looks like the same product | Done: tokens, `src/viz_style.py`, `scripts/deck/theme.js`, samples in `evidence/look_samples/` (F-73) |
 | T-80 | API layer and its tests (7.3) | | `tests/test_api.py` passes, and defaults equal the submission | Done: 11 endpoints plus `plan.csv`, 45 API tests, `server/API.md`, `start_app.bat`. Ready in 17.5 s, a new what-if in 4.5-5.6 s |
 | T-81 | Web app shell: layout, navigation, top bar, data client, "preparing" screen (7.2) | T-79, T-80 | Served by FastAPI on localhost:8501, with no outside requests | Done: shell, shared components and chart theme, checked in Chromium (`evidence/web_screenshots/`) |
@@ -160,13 +160,13 @@ Section numbers refer to `DELIVERABLES_PLAN.md`, which has the details, checks a
 | T-83 | Schedule page: board, block drawer, changes list, export (7.4) | T-81 | Checked in a browser | Done: board with three color modes, drawer kept in the URL, Changes table, exports. 49 of 49 browser checks pass |
 | T-84 | Demand page (7.4) | T-81 | Checked in a browser | Done: forecast against benchmark, waterfall, shift split, accuracy card, drivers we tested. Checked in Chromium, 70 figures matched to the API |
 | T-85 | Cost and service page (7.4) | T-81 | Checked in a browser | Done: scenario and department table (gap 4), cost and service by day, trade-off, callout allowance, below-goal table. Checked in Chromium |
-| T-86 | Scenario lab (7.4) | T-81 | A what-if finishes in under 8 seconds and Reset works | In progress |
-| T-87 | Playbook page (7.4) | T-81 | Checked in a browser | In progress |
-| T-88 | Methods page (7.4) | T-81 | Checked in a browser | In progress |
-| T-89 | Browser checks, screenshots, offline and timing checks (7.8) | T-82 to T-88 | `planning/evidence/drive_web.py` passes | Not started |
+| T-86 | Scenario lab (7.4) | T-81 | A what-if finishes in under 8 seconds and Reset works | Done: settings incl. staff availability, presets, what-if boards and changes, Reset, settings in the URL. Demo what-ifs warmed at server startup |
+| T-87 | Playbook page (7.4) | T-81 | Checked in a browser | Done: PTO small multiples, scenario cards, rules for the day, least-cushion blocks linking to the Schedule |
+| T-88 | Methods page (7.4) | T-81 | Checked in a browser | Done: engine diagram, why totals per block (gap 3), validation, assumptions ours and the case's, data notice |
+| T-89 | Browser checks, screenshots, offline and timing checks (7.8) | T-82 to T-88 | `planning/evidence/drive_web.py` passes | In progress |
 | T-90 | Polish, fresh-eyes review, the M4 decision, then update the README, `CLAUDE.md`, `DESIGN.md` and the UI guide (7.9) | T-89 | M4 met with the new app or the fallback | Not started |
-| T-91 | Jupyter appendix (section 8) | T-78, T-79 | Runs with no errors, and its reproducibility cell passes | Not started |
-| T-92 | Rewrite the report (section 9) | T-78, T-79, then T-89 for screenshots | Every page checked as rendered, and the PDF exported | Not started |
-| T-93 | Build the presentation, main and appendix slides (section 10) | T-78, T-90 | `validate.py` passes, every slide checked as rendered, and the PDF exported | Not started |
-| T-94 | Q&A prep sheet (10.6) | T-78 | Saved in `deliverables/` | Not started |
+| T-91 | Jupyter appendix (section 8) | T-78, T-79 | Runs with no errors, and its reproducibility cell passes | In progress |
+| T-92 | Rewrite the report (section 9) | T-78, T-79, then T-89 for screenshots | Every page checked as rendered, and the PDF exported | In progress |
+| T-93 | Build the presentation, main and appendix slides (section 10) | T-78, T-90 | `validate.py` passes, every slide checked as rendered, and the PDF exported | In progress (started before M4 for speed; slide 9's screenshot is swapped after T-90) |
+| T-94 | Q&A prep sheet (10.6) | T-78 | Saved in `deliverables/` | In progress |
 | T-95 | Package the hand-in and tag `submission` (section 11) | T-62, T-66 | The folder is complete and the tag exists | Not started |
