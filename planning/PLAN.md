@@ -2,11 +2,11 @@
 
 ## Current focus
 
-**Deadline: the morning of Saturday, Nov 7, 2026.** The exact time isn't known yet (Q-11), so we aim to finish Friday night (D-14). As of Thursday, that leaves Thursday and Friday.
+**Deadline: Saturday, Nov 7, 2026 at 7:00 AM (Q-11).** The presentation slot isn't known yet. Everything must be finished Friday night (D-14), because Saturday morning is too early to use. As of Thursday, that leaves Thursday and Friday.
 
-**Now: the final push, planned in full in `DELIVERABLES_PLAN.md`. The plan is written and the skills and tools are installed (T-71, T-72). Implementation waits for the user's go.** M2 and M3 were met on Wednesday: the analysis, plan, explanations, playbook and the Streamlit app all work (F-39 to F-59).
+**Now: the final push, planned in full in `DELIVERABLES_PLAN.md`. The user said go on Thursday, Nov 5, so implementation has started, with subagents running independent tasks in parallel.** T-73 is done. The WS1 checks (T-74 to T-77), the shared look (T-79), the API (T-80) and the app shell (T-81) are running. M2 and M3 were met on Wednesday: the analysis, plan, explanations, playbook and the Streamlit app all work (F-39 to F-59).
 
-When the user says go, work in this order (`DELIVERABLES_PLAN.md` section 3):
+Work in this order (`DELIVERABLES_PLAN.md` section 3):
 
 1. **T-73 to T-78:** check the analysis against the case, take the calibration result to the user, then freeze the numbers (M6, Thursday night).
 2. **T-79 to T-90:** the shared look, then the new React app with its FastAPI layer (D-24). Go or no-go at M4, Friday 1 pm, with the Streamlit app as the fallback (D-27).
@@ -19,7 +19,7 @@ Held for now:
 
 - **Organizer questions (T-05):** deferred at the user's request, and nothing has been sent. **Thursday was the date to come back to them**, because the team still needs the exact deadline and how to hand in (Q-04, Q-11).
 - **Team name (Q-07):** `team_id` stays the placeholder `TEAM_NAME` until the real name is known. T-62 must replace it before submitting.
-- **Word file (Q-13):** Word had it open on Thursday. Check for hand edits before T-92 rewrites it.
+- **Word file (Q-13): answered.** Nobody edited it by hand, and a copy is archived, so T-92 can rebuild it.
 
 ## Schedule
 
@@ -147,15 +147,15 @@ Section numbers refer to `DELIVERABLES_PLAN.md`, which has the details, checks a
 |---|---|---|---|---|
 | T-71 | Install and smoke-test the skills and tools for the deck, notebook and browser checks (D-25) | | Installed, pinned and smoke-tested (F-60) | Done |
 | T-72 | Write the final deliverables plan | | `DELIVERABLES_PLAN.md` exists and the planning files point to it | Done |
-| T-73 | Complete the case coverage matrix and close its gaps (5.1, 5.2, V-03) | | No ✗ remains except deliverables being built | Not started |
-| T-74 | Reproduce everything and check the submission independently (V-01, V-02) | | Tests pass, outputs are identical, the submission checks pass | Not started |
-| T-75 | Calibration study and model-free check of expected service (V-04, V-11) | T-74 | Result recorded, and any change to the plan decided by the user | Not started |
-| T-76 | Check the forecast's and scenarios' inputs (V-05, V-06) | T-74 | All hold, or the changes go to the user | Not started |
-| T-77 | Independent checks of the search and cost, plus a test that explanations match their numbers (V-07 to V-09) | T-74 | 20 of 20 shifts agree, costs match to the cent, the test passes | Not started |
+| T-73 | Complete the case coverage matrix and close its gaps (5.1, 5.2, V-03) | | No ✗ remains except deliverables being built | Done |
+| T-74 | Reproduce everything and check the submission independently (V-01, V-02) | | Tests pass, outputs are identical, the submission checks pass | In progress |
+| T-75 | Calibration study and model-free check of expected service (V-04, V-11) | T-74 | Result recorded, and any change to the plan decided by the user | In progress |
+| T-76 | Check the forecast's and scenarios' inputs (V-05, V-06) | T-74 | All hold, or the changes go to the user | In progress |
+| T-77 | Independent checks of the search and cost, plus a test that explanations match their numbers (V-07 to V-09) | T-74 | 20 of 20 shifts agree, costs match to the cent, the test passes | In progress |
 | T-78 | Freeze the numbers (5.4, D-28) | T-73 to T-77 | Pipeline rerun, committed, tagged `numbers-freeze` (M6) | Not started |
-| T-79 | Shared look: `design/tokens.json`, `src/viz_style.py`, the deck theme (section 6, D-26) | | A sample chart in each medium looks like the same product | Not started |
-| T-80 | API layer and its tests (7.3) | | `tests/test_api.py` passes, and defaults equal the submission | Not started |
-| T-81 | Web app shell: layout, navigation, top bar, data client, "preparing" screen (7.2) | T-79, T-80 | Served by FastAPI on localhost:8501, with no outside requests | Not started |
+| T-79 | Shared look: `design/tokens.json`, `src/viz_style.py`, the deck theme (section 6, D-26) | | A sample chart in each medium looks like the same product | In progress |
+| T-80 | API layer and its tests (7.3) | | `tests/test_api.py` passes, and defaults equal the submission | In progress |
+| T-81 | Web app shell: layout, navigation, top bar, data client, "preparing" screen (7.2) | T-79, T-80 | Served by FastAPI on localhost:8501, with no outside requests | In progress |
 | T-82 | Overview page (7.4) | T-81 | Checked in a browser | Not started |
 | T-83 | Schedule page: board, block drawer, changes list, export (7.4) | T-81 | Checked in a browser | Not started |
 | T-84 | Demand page (7.4) | T-81 | Checked in a browser | Not started |

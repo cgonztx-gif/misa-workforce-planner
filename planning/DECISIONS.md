@@ -175,13 +175,13 @@
 
 ## D-27: Keep the Streamlit app as the fallback demo until the new app is accepted
 
-- **Status:** Proposed, 2026-11-05
+- **Status:** Accepted, 2026-11-05, when the user said to start implementing the plan.
 - **Why:** it works today (F-56, F-59). If the new app isn't ready by M4, Friday at 1 pm, the team still has a tested demo, and the deck's screenshots come from it.
 - **Choice:** `app.py` and its tests stay untouched until M4. After that, it runs on port 8502 as a documented fallback.
 
 ## D-28: Freeze the numbers before writing, and print no figures by hand
 
-- **Status:** Proposed, 2026-11-05. Extends D-20 to the deck and the notebook.
+- **Status:** Accepted, 2026-11-05, when the user said to start implementing the plan. Extends D-20 to the deck and the notebook.
 - **Why:** the deck, report and notebook are written in parallel, so they must all quote the same plan. Any model change after the freeze means rebuilding all three.
 - **Choice:** after the checks in `DELIVERABLES_PLAN.md` section 5, rerun the pipeline, commit and tag `numbers-freeze` (M6). The deck's and report's builders read every calculated figure from `outputs/analysis_summary.json`, and the notebook recomputes and asserts against it.
 

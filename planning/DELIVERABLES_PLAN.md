@@ -1,6 +1,6 @@
 # Final deliverables plan
 
-**Status:** Approved for planning on 2026-11-05. **Implementation waits for the user's go.** Skills and tools are already installed (T-71, F-60).
+**Status:** Approved on 2026-11-05. **Implementation started the same day, at the user's go,** using parallel subagents for independent work. Skills and tools are installed (T-71, F-60).
 
 This plan covers the last push before the deadline on the morning of Saturday, Nov 7. It has five deliverables and one verification pass:
 
@@ -34,8 +34,8 @@ Every deliverable says the data is simulated and isn't Costco's (R-30). None use
 | D-24 | Rebuild the web tool as a React front end (Vite, TypeScript) served by a thin FastAPI layer over the existing Python engine in `src/`. This replaces Streamlit for the demo app | Accepted, user, 2026-11-05 |
 | D-25 | Install `webapp-testing` and `theme-factory` at project level, and add the deck, notebook and browser tools in `requirements-dev.txt` and `package.json` | Accepted, user, 2026-11-05 |
 | D-26 | The deck, report charts and notebook charts share the web app's colors, font and chart styling, all read from one file, `design/tokens.json`. This is a shared palette, not a design system, so D-23 still holds | Accepted, user asked for it, 2026-11-05 |
-| D-27 | The current Streamlit app stays working and untouched as the fallback demo until the new app passes its checks at M4 | Proposed |
-| D-28 | Freeze the numbers (M6) before writing the deck, report and notebook. Calculated figures in all three come from `outputs/`, extending D-20 to the deck | Proposed |
+| D-27 | The current Streamlit app stays working and untouched as the fallback demo until the new app passes its checks at M4 | Accepted, user's go, 2026-11-05 |
+| D-28 | Freeze the numbers (M6) before writing the deck, report and notebook. Calculated figures in all three come from `outputs/`, extending D-20 to the deck | Accepted, user's go, 2026-11-05 |
 
 ## 3. Schedule and gates
 
@@ -133,14 +133,14 @@ The case deck in the root (`.pptx`) and the newer PDF list the same elements. Th
 
 ### 5.2 Gaps to close in the deliverables
 
-The analysis itself has no gaps. These are things the deliverables need to *say*:
+The analysis itself has no gaps. These are things the deliverables need to *say*. **V-03 passed on 2026-11-05 (T-73):** the only ✗ left is the deck, which T-93 builds, and every ◐ has a named fix below, with the task that delivers it.
 
-1. **"Drivers we tested" table** (report ch. 4, notebook §3, Methods page): for each of the case's demand drivers, what we tested, what we found, and how it enters the plan. This covers traffic, promotions and weather, which the case names and the current Word file barely mentions.
-2. **The three departments and why they matter** (deck slide 2): checkout wait, replenishment response, prescription wait.
-3. **Why we recommend totals per block and not individual shifts** (report ch. 5): the template asks for totals, and the data has no individual employee records.
-4. **Cost and service against the draft for every scenario and department** (deck appendix A6, report ch. 6). Today only BASE has a department breakdown on screen.
-5. **The benchmark claim, worded as F-44 allows** everywhere it appears.
-6. **The simulated-data label** on the title slide, the report cover, the notebook header and the app's header.
+1. **"Drivers we tested" table** (report ch. 4, notebook §3, Methods page): for each of the case's demand drivers, what we tested, what we found, and how it enters the plan. This covers traffic, promotions and weather, which the case names and the current Word file barely mentions. **Delivered by** T-92 (ch. 4), T-91 (§3) and T-84 (Demand page).
+2. **The three departments and why they matter** (deck slide 2): checkout wait, replenishment response, prescription wait. **Delivered by** T-93 (slide 2) and T-92 (ch. 1).
+3. **Why we recommend totals per block and not individual shifts** (report ch. 5): the template asks for totals, and the data has no individual employee records. **Delivered by** T-92 (ch. 5) and T-88 (Methods page).
+4. **Cost and service against the draft for every scenario and department** (deck appendix A6, report ch. 6). Today only BASE has a department breakdown on screen. **Delivered by** T-85 (Cost and service page), T-93 (A6) and T-92 (ch. 6).
+5. **The benchmark claim, worded as F-44 allows** everywhere it appears. **Delivered by** T-84, T-92, T-93 and T-94.
+6. **The simulated-data label** on the title slide, the report cover, the notebook header and the app's header. **Delivered by** T-81 (app header), T-91, T-92 and T-93.
 
 ### 5.3 Accuracy checks
 
@@ -516,9 +516,9 @@ A one-page sheet in `deliverables/`, with an answer for each likely question:
 
 | ID | Question | Needed by | Default if no answer |
 |---|---|---|---|
-| Q-07 | Team name | Before T-62 (Fri evening) | None. It's required |
-| Q-11 | Exact submission time and presentation slot | Before scheduling Friday night | Finish Friday night |
-| Q-13 | Has anyone edited the Word file by hand since Nov 4? | Before the first report rebuild (T-92) | Archive a copy, then rebuild |
+| Q-07 | Team name | Before T-62 (Fri evening) | The user said to leave the placeholder for now (2026-11-05). The final validator still requires a real name |
+| Q-11 | Exact submission time and presentation slot | Before scheduling Friday night | **Due Sat 7:00 AM** (user, 2026-11-05). The slot is still unknown. Finish Friday night |
+| Q-13 | Has anyone edited the Word file by hand since Nov 4? | Before the first report rebuild (T-92) | **Answered: no** (user, 2026-11-05). A copy is archived |
 | Q-14 | Product name for the tool | Before T-81 | "Workforce Planner" |
 | Q-04 | How is the tool handed in? | T-95 | Zip the source with run steps |
 | — | Who presents which part, and who drives the demo? | T-65 | The team decides at the first rehearsal |
