@@ -179,9 +179,9 @@ const BS = S.base_shortfall;
 body.push(BUL(`**Capacity runs short around the holiday.** Even using everyone available, ${BS.blocks} BASE blocks can't reach a ${pct(S.service_goal, 0)} chance of meeting target, and their average chance is ${pct(BS.average_chance, 0)}. Of those, ${BS.holiday_blocks} fall on Feb 13-16, including ${baseBelowFeb14} on Saturday, Feb 14. This is the main problem to raise with a warehouse leader, because rearranging the schedule can't fix it. Changing availability can.`));
 body.push(SPACER());
 body.push(NOTE([
-  new Paragraph({ spacing: { after: 80 }, children: rich("**Decisions for the team**") }),
+  new Paragraph({ spacing: { after: 80 }, children: rich("**Decisions made**") }),
   new Paragraph({ spacing: { after: 80, line: 276 }, children: rich(`**Decided: a ${pct(S.service_goal, 0)} service goal,** because judging puts service first. A 90% goal would save ${money(plan.BASE.cost - goalRow(0.9).cost)} in BASE, with expected service of ${pct(goalRow(0.9).expected_met)} instead of ${pct(plan.BASE.expected_met)}. See "How high to set the service goal".`) }),
-  new Paragraph({ spacing: { after: 0, line: 276 }, children: rich(`**Still open: should the plan allow for callouts?** We don't know whether judges apply callouts to submitted staffing. In our model, allowing for them costs about ${moneyK(buffer(BOTH).cost - buffer(FCST).cost)} in BASE. Asking the organizers would settle this, and the question is drafted but not sent. See "What the allowance for risk costs".`) }),
+  new Paragraph({ spacing: { after: 0, line: 276 }, children: rich(`**Decided: the plan allows for callouts.** We don't know whether judges apply callouts to submitted staffing, so we assume they do. In our model, this costs about ${moneyK(buffer(BOTH).cost - buffer(FCST).cost)} in BASE. The organizers could confirm how scoring works, and the question is drafted but not sent. See "What the allowance for risk costs".`) }),
 ]));
 body.push(SPACER());
 
@@ -329,10 +329,10 @@ body.push(H2("What the allowance for risk costs"));
 body.push(P("We don't know how judges score a plan (the case doesn't publish its scorer), so we built three plans and scored each one three ways. All use the BASE scenario and the same service goal."));
 const bufRow = (name, label) => { const r = buffer(name); return [label, money(r.cost), pct(r.met_both_risks), pct(r.met_forecast_error_only), pct(r.met_neither)]; };
 body.push(TABLE(["Plan allows for", "Cost", "Service if both risks happen", "Service with forecast error, no callouts", "Service with neither"],
-  [bufRow(BOTH, "**Both risks (recommended)**"), bufRow(FCST, "Forecast error only"), bufRow(NONE, "Neither"), bufRow("Current draft", "Current draft, for comparison")], [2760, 1500, 1700, 1800, 1600]));
+  [bufRow(BOTH, "**Both risks (chosen)**"), bufRow(FCST, "Forecast error only"), bufRow(NONE, "Neither"), bufRow("Current draft", "Current draft, for comparison")], [2760, 1500, 1700, 1800, 1600]));
 body.push(CAPTION("Table 11. BASE scenario. Service is the expected share of blocks meeting target under each set of conditions."));
 body.push(P(`**The "Neither" row is a useful result on its own.** Just moving hours to where they are needed, at about the draft's cost, lifts expected service in every column: from ${pct(buffer("Current draft").met_both_risks)} to ${pct(buffer(NONE).met_both_risks)} with both risks, and from ${pct(buffer("Current draft").met_neither)} to ${pct(buffer(NONE).met_neither)} with neither. The rest of the improvement is bought with extra hours.`));
-body.push(P(`In our model, the allowance for callouts costs about ${moneyK(buffer(BOTH).cost - buffer(FCST).cost)}. If judges ignore callouts, it buys little (${pct(buffer(FCST).met_forecast_error_only)} to ${pct(buffer(BOTH).met_forecast_error_only)}). If they apply them, it buys a lot (${pct(buffer(FCST).met_both_risks)} to ${pct(buffer(BOTH).met_both_risks)}). Since service is judged first and history shows callouts are real, we kept it.`));
+body.push(P(`In our model, the allowance for callouts costs about ${moneyK(buffer(BOTH).cost - buffer(FCST).cost)}. If judges ignore callouts, it buys little (${pct(buffer(FCST).met_forecast_error_only)} to ${pct(buffer(BOTH).met_forecast_error_only)}). If they apply them, it buys a lot (${pct(buffer(FCST).met_both_risks)} to ${pct(buffer(BOTH).met_both_risks)}). Since service is judged first and history shows callouts are real, we plan as if judges apply them.`));
 
 body.push(H2("How high to set the service goal"));
 body.push(FIG("goal_tradeoff", "Line chart of BASE labor cost against expected service for service goals from 85 to 99 percent, with the current draft shown far below and to the left. Service gains flatten as cost rises."));
@@ -368,7 +368,7 @@ body.push(P("The case asks us to identify any assumptions of our own. These are 
 body.push(TABLE(["ID", "Assumption", "If it's wrong"], [
   ["A-01", "Usable cross-trained staff is the smaller of the row's flex figure and what the partner department has left over after filling its own total from regular staff", "Plans could cost more or be flagged infeasible"],
   ["A-02", "Sharing follows the shift code, even though Opening covers different clock hours by department", "Less flex may be available in Opening blocks"],
-  ["A-03", "Plans should allow for callouts, using historical rates, with about half backfilled", "If judges ignore callouts, this adds cost without earning credit"],
+  ["A-03", "Plans should allow for callouts, using historical rates, with about half backfilled. Confirmed", "If judges ignore callouts, this adds cost without earning credit"],
   ["A-04", "85% utilization is a ceiling, not a target", "Too cautious adds cost; too tight misses targets"],
   ["A-05", "The MLK window is a fair guide to the Presidents' Day window", "The holiday effect is misjudged"],
   ["A-06", `Valentine's Day adds ${pct(S.valentine_uplift["Front End"], 0)} for Front End and Merchandising on Feb 14, as a stated judgment`, "Saturday demand is misjudged, though capacity limits that day anyway"],
@@ -387,9 +387,8 @@ body.push(SPACER());
 // Next.
 body.push(H1("Open items and what's next"));
 body.push(H2("Waiting on someone"));
-body.push(BUL("**Organizer questions, on hold.** Nothing has been sent. We still need the exact Saturday deadline and how to hand everything in, so we should come back to this by Thursday. The answer on scoring callouts also settles the open decision above."));
+body.push(BUL("**Organizer questions, on hold.** Nothing has been sent. We still need the exact Saturday deadline and how to hand everything in, so we should come back to this by Thursday. Their answer on scoring callouts would also show whether the callout allowance is needed."));
 body.push(BUL(`**Team name.** The CSV uses the placeholder ${S.team_id}, which must be replaced before submitting.`));
-body.push(BUL("**Callout allowance.** The open decision at the top of this document."));
 body.push(H2("Still to build"));
 body.push(BUL("**App:** scenario selector, staffing, cost and risk views, a demand view, and a \"why this recommendation\" panel."));
 body.push(BUL("**Explanations:** a reason for every changed block."));

@@ -127,7 +127,7 @@ Expected service below means the average chance of meeting target across open bl
   | Neither | $328,201 | 75.2% | 87.6% | 99.3% |
   | Current draft | $329,108 | 69.8% | 78.1% | 81.1% |
 
-  *Use:* moving hours alone, at about the draft's cost, beats the draft under every condition. The callout allowance costs $22,755, which Q-02 would settle.
+  *Use:* moving hours alone, at about the draft's cost, beats the draft under every condition. The callout allowance costs $22,755, and the user chose to keep it (A-03). Q-02 would show whether it's needed.
 - **F-52: Valentine's Day sensitivity (T-22, A-06).** BASE, Front End and Merchandising on Feb 14. If the true uplift is 0%, 3%, 5% or 10%, our plan's expected service is 91.8%, 86.5%, 81.9% or 66.6%. Having planned for that uplift would give 90.9%, 86.5%, 82.3% or 68.3%, at $57,464, $58,908, $59,960 or $60,459. *Use:* planning for more barely helps because 10 of those 18 blocks are at capacity, so the choice of 3% matters little (R-29).
 - **F-53: Two search failures, found by checking results and now fixed (T-32, D-17).** First, blocks that couldn't reach the goal fell back to minimum staff, because extra staff don't change a saturated block's chance of meeting target. This made PEAK's hours lower than BASE's. Second, the search cut overloaded departments to lend staff (D-17). Tests now cover both.
 
