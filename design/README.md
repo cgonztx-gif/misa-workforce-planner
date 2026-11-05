@@ -12,7 +12,7 @@ A calm slate workspace held inside a dark navy frame (top bar and sidebar). Whit
 |---|---|
 | Web app | `node scripts/build_tokens.mjs` writes `web/src/styles/tokens.css` (CSS variables `--wp-*`). It runs automatically before `npm run dev` and `npm run build` in `web/`. Tailwind maps the variables to utilities such as `bg-surface`, `text-ink-muted`, `border-border` |
 | Report and notebook charts | `src/viz_style.py` (to be written) builds a matplotlib style from this file |
-| Deck | `scripts/deck/theme.js` (to be written) builds the pptxgenjs theme. Sizes are px; use pt = px x 0.75 |
+| Deck | `scripts/deck/theme.js` builds the pptxgenjs theme, text styles, card, chip and KPI tile shapes, and native chart options. Text and marks use 1 px = 1 pt, so slide text never falls under 14pt; only hairlines use pt = px x 0.75. Slide sizes are set explicitly in `theme.js` (title 32, KPI 32, hero 60, body 16, caption 12 for footers only). PowerPoint can't round chart bar ends, and the 6-4 benchmark dash becomes its "dash" preset. The warning-zone band in charts uses `warning_soft` |
 
 ## Format
 

@@ -1,0 +1,471 @@
+
+====================================================================================================
+V-04 STEP 1. Reproduce the pipeline's out-of-sample calibration (src.service.holdout_scores)   [0s]
+====================================================================================================
+Folds: leave one week out, weeks [np.int64(1), np.int64(2), np.int64(3), np.int64(4), np.int64(5), np.int64(6)], 1053 open history blocks scored once each.
+Brier, model 0.02611 (analysis_summary.json service_brier.model 0.02611); base rate 0.17730 (0.17730)
+    bin  blocks  predicted  observed
+  0-10%     191      0.004     0.016
+ 10-30%      15      0.213     0.200
+ 30-50%      18      0.403     0.500
+ 50-70%      17      0.617     0.647
+ 70-90%      38      0.809     0.684
+ 90-95%      31      0.925     0.903
+ 95-99%      53      0.973     0.943
+99-100%     690      1.000     1.000
+
+Our baseline matches holdout_scores() on keys: max |difference| = 0.00e+00 over 1053 blocks
+
+====================================================================================================
+V-04 STEP 2. Fitted fix parameters, per training fold (fold = held-out week)   [10s]
+====================================================================================================
+
+a_bin: (a) scale scatter, fit on met_target
+                      k                       
+dept          Front End Merchandising Pharmacy
+held_out_week                                 
+1                 1.230         1.078    1.496
+2                 1.216         1.072    1.131
+3                 1.044         1.104    1.467
+4                 1.252         1.041    1.543
+5                 1.202         1.042    1.939
+6                 1.248         1.190    1.473
+
+a_rms: (a) scale scatter, fit on residual RMS
+                      k                       
+dept          Front End Merchandising Pharmacy
+held_out_week                                 
+1                 1.039         1.038    1.046
+2                 1.043         1.041    1.035
+3                 1.045         1.045    1.053
+4                 1.048         1.038    1.124
+5                 1.045         1.029    1.127
+6                 1.035         1.040    1.046
+
+b_norm: (b) scatter linear in u (log), fit on residuals
+                     c0                               c1                       
+dept          Front End Merchandising Pharmacy Front End Merchandising Pharmacy
+held_out_week                                                                  
+1                 0.070         0.045    0.092     0.910         0.549    1.128
+2                 0.068         0.047    0.052     0.819         0.461    0.393
+3                 0.080         0.059    0.090     0.865         0.650    0.936
+4                 0.067         0.046    0.174     0.638         0.656    1.397
+5                 0.084         0.031    0.172     1.517         0.245    1.170
+6                 0.070         0.047    0.096     1.072         0.533    1.065
+
+b_bin: (b) scatter linear in u (log), fit on met_target
+                     c0                               c1                       
+dept          Front End Merchandising Pharmacy Front End Merchandising Pharmacy
+held_out_week                                                                  
+1                 0.189         0.079    0.120     6.039        -0.225    9.819
+2                 0.175         0.084   -0.072     5.238        -0.961    8.766
+3                -0.001         0.112    0.130     7.990        -0.927    9.282
+4                 0.208        -0.113    0.163     5.042         5.407    9.517
+5                 0.165         0.042    0.646     5.916        -0.027    3.886
+6                 0.215         0.164    0.112     5.803         0.679    9.716
+
+c_smooth: (c) smooth knot, diagnostic
+                  width                             knot                       
+dept          Front End Merchandising Pharmacy Front End Merchandising Pharmacy
+held_out_week                                                                  
+1                 0.049         0.055    0.085      0.97          0.97     0.97
+2                 0.050         0.055    0.083      0.97          0.97     0.97
+3                 0.052         0.052    0.085      0.97          0.97     0.97
+4                 0.046         0.056    0.077      0.97          0.97     0.97
+5                 0.055         0.048    0.073      0.97          0.97     0.97
+6                 0.052         0.058    0.077      0.97          0.97     0.97
+
+k > 1 widens the scatter. In (b), scatter at u is base * exp(c0 + c1*(u-0.85)), u held in [0.70, 0.97];
+so c1 > 0 means wider scatter at higher utilization (exp(0.12*c1) is the ratio from 0.85 to 0.97).
+
+====================================================================================================
+V-04 STEP 3. Out-of-sample scores, all 1,053 blocks (lower is better)   [10s]
+====================================================================================================
+'zone' = the 418 blocks with realized utilization in [0.8, 0.95), where staffing decisions bite. Log loss clips chances at 1e-06.
+'near_goal' = blocks the method itself predicts at 70%-99%; z = (met - expected) / sd, negative = overconfident.
+  method   brier  log_loss  brier_zone  log_loss_zone  near_goal_n  near_goal_pred  near_goal_obs  near_goal_z
+baseline 0.02611   0.08449     0.06577        0.21281          122         0.90963        0.85246     -2.28912
+   a_bin 0.02601   0.08501     0.06553        0.21397          143         0.90504        0.89510     -0.41987
+   a_rms 0.02597   0.08363     0.06541        0.21064          128         0.91008        0.86719     -1.76049
+  b_norm 0.02581   0.08279     0.06503        0.20854          128         0.90740        0.87500     -1.31176
+   b_bin 0.02577   0.08412     0.06491        0.21182          129         0.90191        0.89147     -0.41381
+c_smooth 0.02389   0.07673     0.06019        0.19329          109         0.89735        0.88991     -0.26759
+
+Per-fold Brier and log loss difference against the current model (negative = fix better):
+method    a_bin    a_rms    b_bin   b_norm  c_smooth
+week                                                
+1       0.00249  0.00011  0.00156  0.00010  -0.00680
+2      -0.00410 -0.00174 -0.01031 -0.00326  -0.02643
+3      -0.00184 -0.00322 -0.00220 -0.00596  -0.01330
+4      -0.00111 -0.00141  0.00276 -0.00181  -0.00628
+5       0.00629  0.00120  0.00579  0.00178   0.00514
+6       0.00173  0.00004  0.00051 -0.00076   0.00127
+folds where log loss improves: {'a_bin': 3, 'a_rms': 3, 'b_bin': 2, 'b_norm': 4, 'c_smooth': 4}
+
+Paired cluster bootstrap of (fix - current), resampling the 41 history days, 2000 draws.
+A real improvement needs the whole 95% interval below 0.
+  method   metric scope     diff     lo95     hi95  P(better)
+   a_bin    brier   all -0.00010 -0.00076  0.00053    0.61000
+   a_bin    brier  zone -0.00024 -0.00186  0.00141    0.60200
+   a_bin log_loss   all  0.00053 -0.00302  0.00336    0.36250
+   a_bin log_loss  zone  0.00116 -0.00697  0.00887    0.35600
+   a_rms    brier   all -0.00014 -0.00030  0.00001    0.97050
+   a_rms    brier  zone -0.00036 -0.00075  0.00003    0.96550
+   a_rms log_loss   all -0.00086 -0.00205  0.00010    0.95850
+   a_rms log_loss  zone -0.00217 -0.00488  0.00032    0.95500
+  b_norm    brier   all -0.00030 -0.00059 -0.00002    0.98050
+  b_norm    brier  zone -0.00074 -0.00145 -0.00001    0.97650
+  b_norm log_loss   all -0.00170 -0.00379 -0.00001    0.97500
+  b_norm log_loss  zone -0.00428 -0.00910  0.00025    0.96850
+   b_bin    brier   all -0.00034 -0.00106  0.00031    0.84600
+   b_bin    brier  zone -0.00086 -0.00253  0.00082    0.82200
+   b_bin log_loss   all -0.00036 -0.00554  0.00344    0.53200
+   b_bin log_loss  zone -0.00099 -0.01363  0.00930    0.51150
+c_smooth    brier   all -0.00222 -0.00483  0.00051    0.93650
+c_smooth    brier  zone -0.00559 -0.01239  0.00152    0.94300
+c_smooth log_loss   all -0.00776 -0.01609  0.00063    0.96350
+c_smooth log_loss  zone -0.01953 -0.03976  0.00161    0.96550
+
+====================================================================================================
+V-04 STEP 4. Calibration by the pipeline's bins, each method on its own predictions   [10s]
+====================================================================================================
+
+baseline: current model
+    bin  blocks  predicted  observed  obs_lo95  obs_hi95  expected_met  met      z
+  0-10%     191      0.004     0.016     0.005     0.045         0.831    3  2.439
+ 10-30%      15      0.213     0.200     0.070     0.452         3.189    3 -0.121
+ 30-50%      18      0.403     0.500     0.290     0.710         7.250    9  0.846
+ 50-70%      17      0.617     0.647     0.413     0.827        10.482   11  0.260
+ 70-90%      38      0.809     0.684     0.525     0.809        30.723   26 -1.968
+ 90-95%      31      0.925     0.903     0.751     0.967        28.671   28 -0.458
+ 95-99%      53      0.973     0.943     0.846     0.981        51.581   50 -1.348
+99-100%     690      1.000     1.000     0.994     1.000       689.748  690  0.503
+
+a_bin: (a) scale scatter, fit on met_target
+    bin  blocks  predicted  observed  obs_lo95  obs_hi95  expected_met  met      z
+  0-10%     185      0.005     0.005     0.001     0.030         0.874    1  0.138
+ 10-30%      19      0.195     0.263     0.118     0.488         3.698    5  0.764
+ 30-50%      20      0.410     0.450     0.258     0.658         8.205    9  0.364
+ 50-70%      24      0.621     0.625     0.427     0.788        14.913   15  0.037
+ 70-90%      54      0.822     0.815     0.692     0.896        44.387   44 -0.139
+ 90-95%      36      0.929     0.944     0.819     0.985        33.460   34  0.352
+ 95-99%      53      0.973     0.943     0.846     0.981        51.574   50 -1.340
+99-100%     662      0.999     1.000     0.994     1.000       661.619  662  0.619
+
+a_rms: (a) scale scatter, fit on residual RMS
+    bin  blocks  predicted  observed  obs_lo95  obs_hi95  expected_met  met      z
+  0-10%     190      0.005     0.016     0.005     0.045         0.879    3  2.321
+ 10-30%      16      0.214     0.188     0.066     0.430         3.418    3 -0.258
+ 30-50%      18      0.407     0.500     0.290     0.710         7.328    9  0.807
+ 50-70%      19      0.620     0.632     0.410     0.809        11.772   12  0.109
+ 70-90%      41      0.814     0.732     0.581     0.843        33.372   30 -1.367
+ 90-95%      32      0.925     0.906     0.758     0.968        29.611   29 -0.412
+ 95-99%      55      0.973     0.945     0.851     0.981        53.508   52 -1.255
+99-100%     682      1.000     1.000     0.994     1.000       681.750  682  0.501
+
+b_norm: (b) scatter linear in u (log), fit on residuals
+    bin  blocks  predicted  observed  obs_lo95  obs_hi95  expected_met  met      z
+  0-10%     189      0.005     0.011     0.003     0.038         0.990    2  1.041
+ 10-30%      15      0.203     0.267     0.109     0.520         3.043    4  0.622
+ 30-50%      20      0.401     0.450     0.258     0.658         8.018    9  0.451
+ 50-70%      20      0.618     0.600     0.387     0.781        12.364   12 -0.169
+ 70-90%      43      0.814     0.744     0.598     0.851        35.000   32 -1.188
+ 90-95%      32      0.925     0.938     0.799     0.983        29.610   30  0.263
+ 95-99%      53      0.972     0.943     0.846     0.981        51.537   50 -1.291
+99-100%     681      1.000     1.000     0.994     1.000       680.753  681  0.498
+
+b_bin: (b) scatter linear in u (log), fit on met_target
+    bin  blocks  predicted  observed  obs_lo95  obs_hi95  expected_met  met      z
+  0-10%     183      0.009     0.005     0.001     0.030         1.628    1 -0.503
+ 10-30%      21      0.191     0.238     0.106     0.451         4.019    5  0.552
+ 30-50%      20      0.413     0.450     0.258     0.658         8.268    9  0.334
+ 50-70%      23      0.617     0.609     0.408     0.778        14.181   14 -0.078
+ 70-90%      52      0.818     0.808     0.681     0.892        42.530   42 -0.193
+ 90-95%      23      0.928     0.913     0.732     0.976        21.355   21 -0.287
+ 95-99%      54      0.971     0.963     0.875     0.990        52.461   52 -0.378
+99-100%     677      1.000     0.999     0.992     1.000       676.819  676 -1.932
+
+c_smooth: (c) smooth knot, diagnostic
+    bin  blocks  predicted  observed  obs_lo95  obs_hi95  expected_met  met      z
+  0-10%     192      0.005     0.010     0.003     0.037         1.046    2  0.960
+ 10-30%      23      0.182     0.217     0.097     0.419         4.196    5  0.438
+ 30-50%      14      0.402     0.643     0.388     0.837         5.627    9  1.856
+ 50-70%      21      0.604     0.619     0.409     0.792        12.680   13  0.144
+ 70-90%      44      0.805     0.818     0.680     0.905        35.410   36  0.228
+ 90-95%      19      0.926     0.895     0.686     0.971        17.586   17 -0.513
+ 95-99%      46      0.974     0.957     0.855     0.988        44.815   44 -0.760
+99-100%     694      1.000     1.000     0.994     1.000       693.794  694  0.455
+
+====================================================================================================
+V-04 STEP 5. By department (out of sample)   [10s]
+====================================================================================================
+         dept   method  blocks  zone_blocks  brier  log_loss  log_loss_zone  near_goal_n   pred    obs       z
+    Front End baseline     369          170 0.0327    0.1011         0.2194           67 0.9202 0.8358 -2.6443
+    Front End    a_bin     369          170 0.0322    0.1026         0.2224           82 0.9171 0.8902 -0.9098
+    Front End    a_rms     369          170 0.0324    0.1000         0.2169           70 0.9163 0.8429 -2.3021
+    Front End   b_norm     369          170 0.0321    0.0987         0.2143           70 0.9150 0.8571 -1.7981
+    Front End    b_bin     369          170 0.0317    0.1008         0.2187           72 0.9128 0.8750 -1.1823
+    Front End c_smooth     369          170 0.0294    0.0916         0.1989           54 0.9226 0.8704 -1.4971
+Merchandising baseline     369          176 0.0246    0.0837         0.1756           41 0.9007 0.8780 -0.5042
+Merchandising    a_bin     369          176 0.0246    0.0837         0.1755           45 0.8972 0.8889 -0.1914
+Merchandising    a_rms     369          176 0.0246    0.0831         0.1743           44 0.9068 0.8864 -0.4848
+Merchandising   b_norm     369          176 0.0245    0.0828         0.1735           44 0.9041 0.8864 -0.4144
+Merchandising    b_bin     369          176 0.0246    0.0857         0.1796           44 0.8968 0.9091  0.2782
+Merchandising c_smooth     369          176 0.0236    0.0771         0.1616           36 0.8677 0.9167  0.9030
+     Pharmacy baseline     315           72 0.0202    0.0659         0.2882           14 0.8854 0.8571 -0.3440
+     Pharmacy    a_bin     315           72 0.0204    0.0660         0.2882           16 0.8651 0.9375  0.8815
+     Pharmacy    a_rms     315           72 0.0201    0.0651         0.2847           14 0.8894 0.9286  0.4821
+     Pharmacy   b_norm     315           72 0.0200    0.0641         0.2806           14 0.8800 0.9286  0.5776
+     Pharmacy    b_bin     315           72 0.0201    0.0628         0.2744           13 0.8589 0.9231  0.6852
+     Pharmacy c_smooth     315           72 0.0178    0.0588         0.2574           19 0.8819 0.8947  0.1807
+
+Bootstrap of log-loss difference by department (fix - current), all blocks of that department:
+         dept   method     diff     lo95    hi95  P(better)
+    Front End    a_bin  0.00148 -0.00227 0.00479    0.20500
+    Front End    a_rms -0.00114 -0.00288 0.00022    0.93400
+    Front End   b_norm -0.00238 -0.00569 0.00020    0.96350
+    Front End    b_bin -0.00033 -0.00555 0.00414    0.56250
+    Front End c_smooth -0.00947 -0.02345 0.00555    0.90100
+Merchandising    a_bin -0.00005 -0.00272 0.00252    0.50700
+Merchandising    a_rms -0.00063 -0.00216 0.00072    0.77350
+Merchandising   b_norm -0.00096 -0.00324 0.00108    0.77700
+Merchandising    b_bin  0.00191 -0.00128 0.00540    0.12650
+Merchandising c_smooth -0.00664 -0.01874 0.00510    0.85850
+     Pharmacy    a_bin  0.00009 -0.00946 0.00801    0.46400
+     Pharmacy    a_rms -0.00081 -0.00303 0.00091    0.78250
+     Pharmacy   b_norm -0.00175 -0.00605 0.00163    0.80500
+     Pharmacy    b_bin -0.00307 -0.01635 0.00686    0.66700
+     Pharmacy c_smooth -0.00706 -0.01651 0.00209    0.93150
+
+====================================================================================================
+V-04 STEP 6. Where the miss comes from: residual bias of the current curve by utilization   [11s]
+====================================================================================================
+Mean of log(metric/target) minus the curve, fitted on all six weeks (in sample) and out of sample.
+Bias (not width) near the knot shows the hinge shape is the problem, which scatter fixes can't move.
+         band  n  bias_in    se  bias_oos  sd_oos  bias_oos_smooth  p_oos   met          dept
+  (0.75, 0.8] 74   -0.015 0.014    -0.012   0.123            0.015  1.000 1.000     Front End
+ (0.8, 0.825] 42   -0.048 0.020    -0.044   0.129           -0.014  0.998 1.000     Front End
+(0.825, 0.85] 44   -0.028 0.022    -0.024   0.144           -0.012  0.971 0.977     Front End
+(0.85, 0.875] 35    0.068 0.022     0.077   0.136            0.045  0.857 0.714     Front End
+ (0.875, 0.9] 17    0.086 0.036     0.089   0.152           -0.015  0.509 0.353     Front End
+ (0.9, 0.925] 17    0.003 0.026    -0.027   0.121           -0.023  0.001 0.000     Front End
+(0.925, 0.95] 15   -0.039 0.036    -0.048   0.147           -0.011  0.000 0.000     Front End
+  (0.75, 0.8] 75   -0.042 0.015    -0.040   0.132           -0.009  1.000 1.000 Merchandising
+ (0.8, 0.825] 32   -0.015 0.021    -0.014   0.119            0.012  0.999 1.000 Merchandising
+(0.825, 0.85] 35    0.040 0.019     0.051   0.114            0.037  0.994 1.000 Merchandising
+(0.85, 0.875] 32    0.043 0.023     0.042   0.131           -0.017  0.909 0.906 Merchandising
+ (0.875, 0.9] 33    0.040 0.021     0.039   0.134            0.012  0.416 0.364 Merchandising
+ (0.9, 0.925] 26   -0.042 0.027    -0.047   0.139           -0.004  0.010 0.038 Merchandising
+(0.925, 0.95] 18   -0.078 0.033    -0.067   0.150           -0.041  0.000 0.000 Merchandising
+  (0.75, 0.8] 27    0.053 0.020     0.053   0.114            0.021  1.000 1.000      Pharmacy
+ (0.8, 0.825] 20    0.091 0.021     0.099   0.107            0.005  1.000 1.000      Pharmacy
+(0.825, 0.85] 12    0.072 0.033     0.085   0.116            0.058  0.972 1.000      Pharmacy
+(0.85, 0.875] 20   -0.066 0.023    -0.063   0.102           -0.027  0.616 0.800      Pharmacy
+ (0.875, 0.9]  8   -0.086 0.049    -0.086   0.148           -0.027  0.047 0.250      Pharmacy
+ (0.9, 0.925]  9   -0.047 0.034    -0.049   0.101           -0.004  0.001 0.000      Pharmacy
+(0.925, 0.95]  3   -0.029 0.163    -0.030   0.282           -0.044  0.000 0.000      Pharmacy
+
+Scatter used now vs out-of-sample residual SD in the scatter range [0.70, 0.97]:
+  Front End      scatter 0.1343   OOS residual SD 0.1375   OOS RMS 0.1375   ratio 1.024
+  Merchandising  scatter 0.1306   OOS residual SD 0.1343   OOS RMS 0.1341   ratio 1.027
+  Pharmacy       scatter 0.1266   OOS residual SD 0.1316   OOS RMS 0.1316   ratio 1.039
+
+Sum of squared residuals on all six weeks, hinge vs smooth knot (one extra parameter). The smooth fit pins its
+knot at the 0.97 bound; letting it go to 1.30 lowers the sum by under 1% more, so the bound doesn't drive the result.
+  Front End      hinge 6.534   smooth 5.960   (-8.8%)
+  Merchandising  hinge 6.205   smooth 5.445   (-12.3%)
+  Pharmacy       hinge 5.175   smooth 4.276   (-17.4%)
+
+====================================================================================================
+V-04 STEP 7. What each fix would do to the plan (fitted on all six weeks, as the pipeline does)   [13s]
+====================================================================================================
+The pre-D-29 submission: 567 rows, rebuilt with the frozen sharp-knot model; outputs/TEAM_SUBMISSION_TEMPLATE_filled.csv equals it: False
+  a_bin     fitted on all weeks: Front End k=1.201; Merchandising k=1.135; Pharmacy k=1.438
+  a_rms     fitted on all weeks: Front End k=1.035; Merchandising k=1.035; Pharmacy k=1.045
+  b_norm    fitted on all weeks: Front End c0=0.066, c1=0.963; Merchandising c0=0.042, c1=0.567; Pharmacy c0=0.083, c1=0.889
+  b_bin     fitted on all weeks: Front End c0=0.164, c1=5.952; Merchandising c0=0.110, c1=0.957; Pharmacy c0=0.058, c1=10.165
+  c_smooth  fitted on all weeks: Front End width=0.050, knot=0.970; Merchandising width=0.054, knot=0.970; Pharmacy width=0.079, knot=0.970
+  built baseline plan in 8.2s: 0 of 567 rows differ from the submission (+0 / -0 people)
+  built a_bin plan in 10.3s: 16 of 567 rows differ from the submission (+16 / -0 people)
+  built a_rms plan in 16.4s: 3 of 567 rows differ from the submission (+3 / -0 people)
+  built b_norm plan in 11.0s: 3 of 567 rows differ from the submission (+3 / -0 people)
+  built b_bin plan in 8.2s: 9 of 567 rows differ from the submission (+9 / -0 people)
+  built c_smooth plan in 7.0s: 24 of 567 rows differ from the submission (+24 / -0 people)
+outputs/TEAM_SUBMISSION_TEMPLATE_filled.csv (after D-29) equals the c_smooth plan: True
+
+Each block: plan rebuilt with the fix, scored by the fix; against the submitted plan scored by the fix.
+expected_met = mean chance of meeting target over open blocks; below_goal = blocks under 95%.
+
+a_bin: (a) scale scatter, fit on met_target  (rows changed, people added, people cut: (16, 16, 0))
+               sub_hours  new_hours  d_hours    sub_cost   new_cost   d_cost  sub_met  new_met  sub_below  new_below  cur_model_sub_met  cur_model_new_met
+scenario_code                                                                                                                                             
+BASE             11618.0    11642.5     24.5  376176.165  377019.64  843.475   0.9559   0.9568         31         25             0.9577             0.9585
+PEAK             11897.5    11914.0     16.5  387092.180  387624.62  532.440   0.8726   0.8735         48         44             0.8743             0.8751
+DISRUPT          11248.5    11273.0     24.5  365320.695  366164.17  843.475   0.8954   0.8963         45         39             0.8970             0.8978
+
+a_rms: (a) scale scatter, fit on residual RMS  (rows changed, people added, people cut: (3, 3, 0))
+               sub_hours  new_hours  d_hours    sub_cost    new_cost  d_cost  sub_met  new_met  sub_below  new_below  cur_model_sub_met  cur_model_new_met
+scenario_code                                                                                                                                             
+BASE             11618.0    11622.0      4.0  376176.165  376293.485  117.32   0.9574   0.9576         26         25             0.9577             0.9579
+PEAK             11897.5    11901.5      4.0  387092.180  387209.500  117.32   0.8740   0.8742         45         44             0.8743             0.8745
+DISRUPT          11248.5    11252.5      4.0  365320.695  365438.015  117.32   0.8967   0.8969         40         39             0.8970             0.8972
+
+b_norm: (b) scatter linear in u (log), fit on residuals  (rows changed, people added, people cut: (3, 3, 0))
+               sub_hours  new_hours  d_hours    sub_cost    new_cost  d_cost  sub_met  new_met  sub_below  new_below  cur_model_sub_met  cur_model_new_met
+scenario_code                                                                                                                                             
+BASE             11618.0    11622.0      4.0  376176.165  376293.485  117.32   0.9572   0.9574         26         25             0.9577             0.9579
+PEAK             11897.5    11901.5      4.0  387092.180  387209.500  117.32   0.8739   0.8741         45         44             0.8743             0.8745
+DISRUPT          11248.5    11252.5      4.0  365320.695  365438.015  117.32   0.8966   0.8968         40         39             0.8970             0.8972
+
+b_bin: (b) scatter linear in u (log), fit on met_target  (rows changed, people added, people cut: (9, 9, 0))
+               sub_hours  new_hours  d_hours    sub_cost    new_cost  d_cost  sub_met  new_met  sub_below  new_below  cur_model_sub_met  cur_model_new_met
+scenario_code                                                                                                                                             
+BASE             11618.0    11630.0     12.0  376176.165  376562.605  386.44   0.9570   0.9574         27         25             0.9577             0.9581
+PEAK             11897.5    11910.0     12.5  387092.180  387505.020  412.84   0.8740   0.8747         46         44             0.8743             0.8749
+DISRUPT          11248.5    11260.5     12.0  365320.695  365707.135  386.44   0.8964   0.8969         41         39             0.8970             0.8974
+
+c_smooth: (c) smooth knot, diagnostic  (rows changed, people added, people cut: (24, 24, 0))
+               sub_hours  new_hours  d_hours    sub_cost   new_cost    d_cost  sub_met  new_met  sub_below  new_below  cur_model_sub_met  cur_model_new_met
+scenario_code                                                                                                                                              
+BASE             11618.0    11657.5     39.5  376176.165  377504.48  1328.315   0.9540   0.9556         34         25             0.9577             0.9591
+PEAK             11897.5    11923.0     25.5  387092.180  387926.42   834.240   0.8684   0.8697         51         45             0.8743             0.8754
+DISRUPT          11248.5    11288.0     39.5  365320.695  366649.01  1328.315   0.8934   0.8950         48         39             0.8970             0.8984
+
+Service limits (utilization for a 95% / 50% chance at the point, no demand or callout risk), current vs (c):
+         dept  store_id   u95  u95_smooth   u50  u50_smooth
+    Front End         1 0.861       0.861 0.897       0.885
+    Front End         2 0.832       0.837 0.874       0.866
+    Front End         4 0.851       0.850 0.892       0.877
+Merchandising         1 0.862       0.857 0.885       0.881
+Merchandising         2 0.877       0.868 0.892       0.890
+Merchandising         4 0.844       0.845 0.878       0.871
+     Pharmacy         1 0.852       0.855 0.872       0.877
+     Pharmacy         2 0.843       0.845 0.863       0.867
+     Pharmacy         4 0.844       0.847 0.864       0.869
+
+The submitted plan and the draft under every model (expected_met / below_goal):
+                   below_goal                                        expected_met                                          
+model                   a_bin  a_rms  b_bin b_norm baseline c_smooth        a_bin   a_rms   b_bin  b_norm baseline c_smooth
+plan      scenario                                                                                                         
+draft     BASE          135.0  134.0  135.0  134.0    134.0    135.0       0.6948  0.6971  0.6980  0.6970   0.6976   0.6846
+          DISRUPT       142.0  141.0  142.0  141.0    141.0    142.0       0.6750  0.6773  0.6780  0.6772   0.6778   0.6656
+          PEAK          139.0  138.0  139.0  138.0    138.0    139.0       0.5894  0.5911  0.5925  0.5911   0.5914   0.5830
+submitted BASE           31.0   26.0   27.0   26.0     25.0     34.0       0.9559  0.9574  0.9570  0.9572   0.9577   0.9540
+          DISRUPT        45.0   40.0   41.0   40.0     39.0     48.0       0.8954  0.8967  0.8964  0.8966   0.8970   0.8934
+          PEAK           48.0   45.0   46.0   45.0     44.0     51.0       0.8726  0.8740  0.8740  0.8739   0.8743   0.8684
+
+====================================================================================================
+V-11. Model-free check of expected service   [84s]
+====================================================================================================
+Definition. For each open planning block, with the employees the allocation rule can field:
+  E[worked] = sum over net loss L of P(L) * (fielded - L), with P(L) from src.risk.net_loss_distribution
+              (binomial callouts at the block's callout rate, 49% backfilled, backfill capped by free overtime,
+               overtime room = max_overtime - max(0, fielded - available_regular), as in src.search._block_chance)
+  u* = forecast demand * labor standard / (E[worked] * paid_hours)
+  hist_rate = share meeting target among open history blocks of the same department with |u - u*| <= 0.02
+              (history u = workload hours / worked hours, i.e. realized demand on worked staff).
+              If fewer than 5 blocks fall in the window, the 10 nearest are used.
+Compared columns:
+  model_chance  the plan's chance of meeting target (src.risk.chance_met: demand error, callouts, scatter)
+  curve_at_u*   the current curve's chance at u* alone (no demand or callout uncertainty): the like-for-like
+                counterpart of hist_rate, so (hist_rate - curve_at_u*) tests the curve
+  hist_rate     the model-free rate at u*
+  hist_integr   the model-free rate curve put through the same demand-error and callout integration as
+                model_chance, so (hist_integr - model_chance) tests expected service without the curve.
+  hist_rate_wh  same as hist_rate but also the same warehouse (thinner)
+  smooth_chance the same block's chance under the smooth-knot curve (c), as a second model to referee:
+                whichever model is closer to hist_integr agrees better with history without assuming a curve.
+
+--- plan (submitted CSV), all open blocks of all scenarios ---
+      blocks  u_star  model_chance  curve_at_u*  hist_rate  hist_integr  hist_rate_wh  smooth_chance  median_n  thin  hist-model  hist_integr-model  hist-curve  hist_integr-smooth
+_all                                                                                                                                                                               
+all      540  0.7418        0.9097        0.945     0.9429       0.9063        0.9451         0.9053      55.0    14      0.0333            -0.0034     -0.0021               0.001
+               blocks  u_star  model_chance  curve_at_u*  hist_rate  hist_integr  hist_rate_wh  smooth_chance  median_n  thin  hist-model  hist_integr-model  hist-curve  hist_integr-smooth
+scenario_code                                                                                                                                                                               
+BASE              180  0.7229        0.9577       0.9984     0.9960       0.9544        0.9968         0.9540      55.5     1      0.0383            -0.0033     -0.0024              0.0004
+PEAK              180  0.7471        0.8743       0.9000     0.8978       0.8704        0.9006         0.8684      54.5     3      0.0235            -0.0039     -0.0022              0.0020
+DISRUPT           180  0.7554        0.8970       0.9367     0.9350       0.8940        0.9379         0.8934      54.5    10      0.0380            -0.0031     -0.0017              0.0005
+               blocks  u_star  model_chance  curve_at_u*  hist_rate  hist_integr  hist_rate_wh  smooth_chance  median_n  thin  hist-model  hist_integr-model  hist-curve  hist_integr-smooth
+dept                                                                                                                                                                                        
+Front End         189  0.7986        0.8561       0.8921     0.8861       0.8448        0.8892         0.8468      59.0    11      0.0300            -0.0113     -0.0060             -0.0020
+Merchandising     189  0.7723        0.9238       0.9620     0.9601       0.9220        0.9609         0.9193      55.0     0      0.0363            -0.0018     -0.0019              0.0028
+Pharmacy          162  0.6400        0.9556       0.9869     0.9892       0.9596        0.9919         0.9572      41.5     3      0.0336             0.0040      0.0023              0.0024
+                             blocks  u_star  model_chance  curve_at_u*  hist_rate  hist_integr  hist_rate_wh  smooth_chance  median_n  thin  hist-model  hist_integr-model  hist-curve  hist_integr-smooth
+scenario_code dept                                                                                                                                                                                        
+BASE          Front End          63  0.7609        0.9564       0.9977     0.9930       0.9464        0.9947         0.9489      59.0     0      0.0366            -0.0100     -0.0047             -0.0025
+              Merchandising      63  0.7640        0.9531       0.9987     0.9970       0.9508        0.9960         0.9489      55.0     0      0.0439            -0.0023     -0.0017              0.0019
+              Pharmacy           54  0.6305        0.9646       0.9989     0.9984       0.9679        1.0000         0.9659      40.5     1      0.0338             0.0034     -0.0005              0.0020
+PEAK          Front End          63  0.7998        0.8055       0.8397     0.8311       0.7922        0.8369         0.7922      59.0     2      0.0255            -0.0134     -0.0086             -0.0001
+              Merchandising      63  0.7873        0.8703       0.8900     0.8869       0.8689        0.8906         0.8654      56.0     0      0.0165            -0.0015     -0.0031              0.0035
+              Pharmacy           54  0.6389        0.9592       0.9820     0.9884       0.9635        0.9868         0.9609      44.0     1      0.0293             0.0043      0.0064              0.0026
+DISRUPT       Front End          63  0.8351        0.8065       0.8390     0.8343       0.7958        0.8360         0.7993      59.0     9      0.0278            -0.0106     -0.0047             -0.0035
+              Merchandising      63  0.7655        0.9481       0.9975     0.9964       0.9463        0.9960         0.9435      55.0     0      0.0483            -0.0017     -0.0011              0.0029
+              Pharmacy           54  0.6505        0.9430       0.9797     0.9807       0.9473        0.9889         0.9448      41.5     1      0.0377             0.0043      0.0011              0.0026
+By the model's chance:
+            blocks  u_star  model_chance  curve_at_u*  hist_rate  hist_integr  hist_rate_wh  smooth_chance  median_n  thin  hist-model  hist_integr-model  hist-curve  hist_integr-smooth
+model_band                                                                                                                                                                               
+95-99%         365  0.7224        0.9730       1.0000     1.0000       0.9700        1.0000         0.9703      57.0     3      0.0270            -0.0030      0.0000             -0.0003
+90-95%          30  0.7409        0.9301       1.0000     1.0000       0.9203        1.0000         0.9239      60.5     0      0.0699            -0.0098      0.0000             -0.0036
+50-90%          51  0.8228        0.7569       0.9310     0.9111       0.7494        0.9267         0.7413      56.0     0      0.1542            -0.0074     -0.0199              0.0082
+99-100%         67  0.6563        0.9933       1.0000     1.0000       0.9931        1.0000         0.9932      34.0     0      0.0067            -0.0002      0.0000             -0.0001
+<50%            27  1.0646        0.1119       0.0308     0.0266       0.1092        0.0403         0.0972      12.0    11     -0.0852            -0.0027     -0.0042              0.0120
+
+--- draft (draft schedule), all open blocks of all scenarios ---
+      blocks  u_star  model_chance  curve_at_u*  hist_rate  hist_integr  hist_rate_wh  smooth_chance  median_n  thin  hist-model  hist_integr-model  hist-curve  hist_integr-smooth
+_all                                                                                                                                                                               
+all      540  0.8296        0.6556       0.6904      0.683        0.652        0.6882         0.6444      47.0    33      0.0274            -0.0036     -0.0074              0.0076
+               blocks  u_star  model_chance  curve_at_u*  hist_rate  hist_integr  hist_rate_wh  smooth_chance  median_n  thin  hist-model  hist_integr-model  hist-curve  hist_integr-smooth
+scenario_code                                                                                                                                                                               
+BASE              180  0.8091        0.6976       0.7382     0.7262       0.6925        0.7309         0.6846      48.0     5      0.0286            -0.0051     -0.0120              0.0079
+PEAK              180  0.8489        0.5914       0.6120     0.6145       0.5911        0.6179         0.5830      36.0    20      0.0230            -0.0003      0.0025              0.0081
+DISRUPT           180  0.8308        0.6778       0.7208     0.7083       0.6725        0.7158         0.6656      49.0     8      0.0305            -0.0053     -0.0125              0.0068
+               blocks  u_star  model_chance  curve_at_u*  hist_rate  hist_integr  hist_rate_wh  smooth_chance  median_n  thin  hist-model  hist_integr-model  hist-curve  hist_integr-smooth
+dept                                                                                                                                                                                        
+Front End         189  0.8856        0.5883       0.6385     0.6165       0.5688        0.6191         0.5649      58.0    23      0.0282            -0.0195     -0.0220              0.0039
+Merchandising     189  0.8800        0.5504       0.5733     0.5529       0.5434        0.5642         0.5355      50.0     8      0.0025            -0.0070     -0.0204              0.0079
+Pharmacy          162  0.7054        0.8569       0.8875     0.9124       0.8758        0.9135         0.8643      29.5     2      0.0555             0.0189      0.0249              0.0116
+                             blocks  u_star  model_chance  curve_at_u*  hist_rate  hist_integr  hist_rate_wh  smooth_chance  median_n  thin  hist-model  hist_integr-model  hist-curve  hist_integr-smooth
+scenario_code dept                                                                                                                                                                                        
+BASE          Front End          63  0.8544        0.6456       0.7075     0.6792       0.6244        0.6781         0.6187      58.0     4      0.0336            -0.0212     -0.0283              0.0057
+              Merchandising      63  0.8624        0.6016       0.6275     0.6034       0.5932        0.6179         0.5855      50.0     0      0.0017            -0.0085     -0.0241              0.0077
+              Pharmacy           54  0.6940        0.8703       0.9034     0.9245       0.8879        0.9241         0.8772      27.0     1      0.0541             0.0176      0.0211              0.0108
+PEAK          Front End          63  0.9087        0.5097       0.5337     0.5273       0.4956        0.5345         0.4910      53.0    11      0.0176            -0.0141     -0.0065              0.0046
+              Merchandising      63  0.9136        0.4502       0.4650     0.4519       0.4457        0.4567         0.4380      40.0     8      0.0018            -0.0044     -0.0130              0.0078
+              Pharmacy           54  0.7035        0.8516       0.8749     0.9059       0.8723        0.9033         0.8596      30.0     1      0.0543             0.0207      0.0310              0.0127
+DISRUPT       Front End          63  0.8938        0.6096       0.6742     0.6431       0.5866        0.6446         0.5851      58.0     8      0.0335            -0.0230     -0.0311              0.0015
+              Merchandising      63  0.8640        0.5995       0.6275     0.6034       0.5913        0.6179         0.5830      51.0     0      0.0039            -0.0081     -0.0241              0.0083
+              Pharmacy           54  0.7186        0.8488       0.8842     0.9068       0.8673        0.9130         0.8560      30.0     0      0.0580             0.0185      0.0226              0.0113
+By the model's chance:
+            blocks  u_star  model_chance  curve_at_u*  hist_rate  hist_integr  hist_rate_wh  smooth_chance  median_n  thin  hist-model  hist_integr-model  hist-curve  hist_integr-smooth
+model_band                                                                                                                                                                               
+99-100%         45  0.6163        0.9965       1.0000     1.0000       0.9964        1.0000         0.9965      24.0     2      0.0035            -0.0001      0.0000             -0.0001
+95-99%          79  0.6875        0.9744       1.0000     1.0000       0.9721        1.0000         0.9737      55.0     0      0.0256            -0.0023      0.0000             -0.0015
+50-90%         203  0.8388        0.7281       0.9076     0.8678       0.7176        0.8892         0.7107      52.0     0      0.1397            -0.0105     -0.0398              0.0069
+<50%           152  0.9884        0.1821       0.0234     0.0504       0.1872        0.0402         0.1677      16.0    31     -0.1317             0.0051      0.0270              0.0195
+90-95%          61  0.7444        0.9301       1.0000     1.0000       0.9235        1.0000         0.9253      58.0     0      0.0699            -0.0066      0.0000             -0.0018
+
+Cluster bootstrap of hist_integr minus each model (resampling the history days, 200 draws).
+The point version (hist_rate) isn't bootstrapped: at u* nearly every block at >=90% has a window rate of exactly 1.
+ plan        blocks   n         model     gap    lo95    hi95
+ plan           all 540  model_chance -0.0034 -0.0079  0.0002
+ plan           all 540 smooth_chance  0.0010 -0.0035  0.0046
+ plan   model >=90% 462  model_chance -0.0030 -0.0061 -0.0006
+ plan   model >=90% 462 smooth_chance -0.0005 -0.0035  0.0020
+ plan     Front End 189  model_chance -0.0113 -0.0201 -0.0034
+ plan     Front End 189 smooth_chance -0.0020 -0.0108  0.0059
+ plan Merchandising 189  model_chance -0.0018 -0.0081  0.0040
+ plan Merchandising 189 smooth_chance  0.0028 -0.0035  0.0086
+ plan      Pharmacy 162  model_chance  0.0040  0.0013  0.0066
+ plan      Pharmacy 162 smooth_chance  0.0024 -0.0003  0.0050
+draft           all 540  model_chance -0.0036 -0.0156  0.0070
+draft           all 540 smooth_chance  0.0076 -0.0044  0.0182
+draft   model >=90% 185  model_chance -0.0032 -0.0060 -0.0009
+draft   model >=90% 185 smooth_chance -0.0013 -0.0041  0.0009
+draft     Front End 189  model_chance -0.0195 -0.0378 -0.0017
+draft     Front End 189 smooth_chance  0.0039 -0.0144  0.0217
+draft Merchandising 189  model_chance -0.0070 -0.0257  0.0111
+draft Merchandising 189 smooth_chance  0.0079 -0.0108  0.0261
+draft      Pharmacy 162  model_chance  0.0189  0.0074  0.0306
+draft      Pharmacy 162 smooth_chance  0.0116  0.0000  0.0232
+
+Done in 166s.

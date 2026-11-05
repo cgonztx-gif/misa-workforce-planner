@@ -5,6 +5,8 @@ reads the same in every demo.
 """
 from __future__ import annotations
 
+import math
+
 import pandas as pd
 
 from src.data import HOLIDAY_WINDOWS, PLAN_KEY, load_labor_standard
@@ -43,6 +45,19 @@ def _percent(value: float) -> str:
     return f"{value * 100:.0f}%"
 
 
+def _a_percent(value: float) -> str:
+    """A percentage with its article, as it is read aloud: "an 8%", "an 11%", "an 84%", "a 95%"."""
+    text = _percent(value)
+    return ("an " if text.startswith("8") or text in ("11%", "18%") else "a ") + text
+
+
+def _short_percent(value: float, goal: float) -> str:
+    """A below-goal chance that never rounds up to the goal: 94.7% stays 94.7%, not 95%."""
+    if round(value * 100) < round(goal * 100):
+        return _percent(value)
+    return f"{math.floor(value * 1000) / 10:.1f}%"
+
+
 def demand_driver(row, factors: dict, valentine: dict[int, float]) -> str:
     """Why demand is what it is in this block."""
     parts = []
@@ -66,21 +81,21 @@ def demand_driver(row, factors: dict, valentine: dict[int, float]) -> str:
 def why_text(row, need: int, goal: float) -> str:
     """The main reason for the recommendation."""
     change = row.recommended - row.draft_scheduled_employees
-    draft_clause = f"The draft's {row.draft_scheduled_employees} people would run at {_percent(row.planned_utilization_draft)} utilization, with a {_percent(row.chance_met_draft)} chance of meeting target."
+    draft_clause = f"The draft's {row.draft_scheduled_employees} people would run at {_percent(row.planned_utilization_draft)} utilization, with {_a_percent(row.chance_met_draft)} chance of meeting target."
     if row.unfilled_draft > 0:
         draft_clause = (
             f"The draft schedules {row.draft_scheduled_employees} people, but only {row.fielded_draft} can be fielded. They would run at "
-            f"{_percent(row.planned_utilization_draft)} utilization, with a {_percent(row.chance_met_draft)} chance of meeting target."
+            f"{_percent(row.planned_utilization_draft)} utilization, with {_a_percent(row.chance_met_draft)} chance of meeting target."
         )
     if row.chance_met < goal - 0.0005:
         return (
             f"This block can't reach the goal. It needs {need} people for a {_percent(goal)} chance of meeting target, but the plan can only field "
-            f"{row.recommended}, using all of its own regular staff and overtime. {draft_clause} The plan's chance is {_percent(row.chance_met)}."
+            f"{row.recommended}, using all of its own regular staff and overtime. {draft_clause} The plan's chance is {_short_percent(row.chance_met, goal)}."
         )
     if change > 0:
-        return f"{draft_clause} Adding {change} brings it to {_percent(row.planned_utilization)} utilization and a {_percent(row.chance_met)} chance."
+        return f"{draft_clause} Adding {change} brings it to {_percent(row.planned_utilization)} utilization and {_a_percent(row.chance_met)} chance."
     if change < 0:
-        return f"{draft_clause} That is more than this block needs. With {row.recommended}, it runs at {_percent(row.planned_utilization)} utilization and still has a {_percent(row.chance_met)} chance."
+        return f"{draft_clause} That is more than this block needs. With {row.recommended}, it runs at {_percent(row.planned_utilization)} utilization and still has {_a_percent(row.chance_met)} chance."
     return f"{draft_clause} That already reaches the {_percent(goal)} goal, so there is no change."
 
 
@@ -157,6 +172,7 @@ def explain_plan(
         need = needed_employees(row, curves, goal)
         workload = row.demand * standard[row.dept_id]
         people, demand_room = cushion(curves[row.dept_id], row.store_id, workload, int(row.fielded), row.paid_hours)
+        plan_chance = _short_percent(row.chance_met, goal) if row.chance_met < goal - 0.0005 else _percent(row.chance_met)
         rows.append(
             {
                 "change": change,
@@ -166,7 +182,7 @@ def explain_plan(
                 "demand_driver": demand_driver(row, factors, valentine),
                 "staffing": staffing_text(row),
                 "cost_effect": cost_text(row),
-                "service_effect": f"Chance of meeting target goes from {_percent(row.chance_met_draft)} in the draft to {_percent(row.chance_met)} in the plan.",
+                "service_effect": f"Chance of meeting target goes from {_percent(row.chance_met_draft)} in the draft to {plan_chance} in the plan.",
                 "cushion_people": people,
                 "cushion_demand": demand_room,
                 "cushion_text": (

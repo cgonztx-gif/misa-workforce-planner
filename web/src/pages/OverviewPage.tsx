@@ -1,39 +1,39 @@
 import { AlertTriangle, Clock, DollarSign, Gauge, ShieldCheck, Users } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, ReferenceArea, ResponsiveContainer, Tooltip as RTooltip, XAxis, YAxis } from "recharts";
-import {
-  Badge,
-  bandProps,
-  barGap,
-  barProps,
-  Card,
-  CHART_HEIGHT,
-  ChartLegend,
-  chartMargin,
-  ErrorPanel,
-  gridProps,
-  HelpTip,
-  KpiRow,
-  KpiTile,
-  legendItems,
-  PageHeader,
-  Refreshing,
-  SkeletonCard,
-  tooltipContent,
-  barTooltipProps,
-  xAxisProps,
-  yAxisProps,
-  zeroDomain,
-} from "../components";
+import { useMemo } from "react";
+import { useNavigate } from "react-router";
+import { Badge, ErrorPanel, HelpTip, KpiRow, KpiTile, PageHeader, Refreshing, SkeletonCard } from "../components";
+import { useMeta } from "../lib/api";
 import { fmtHours, fmtInt, fmtMoney, fmtPct, plural, signedHours, signedInt, signedMoney, signedPts } from "../lib/format";
 import { useCurrentPlan, useViewNames } from "../lib/hooks";
+import { useView } from "../lib/view";
+import { AlertsCard } from "./overview/AlertsCard";
+import { ByDayCharts } from "./overview/ByDayCharts";
+import { LargestChanges } from "./overview/LargestChanges";
+import { ScenarioStrip } from "./overview/ScenarioStrip";
 
-/**
- * Overview (T-82). For now: the verdict, the KPI tiles and hours by day from /api/plan,
- * proving the data path. The page builder replaces the rest.
- */
+/** Overview (T-82): the answer for this scenario and warehouse, then the figures behind it. */
 export default function OverviewPage() {
-  const { query, totals } = useCurrentPlan();
+  const { query, data, totals, blockByKey } = useCurrentPlan();
   const { scenario, scenarioName, warehouseName } = useViewNames();
+  const { warehouse, setScenario, carry } = useView();
+  const meta = useMeta().data;
+  const navigate = useNavigate();
+
+  // Holiday-window days come from /api/meta; fall back to any day with a holiday name.
+  const windowDates = useMemo(() => {
+    const days = (meta?.days ?? []) as { date: string; holiday: string | null; holiday_window?: boolean }[];
+    if (days.length) return new Set(days.filter((d) => d.holiday_window ?? !!d.holiday).map((d) => d.date));
+    return new Set((totals?.by_day ?? []).filter((d) => d.holiday).map((d) => d.date));
+  }, [meta, totals]);
+  const windowName = useMemo(() => {
+    const days = (totals?.by_day ?? []).filter((d) => windowDates.has(d.date));
+    const named = days.filter((d) => d.holiday && !/weekend/i.test(d.holiday));
+    const base = (named.length ? named[named.length - 1].holiday : days[days.length - 1]?.holiday) ?? "holiday";
+    const short = `${base.replace(/ weekend$/i, "")} window`;
+    return { short, long: days.length ? `${short}, ${days[0].day} to ${days[days.length - 1].day}` : short };
+  }, [totals, windowDates]);
+
+  const largest = useMemo(() => (totals?.largest_changes ?? []).map((k) => blockByKey.get(k)).filter((b): b is NonNullable<typeof b> => !!b), [totals, blockByKey]);
 
   if (query.error) {
     return (
@@ -48,6 +48,10 @@ export default function OverviewPage() {
   const draft = totals?.draft;
   const change = totals?.change;
   const loading = !totals;
+  const goal = data?.goal ?? 0.95;
+  const goalPct = fmtPct(goal, 0);
+  const toSchedule = () => navigate(`/schedule${carry}`);
+  const toChanges = () => navigate(`/schedule${carry}&tab=changes`);
 
   return (
     <>
@@ -71,9 +75,14 @@ export default function OverviewPage() {
             label="Labor cost"
             icon={<DollarSign />}
             value={plan ? fmtMoney(plan.cost) : null}
-            delta={{ value: change?.cost, format: (n) => signedMoney(n, true), goodWhen: "down", suffix: "vs draft" }}
+            delta={{ value: change?.cost, format: (n) => signedMoney(n, true), goodWhen: "neutral", suffix: "vs draft" }}
             sub={draft && `Draft ${fmtMoney(draft.cost, true)}`}
-            help="Loaded labor cost for the week: regular hours at base wage x 1.25, overtime at base x 1.5 x 1.10."
+            help={
+              <>
+                Loaded labor cost for the week: regular hours at base wage x 1.25, overtime at base x 1.5 x 1.10. The extra cost buys the service gain, so the change is
+                shown in neutral gray rather than as a loss.
+              </>
+            }
           />
           <KpiTile
             label="Hours"
@@ -99,7 +108,8 @@ export default function OverviewPage() {
             value={plan ? fmtInt(plan.below_goal) : null}
             delta={{ value: change?.below_goal, format: signedInt, goodWhen: "down", suffix: "vs draft" }}
             sub={draft && `Draft ${plural(draft.below_goal, "block")}`}
-            help="Blocks whose chance of meeting target stays under the 95% goal even with all their own regular staff and overtime."
+            help={`Blocks whose chance of meeting target stays under the ${goalPct} goal even with all their own regular staff and overtime. Click to see them on the board.`}
+            onClick={toSchedule}
           />
           <KpiTile
             label="Over capacity"
@@ -110,38 +120,31 @@ export default function OverviewPage() {
             help="Blocks that schedule more people than can be fielded from regular staff, cross-trained staff and overtime."
           />
         </KpiRow>
+      </Refreshing>
+
+      <div className="mt-6">
+        <ScenarioStrip scenario={scenario} warehouse={warehouse} warehouseName={warehouseName} onPick={setScenario} />
+      </div>
+
+      <Refreshing active={query.isPlaceholderData}>
+        <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
+          {loading ? <SkeletonCard chart className="h-[560px]" /> : <ByDayCharts totals={totals} goal={goal} holidayWindow={(d) => windowDates.has(d)} windowName={windowName} />}
+          {loading ? <SkeletonCard lines={6} /> : <AlertsCard alerts={totals.alerts} carry={carry} />}
+        </div>
 
         <div className="mt-6">
           {loading ? (
-            <SkeletonCard chart />
+            <SkeletonCard lines={8} />
           ) : (
-            <Card
-              title="Hours by day"
-              description="Plan against draft. The shaded days are the Presidents' Day window, with Valentine's Day on Sat Feb 14."
-              actions={<ChartLegend items={[legendItems.plan, legendItems.draft]} />}
-            >
-              <ResponsiveContainer width="100%" height={CHART_HEIGHT}>
-                <BarChart data={totals.by_day.map((d) => ({ ...d, planHours: d.plan.hours, draftHours: d.draft.hours }))} margin={chartMargin} barGap={barGap}>
-                  <CartesianGrid {...gridProps} />
-                  {(() => {
-                    const hol = totals.by_day.filter((d) => d.holiday);
-                    return hol.length ? <ReferenceArea {...bandProps} x1={hol[0].day_short} x2={hol[hol.length - 1].day_short} /> : null;
-                  })()}
-                  <XAxis dataKey="day_short" {...xAxisProps} />
-                  <YAxis {...yAxisProps} domain={zeroDomain} tickFormatter={(v: number) => fmtInt(v)} />
-                  <RTooltip
-                    {...barTooltipProps}
-                    content={tooltipContent({
-                      format: (v) => fmtHours(v),
-                      labelFormat: (_l, row) => String(row?.day ?? _l),
-                      footer: (row) => (row?.holiday ? String(row.holiday) : null),
-                    })}
-                  />
-                  <Bar dataKey="draftHours" name="Draft" {...barProps.draft} />
-                  <Bar dataKey="planHours" name="Plan" {...barProps.plan} />
-                </BarChart>
-              </ResponsiveContainer>
-            </Card>
+            <>
+              <LargestChanges blocks={largest} showWarehouse={warehouse === "all"} scenario={scenario} goal={goal} />
+              <p className="mt-3 text-sm text-ink-subtle">
+                {plural(totals.plan.blocks, "open block")} in this view.{" "}
+                <button type="button" onClick={toChanges} className="font-medium text-accent hover:text-accent-strong">
+                  See every change from the draft
+                </button>
+              </p>
+            </>
           )}
         </div>
       </Refreshing>

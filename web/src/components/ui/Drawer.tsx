@@ -16,6 +16,14 @@ export interface DrawerProps {
   footer?: ReactNode;
   /** Width in px (default 520). */
   width?: number;
+  /**
+   * Default true: an overlay dims the page and focus stays in the drawer. false makes it an inspector
+   * panel: no overlay, the page stays clickable (e.g. pick another board cell, switch scenario), and only
+   * Esc or the X closes it.
+   */
+  modal?: boolean;
+  /** Offset from the top of the window in px, e.g. the top bar's height so its switches stay usable. Default 0. */
+  top?: number;
   children: ReactNode;
 }
 
@@ -23,13 +31,14 @@ export interface DrawerProps {
  * A right-side sheet (Radix Dialog). Esc, the X and the overlay close it; focus is trapped while open.
  * Keep `open` in the URL (useView().block) so a refresh reopens it.
  */
-export function Drawer({ open, onOpenChange, title, description, badges, footer, width = 520, children }: DrawerProps) {
+export function Drawer({ open, onOpenChange, title, description, badges, footer, width = 520, modal = true, top = 0, children }: DrawerProps) {
   return (
-    <D.Root open={open} onOpenChange={onOpenChange}>
+    <D.Root open={open} onOpenChange={onOpenChange} modal={modal}>
       <D.Portal>
-        <D.Overlay className="wp-overlay fixed inset-0 z-40 bg-navy/25" />
+        {modal && <D.Overlay className="wp-overlay fixed inset-0 z-40 bg-navy/25" />}
         <D.Content
-          style={{ width: `min(${width}px, 100vw)` }}
+          onInteractOutside={modal ? undefined : (e) => e.preventDefault()}
+          style={{ width: `min(${width}px, 100vw)`, top }}
           className={cn(
             "wp-drawer fixed inset-y-0 right-0 z-50 flex flex-col border-l border-border bg-surface shadow-raised outline-none",
             "rounded-l-frame",

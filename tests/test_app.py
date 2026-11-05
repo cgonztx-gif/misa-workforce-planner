@@ -27,7 +27,7 @@ def test_app_starts_without_errors(app):
 
 @pytest.mark.parametrize(
     "scenario, cost, over_capacity_draft",
-    [("BASE", "$376,176", "Draft: 0"), ("PEAK", "$387,092", "Draft: 0"), ("DISRUPT", "$365,321", "Draft: 12")],
+    [("BASE", "$377,504", "Draft: 0"), ("PEAK", "$387,926", "Draft: 0"), ("DISRUPT", "$366,649", "Draft: 12")],
 )
 def test_scenario_switch_updates_the_figures(app, scenario, cost, over_capacity_draft):
     app.button_group(key="scenario").set_value(scenario).run()

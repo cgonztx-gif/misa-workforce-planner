@@ -1,11 +1,18 @@
-"""Service curves (T-31, D-07, A-09): how the service metric responds to utilization.
+"""Service curves (T-31, D-07, D-29, A-09): how the service metric responds to utilization.
 
 Fitted on the log of metric / target, so a value of 0 is exactly on target. That uses every block's
 measured wait rather than only whether it passed, which matters because few blocks sit near the cliff.
-Per department the curve rises gently, steepens at a knot, then flattens at a cap, and each warehouse
-gets its own level:
+Per department the curve rises gently, bends smoothly upward, then flattens at a cap, and each
+warehouse gets its own level:
 
-    log(metric / target) = min(cap, level[warehouse] + slope * u + extra_slope * max(0, u - knot))
+    log(metric / target) = min(cap, level[warehouse] + slope * u + extra_slope * bend(u))
+    bend(u) = width * log(1 + exp((u - knot) / width))
+
+bend() is a softplus: a smooth version of max(0, u - knot), which it approaches as width shrinks. The
+first model used that sharp version, and it bent too abruptly, so it ran high near the goal (F-62, F-63).
+The smooth bend fits better out of sample (F-64, D-29). The fit puts the knot at its 0.97 bound, which
+makes the bend a smooth exponential rise over the range that matters; freeing the bound changes the fit
+by under 1%.
 
 The chance of meeting target at utilization u is the chance that scatter around the curve lands below 0.
 """
@@ -26,10 +33,15 @@ DEPARTMENTS = (38, 92, 95)
 SCATTER_RANGE = (0.70, 0.97)
 
 
-def _curve(x, level1, level2, level4, slope, extra_slope, knot, cap):
+def _bend(u, knot, width):
+    """Softplus of u - knot: near 0 well below the knot, near u - knot well above it."""
+    return width * np.logaddexp(0.0, (u - knot) / width)
+
+
+def _curve(x, level1, level2, level4, slope, extra_slope, knot, cap, width):
     u, store_index = x
     levels = np.array([level1, level2, level4])[store_index.astype(int)]
-    return np.minimum(cap, levels + slope * u + extra_slope * np.maximum(0.0, u - knot))
+    return np.minimum(cap, levels + slope * u + extra_slope * _bend(u, knot, width))
 
 
 @dataclass(frozen=True)
@@ -40,10 +52,11 @@ class Curve:
     knot: float
     cap: float
     scatter: float
+    width: float
 
     def log_ratio(self, store: int, u):
         u = np.asarray(u, dtype=float)
-        return np.minimum(self.cap, self.levels[store] + self.slope * u + self.extra_slope * np.maximum(0.0, u - self.knot))
+        return np.minimum(self.cap, self.levels[store] + self.slope * u + self.extra_slope * _bend(u, self.knot, self.width))
 
     def p_met(self, store: int, u):
         """Chance a block at utilization u meets its target."""
@@ -55,32 +68,33 @@ class Curve:
 
 
 def fit_curve(blocks: pd.DataFrame) -> Curve:
-    """Fit one department's curve. Tries several knots because the kink makes the fit sensitive to its start."""
+    """Fit one department's curve. Tries several starting knots and widths, because the fit is sensitive to its start."""
     u = blocks["utilization"].to_numpy()
     y = np.log(blocks["service_ratio"].to_numpy())
     store_index = blocks["store_id"].map({s: i for i, s in enumerate(STORES)}).to_numpy()
     best, best_sse = None, np.inf
     for start_knot in (0.82, 0.85, 0.88, 0.90):
-        try:
-            params, _ = curve_fit(
-                _curve,
-                (u, store_index),
-                y,
-                p0=[-4.0, -4.0, -4.0, 4.0, 10.0, start_knot, 1.45],
-                bounds=([-12, -12, -12, 0, 0, 0.70, 0.8], [2, 2, 2, 12, 40, 0.97, 2.5]),
-                maxfev=20000,
-            )
-        except RuntimeError:
-            continue
-        sse = float(((y - _curve((u, store_index), *params)) ** 2).sum())
-        if sse < best_sse:
-            best, best_sse = params, sse
+        for start_width in (0.01, 0.03):
+            try:
+                params, _ = curve_fit(
+                    _curve,
+                    (u, store_index),
+                    y,
+                    p0=[-4.0, -4.0, -4.0, 4.0, 10.0, start_knot, 1.45, start_width],
+                    bounds=([-12, -12, -12, 0, 0, 0.70, 0.8, 0.003], [2, 2, 2, 12, 40, 0.97, 2.5, 0.15]),
+                    maxfev=20000,
+                )
+            except RuntimeError:
+                continue
+            sse = float(((y - _curve((u, store_index), *params)) ** 2).sum())
+            if sse < best_sse:
+                best, best_sse = params, sse
     if best is None:
         raise RuntimeError("The service curve did not converge")
-    level1, level2, level4, slope, extra_slope, knot, cap = best
+    level1, level2, level4, slope, extra_slope, knot, cap, width = best
     residuals = y - _curve((u, store_index), *best)
     in_range = (u >= SCATTER_RANGE[0]) & (u <= SCATTER_RANGE[1])
-    return Curve({1: level1, 2: level2, 4: level4}, slope, extra_slope, knot, cap, float(residuals[in_range].std()))
+    return Curve({1: level1, 2: level2, 4: level4}, slope, extra_slope, knot, cap, float(residuals[in_range].std()), width)
 
 
 def fit_all(blocks: pd.DataFrame | None = None) -> dict[int, Curve]:

@@ -185,3 +185,11 @@
 - **Why:** the deck, report and notebook are written in parallel, so they must all quote the same plan. Any model change after the freeze means rebuilding all three.
 - **Choice:** after the checks in `DELIVERABLES_PLAN.md` section 5, rerun the pipeline, commit and tag `numbers-freeze` (M6). The deck's and report's builders read every calculated figure from `outputs/analysis_summary.json`, and the notebook recomputes and asserts against it.
 
+## D-29: Replace the service curve's sharp knot with a smooth bend
+
+- **Status:** Accepted, 2026-11-05. The user chose it after the calibration study (T-75, V-04): "Adopt smooth knot".
+- **Why:** service is judged first. The model ran slightly high near the goal, mostly in Front End (F-62). The cause is the curve's shape, not its scatter (F-63). A smooth (softplus) bend, with one more parameter, fits better out of sample on every measure (F-64). It also agrees with history without the model, within 0.1 points (F-65). The study predicted it adds 24 people and cuts none, at +0.35% cost per scenario.
+- **Choice:** `src/service.py` fits the smooth bend and keeps today's scatter rule. Then the pipeline, the tests and the WS1 checks are rerun, and the numbers freeze (M6).
+- **Rejected:** scaling the scatter (fix a), which isn't clearly better and is unstable. Letting scatter vary with utilization (fix b), which is clearly better but tiny (+3 people) and leaves the bias near the goal.
+- **Cost:** a model change the day before the freeze. Nothing downstream had been built yet, so the rebuild is cheap.
+

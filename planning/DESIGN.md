@@ -31,7 +31,7 @@ Other sources:
 2. **Apply the scenario:** multiply by `demand_multiplier` and use that scenario's availability columns.
 3. **Convert to headcount:** the smallest headcount, at or above `min_staff`, that reaches the service goal once risk is counted (see below), and 0 when closed. There is no single target utilization, so the implied one varies by block.
 4. **Allocate and cost:** fill with regular staff, then usable cross-trained staff, then overtime, all in `src/allocation.py`. `cost = (regular + flex) x paid_hours x loaded_regular_hourly_cost + overtime x paid_hours x loaded_overtime_hourly_cost`. A block above capacity or below `min_staff` is infeasible.
-5. **Predict service** from a curve fitted on history, where `utilization = shift_demand_units x labor_hours_per_workload_unit / worked_labor_hours`. Per department: `log(metric / target) = min(cap, level[warehouse] + slope x u + extra_slope x max(0, u - knot))`, with normal scatter around it.
+5. **Predict service** from a curve fitted on history, where `utilization = shift_demand_units x labor_hours_per_workload_unit / worked_labor_hours`. Per department: `log(metric / target) = min(cap, level[warehouse] + slope x u + extra_slope x bend(u))`, with normal scatter around it. `bend(u) = width x log(1 + exp((u - knot) / width))` is a smooth version of `max(0, u - knot)` (D-29). The first model used the sharp version, which ran slightly high near the goal (F-62 to F-64).
 
 ## Staffing search (D-06)
 

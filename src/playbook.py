@@ -121,7 +121,7 @@ def on_the_day(explained: pd.DataFrame) -> list[dict]:
     return [
         {
             "trigger": f"Callouts in a block pass its cushion. The typical cushion in people is: {people}.",
-            "action": "Replace them in this order: cross-trained staff if the partner department has people to spare, since they cost the regular rate, then overtime if the block has room. Each block's own cushion is on the Why tab.",
+            "action": "Replace them in this order: cross-trained staff if the partner department has people to spare, since they cost the regular rate, then overtime if the block has room. Each block's own cushion shows when you open that block in the planner.",
         },
         {
             "trigger": f"Traffic runs above forecast by more than the cushion. The typical cushion is: {demand}.",

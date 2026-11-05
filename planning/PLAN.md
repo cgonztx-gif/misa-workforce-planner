@@ -153,13 +153,13 @@ Section numbers refer to `DELIVERABLES_PLAN.md`, which has the details, checks a
 | T-76 | Check the forecast's and scenarios' inputs (V-05, V-06) | T-74 | All hold, or the changes go to the user | Done (F-68, F-69) |
 | T-77 | Independent checks of the search and cost, plus a test that explanations match their numbers (V-07 to V-09) | T-74 | 20 of 20 shifts agree, costs match to the cent, the test passes | Done (F-70 to F-72). Rerun after D-29 |
 | T-78 | Freeze the numbers (5.4, D-28) | T-73 to T-77 | Pipeline rerun, committed, tagged `numbers-freeze` (M6) | Not started |
-| T-79 | Shared look: `design/tokens.json`, `src/viz_style.py`, the deck theme (section 6, D-26) | | A sample chart in each medium looks like the same product | In progress |
-| T-80 | API layer and its tests (7.3) | | `tests/test_api.py` passes, and defaults equal the submission | In progress |
+| T-79 | Shared look: `design/tokens.json`, `src/viz_style.py`, the deck theme (section 6, D-26) | | A sample chart in each medium looks like the same product | Done: tokens, `src/viz_style.py`, `scripts/deck/theme.js`, samples in `evidence/look_samples/` (F-73) |
+| T-80 | API layer and its tests (7.3) | | `tests/test_api.py` passes, and defaults equal the submission | Done: 11 endpoints plus `plan.csv`, 45 API tests, `server/API.md`, `start_app.bat`. Ready in 17.5 s, a new what-if in 4.5-5.6 s |
 | T-81 | Web app shell: layout, navigation, top bar, data client, "preparing" screen (7.2) | T-79, T-80 | Served by FastAPI on localhost:8501, with no outside requests | Done: shell, shared components and chart theme, checked in Chromium (`evidence/web_screenshots/`) |
-| T-82 | Overview page (7.4) | T-81 | Checked in a browser | In progress |
-| T-83 | Schedule page: board, block drawer, changes list, export (7.4) | T-81 | Checked in a browser | In progress |
-| T-84 | Demand page (7.4) | T-81 | Checked in a browser | In progress |
-| T-85 | Cost and service page (7.4) | T-81 | Checked in a browser | In progress |
+| T-82 | Overview page (7.4) | T-81 | Checked in a browser | Done: verdict, KPI tiles, scenario strip, by-day small multiples, alerts, largest changes. Checked in Chromium |
+| T-83 | Schedule page: board, block drawer, changes list, export (7.4) | T-81 | Checked in a browser | Done: board with three color modes, drawer kept in the URL, Changes table, exports. 49 of 49 browser checks pass |
+| T-84 | Demand page (7.4) | T-81 | Checked in a browser | Done: forecast against benchmark, waterfall, shift split, accuracy card, drivers we tested. Checked in Chromium, 70 figures matched to the API |
+| T-85 | Cost and service page (7.4) | T-81 | Checked in a browser | Done: scenario and department table (gap 4), cost and service by day, trade-off, callout allowance, below-goal table. Checked in Chromium |
 | T-86 | Scenario lab (7.4) | T-81 | A what-if finishes in under 8 seconds and Reset works | In progress |
 | T-87 | Playbook page (7.4) | T-81 | Checked in a browser | In progress |
 | T-88 | Methods page (7.4) | T-81 | Checked in a browser | In progress |

@@ -3,7 +3,7 @@ import numpy as np
 import pytest
 
 from src.risk import chance_met, monte_carlo_chance, net_loss_distribution
-from src.service import fit_all, limits_table
+from src.service import fit_all, holdout_scores, limits_table
 
 
 @pytest.fixture(scope="module")
@@ -24,6 +24,13 @@ def test_curves_sit_at_the_cliff_seen_in_the_data(curves):
     assert limits["u95"].between(0.80, 0.90).all()
     assert (limits["u50"] > limits["u95"]).all()
     assert limits["u50"].between(0.85, 0.92).all()
+
+
+def test_the_smooth_bend_beats_the_average_rate_out_of_sample():
+    # D-29: the smooth bend scored 0.0239 leaving one week out, against 0.0261 for the sharp knot it replaced.
+    holdout = holdout_scores()
+    assert ((holdout["p_met"] - holdout["met_target"]) ** 2).mean() < 0.025
+    assert ((holdout["base_rate"] - holdout["met_target"]) ** 2).mean() > 0.15
 
 
 def test_net_loss_distribution_sums_to_one_and_respects_overtime_room():

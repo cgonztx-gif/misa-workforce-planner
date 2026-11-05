@@ -174,7 +174,10 @@ def capacity_gaps(evaluated: pd.DataFrame, curves: dict) -> pd.DataFrame:
     """People each scenario would need beyond what capacity allows, by day and department."""
     open_rows = evaluated[evaluated["is_open"] == 1].copy()
     open_rows["need"] = [needed_employees(row, curves, SERVICE_GOAL) for row in open_rows.itertuples()]
-    open_rows["gap"] = (open_rows["need"] - open_rows["recommended"]).clip(lower=0)
+    # Count a block as short only when it's below the goal by the same rule as everywhere else, so a block at
+    # 94.99% that the app shows as reaching the goal isn't also reported one person short.
+    below = open_rows["chance_met"] < SERVICE_GOAL - 0.0005
+    open_rows["gap"] = (open_rows["need"] - open_rows["recommended"]).clip(lower=0).where(below, 0)
     open_rows["gap_hours"] = open_rows["gap"] * open_rows["paid_hours"]
     table = (
         open_rows.groupby(["scenario_code", "day_date", "dept_id"], as_index=False, sort=False)
@@ -388,6 +391,7 @@ def run() -> dict:
                 "slope": float(curve.slope),
                 "extra_slope": float(curve.extra_slope),
                 "knot": float(curve.knot),
+                "width": float(curve.width),  # D-29: the bend is a softplus of this width around the knot
                 "cap": float(curve.cap),
                 "scatter": float(curve.scatter),
             }

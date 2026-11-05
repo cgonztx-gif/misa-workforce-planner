@@ -1029,11 +1029,11 @@
  ],
  "base_shortfall": {
   "blocks": 25,
-  "average_chance": 0.8405445728472023,
+  "average_chance": 0.8288902099624293,
   "near_goal_blocks": 11,
   "holiday_blocks": 22,
   "feb14_front_merch_blocks": 18,
-  "feb14_front_merch_at_capacity": 10,
+  "feb14_front_merch_at_capacity": 11,
   "feb17_pharmacy_short": 3,
   "feb17_pharmacy_short_at_weekday_rate": 1,
   "feb17_weekday_rate": 0.02902902902902903
@@ -1276,116 +1276,116 @@
    "dept_id": 38,
    "store_id": 1,
    "u95": 0.861,
-   "u90": 0.87,
-   "u50": 0.897
-  },
-  {
-   "dept_id": 38,
-   "store_id": 2,
-   "u95": 0.832,
-   "u90": 0.841,
-   "u50": 0.874
-  },
-  {
-   "dept_id": 38,
-   "store_id": 4,
-   "u95": 0.851,
-   "u90": 0.86,
-   "u50": 0.892
-  },
-  {
-   "dept_id": 92,
-   "store_id": 1,
-   "u95": 0.862,
-   "u90": 0.871,
+   "u90": 0.867,
    "u50": 0.885
   },
   {
+   "dept_id": 38,
+   "store_id": 2,
+   "u95": 0.837,
+   "u90": 0.844,
+   "u50": 0.866
+  },
+  {
+   "dept_id": 38,
+   "store_id": 4,
+   "u95": 0.85,
+   "u90": 0.857,
+   "u50": 0.877
+  },
+  {
+   "dept_id": 92,
+   "store_id": 1,
+   "u95": 0.857,
+   "u90": 0.862,
+   "u50": 0.881
+  },
+  {
    "dept_id": 92,
    "store_id": 2,
-   "u95": 0.877,
-   "u90": 0.88,
-   "u50": 0.892
+   "u95": 0.868,
+   "u90": 0.873,
+   "u50": 0.89
   },
   {
    "dept_id": 92,
    "store_id": 4,
-   "u95": 0.844,
-   "u90": 0.853,
-   "u50": 0.878
+   "u95": 0.845,
+   "u90": 0.851,
+   "u50": 0.871
   },
   {
    "dept_id": 95,
    "store_id": 1,
-   "u95": 0.852,
-   "u90": 0.856,
-   "u50": 0.872
+   "u95": 0.855,
+   "u90": 0.86,
+   "u50": 0.877
   },
   {
    "dept_id": 95,
    "store_id": 2,
-   "u95": 0.843,
-   "u90": 0.847,
-   "u50": 0.863
+   "u95": 0.845,
+   "u90": 0.85,
+   "u50": 0.867
   },
   {
    "dept_id": 95,
    "store_id": 4,
-   "u95": 0.844,
-   "u90": 0.849,
-   "u50": 0.864
+   "u95": 0.847,
+   "u90": 0.852,
+   "u50": 0.869
   }
  ],
  "service_brier": {
-  "model": 0.02610922839643154,
+  "model": 0.023892090602458636,
   "base_rate": 0.1772952989439962
  },
  "service_calibration": [
   {
    "bin": "0-10%",
-   "blocks": 191,
-   "predicted": 0.004,
-   "observed": 0.016
+   "blocks": 192,
+   "predicted": 0.005,
+   "observed": 0.01
   },
   {
    "bin": "10-30%",
-   "blocks": 15,
-   "predicted": 0.213,
-   "observed": 0.2
+   "blocks": 23,
+   "predicted": 0.182,
+   "observed": 0.217
   },
   {
    "bin": "30-50%",
-   "blocks": 18,
-   "predicted": 0.403,
-   "observed": 0.5
+   "blocks": 14,
+   "predicted": 0.402,
+   "observed": 0.643
   },
   {
    "bin": "50-70%",
-   "blocks": 17,
-   "predicted": 0.617,
-   "observed": 0.647
+   "blocks": 21,
+   "predicted": 0.604,
+   "observed": 0.619
   },
   {
    "bin": "70-90%",
-   "blocks": 38,
-   "predicted": 0.809,
-   "observed": 0.684
+   "blocks": 44,
+   "predicted": 0.805,
+   "observed": 0.818
   },
   {
    "bin": "90-95%",
-   "blocks": 31,
-   "predicted": 0.925,
-   "observed": 0.903
+   "blocks": 19,
+   "predicted": 0.926,
+   "observed": 0.895
   },
   {
    "bin": "95-99%",
-   "blocks": 53,
-   "predicted": 0.973,
-   "observed": 0.943
+   "blocks": 46,
+   "predicted": 0.974,
+   "observed": 0.957
   },
   {
    "bin": "99-100%",
-   "blocks": 690,
+   "blocks": 694,
    "predicted": 1.0,
    "observed": 1.0
   }
@@ -1393,83 +1393,86 @@
  "curves": {
   "Front End": {
    "levels": {
-    "1": -4.811099974297387,
-    "2": -4.65580145053352,
-    "4": -4.7537666600348105
+    "1": -3.9887194583542818,
+    "2": -3.8207280826326264,
+    "4": -3.910857327123488
    },
-   "slope": 5.329283261969612,
-   "extra_slope": 12.086294518308218,
-   "knot": 0.8948390393597196,
-   "cap": 1.518830852162402,
-   "scatter": 0.13432310485573362
+   "slope": 4.167438090119335,
+   "extra_slope": 34.564588784589844,
+   "knot": 0.9699999999999749,
+   "width": 0.05044144288707137,
+   "cap": 1.521398062353083,
+   "scatter": 0.1299235729907529
   },
   "Merchandising": {
    "levels": {
-    "1": -4.450735020620577,
-    "2": -4.552740894398717,
-    "4": -4.3612236356336815
+    "1": -3.6812832314028476,
+    "2": -3.76945069918155,
+    "4": -3.5964490103611895
    },
-   "slope": 4.915366377230079,
-   "extra_slope": 9.210584602657521,
-   "knot": 0.8736273539837723,
-   "cap": 1.4055641419277942,
-   "scatter": 0.1305812264228117
+   "slope": 3.8087350103135518,
+   "extra_slope": 34.936831705286856,
+   "knot": 0.9699999999999916,
+   "width": 0.05377706223196675,
+   "cap": 1.4054454590243701,
+   "scatter": 0.1235864095191458
   },
   "Pharmacy": {
    "levels": {
-    "1": -3.4917030354474017,
-    "2": -3.3962070488916365,
-    "4": -3.4128014874201478
+    "1": -3.070412576618899,
+    "2": -2.9846147637038443,
+    "4": -3.002766063518841
    },
-   "slope": 3.533861181570609,
-   "extra_slope": 6.8072707363741705,
-   "knot": 0.8116205564243358,
-   "cap": 1.4440485682700133,
-   "scatter": 0.12662917043399793
+   "slope": 2.7960985085773804,
+   "extra_slope": 29.12570158833025,
+   "knot": 0.9699999999999999,
+   "width": 0.0793050329973485,
+   "cap": 1.4459361693057151,
+   "scatter": 0.11531489933884134
   }
  },
  "plan_summary": [
   {
    "scenario_code": "BASE",
-   "hours": 11618.0,
-   "cost": 376176.165,
-   "expected_met": 0.958,
-   "lowest_chance": 0.616,
+   "hours": 11657.5,
+   "cost": 377504.48,
+   "expected_met": 0.956,
+   "lowest_chance": 0.57,
    "below_goal": 25,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 958.0,
+   "overtime_hours": 974.5,
    "flex_hours": 95.0,
-   "avg_utilization": 0.7
+   "avg_utilization": 0.698
   },
   {
    "scenario_code": "PEAK",
-   "hours": 11897.5,
-   "cost": 387092.18,
-   "expected_met": 0.874,
-   "lowest_chance": 0.004,
-   "below_goal": 44,
+   "hours": 11923.0,
+   "cost": 387926.42,
+   "expected_met": 0.87,
+   "lowest_chance": 0.003,
+   "below_goal": 45,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 1215.5,
+   "overtime_hours": 1224.0,
    "flex_hours": 67.0,
-   "avg_utilization": 0.72
+   "avg_utilization": 0.719
   },
   {
    "scenario_code": "DISRUPT",
-   "hours": 11248.5,
-   "cost": 365320.695,
-   "expected_met": 0.897,
+   "hours": 11288.0,
+   "cost": 366649.01,
+   "expected_met": 0.895,
    "lowest_chance": 0.0,
    "below_goal": 39,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 997.5,
+   "overtime_hours": 1014.0,
    "flex_hours": 74.0,
-   "avg_utilization": 0.722
+   "avg_utilization": 0.72
   }
  ],
  "draft_summary": [
@@ -1477,9 +1480,9 @@
    "scenario_code": "BASE",
    "hours": 10344.0,
    "cost": 329108.19,
-   "expected_met": 0.698,
+   "expected_met": 0.685,
    "lowest_chance": 0.0,
-   "below_goal": 134,
+   "below_goal": 135,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
@@ -1491,9 +1494,9 @@
    "scenario_code": "PEAK",
    "hours": 10344.0,
    "cost": 329108.19,
-   "expected_met": 0.591,
+   "expected_met": 0.583,
    "lowest_chance": 0.0,
-   "below_goal": 138,
+   "below_goal": 139,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
@@ -1505,9 +1508,9 @@
    "scenario_code": "DISRUPT",
    "hours": 10206.5,
    "cost": 326367.24,
-   "expected_met": 0.678,
+   "expected_met": 0.666,
    "lowest_chance": 0.0,
-   "below_goal": 141,
+   "below_goal": 142,
    "over_capacity": 12,
    "unfilled": 36,
    "below_min_staff": 0,
@@ -1520,23 +1523,23 @@
   {
    "scenario_code": "BASE",
    "dept_id": 38,
-   "hours": 5386.5,
+   "hours": 5410.0,
    "hours_draft": 4728.5,
-   "cost": 162549.815,
+   "cost": 163346.18,
    "cost_draft": 139229.925,
-   "expected_met": 0.956,
-   "expected_met_draft": 0.646,
+   "expected_met": 0.952,
+   "expected_met_draft": 0.619,
    "department": "Front End"
   },
   {
    "scenario_code": "BASE",
    "dept_id": 92,
-   "hours": 5387.5,
+   "hours": 5403.5,
    "hours_draft": 4846.0,
-   "cost": 168923.81,
+   "cost": 169455.76,
    "cost_draft": 149672.745,
-   "expected_met": 0.953,
-   "expected_met_draft": 0.602,
+   "expected_met": 0.95,
+   "expected_met_draft": 0.585,
    "department": "Merchandising"
   },
   {
@@ -1546,30 +1549,30 @@
    "hours_draft": 769.5,
    "cost": 44702.54,
    "cost_draft": 40205.52,
-   "expected_met": 0.965,
-   "expected_met_draft": 0.87,
+   "expected_met": 0.966,
+   "expected_met_draft": 0.877,
    "department": "Pharmacy"
   },
   {
    "scenario_code": "PEAK",
    "dept_id": 38,
-   "hours": 5477.5,
+   "hours": 5493.5,
    "hours_draft": 4728.5,
-   "cost": 166335.145,
+   "cost": 166841.185,
    "cost_draft": 139229.925,
-   "expected_met": 0.806,
-   "expected_met_draft": 0.51,
+   "expected_met": 0.794,
+   "expected_met_draft": 0.491,
    "department": "Front End"
   },
   {
    "scenario_code": "PEAK",
    "dept_id": 92,
-   "hours": 5576.0,
+   "hours": 5585.5,
    "hours_draft": 4846.0,
-   "cost": 176054.495,
+   "cost": 176382.695,
    "cost_draft": 149672.745,
-   "expected_met": 0.87,
-   "expected_met_draft": 0.45,
+   "expected_met": 0.867,
+   "expected_met_draft": 0.438,
    "department": "Merchandising"
   },
   {
@@ -1579,30 +1582,30 @@
    "hours_draft": 769.5,
    "cost": 44702.54,
    "cost_draft": 40205.52,
-   "expected_met": 0.959,
-   "expected_met_draft": 0.852,
+   "expected_met": 0.961,
+   "expected_met_draft": 0.86,
    "department": "Pharmacy"
   },
   {
    "scenario_code": "DISRUPT",
    "dept_id": 38,
-   "hours": 5041.5,
+   "hours": 5065.0,
    "hours_draft": 4622.5,
-   "cost": 151879.465,
+   "cost": 152675.83,
    "cost_draft": 137027.095,
-   "expected_met": 0.806,
-   "expected_met_draft": 0.61,
+   "expected_met": 0.802,
+   "expected_met_draft": 0.585,
    "department": "Front End"
   },
   {
    "scenario_code": "DISRUPT",
    "dept_id": 92,
-   "hours": 5375.5,
+   "hours": 5391.5,
    "hours_draft": 4834.0,
-   "cost": 169197.33,
+   "cost": 169729.28,
    "cost_draft": 150023.825,
-   "expected_met": 0.948,
-   "expected_met_draft": 0.599,
+   "expected_met": 0.945,
+   "expected_met_draft": 0.583,
    "department": "Merchandising"
   },
   {
@@ -1612,8 +1615,8 @@
    "hours_draft": 750.0,
    "cost": 44243.9,
    "cost_draft": 39316.32,
-   "expected_met": 0.943,
-   "expected_met_draft": 0.849,
+   "expected_met": 0.945,
+   "expected_met_draft": 0.856,
    "department": "Pharmacy"
   }
  ],
@@ -1621,170 +1624,170 @@
   {
    "scenario_code": "BASE",
    "day_date": "2026-02-12",
-   "hours": 1493.5,
+   "hours": 1497.5,
    "hours_draft": 1407.0,
-   "expected_met": 0.978,
-   "expected_met_draft": 0.847
+   "expected_met": 0.977,
+   "expected_met_draft": 0.84
   },
   {
    "scenario_code": "BASE",
    "day_date": "2026-02-13",
-   "hours": 1859.0,
+   "hours": 1865.0,
    "hours_draft": 1649.5,
-   "expected_met": 0.974,
-   "expected_met_draft": 0.694
+   "expected_met": 0.972,
+   "expected_met_draft": 0.679
   },
   {
    "scenario_code": "BASE",
    "day_date": "2026-02-14",
-   "hours": 1946.0,
+   "hours": 1953.5,
    "hours_draft": 1647.0,
-   "expected_met": 0.885,
-   "expected_met_draft": 0.481
+   "expected_met": 0.876,
+   "expected_met_draft": 0.464
   },
   {
    "scenario_code": "BASE",
    "day_date": "2026-02-15",
-   "hours": 1702.0,
+   "hours": 1711.0,
    "hours_draft": 1424.5,
-   "expected_met": 0.947,
-   "expected_met_draft": 0.463
+   "expected_met": 0.943,
+   "expected_met_draft": 0.44
   },
   {
    "scenario_code": "BASE",
    "day_date": "2026-02-16",
    "hours": 1600.0,
    "hours_draft": 1427.5,
-   "expected_met": 0.977,
-   "expected_met_draft": 0.739
+   "expected_met": 0.975,
+   "expected_met_draft": 0.727
   },
   {
    "scenario_code": "BASE",
    "day_date": "2026-02-17",
-   "hours": 1544.5,
+   "hours": 1548.5,
    "hours_draft": 1411.0,
-   "expected_met": 0.957,
-   "expected_met_draft": 0.765
+   "expected_met": 0.956,
+   "expected_met_draft": 0.755
   },
   {
    "scenario_code": "BASE",
    "day_date": "2026-02-18",
-   "hours": 1473.0,
+   "hours": 1482.0,
    "hours_draft": 1377.5,
-   "expected_met": 0.976,
-   "expected_met_draft": 0.818
+   "expected_met": 0.978,
+   "expected_met_draft": 0.809
   },
   {
    "scenario_code": "PEAK",
    "day_date": "2026-02-12",
-   "hours": 1493.5,
+   "hours": 1497.5,
    "hours_draft": 1407.0,
-   "expected_met": 0.978,
-   "expected_met_draft": 0.847
+   "expected_met": 0.977,
+   "expected_met_draft": 0.84
   },
   {
    "scenario_code": "PEAK",
    "day_date": "2026-02-13",
    "hours": 2050.0,
    "hours_draft": 1649.5,
-   "expected_met": 0.835,
-   "expected_met_draft": 0.344
+   "expected_met": 0.827,
+   "expected_met_draft": 0.339
   },
   {
    "scenario_code": "PEAK",
    "day_date": "2026-02-14",
    "hours": 1990.0,
    "hours_draft": 1647.0,
-   "expected_met": 0.482,
-   "expected_met_draft": 0.239
+   "expected_met": 0.467,
+   "expected_met_draft": 0.238
   },
   {
    "scenario_code": "PEAK",
    "day_date": "2026-02-15",
-   "hours": 1746.5,
+   "hours": 1755.0,
    "hours_draft": 1424.5,
-   "expected_met": 0.871,
-   "expected_met_draft": 0.28
+   "expected_met": 0.86,
+   "expected_met_draft": 0.265
   },
   {
    "scenario_code": "PEAK",
    "day_date": "2026-02-16",
    "hours": 1600.0,
    "hours_draft": 1427.5,
-   "expected_met": 0.977,
-   "expected_met_draft": 0.739
+   "expected_met": 0.975,
+   "expected_met_draft": 0.727
   },
   {
    "scenario_code": "PEAK",
    "day_date": "2026-02-17",
-   "hours": 1544.5,
+   "hours": 1548.5,
    "hours_draft": 1411.0,
-   "expected_met": 0.957,
-   "expected_met_draft": 0.765
+   "expected_met": 0.956,
+   "expected_met_draft": 0.755
   },
   {
    "scenario_code": "PEAK",
    "day_date": "2026-02-18",
-   "hours": 1473.0,
+   "hours": 1482.0,
    "hours_draft": 1377.5,
-   "expected_met": 0.976,
-   "expected_met_draft": 0.818
+   "expected_met": 0.978,
+   "expected_met_draft": 0.809
   },
   {
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-12",
-   "hours": 1493.5,
+   "hours": 1497.5,
    "hours_draft": 1407.0,
-   "expected_met": 0.978,
-   "expected_met_draft": 0.847
+   "expected_met": 0.977,
+   "expected_met_draft": 0.84
   },
   {
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-13",
-   "hours": 1751.0,
+   "hours": 1757.0,
    "hours_draft": 1601.5,
-   "expected_met": 0.851,
-   "expected_met_draft": 0.64
+   "expected_met": 0.848,
+   "expected_met_draft": 0.627
   },
   {
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-14",
-   "hours": 1803.0,
+   "hours": 1810.5,
    "hours_draft": 1597.0,
-   "expected_met": 0.757,
-   "expected_met_draft": 0.45
+   "expected_met": 0.75,
+   "expected_met_draft": 0.434
   },
   {
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-15",
-   "hours": 1595.0,
+   "hours": 1604.0,
    "hours_draft": 1395.5,
-   "expected_met": 0.813,
-   "expected_met_draft": 0.442
+   "expected_met": 0.81,
+   "expected_met_draft": 0.421
   },
   {
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-16",
    "hours": 1588.5,
    "hours_draft": 1417.0,
-   "expected_met": 0.913,
-   "expected_met_draft": 0.705
+   "expected_met": 0.91,
+   "expected_met_draft": 0.693
   },
   {
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-17",
-   "hours": 1544.5,
+   "hours": 1548.5,
    "hours_draft": 1411.0,
-   "expected_met": 0.957,
-   "expected_met_draft": 0.765
+   "expected_met": 0.956,
+   "expected_met_draft": 0.755
   },
   {
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-18",
-   "hours": 1473.0,
+   "hours": 1482.0,
    "hours_draft": 1377.5,
-   "expected_met": 0.976,
-   "expected_met_draft": 0.818
+   "expected_met": 0.978,
+   "expected_met_draft": 0.809
   }
  ],
  "below_goal_by_day": [
@@ -1792,363 +1795,363 @@
    "scenario_code": "BASE",
    "day_date": "2026-02-13",
    "blocks": 3,
-   "average_chance": 0.925
+   "average_chance": 0.91
   },
   {
    "scenario_code": "BASE",
    "day_date": "2026-02-14",
    "blocks": 11,
-   "average_chance": 0.781
+   "average_chance": 0.765
   },
   {
    "scenario_code": "BASE",
    "day_date": "2026-02-15",
    "blocks": 7,
-   "average_chance": 0.9
+   "average_chance": 0.889
   },
   {
    "scenario_code": "BASE",
    "day_date": "2026-02-16",
    "blocks": 1,
-   "average_chance": 0.917
+   "average_chance": 0.918
   },
   {
    "scenario_code": "BASE",
    "day_date": "2026-02-17",
    "blocks": 3,
-   "average_chance": 0.81
+   "average_chance": 0.812
   },
   {
    "scenario_code": "PEAK",
    "day_date": "2026-02-13",
-   "blocks": 8,
-   "average_chance": 0.501
+   "blocks": 9,
+   "average_chance": 0.529
   },
   {
    "scenario_code": "PEAK",
    "day_date": "2026-02-14",
    "blocks": 18,
-   "average_chance": 0.319
+   "average_chance": 0.299
   },
   {
    "scenario_code": "PEAK",
    "day_date": "2026-02-15",
    "blocks": 14,
-   "average_chance": 0.824
+   "average_chance": 0.806
   },
   {
    "scenario_code": "PEAK",
    "day_date": "2026-02-16",
    "blocks": 1,
-   "average_chance": 0.917
+   "average_chance": 0.918
   },
   {
    "scenario_code": "PEAK",
    "day_date": "2026-02-17",
    "blocks": 3,
-   "average_chance": 0.81
+   "average_chance": 0.812
   },
   {
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-13",
    "blocks": 7,
-   "average_chance": 0.494
+   "average_chance": 0.483
   },
   {
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-14",
    "blocks": 14,
-   "average_chance": 0.604
+   "average_chance": 0.594
   },
   {
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-15",
    "blocks": 9,
-   "average_chance": 0.604
+   "average_chance": 0.598
   },
   {
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-16",
    "blocks": 6,
-   "average_chance": 0.684
+   "average_chance": 0.677
   },
   {
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-17",
    "blocks": 3,
-   "average_chance": 0.81
+   "average_chance": 0.812
   }
  ],
  "goal_tradeoff": [
   {
    "goal": 0.85,
    "scenario_code": "BASE",
-   "hours": 11035.5,
-   "cost": 354039.955,
-   "expected_met": 0.91,
-   "lowest_chance": 0.616,
+   "hours": 11092.0,
+   "cost": 355885.33,
+   "expected_met": 0.909,
+   "lowest_chance": 0.57,
    "below_goal": 11,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 683.0,
+   "overtime_hours": 712.5,
    "flex_hours": 89.0,
-   "avg_utilization": 0.746
+   "avg_utilization": 0.745
   },
   {
    "goal": 0.85,
    "scenario_code": "PEAK",
-   "hours": 11457.5,
-   "cost": 370658.43,
-   "expected_met": 0.839,
-   "lowest_chance": 0.004,
-   "below_goal": 30,
+   "hours": 11499.5,
+   "cost": 371965.875,
+   "expected_met": 0.835,
+   "lowest_chance": 0.003,
+   "below_goal": 31,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 1046.0,
+   "overtime_hours": 1057.5,
    "flex_hours": 65.0,
-   "avg_utilization": 0.756
+   "avg_utilization": 0.755
   },
   {
    "goal": 0.85,
    "scenario_code": "DISRUPT",
-   "hours": 10738.0,
-   "cost": 346268.42,
-   "expected_met": 0.856,
+   "hours": 10790.5,
+   "cost": 347955.915,
+   "expected_met": 0.854,
    "lowest_chance": 0.0,
    "below_goal": 25,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 754.0,
+   "overtime_hours": 779.5,
    "flex_hours": 82.0,
    "avg_utilization": 0.759
   },
   {
    "goal": 0.9,
    "scenario_code": "BASE",
-   "hours": 11266.5,
-   "cost": 362575.715,
-   "expected_met": 0.936,
-   "lowest_chance": 0.616,
+   "hours": 11321.0,
+   "cost": 364289.085,
+   "expected_met": 0.934,
+   "lowest_chance": 0.57,
    "below_goal": 14,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 790.0,
-   "flex_hours": 90.0,
-   "avg_utilization": 0.728
+   "overtime_hours": 815.0,
+   "flex_hours": 94.0,
+   "avg_utilization": 0.727
   },
   {
    "goal": 0.9,
    "scenario_code": "PEAK",
-   "hours": 11611.5,
-   "cost": 376119.395,
-   "expected_met": 0.856,
-   "lowest_chance": 0.004,
+   "hours": 11664.5,
+   "cost": 377868.33,
+   "expected_met": 0.853,
+   "lowest_chance": 0.003,
    "below_goal": 37,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 1091.5,
+   "overtime_hours": 1115.5,
    "flex_hours": 66.0,
-   "avg_utilization": 0.744
+   "avg_utilization": 0.742
   },
   {
    "goal": 0.9,
    "scenario_code": "DISRUPT",
-   "hours": 10942.5,
-   "cost": 353648.28,
-   "expected_met": 0.878,
+   "hours": 10998.0,
+   "cost": 355520.085,
+   "expected_met": 0.877,
    "lowest_chance": 0.0,
    "below_goal": 27,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 850.0,
+   "overtime_hours": 873.5,
    "flex_hours": 74.0,
-   "avg_utilization": 0.746
+   "avg_utilization": 0.743
   },
   {
    "goal": 0.925,
    "scenario_code": "BASE",
-   "hours": 11414.5,
-   "cost": 368102.605,
-   "expected_met": 0.947,
-   "lowest_chance": 0.616,
-   "below_goal": 18,
+   "hours": 11457.0,
+   "cost": 369676.62,
+   "expected_met": 0.944,
+   "lowest_chance": 0.57,
+   "below_goal": 21,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 853.0,
+   "overtime_hours": 885.5,
    "flex_hours": 95.0,
-   "avg_utilization": 0.717
+   "avg_utilization": 0.715
   },
   {
    "goal": 0.925,
    "scenario_code": "PEAK",
-   "hours": 11743.0,
-   "cost": 381117.5,
-   "expected_met": 0.866,
-   "lowest_chance": 0.004,
-   "below_goal": 41,
+   "hours": 11772.5,
+   "cost": 382193.43,
+   "expected_met": 0.861,
+   "lowest_chance": 0.003,
+   "below_goal": 42,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 1148.0,
+   "overtime_hours": 1167.5,
    "flex_hours": 67.0,
-   "avg_utilization": 0.734
+   "avg_utilization": 0.732
   },
   {
    "goal": 0.925,
    "scenario_code": "DISRUPT",
-   "hours": 11075.0,
-   "cost": 358702.385,
-   "expected_met": 0.888,
+   "hours": 11113.5,
+   "cost": 360118.52,
+   "expected_met": 0.885,
    "lowest_chance": 0.0,
-   "below_goal": 32,
+   "below_goal": 35,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 912.5,
+   "overtime_hours": 941.0,
    "flex_hours": 74.0,
-   "avg_utilization": 0.735
+   "avg_utilization": 0.733
   },
   {
    "goal": 0.95,
    "scenario_code": "BASE",
-   "hours": 11618.0,
-   "cost": 376176.165,
-   "expected_met": 0.958,
-   "lowest_chance": 0.616,
+   "hours": 11657.5,
+   "cost": 377504.48,
+   "expected_met": 0.956,
+   "lowest_chance": 0.57,
    "below_goal": 25,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 958.0,
+   "overtime_hours": 974.5,
    "flex_hours": 95.0,
-   "avg_utilization": 0.7
+   "avg_utilization": 0.698
   },
   {
    "goal": 0.95,
    "scenario_code": "PEAK",
-   "hours": 11897.5,
-   "cost": 387092.18,
-   "expected_met": 0.874,
-   "lowest_chance": 0.004,
-   "below_goal": 44,
+   "hours": 11923.0,
+   "cost": 387926.42,
+   "expected_met": 0.87,
+   "lowest_chance": 0.003,
+   "below_goal": 45,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 1215.5,
+   "overtime_hours": 1224.0,
    "flex_hours": 67.0,
-   "avg_utilization": 0.72
+   "avg_utilization": 0.719
   },
   {
    "goal": 0.95,
    "scenario_code": "DISRUPT",
-   "hours": 11248.5,
-   "cost": 365320.695,
-   "expected_met": 0.897,
+   "hours": 11288.0,
+   "cost": 366649.01,
+   "expected_met": 0.895,
    "lowest_chance": 0.0,
    "below_goal": 39,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 997.5,
+   "overtime_hours": 1014.0,
    "flex_hours": 74.0,
-   "avg_utilization": 0.722
+   "avg_utilization": 0.72
   },
   {
    "goal": 0.975,
    "scenario_code": "BASE",
-   "hours": 11875.0,
-   "cost": 386598.89,
-   "expected_met": 0.966,
-   "lowest_chance": 0.616,
-   "below_goal": 35,
+   "hours": 11933.0,
+   "cost": 388723.87,
+   "expected_met": 0.964,
+   "lowest_chance": 0.57,
+   "below_goal": 36,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 1098.5,
-   "flex_hours": 87.0,
-   "avg_utilization": 0.68
+   "overtime_hours": 1138.5,
+   "flex_hours": 76.0,
+   "avg_utilization": 0.677
   },
   {
    "goal": 0.975,
    "scenario_code": "PEAK",
-   "hours": 12111.5,
-   "cost": 396127.18,
-   "expected_met": 0.882,
-   "lowest_chance": 0.004,
-   "below_goal": 53,
+   "hours": 12154.5,
+   "cost": 397661.06,
+   "expected_met": 0.878,
+   "lowest_chance": 0.003,
+   "below_goal": 55,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 1321.5,
-   "flex_hours": 67.0,
-   "avg_utilization": 0.701
+   "overtime_hours": 1346.5,
+   "flex_hours": 56.0,
+   "avg_utilization": 0.699
   },
   {
    "goal": 0.975,
    "scenario_code": "DISRUPT",
-   "hours": 11492.5,
-   "cost": 375657.31,
-   "expected_met": 0.905,
+   "hours": 11540.5,
+   "cost": 377365.71,
+   "expected_met": 0.903,
    "lowest_chance": 0.0,
-   "below_goal": 48,
+   "below_goal": 50,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 1139.0,
-   "flex_hours": 66.0,
-   "avg_utilization": 0.702
+   "overtime_hours": 1168.0,
+   "flex_hours": 60.0,
+   "avg_utilization": 0.7
   },
   {
    "goal": 0.99,
    "scenario_code": "BASE",
-   "hours": 12170.5,
-   "cost": 397648.79,
-   "expected_met": 0.97,
-   "lowest_chance": 0.616,
-   "below_goal": 54,
+   "hours": 12200.5,
+   "cost": 398649.95,
+   "expected_met": 0.968,
+   "lowest_chance": 0.57,
+   "below_goal": 56,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 1233.5,
+   "overtime_hours": 1245.5,
    "flex_hours": 56.0,
-   "avg_utilization": 0.66
+   "avg_utilization": 0.659
   },
   {
    "goal": 0.99,
    "scenario_code": "PEAK",
-   "hours": 12366.5,
-   "cost": 405672.19,
-   "expected_met": 0.886,
-   "lowest_chance": 0.004,
-   "below_goal": 66,
+   "hours": 12389.0,
+   "cost": 406389.55,
+   "expected_met": 0.881,
+   "lowest_chance": 0.003,
+   "below_goal": 67,
    "over_capacity": 0,
    "unfilled": 0,
    "below_min_staff": 0,
-   "overtime_hours": 1415.0,
+   "overtime_hours": 1419.5,
+   "flex_hours": 44.0,
+   "avg_utilization": 0.682
+  },
+  {
+   "goal": 0.99,
+   "scenario_code": "DISRUPT",
+   "hours": 11779.0,
+   "cost": 386055.29,
+   "expected_met": 0.906,
+   "lowest_chance": 0.0,
+   "below_goal": 70,
+   "over_capacity": 0,
+   "unfilled": 0,
+   "below_min_staff": 0,
+   "overtime_hours": 1252.0,
    "flex_hours": 44.0,
    "avg_utilization": 0.683
-  },
-  {
-   "goal": 0.99,
-   "scenario_code": "DISRUPT",
-   "hours": 11749.0,
-   "cost": 385054.13,
-   "expected_met": 0.908,
-   "lowest_chance": 0.0,
-   "below_goal": 68,
-   "over_capacity": 0,
-   "unfilled": 0,
-   "below_min_staff": 0,
-   "overtime_hours": 1240.0,
-   "flex_hours": 44.0,
-   "avg_utilization": 0.685
   }
  ],
  "history_tradeoff": [
@@ -2164,196 +2167,196 @@
    "hours": 66920.525,
    "cost": 2109069.7708,
    "cost_vs_actual": 0.1158,
-   "exp_pct_met": 0.9799
+   "exp_pct_met": 0.9794
   },
   {
    "target_util": 0.76,
    "hours": 65205.5625,
    "cost": 2055545.0086,
    "cost_vs_actual": 0.0875,
-   "exp_pct_met": 0.9693
+   "exp_pct_met": 0.9678
   },
   {
    "target_util": 0.78,
    "hours": 63624.825,
    "cost": 2006087.882,
    "cost_vs_actual": 0.0613,
-   "exp_pct_met": 0.9532
+   "exp_pct_met": 0.9497
   },
   {
    "target_util": 0.8,
    "hours": 62125.4375,
    "cost": 1959058.6476,
    "cost_vs_actual": 0.0364,
-   "exp_pct_met": 0.9275
+   "exp_pct_met": 0.9208
   },
   {
    "target_util": 0.82,
    "hours": 60622.5,
    "cost": 1911632.9905,
    "cost_vs_actual": 0.0113,
-   "exp_pct_met": 0.8863
+   "exp_pct_met": 0.8756
   },
   {
    "target_util": 0.84,
    "hours": 59222.675,
    "cost": 1867506.5646,
    "cost_vs_actual": -0.012,
-   "exp_pct_met": 0.8253
+   "exp_pct_met": 0.8098
   },
   {
    "target_util": 0.86,
    "hours": 57912.5375,
    "cost": 1825846.804,
    "cost_vs_actual": -0.0341,
-   "exp_pct_met": 0.7551
+   "exp_pct_met": 0.736
   },
   {
    "target_util": 0.88,
    "hours": 56633.7,
    "cost": 1785497.5966,
    "cost_vs_actual": -0.0554,
-   "exp_pct_met": 0.663
+   "exp_pct_met": 0.641
   }
  ],
  "valentine_sensitivity": [
   {
    "true_uplift": 0.0,
-   "our_plan_expected_met": 0.918,
-   "replanned_expected_met": 0.909,
-   "replanned_feb14_cost": 57464.115,
-   "our_plan_feb14_cost": 58907.73
+   "our_plan_expected_met": 0.91,
+   "replanned_expected_met": 0.903,
+   "replanned_feb14_cost": 57867.53,
+   "our_plan_feb14_cost": 59195.015
   },
   {
    "true_uplift": 0.03,
-   "our_plan_expected_met": 0.865,
-   "replanned_expected_met": 0.865,
-   "replanned_feb14_cost": 58907.73,
-   "our_plan_feb14_cost": 58907.73
+   "our_plan_expected_met": 0.853,
+   "replanned_expected_met": 0.853,
+   "replanned_feb14_cost": 59195.015,
+   "our_plan_feb14_cost": 59195.015
   },
   {
    "true_uplift": 0.05,
-   "our_plan_expected_met": 0.819,
-   "replanned_expected_met": 0.823,
-   "replanned_feb14_cost": 59960.24,
-   "our_plan_feb14_cost": 58907.73
+   "our_plan_expected_met": 0.804,
+   "replanned_expected_met": 0.807,
+   "replanned_feb14_cost": 60095.725,
+   "our_plan_feb14_cost": 59195.015
   },
   {
    "true_uplift": 0.1,
-   "our_plan_expected_met": 0.666,
-   "replanned_expected_met": 0.683,
+   "our_plan_expected_met": 0.645,
+   "replanned_expected_met": 0.659,
    "replanned_feb14_cost": 60459.235,
-   "our_plan_feb14_cost": 58907.73
+   "our_plan_feb14_cost": 59195.015
   }
  ],
  "buffer_test": [
   {
    "plan": "Allows for both risks (recommended)",
    "scenario_code": "BASE",
-   "cost": 376176.165,
-   "hours": 11618.0,
-   "met_both_risks": 0.958,
+   "cost": 377504.48,
+   "hours": 11657.5,
+   "met_both_risks": 0.956,
    "met_forecast_error_only": 0.996,
    "met_neither": 1.0
   },
   {
    "plan": "Allows for both risks (recommended)",
    "scenario_code": "PEAK",
-   "cost": 387092.18,
-   "hours": 11897.5,
-   "met_both_risks": 0.874,
-   "met_forecast_error_only": 0.932,
-   "met_neither": 0.93
+   "cost": 387926.42,
+   "hours": 11923.0,
+   "met_both_risks": 0.87,
+   "met_forecast_error_only": 0.928,
+   "met_neither": 0.926
   },
   {
    "plan": "Allows for both risks (recommended)",
    "scenario_code": "DISRUPT",
-   "cost": 365320.695,
-   "hours": 11248.5,
-   "met_both_risks": 0.897,
-   "met_forecast_error_only": 0.945,
+   "cost": 366649.01,
+   "hours": 11288.0,
+   "met_both_risks": 0.895,
+   "met_forecast_error_only": 0.944,
    "met_neither": 0.949
   },
   {
    "plan": "Allows for forecast error only",
    "scenario_code": "BASE",
-   "cost": 353421.485,
-   "hours": 11028.0,
-   "met_both_risks": 0.907,
-   "met_forecast_error_only": 0.984,
+   "cost": 354761.14,
+   "hours": 11068.5,
+   "met_both_risks": 0.904,
+   "met_forecast_error_only": 0.983,
    "met_neither": 1.0
   },
   {
    "plan": "Allows for forecast error only",
    "scenario_code": "PEAK",
-   "cost": 370426.49,
-   "hours": 11459.5,
-   "met_both_risks": 0.837,
-   "met_forecast_error_only": 0.924,
-   "met_neither": 0.93
+   "cost": 371619.96,
+   "hours": 11494.0,
+   "met_both_risks": 0.832,
+   "met_forecast_error_only": 0.92,
+   "met_neither": 0.926
   },
   {
    "plan": "Allows for forecast error only",
    "scenario_code": "DISRUPT",
-   "cost": 344821.935,
-   "hours": 10717.5,
-   "met_both_risks": 0.849,
-   "met_forecast_error_only": 0.936,
-   "met_neither": 0.954
+   "cost": 346041.99,
+   "hours": 10754.0,
+   "met_both_risks": 0.845,
+   "met_forecast_error_only": 0.933,
+   "met_neither": 0.949
   },
   {
    "plan": "Allows for neither",
    "scenario_code": "BASE",
-   "cost": 328201.08,
-   "hours": 10325.5,
-   "met_both_risks": 0.752,
-   "met_forecast_error_only": 0.876,
-   "met_neither": 0.993
+   "cost": 328219.98,
+   "hours": 10330.0,
+   "met_both_risks": 0.734,
+   "met_forecast_error_only": 0.862,
+   "met_neither": 0.994
   },
   {
    "plan": "Allows for neither",
    "scenario_code": "PEAK",
-   "cost": 347611.665,
-   "hours": 10839.0,
-   "met_both_risks": 0.7,
-   "met_forecast_error_only": 0.827,
-   "met_neither": 0.929
+   "cost": 347866.765,
+   "hours": 10848.0,
+   "met_both_risks": 0.685,
+   "met_forecast_error_only": 0.813,
+   "met_neither": 0.922
   },
   {
    "plan": "Allows for neither",
    "scenario_code": "DISRUPT",
-   "cost": 322424.555,
-   "hours": 10098.0,
-   "met_both_risks": 0.707,
-   "met_forecast_error_only": 0.838,
-   "met_neither": 0.948
+   "cost": 322405.175,
+   "hours": 10102.5,
+   "met_both_risks": 0.691,
+   "met_forecast_error_only": 0.824,
+   "met_neither": 0.949
   },
   {
    "plan": "Current draft",
    "scenario_code": "BASE",
    "cost": 329108.19,
    "hours": 10344.0,
-   "met_both_risks": 0.698,
-   "met_forecast_error_only": 0.781,
-   "met_neither": 0.811
+   "met_both_risks": 0.685,
+   "met_forecast_error_only": 0.769,
+   "met_neither": 0.801
   },
   {
    "plan": "Current draft",
    "scenario_code": "PEAK",
    "cost": 329108.19,
    "hours": 10344.0,
-   "met_both_risks": 0.591,
-   "met_forecast_error_only": 0.656,
-   "met_neither": 0.662
+   "met_both_risks": 0.583,
+   "met_forecast_error_only": 0.647,
+   "met_neither": 0.656
   },
   {
    "plan": "Current draft",
    "scenario_code": "DISRUPT",
    "cost": 326367.24,
    "hours": 10206.5,
-   "met_both_risks": 0.678,
-   "met_forecast_error_only": 0.769,
-   "met_neither": 0.8
+   "met_both_risks": 0.666,
+   "met_forecast_error_only": 0.757,
+   "met_neither": 0.791
   }
  ],
  "capacity_gaps": [
@@ -2370,8 +2373,8 @@
    "scenario_code": "BASE",
    "day_date": "2026-02-14",
    "dept_id": 38,
-   "gap_people": 11,
-   "gap_hours": 34.5,
+   "gap_people": 12,
+   "gap_hours": 38.0,
    "blocks_short": 4,
    "department": "Front End"
   },
@@ -2433,17 +2436,17 @@
    "scenario_code": "PEAK",
    "day_date": "2026-02-13",
    "dept_id": 38,
-   "gap_people": 40,
-   "gap_hours": 160.0,
-   "blocks_short": 7,
+   "gap_people": 41,
+   "gap_hours": 164.0,
+   "blocks_short": 8,
    "department": "Front End"
   },
   {
    "scenario_code": "PEAK",
    "day_date": "2026-02-14",
    "dept_id": 38,
-   "gap_people": 69,
-   "gap_hours": 224.0,
+   "gap_people": 70,
+   "gap_hours": 227.5,
    "blocks_short": 9,
    "department": "Front End"
   },
@@ -2451,8 +2454,8 @@
    "scenario_code": "PEAK",
    "day_date": "2026-02-15",
    "dept_id": 38,
-   "gap_people": 18,
-   "gap_hours": 55.0,
+   "gap_people": 19,
+   "gap_hours": 58.0,
    "blocks_short": 7,
    "department": "Front End"
   },
@@ -2514,8 +2517,8 @@
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-13",
    "dept_id": 38,
-   "gap_people": 39,
-   "gap_hours": 156.0,
+   "gap_people": 40,
+   "gap_hours": 160.0,
    "blocks_short": 5,
    "department": "Front End"
   },
@@ -2523,8 +2526,8 @@
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-14",
    "dept_id": 38,
-   "gap_people": 62,
-   "gap_hours": 206.0,
+   "gap_people": 63,
+   "gap_hours": 209.5,
    "blocks_short": 5,
    "department": "Front End"
   },
@@ -2550,8 +2553,8 @@
    "scenario_code": "DISRUPT",
    "day_date": "2026-02-13",
    "dept_id": 92,
-   "gap_people": 2,
-   "gap_hours": 12.0,
+   "gap_people": 3,
+   "gap_hours": 18.0,
    "blocks_short": 1,
    "department": "Merchandising"
   },
@@ -2625,18 +2628,18 @@
    "people_kept": 0,
    "blocks_below_goal": 25,
    "below_goal_with_holiday_pto": 19,
-   "expected_met": 0.958,
-   "cost": 376176.165,
-   "overtime_hours": 958.0
+   "expected_met": 0.956,
+   "cost": 377504.48,
+   "overtime_hours": 974.5
   },
   {
    "kept_per_block": 1,
    "people_kept": 62,
    "blocks_below_goal": 16,
    "below_goal_with_holiday_pto": 10,
-   "expected_met": 0.968,
-   "cost": 374674.56,
-   "overtime_hours": 763.0
+   "expected_met": 0.967,
+   "cost": 376336.62,
+   "overtime_hours": 788.0
   },
   {
    "kept_per_block": 2,
@@ -2644,8 +2647,8 @@
    "blocks_below_goal": 10,
    "below_goal_with_holiday_pto": 4,
    "expected_met": 0.971,
-   "cost": 373711.385,
-   "overtime_hours": 615.5
+   "cost": 375613.195,
+   "overtime_hours": 646.5
   },
   {
    "kept_per_block": 3,
@@ -2653,17 +2656,17 @@
    "blocks_below_goal": 7,
    "below_goal_with_holiday_pto": 1,
    "expected_met": 0.972,
-   "cost": 372031.575,
-   "overtime_hours": 493.5
+   "cost": 374056.29,
+   "overtime_hours": 527.5
   },
   {
    "kept_per_block": 4,
    "people_kept": 171,
-   "blocks_below_goal": 6,
-   "below_goal_with_holiday_pto": 0,
+   "blocks_below_goal": 7,
+   "below_goal_with_holiday_pto": 1,
    "expected_met": 0.972,
-   "cost": 371424.585,
-   "overtime_hours": 430.0
+   "cost": 373494.88,
+   "overtime_hours": 466.0
   },
   {
    "kept_per_block": 5,
@@ -2671,8 +2674,8 @@
    "blocks_below_goal": 6,
    "below_goal_with_holiday_pto": 0,
    "expected_met": 0.972,
-   "cost": 371185.52,
-   "overtime_hours": 404.5
+   "cost": 373122.99,
+   "overtime_hours": 437.0
   }
  ],
  "playbook": {
@@ -2680,37 +2683,37 @@
    "BASE": {
     "trigger": "No promotion surge or illness has been confirmed. This is the default.",
     "actions": [
-     "Schedule the BASE plan: 11,618 hours, at a cost of $376,176.",
-     "Approve 958 hours of overtime ahead of time, mostly for the holiday weekend, so it isn't arranged at the last minute.",
-     "Deal with the 42-person gap across 25 blocks before the week starts. The largest is Warehouse 2 Front End on Sat Feb 14, at 6 people across its shifts. Limiting holiday PTO is the most direct fix."
+     "Schedule the BASE plan: 11,658 hours, at a cost of $377,504.",
+     "Approve 974 hours of overtime ahead of time, mostly for the holiday weekend, so it isn't arranged at the last minute.",
+     "Deal with the 44-person gap across 26 blocks before the week starts. The largest is Warehouse 1 Front End on Sat Feb 14, at 6 people across its shifts. Limiting holiday PTO is the most direct fix."
     ]
    },
    "PEAK": {
     "trigger": "The Feb 13 member promotion is confirmed, or a winter-storm advisory covers Feb 13-14.",
     "actions": [
-     "Switch to the PEAK plan: +280 hours against BASE, at a cost of $387,092.",
-     "Put extra staff first into Warehouse 4 Merchandising, which gains the most (13 more employee shifts across the week).",
-     "Approve 1,216 hours of overtime, against 958 in BASE.",
-     "Expect waits even with this plan. It is 187 people short across 44 blocks, led by Warehouse 4 Front End on Sat Feb 14 (25 people across its shifts). Arrange outside cover, or tell members and staff what to expect."
+     "Switch to the PEAK plan: +266 hours against BASE, at a cost of $387,926.",
+     "Put extra staff first into Warehouse 4 Merchandising, which gains the most (12 more employee shifts across the week).",
+     "Approve 1,224 hours of overtime, against 974 in BASE.",
+     "Expect waits even with this plan. It is 190 people short across 45 blocks, led by Warehouse 4 Front End on Sat Feb 14 (26 people across its shifts). Arrange outside cover, or tell members and staff what to expect."
     ]
    },
    "DISRUPT": {
     "trigger": "Warehouse 2 reports the illness cluster for Feb 13-16 (about 30% of Front End unavailable, one Pharmacy team member out per block), or Warehouse 4's opening stocking crew is about 35% short on Feb 12-13.",
     "actions": [
-     "Switch to the DISRUPT plan: -370 hours against BASE, because fewer people are available, at a cost of $365,321.",
+     "Switch to the DISRUPT plan: -370 hours against BASE, because fewer people are available, at a cost of $366,649.",
      "Don't use the current draft here: it schedules 36 more people than can be fielded, across 12 blocks.",
      "Warehouse 2 Front End loses the most (100 fewer employee shifts across the week). Move every available cross-trained person there once Merchandising's own need is met.",
-     "Escalate early. The plan is 197 people short across 39 blocks, led by Warehouse 2 Front End on Sat Feb 14 (57 people across its shifts), and no schedule can close that gap."
+     "Escalate early. The plan is 201 people short across 40 blocks, led by Warehouse 2 Front End on Sat Feb 14 (57 people across its shifts), and no schedule can close that gap."
     ]
    }
   },
   "on_the_day": [
    {
     "trigger": "Callouts in a block pass its cushion. The typical cushion in people is: Front End 3, Merchandising 2, Pharmacy 1.",
-    "action": "Replace them in this order: cross-trained staff if the partner department has people to spare, since they cost the regular rate, then overtime if the block has room. Each block's own cushion is on the Why tab."
+    "action": "Replace them in this order: cross-trained staff if the partner department has people to spare, since they cost the regular rate, then overtime if the block has room. Each block's own cushion shows when you open that block in the planner."
    },
    {
-    "trigger": "Traffic runs above forecast by more than the cushion. The typical cushion is: Front End 21%, Merchandising 19%, Pharmacy 41%.",
+    "trigger": "Traffic runs above forecast by more than the cushion. The typical cushion is: Front End 20%, Merchandising 19%, Pharmacy 42%.",
     "action": "Treat the rest of the day as PEAK: bring in the extra staff for later shifts, starting with the blocks closest to their limit."
    },
    {
@@ -2732,7 +2735,7 @@
    "headline": "Add 15: 32 in the draft to 47 in the plan",
    "why": "The draft's 32 people would run at 108% utilization, with a 0% chance of meeting target. Adding 15 brings it to 73% utilization and a 97% chance.",
    "demand_driver": "The weekend before Presidents' Day: 12% more Front End demand than a normal day, going by the MLK weekend.",
-   "cushion_text": "Before a miss becomes the likelier outcome, this block can lose 7 people, or take 19% more demand."
+   "cushion_text": "Before a miss becomes the likelier outcome, this block can lose 7 people, or take 18% more demand."
   },
   "cut": {
    "store_id": 4,
@@ -2742,7 +2745,7 @@
    "headline": "Cut 3: 21 in the draft to 18 in the plan",
    "why": "The draft's 21 people would run at 64% utilization, with a 100% chance of meeting target. That is more than this block needs. With 18, it runs at 75% utilization and still has a 98% chance.",
    "demand_driver": "A normal Wednesday for Merchandising.",
-   "cushion_text": "Before a miss becomes the likelier outcome, this block can lose 2 people, or take 18% more demand."
+   "cushion_text": "Before a miss becomes the likelier outcome, this block can lose 2 people, or take 17% more demand."
   },
   "short": {
    "store_id": 1,
@@ -2750,9 +2753,9 @@
    "day": "Sat Feb 14",
    "shift": "MID",
    "headline": "Add 5: 29 in the draft to 34 in the plan",
-   "why": "This block can't reach the goal. It needs 38 people for a 95% chance of meeting target, but the plan can only field 34, using all of its own regular staff and overtime. The draft's 29 people would run at 96% utilization, with a 6% chance of meeting target. The plan's chance is 62%.",
+   "why": "This block can't reach the goal. It needs 39 people for a 95% chance of meeting target, but the plan can only field 34, using all of its own regular staff and overtime. The draft's 29 people would run at 96% utilization, with a 5% chance of meeting target. The plan's chance is 57%.",
    "demand_driver": "The weekend before Presidents' Day: 12% more Front End demand than a normal day, going by the MLK weekend. Valentine's Day adds 3%, as a judgment call.",
-   "cushion_text": "Before a miss becomes the likelier outcome, this block can lose 3 people, or take 10% more demand."
+   "cushion_text": "Before a miss becomes the likelier outcome, this block can lose 2 people, or take 8% more demand."
   }
  },
  "stress_share_over85": [

@@ -4,6 +4,16 @@ Newest first. Add an entry at the end of every work session.
 
 ## 2026-11-05
 
+**Final push, day one: checks, a model change, the API and the new app (Thursday afternoon).** The user said to start the plan, with an emphasis on speed through subagents while keeping it accurate. The main session coordinated and kept the planning files; subagents each owned separate files and didn't commit.
+
+- **Ran in parallel:** the WS1 checks (T-74, T-76, T-77), the calibration study (T-75), the API (T-80), the tokens and app shell (T-79, T-81), then the matplotlib style and deck theme (T-79), then three page builders (T-82 to T-88). All four of the first wave stalled once on a stream timeout and were resumed with their work intact.
+- **Calibration and the model change:** the risk model ran slightly high near the goal, mostly in Front End, because the curve bent too sharply (F-62, F-63). A smooth bend fits better out of sample (F-64), and the user chose it (D-29). It adds 24 people and $1,328 at most per scenario. History without the model agrees within half a point (F-65).
+- **Checks:** all eight WS1 checks pass (F-66 to F-72). They found two wording bugs in the explanations ("a 84%", and 94.5-94.9% shown as 95%), now fixed and tested. After D-29, the stale figures in F-46 and F-48 to F-55 were rewritten from `outputs/`.
+- **Two consistency fixes before the freeze:** the playbook no longer says "Why tab", and the capacity-gaps table counts a block as short only when it's below the goal by the shared rule, so one block at 94.99% no longer shows as reaching the goal and as one person short.
+- **The new app:** FastAPI with 11 endpoints, 45 API tests, and the demo what-if warmed at startup. A React app with all seven pages, each checked in headless Chromium at 1366 and 1920 wide, with numbers matched to the API by script. Screenshots are in `evidence/web_screenshots/`.
+- **Answers recorded:** due Saturday 7:00 AM (Q-11), no hand edits to the Word file (Q-13), and the team name stays a placeholder for now (Q-07).
+- **Coordination:** another Claude session (`misa-case-8d`) asked before building a second app. It agreed to stay off everything listed here.
+
 **Final push planned, skills installed (Thursday).** The user asked for a full plan covering five things: checking the analysis against the case deck; rebuilding the web tool from scratch to look like a tech company's product; rewriting the Word file for readers with no context; building the deck to match the app (6-7 minutes of slides, a 5-minute live demo and 3-4 minutes of questions, in 15 minutes at most); and a Jupyter notebook as the code appendix. Implementation waits for the user's go.
 
 - The user chose React with a FastAPI layer over a Streamlit rebuild (D-24), the plan's home in `planning/` rather than a new `docs/` folder or Claude Docs, and installing the skills now.

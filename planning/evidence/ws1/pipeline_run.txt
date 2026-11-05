@@ -1,0 +1,10 @@
+C:\Users\dadia\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\numpy\lib\_function_base_impl.py:3023: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+C:\Users\dadia\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\numpy\lib\_function_base_impl.py:3024: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+Validator problems: none
+{'scenario_code': 'BASE', 'hours': 11618.0, 'cost': 376176.165, 'expected_met': 0.958, 'lowest_chance': 0.616, 'below_goal': 25, 'over_capacity': 0, 'unfilled': 0, 'below_min_staff': 0, 'overtime_hours': 958.0, 'flex_hours': 95.0, 'avg_utilization': 0.7}
+{'scenario_code': 'PEAK', 'hours': 11897.5, 'cost': 387092.18, 'expected_met': 0.874, 'lowest_chance': 0.004, 'below_goal': 44, 'over_capacity': 0, 'unfilled': 0, 'below_min_staff': 0, 'overtime_hours': 1215.5, 'flex_hours': 67.0, 'avg_utilization': 0.72}
+{'scenario_code': 'DISRUPT', 'hours': 11248.5, 'cost': 365320.695, 'expected_met': 0.897, 'lowest_chance': 0.0, 'below_goal': 39, 'over_capacity': 0, 'unfilled': 0, 'below_min_staff': 0, 'overtime_hours': 997.5, 'flex_hours': 74.0, 'avg_utilization': 0.722}
+Wrote C:\MISA Case\outputs
+exit=0 seconds=75
