@@ -89,11 +89,13 @@ python scripts/build_notebook.py        # the notebook appendix, run and exporte
 
 1. Replace the placeholder team name: set `TEAM_ID` in `src/submission.py`.
 2. Rerun `python -m src.pipeline`.
-3. Run the final check, which also rejects the placeholder name:
+3. Rebuild the documents (the deck and report show the team name), then run the final check, which also rejects the placeholder name:
 
 ```bash
 python -c "import pandas as pd; from src.submission import validate; print(validate(pd.read_csv('outputs/TEAM_SUBMISSION_TEMPLATE_filled.csv', parse_dates=['day_date']), final=True) or 'Passes')"
 ```
+
+4. Commit, then build the hand-in folder with `python scripts/package_submission.py`. It writes `submission/`: the CSV, deck, report, notebook, a zip of the tool's source and a README. It refuses while the team name is the placeholder.
 
 ## What's where
 

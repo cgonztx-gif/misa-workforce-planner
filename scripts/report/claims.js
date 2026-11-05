@@ -106,7 +106,7 @@ const STRUCTURAL = [
   /\b20\d\d\b/g,
   /\b[A-Z]{1,2}-\d{1,3}\b/g,
   /\bWarehouses? \d(?:(?:, | and | to )\d)*/g,
-  /\bW[124]\b/g,
+  /\bWH?[124]\b/g,
   /\b(?:Figure|Table|Chapter|chapter|[Ss]ection|[Ss]tep|[Ww]eeks?|[Pp]age|Appendix)s? \d+(?:\.\d+)?(?:(?: and | to |-|, )\d+)*/g,
   /\bM\d\b/g,
   /\S*[\\/_]\S*/g,

@@ -136,7 +136,7 @@ Never cut these, because the case requires them: a valid CSV for all three scena
 | T-63 | Rehearse the demo in a real browser with Wi-Fi off (closes the gap in F-22) | T-56 | Works offline, result recorded | Not started |
 | T-64 | Record a backup demo (Q-05) | T-63 | Video saved and watched through | Not started |
 | T-65 | Run two timed full rehearsals | T-60, T-63 | Slides take 6-7 minutes and the whole thing, with the 5-minute demo and questions, ends within 15 (Q-12) | Not started |
-| T-66 | Do a final check against `REQUIREMENTS.md` | T-61, T-62, T-65 | Every requirement is Met | Not started |
+| T-66 | Do a final check against `REQUIREMENTS.md` | T-61, T-62, T-65 | Every requirement is Met | In progress: every requirement is Met except the team's own steps (T-62 to T-65) and R-28, which is Partial by design (F-44) |
 | T-67 | Keep the team's analysis Word file current (D-20). T-92 rewrites it as a standalone report (R-35) | T-34 | `deliverables/Costco_Case_Analysis.docx` matches the latest `outputs/` | Replaced by T-92 |
 
 ### Phase 7: Final push (`DELIVERABLES_PLAN.md`)
@@ -169,4 +169,4 @@ Section numbers refer to `DELIVERABLES_PLAN.md`, which has the details, checks a
 | T-92 | Rewrite the report (section 9) | T-78, T-79, then T-89 for screenshots | Every page checked as rendered, and the PDF exported | Done: a 50-page report with 26 figures and 18 tables, 548 claims each traced to a source (V-10), every page rendered through Word, plus the PDF. Left: the polished app's screenshots after T-90, and the team name |
 | T-93 | Build the presentation, main and appendix slides (section 10) | T-78, T-90 | `validate.py` passes, every slide checked as rendered, and the PDF exported | Built: 22 slides (10 main, about 6:12 spoken, plus A1-A11), every figure from `outputs/`, `validate.py` passes, every slide rendered through PowerPoint. Left: slide 9's screenshot after T-90, a fresh-eyes review, the team name |
 | T-94 | Q&A prep sheet (10.6) | T-78 | Saved in `deliverables/` | Done: `deliverables/Costco_QA_Prep.docx` and `.pdf`, 22 questions, built from `outputs/` by `scripts/build_qa_sheet.js` |
-| T-95 | Package the hand-in and tag `submission` (section 11) | T-62, T-66 | The folder is complete and the tag exists | Not started |
+| T-95 | Package the hand-in and tag `submission` (section 11) | T-62, T-66 | The folder is complete and the tag exists | Ready: `python scripts/package_submission.py` builds `submission/` (CSV, deck, report, notebook, source zip, README.txt) and refuses while the team name is the placeholder. Dry run passed with `--draft`. Run it after T-62, then tag `submission` |

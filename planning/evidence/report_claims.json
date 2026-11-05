@@ -1,6 +1,6 @@
 {
  "document": "deliverables/Costco_Case_Analysis.docx",
- "built": "2026-11-05T22:28:44.793Z",
+ "built": "2026-11-05T22:49:36.375Z",
  "rule": "Every printed figure is a registered claim with a source key; any other digit must be structural (a date, ID, file name or cross-reference). The build fails otherwise.",
  "passed": true,
  "counts": {
@@ -76,15 +76,15 @@
   ]
  },
  "screenshots": [
-  "planning/evidence/web_screenshots/overview_base_all_1366.png",
-  "planning/evidence/web_screenshots/schedule_base_wh1_1920.png",
-  "planning/evidence/web_screenshots/schedule_drawer_feb14_fe_mid_1366.png",
-  "planning/evidence/web_screenshots/schedule_changes_disrupt_wh2_1366.png",
-  "planning/evidence/web_screenshots/demand_1366_base_all_fold.png",
-  "planning/evidence/web_screenshots/cost_1366_base_all_fold.png",
-  "planning/evidence/web_screenshots/lab_result_1366.png",
-  "planning/evidence/web_screenshots/playbook_1366.png",
-  "planning/evidence/web_screenshots/methods_1366.png"
+  "planning/evidence/web_screenshots/final/overview_1366x768.png",
+  "planning/evidence/web_screenshots/final/schedule_1366x768_full.png",
+  "planning/evidence/web_screenshots/final/drawer_1366x768.png",
+  "planning/evidence/web_screenshots/final/demo_8_export_1366x768.png",
+  "planning/evidence/web_screenshots/final/demand_1366x768.png",
+  "planning/evidence/web_screenshots/final/cost-service_1366x768.png",
+  "planning/evidence/web_screenshots/final/whatif_result_1366x768.png",
+  "planning/evidence/web_screenshots/final/playbook_1366x768.png",
+  "planning/evidence/web_screenshots/final/methods_1366x768.png"
  ],
  "claims": [
   {

@@ -19,3 +19,6 @@ node_modules/
 
 # The React app's packages (web/dist stays tracked: the demo laptop runs without Node)
 web/node_modules/
+
+# The hand-in folder built by scripts/package_submission.py
+submission/
