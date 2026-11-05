@@ -4,6 +4,8 @@ Newest first. Add an entry at the end of every work session.
 
 ## 2026-11-04
 
+**Service goal confirmed (Wednesday evening).** The user set the service goal at 95% (A-13), so the plan and CSV don't change. The Word file now shows it as decided, and the callout allowance as the one open decision. The user asked what applying callouts means, which was explained. That decision stays open (A-03, Q-02).
+
 **Dashboard rebuilt, build started, Word file started (Wednesday evening).** The user asked to rebuild the Nov 2 dashboard's numbers, start the build, verify findings, document everything, and start a Word file for group members.
 
 - Saved the dashboard's tables as evidence (D-21) and rebuilt them from the CSVs. 80 of 85 calculated figures match, and the rest are explained (F-40). Two corrections: the draft is 36 people short in DISRUPT, not 29 (F-42), and the 0.908 limit for Warehouse 1 Pharmacy is too thin to use (F-46).

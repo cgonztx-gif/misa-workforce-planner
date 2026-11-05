@@ -179,9 +179,9 @@ const BS = S.base_shortfall;
 body.push(BUL(`**Capacity runs short around the holiday.** Even using everyone available, ${BS.blocks} BASE blocks can't reach a ${pct(S.service_goal, 0)} chance of meeting target, and their average chance is ${pct(BS.average_chance, 0)}. Of those, ${BS.holiday_blocks} fall on Feb 13-16, including ${baseBelowFeb14} on Saturday, Feb 14. This is the main problem to raise with a warehouse leader, because rearranging the schedule can't fix it. Changing availability can.`));
 body.push(SPACER());
 body.push(NOTE([
-  new Paragraph({ spacing: { after: 80 }, children: rich("**Two calls for the team**") }),
-  new Paragraph({ spacing: { after: 80, line: 276 }, children: rich(`**1. How high should the service goal be?** We used ${pct(S.service_goal, 0)}, because judging puts service first. A 90% goal would save ${money(plan.BASE.cost - goalRow(0.9).cost)} in BASE, with expected service of ${pct(goalRow(0.9).expected_met)} instead of ${pct(plan.BASE.expected_met)}. See "How high to set the service goal".`) }),
-  new Paragraph({ spacing: { after: 0, line: 276 }, children: rich(`**2. Should the plan allow for callouts?** We don't know whether judges apply callouts to submitted staffing. In our model, allowing for them costs about ${moneyK(buffer(BOTH).cost - buffer(FCST).cost)} in BASE. Asking the organizers would settle this, and the question is drafted but not sent. See "What the allowance for risk costs".`) }),
+  new Paragraph({ spacing: { after: 80 }, children: rich("**Decisions for the team**") }),
+  new Paragraph({ spacing: { after: 80, line: 276 }, children: rich(`**Decided: a ${pct(S.service_goal, 0)} service goal,** because judging puts service first. A 90% goal would save ${money(plan.BASE.cost - goalRow(0.9).cost)} in BASE, with expected service of ${pct(goalRow(0.9).expected_met)} instead of ${pct(plan.BASE.expected_met)}. See "How high to set the service goal".`) }),
+  new Paragraph({ spacing: { after: 0, line: 276 }, children: rich(`**Still open: should the plan allow for callouts?** We don't know whether judges apply callouts to submitted staffing. In our model, allowing for them costs about ${moneyK(buffer(BOTH).cost - buffer(FCST).cost)} in BASE. Asking the organizers would settle this, and the question is drafted but not sent. See "What the allowance for risk costs".`) }),
 ]));
 body.push(SPACER());
 
@@ -341,7 +341,7 @@ body.push(TABLE(["Service goal", "Cost", "Change from draft", "Expected service"
   S.goal_tradeoff.filter((r) => r.scenario_code === "BASE").map((r) => [`${r.goal * 100 % 1 ? (r.goal * 100).toFixed(1) : (r.goal * 100).toFixed(0)}%${r.goal === S.service_goal ? " (chosen)" : ""}`, money(r.cost), signedPct(r.cost / draft.BASE.cost - 1), pct(r.expected_met), num(r.below_goal)]),
   [2360, 1750, 1750, 1750, 1750]));
 body.push(CAPTION("Table 12. BASE scenario. More blocks fall below a higher goal because capacity stays fixed."));
-body.push(P(`We chose ${pct(S.service_goal, 0)} as a starting point. Going from 92.5% to 95% adds ${money(goalRow(0.95).cost - goalRow(0.925).cost)} for ${((goalRow(0.95).expected_met - goalRow(0.925).expected_met) * 100).toFixed(1)} points of expected service, while going from 97.5% to 99% adds ${money(goalRow(0.99).cost - goalRow(0.975).cost)} for only ${((goalRow(0.99).expected_met - goalRow(0.975).expected_met) * 100).toFixed(1)}. This is one setting, so changing it takes minutes.`));
+body.push(P(`We set the goal at ${pct(S.service_goal, 0)}. Going from 92.5% to 95% adds ${money(goalRow(0.95).cost - goalRow(0.925).cost)} for ${((goalRow(0.95).expected_met - goalRow(0.925).expected_met) * 100).toFixed(1)} points of expected service, while going from 97.5% to 99% adds ${money(goalRow(0.99).cost - goalRow(0.975).cost)} for only ${((goalRow(0.99).expected_met - goalRow(0.975).expected_met) * 100).toFixed(1)}. This is one setting, so changing it takes minutes.`));
 
 // Verification.
 body.push(H1("How we checked this"));
@@ -378,7 +378,7 @@ body.push(TABLE(["ID", "Assumption", "If it's wrong"], [
   ["A-10", "Borrowed staff are costed at the regular rate of the department they cover", "Small cost differences"],
   ["A-11", "Borrowing a holiday effect adds forecast uncertainty on Feb 13-16: 2% for Front End and Merchandising, 5% for Pharmacy", "Holiday-week headroom is too small or too large"],
   ["A-12", "DISRUPT's illness cluster has January's flu-week callout rates, on top of the availability cuts", "DISRUPT plans at Warehouse 2 are over- or under-buffered"],
-  ["A-13", `The service goal is a ${pct(S.service_goal, 0)} chance of meeting target in each block`, "Cost and service move along the trade-off above"],
+  ["A-13", `The service goal is a ${pct(S.service_goal, 0)} chance of meeting target in each block. Confirmed`, "Cost and service move along the trade-off above"],
   ["A-14", "A future week's demand level matches the average of the last four weeks. Weekly levels have ranged about 5% either way", "All forecasts shift together"],
   ["A-15", "Callout rates by situation are used as measured, even where few people stand behind them, as with Pharmacy", "A few Pharmacy blocks are over- or under-buffered, most visibly on Feb 17"],
 ], [760, 5100, 3500], { leftAll: true }));
@@ -387,9 +387,9 @@ body.push(SPACER());
 // Next.
 body.push(H1("Open items and what's next"));
 body.push(H2("Waiting on someone"));
-body.push(BUL("**Organizer questions, on hold.** Nothing has been sent. We still need the exact Saturday deadline and how to hand everything in, so we should come back to this by Thursday. The answer on scoring callouts also settles the second call above."));
+body.push(BUL("**Organizer questions, on hold.** Nothing has been sent. We still need the exact Saturday deadline and how to hand everything in, so we should come back to this by Thursday. The answer on scoring callouts also settles the open decision above."));
 body.push(BUL(`**Team name.** The CSV uses the placeholder ${S.team_id}, which must be replaced before submitting.`));
-body.push(BUL("**Service goal and callout allowance.** The two calls for the team at the top of this document."));
+body.push(BUL("**Callout allowance.** The open decision at the top of this document."));
 body.push(H2("Still to build"));
 body.push(BUL("**App:** scenario selector, staffing, cost and risk views, a demand view, and a \"why this recommendation\" panel."));
 body.push(BUL("**Explanations:** a reason for every changed block."));

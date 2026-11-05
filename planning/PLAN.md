@@ -10,7 +10,7 @@ Next actions:
 
 1. **T-41, T-42:** explanations for each changed block, and the leader playbook. Feb 14 capacity (F-50) and the Warehouse 2 illness case need clear actions.
 2. **T-50, T-51, T-52, T-53:** build the app views on `src/search.py` and `outputs/`.
-3. **Team calls:** the service goal (A-13, F-49) and whether to allow for callouts (A-03, F-51). Both stay as they are unless the team changes them.
+3. **Callouts:** whether to allow for them is still open (A-03, F-51, Q-02), and the allowance stays in the plan unless that changes. The service goal is set at 95% (A-13).
 
 Held for now:
 
