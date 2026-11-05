@@ -12,7 +12,7 @@ First versions of the analysis, staffing CSV, explanations, playbook and app all
 
 ## Stack
 
-Python with Streamlit, pandas on the CSVs, a statsmodels regression forecast, SciPy service curves, NumPy risk simulation, Altair charts, and an exhaustive per-shift staffing search with no optimization solver. The reasons are in `planning/DECISIONS.md`.
+Python with Streamlit, pandas on the CSVs, a statsmodels regression forecast, SciPy service curves, a risk model checked by NumPy simulation, Altair charts, and an exhaustive per-shift staffing search with no optimization solver. A small Node script builds the team's Word file. The reasons are in `planning/DECISIONS.md`.
 
 ## Planning system
 
@@ -24,12 +24,15 @@ All plans, decisions and findings live in `planning/`.
 
 ## Commands
 
+`README.md` has the full setup steps for a new machine.
+
 ```bash
 # Install pinned packages
 python -m pip install -r requirements.txt
 
 # Extract the data pack if data/ is missing (creates MISA/ and data/team_distribution/)
-unzip -o MISA.zip -d . && unzip -o "MISA/Student Teams/Costco_Case_Competition_TEAMS.zip" -d data
+python -m zipfile -e MISA.zip .
+python -m zipfile -e "MISA/Student Teams/Costco_Case_Competition_TEAMS.zip" data
 
 # Run all tests, or a single test
 python -m pytest
@@ -58,4 +61,4 @@ python -I planning/evidence/verify_findings.py
 - **Read availability per scenario from the grid.** The docs understate what DISRUPT changes.
 - **Join the submission template on keys, never row position.** It needs all 567 rows, total employees per block, and 0 for closed blocks.
 - **The team name is still a placeholder.** Replace `TEAM_ID` in `src/submission.py` before submitting.
-- **Figures in the Word file come from `outputs/`.** Change the code or `scripts/build_analysis_doc.js`, and don't type numbers in by hand. Rebuilding replaces hand edits.
+- **Calculated figures in the Word file come from `outputs/`.** Change the code or `scripts/build_analysis_doc.js`, and don't type those numbers in by hand. Rebuilding replaces hand edits and fails while the file is open.

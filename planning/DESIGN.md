@@ -93,11 +93,46 @@ deliverables/        Costco_Case_Analysis.docx, for the team
 
 Totals across all warehouses sit above the tabs. The tabs show the selected warehouse. Everything is prepared on first load, about 15 seconds, and then cached (F-56). A block's **cushion** is the people it can lose, or the extra demand it can take, before its chance of meeting target falls to 50% (`cushion()` in `src/risk.py`).
 
+## Charts
+
+Colors follow one palette throughout. Front End, Merchandising and Pharmacy use blue, orange and aqua, which pass the color-blind check, and the draft is gray. The staffing grid runs from red (cut) through gray to blue (add). Every chart in the app has a hover tooltip and a table or labels beside it, because color alone shouldn't carry meaning. Word file charts are drawn by `src/charts.py`, and app charts in `app.py`.
+
+## Outputs
+
+`python -m src.pipeline` writes these to `outputs/`, and `python -m src.charts` adds `charts/`.
+
+| File | Holds |
+|---|---|
+| `TEAM_SUBMISSION_TEMPLATE_filled.csv` | The submission: all 567 rows, with the placeholder team name for now |
+| `plan_vs_draft.csv` | Every block: demand, plan, draft, staff sources, cost, utilization, chance of meeting target, `below_service_goal` |
+| `explanations.csv` | Every block: action, reasons, cushion and assumptions |
+| `capacity_gaps.csv` | People short of need by scenario, day and department |
+| `goal_tradeoff.csv` | Cost and expected service at each service goal |
+| `pto_what_if.csv` | The holiday PTO test |
+| `forecast_daily.csv`, `forecast_blocks.csv` | The forecast by day and by block, with the benchmark |
+| `service_limits.csv` | Utilization for a 95%, 90% and 50% chance of meeting target |
+| `diagnosis_staffing_gaps.csv`, `diagnosis_callout_rates.csv`, `diagnosis_service_bands.csv` | The historical diagnosis |
+| `analysis_summary.json` | Everything the Word file reads |
+
+## Tests
+
+| File | Covers |
+|---|---|
+| `tests/test_data.py` | Row counts, template keys, closed rows, draft capacity |
+| `tests/test_allocation.py` | The allocation and cost rule |
+| `tests/test_diagnosis.py` | The rebuilt figures against the dashboard, and the callout split |
+| `tests/test_forecast.py` | Holiday factors, the backtest and the shift split |
+| `tests/test_service_and_risk.py` | Service curves, and the risk calculation against simulation |
+| `tests/test_search_and_submission.py` | The search's rules and the submission validator |
+| `tests/test_explain_and_playbook.py` | Reasons, assumptions, cushions, playbook and the PTO test |
+| `tests/test_app.py` | The app, run without a browser. `planning/evidence/drive_app.py` covers a real browser |
+
 ## Commands
 
 ```bash
 # Extract the data pack (already done on this machine)
-unzip -o MISA.zip -d . && unzip -o "MISA/Student Teams/Costco_Case_Competition_TEAMS.zip" -d data
+python -m zipfile -e MISA.zip .
+python -m zipfile -e "MISA/Student Teams/Costco_Case_Competition_TEAMS.zip" data
 
 # Install the pinned packages (already done on this machine)
 python -m pip install -r requirements.txt
@@ -115,7 +150,7 @@ node scripts/build_analysis_doc.js   # needs npm install once
 python -m streamlit run app.py
 ```
 
-The start command reads `.streamlit/config.toml`, which runs headless, binds to `localhost` and turns off usage stats. It was tested with the placeholder app (F-37).
+The start command reads `.streamlit/config.toml`, which runs headless, binds to `localhost`, turns off usage stats and sets a light theme with a minimal toolbar. It was tested in Chrome and in a clean environment (F-56, F-57). `README.md` has the full setup steps.
 
 ## Optional SQL Server build
 

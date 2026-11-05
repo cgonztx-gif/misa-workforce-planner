@@ -1,6 +1,6 @@
 # Planning system
 
-How we plan and track the Texas MISA Costco case. `CLAUDE.md` holds only what every session must know. Everything else lives here.
+How we plan and track the Texas MISA Costco case. `README.md` in the project root explains how to set up and run everything. `CLAUDE.md` holds only what every session must know. Everything else lives here.
 
 ## Where things go
 
@@ -15,6 +15,8 @@ How we plan and track the Texas MISA Costco case. `CLAUDE.md` holds only what ev
 | `QUESTIONS.md` | Open questions and who can answer them | An unknown appears or an answer arrives |
 | `LOG.md` | Dated record of what happened | At the end of every work session |
 | `evidence/` | Scripts that reproduce findings, plus their saved output | A finding needs proof |
+
+Results live outside this folder: `outputs/` holds what the pipeline generates (listed in `DESIGN.md`), and `deliverables/` holds the team's Word file.
 
 ## IDs
 
@@ -51,3 +53,15 @@ python planning/evidence/smoke_test.py 2>/dev/null > planning/evidence/smoke_tes
 The first uses `-I` to stay isolated. The second must not, because `-I` hides installed packages (F-24).
 
 To compare the rebuilt figures with the Nov 2 dashboard, run `python -m src.pipeline`, then `python planning/evidence/reconcile_dashboard.py > planning/evidence/reconcile_dashboard.output.txt`. It also writes `reconcile_dashboard.json`, which the Word file reads.
+
+## What's in `evidence/`
+
+| File | Backs up | How to rerun |
+|---|---|---|
+| `verify_findings.py`, `.output.txt` | F-01 to F-20 | See above |
+| `smoke_test.py`, `smoke_app.py`, `.output.txt` | F-21, F-22: the first test of Streamlit on this machine | See above |
+| `dashboard_2026-11-02/` | Saved copies of the Nov 2 dashboard's tables (D-21) | Not rerun |
+| `reconcile_dashboard.py`, `.output.txt`, `.json` | F-40, F-42, F-46 | See above |
+| `independent_check.md`, `.json`, `independent_check/` | F-54: the separate recomputation, its scripts, and what we did about each point | The scripts use absolute paths from this machine |
+| `drive_app.py`, `.output.json`, `app_screenshots/` | F-56: the app in Chrome | `python -W ignore planning/evidence/drive_app.py`. Needs Playwright, see the script |
+| `render_word_file.py` | Looking at the Word file page by page (F-57) | `python planning/evidence/render_word_file.py <folder>`. Needs pypdfium2, see the script |

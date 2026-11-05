@@ -1,8 +1,9 @@
 // Builds deliverables/Costco_Case_Analysis.docx from outputs/analysis_summary.json and outputs/charts/.
 // Run from the project root, after the pipeline and charts:
 //   python -m src.pipeline && python -m src.charts && node scripts/build_analysis_doc.js
-// Figures come from the summary file, so they can't drift from the code. Rebuilding replaces the file,
-// so hand edits to the Word file are lost unless they are also made here.
+// Calculated figures come from the summary file, so they can't drift from the code. A few fixed references are
+// typed here: case facts, the dashboard's old figures, assumption values and rounded PTO effects (see D-20).
+// Rebuilding replaces the file, so hand edits to the Word file are lost unless they are also made here.
 const fs = require("fs");
 const path = require("path");
 const {
@@ -196,7 +197,7 @@ body.push(TABLE(["Part", "Status", "Notes"], [
   ["Service curves and risk model", "First version done", "Checked against held-out weeks and simulation"],
   ["Staffing plan and submission CSV", "First version done", `All 567 rows pass our validator. The team name is still the placeholder ${S.team_id}`],
   ["Explanations and leader playbook", "First version done", "Every block has a reason, and each scenario has triggers and actions"],
-  ["App", "First version done", "Runs locally with all views. Packaging for another machine and a rehearsal are still to do"],
+  ["App", "First version done", "All views work, and the written setup steps pass in a clean environment. A rehearsal is still to do"],
   ["Deck and appendix", "Not started", "This document is the starting material"],
 ], [3000, 1800, 4560], { leftAll: true }));
 body.push(CAPTION("This document is generated from the analysis, so its figures update when it's rebuilt. A rebuild replaces the file, so send comments or edits to whoever is running the code."));
@@ -385,6 +386,7 @@ body.push(BUL(`**Checked the predicted chances against what happened.** Blocks p
 body.push(BUL("**Checked the risk calculation against a direct simulation.** This caught a real error in our first version, which is now fixed, and a test keeps it from returning."));
 body.push(BUL("**Wrote automated tests** for the allocation rule, forecast, risk model, search, submission validator, explanations, playbook and app."));
 body.push(BUL("**Drove the app in Chrome,** through every tab, scenario and a what-if. This found display problems that the tests couldn't see, which we fixed. The page requested nothing from outside this computer."));
+body.push(BUL("**Followed the written setup steps in a brand-new environment,** using only the files in the repository. All tests passed, and the results matched exactly."));
 if (CHECK) body.push(BUL(CHECK.summary));
 body.push(H2("Corrections to the dashboard"));
 body.push(BUL(`**DISRUPT shortfall.** The dashboard says the draft is 29 people short. Limiting cross-trained staff to what the partner department can spare, as the case's rule says, makes it **${num(K.disrupt_shortfall_usable_flex)}**, still across 12 blocks. The draft's DISRUPT cost is ${money(K.draft_cost_disrupt)}, not $327,334, because the dashboard also let overtime run past its limit.`));
@@ -425,7 +427,6 @@ body.push(H2("Waiting on someone"));
 body.push(BUL("**Organizer questions, on hold.** Nothing has been sent. We still need the exact Saturday deadline and how to hand everything in, so we should come back to this by Thursday. Their answer on scoring callouts would also show whether the callout allowance is needed."));
 body.push(BUL(`**Team name.** The CSV uses the placeholder ${S.team_id}, which must be replaced before submitting.`));
 body.push(H2("Still to build"));
-body.push(BUL("**App packaging:** written steps that run the app on a clean machine."));
 body.push(BUL("**Deck and appendix:** 12-15 minutes covering diagnosis, forecast, recommendation and all three scenarios, with a demo."));
 body.push(BUL("**Rehearsal and backup:** run the demo in a real browser with Wi-Fi off, record a backup, and time the full presentation."));
 body.push(H2("Work that doesn't need coding"));
@@ -436,7 +437,7 @@ body.push(H2("Where everything is"));
 body.push(BUL("**Submission CSV:** outputs/TEAM_SUBMISSION_TEMPLATE_filled.csv"));
 body.push(BUL("**Block-by-block comparison:** outputs/plan_vs_draft.csv"));
 body.push(BUL("**The reason for every block:** outputs/explanations.csv"));
-body.push(BUL("**The app:** run python -m streamlit run app.py, then open http://localhost:8501"));
+body.push(BUL("**How to set up and run the app:** README.md"));
 body.push(BUL("**Plans, decisions and findings:** the planning folder"));
 
 const doc = new Document({

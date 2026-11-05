@@ -4,15 +4,14 @@
 
 **Deadline: the morning of Saturday, Nov 7, 2026.** The exact time isn't known yet (Q-11), so we aim to finish Friday night (D-14). As of Wednesday night, that leaves Thursday and Friday.
 
-**Now: M2 and M3 are met, ahead of the schedule.** The analysis, plan, explanations, playbook and all app views exist and work in Chrome (F-39 to F-56). The team's analysis is in `deliverables/Costco_Case_Analysis.docx` (T-67).
+**Now: M2 and M3 are met, ahead of the schedule.** The analysis, plan, explanations, playbook and all app views exist and work in Chrome, and the setup steps pass in a clean environment (F-39 to F-57). Start with `README.md`. The team's analysis is in `deliverables/Costco_Case_Analysis.docx` (T-67).
 
 Next actions:
 
-1. **T-56:** package the app and test it from a clean environment.
-2. **T-60, T-61:** build the deck and appendix. The Word file has the material, and limiting holiday PTO is the headline recommendation (F-55).
-3. **T-05, Q-07:** come back to the organizer questions by Thursday, and get the real team name.
-4. **T-63 to T-66:** rehearse with Wi-Fi off, record a backup, time the full run and do the final check.
-5. **Settled:** the service goal is 95% (A-13), and the plan allows for callouts (A-03). Neither is waiting on the organizers.
+1. **T-60, T-61:** build the deck and appendix. The Word file has the material, and limiting holiday PTO is the headline recommendation (F-55).
+2. **T-05, Q-07:** come back to the organizer questions by Thursday, and get the real team name.
+3. **T-63 to T-66:** rehearse with Wi-Fi off, record a backup, time the full run and do the final check.
+4. **Settled:** the service goal is 95% (A-13), and the plan allows for callouts (A-03). Neither is waiting on the organizers.
 
 Held for now:
 
@@ -27,18 +26,16 @@ The team is 4 people with one main coder, so coding work mostly runs in sequence
 |---|---|---|---|
 | Tue Nov 3, evening | T-04, T-06, T-07, T-09, T-10 (done) | T-08 (done Wed Nov 4), T-05 (deferred) | M1 |
 | Wed Nov 4 | T-11, T-12, T-13, T-20 to T-24, T-30 to T-35, T-40 (done, ahead of schedule) | Deck outline for T-60, using `deliverables/Costco_Case_Analysis.docx` | M2: met |
-| Thu Nov 5 | T-41, T-42, T-50 to T-55 (done Wed Nov 4, ahead of schedule), then T-56 | T-60, T-61, and come back to T-05 | M3: met |
+| Thu Nov 5 | T-41, T-42, T-50 to T-56 (done Wed Nov 4, ahead of schedule) | T-60, T-61, and come back to T-05 | M3: met |
 | Fri Nov 6 | T-62, T-63, T-64 | Finish T-60 and T-61, then T-65 and T-66 | M4 by afternoon, M5 by night |
 | Sat Nov 7, morning | Submit. No new work, only buffer | | |
 
 ### If we fall behind
 
-Cut in this order (D-14):
+Everything in the original cut order (T-25, T-40, T-52 and T-54) is either dropped or already built, so nothing needs cutting there (D-14). If time runs short now:
 
-1. **T-25:** already dropped.
-2. **T-40:** replace the simulation with risk bands read directly from the service curve.
-3. **T-52:** reduce to one simple chart.
-4. **T-54:** remove the what-if control. The scenario selector still meets R-13.
+1. **T-61:** use sections of the Word file as the appendix, rather than building separate slides.
+2. **T-64:** keep the backup recording short, covering one scenario switch and the Why tab.
 
 Never cut these, because the case requires them: a valid CSV for all three scenarios (T-35, T-62), staffing, cost and service risk in the app (T-50, T-51), explanations (T-41), the deck and appendix (T-60, T-61), and a way to show the demo (T-63 or T-64).
 
@@ -117,7 +114,7 @@ Never cut these, because the case requires them: a valid CSV for all three scena
 | T-53 | "Why this recommendation" panel, including the assumptions behind it | T-41 | Available for any changed block | Done |
 | T-54 | What-if control that recalculates live, such as callout rate, plus the playbook | T-42, T-50 | Moving it changes the recommendation | Done |
 | T-55 | Cache the three scenarios at startup and time the app (D-11) | T-50 to T-54 | Timings in `FINDINGS.md` and fast enough to demo | Done |
-| T-56 | Package it: `requirements.txt`, start command, `.streamlit/config.toml` (Q-04) | T-55 | Runs from a clean environment using written steps | Not started |
+| T-56 | Package it: `requirements.txt`, start command, `.streamlit/config.toml` (Q-04) | T-55 | Runs from a clean environment using written steps | Done |
 
 ### Phase 6: Deliverables
 

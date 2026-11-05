@@ -1,7 +1,7 @@
 """Run the whole analysis and write outputs/. Start it with: python -m src.pipeline
 
-Everything quoted in the analysis document comes from outputs/analysis_summary.json, so a figure in
-the document can always be traced to this run.
+The analysis document's calculated figures come from outputs/analysis_summary.json, so they can be traced
+to this run. The fixed references it types in are listed in D-20.
 """
 from __future__ import annotations
 

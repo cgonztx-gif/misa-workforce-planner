@@ -1,0 +1,19 @@
+{
+ "server_health_seconds": 1.05,
+ "first_page_seconds": 15.94,
+ "tooltip_on_hover": "Block\t Sun Feb 15, Merchandising, Midday  Draft\t 13  Plan\t 16  Change\t 3  Chance of meeting target (%)\t 97  Regular\t 14  Cross-trained\t 0  Overtime\t 2",
+ "tab_Cost and service_seconds": 0.48,
+ "tab_Demand_seconds": 0.47,
+ "tab_Why_seconds": 0.45,
+ "tab_Playbook_seconds": 0.46,
+ "switch_to_PEAK_seconds": 0.8,
+ "switch_to_DISRUPT_seconds": 0.81,
+ "switch_to_BASE_seconds": 0.71,
+ "what_if_seconds": 2.86,
+ "what_if_cost": "$392,060",
+ "warning_gone_after_reset": true,
+ "why_headline": "Add 3: 24 in the draft to 27 in the plan",
+ "exceptions_on_page": 0,
+ "console_errors": [],
+ "requests_off_this_machine": []
+}

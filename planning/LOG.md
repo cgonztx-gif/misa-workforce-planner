@@ -4,6 +4,15 @@ Newest first. Add an entry at the end of every work session.
 
 ## 2026-11-04
 
+**Documentation audit (Wednesday night).** The user asked to make sure everything is documented. Checked every tracked file, decision and result against the records, then fixed what was missing.
+
+- Added a root `README.md` with setup steps, how to rebuild, and the final check before submitting. Followed it in a brand-new environment from only the tracked files: all 74 tests pass and results are identical, so T-56 is done (F-57).
+- Moved the browser check and the Word rendering check out of a temporary folder into `evidence/`, so F-56 can be reproduced. Rerunning it also confirmed hover tooltips work, which had been untested.
+- Recorded the dashboard's link (F-40, D-21), the tools beyond `requirements.txt` (F-57), every output and test file (`DESIGN.md`), and everything in `evidence/` (`planning/README.md`).
+- Corrected stale or overstated records: the cut order in `PLAN.md`, D-11, D-14, and the claim that every figure in the Word file is generated (D-20). Extraction now uses Python, so it no longer needs `unzip`.
+
+**Still only proposed, since the user hasn't explicitly confirmed them:** D-11, D-14, D-17 to D-20, and most assumptions.
+
 **Explanations, playbook and app (Wednesday night).** The user asked to start on these.
 
 - Built `src/explain.py`, `src/playbook.py` and the full app (T-41, T-42, T-50 to T-55). All are first versions that work, ahead of the schedule. M3 is met.

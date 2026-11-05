@@ -67,7 +67,7 @@
 
 ## D-11: Demo setup
 
-- **Status:** Proposed, 2026-11-03. This is demo advice rather than part of the stack the user confirmed. The `localhost` binding is already set in `.streamlit/config.toml`.
+- **Status:** Proposed, 2026-11-03. This is demo advice rather than part of the stack the user confirmed. Built so far: the `localhost` binding, preparing all scenarios on first load, the what-if controls and the written setup steps (F-56, F-57). Still to do: choosing the laptop and recording the backup.
 - **Choice:**
   - Bind to `localhost`, which should also stop a Windows firewall prompt appearing mid-demo.
   - Cache the three scenarios at startup, since the real search and risk simulation will be slower than the test in F-22.
@@ -86,7 +86,7 @@
 
 ## D-14: Build a rough end-to-end version first, and finish Friday night
 
-- **Status:** Proposed, 2026-11-03
+- **Status:** Proposed, 2026-11-03. The work follows it, and the user hasn't confirmed or objected.
 - **Why:** the deadline is Saturday morning (Q-01), with one main coder and three full working days. A valid submission CSV by Wednesday night means there is always something to submit, and each later task improves it. Finishing Friday night leaves Saturday morning as buffer, especially while the exact time is unknown (Q-11).
 - **Cut order if behind:** listed in `PLAN.md`.
 
@@ -122,12 +122,12 @@
 ## D-20: Build the team's Word file from the pipeline's results
 
 - **Status:** Proposed, 2026-11-04. The user asked for a Word file to give to group members.
-- **Choice:** `scripts/build_analysis_doc.js` writes `deliverables/Costco_Case_Analysis.docx`, reading every figure from `outputs/analysis_summary.json`.
-- **Why:** figures can't drift from the code, and rebuilding after a change takes seconds.
+- **Choice:** `scripts/build_analysis_doc.js` writes `deliverables/Costco_Case_Analysis.docx`, reading calculated figures from `outputs/analysis_summary.json`. A few fixed references are typed in the script: case facts, the dashboard's old figures (29 people, $327,334, 0.908), assumption values (2%, 5%), and rounded PTO effects ("about 4", "4 to 5").
+- **Why:** calculated figures can't drift from the code, and rebuilding after a change takes seconds.
 - **Limit:** a rebuild replaces the file, so hand edits are lost unless they are also made in the script. If the team starts editing the Word file directly, stop rebuilding it and update it by hand instead.
 - **Cost:** a small Node dependency (`docx`, in `package.json`), used only for this.
 
 ## D-21: Keep a copy of the Nov 2 dashboard's tables as evidence
 
 - **Status:** Accepted, 2026-11-04. The user asked for the dashboard to be rebuilt and verified.
-- **Why:** `planning/evidence/dashboard_2026-11-02/` holds the tables we compare against, so the comparison still runs if the dashboard changes. The dashboard itself wasn't changed, including the figures we've corrected (F-40, F-42, F-46).
+- **Why:** the dashboard is at https://claude.ai/artifact/Y4fhxQ8KMaWau2LssMyWLn, and `planning/evidence/dashboard_2026-11-02/` holds the tables we compare against, so the comparison still runs if the dashboard changes. The dashboard itself wasn't changed, including the figures we've corrected (F-40, F-42, F-46).
