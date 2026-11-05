@@ -113,10 +113,12 @@ def staffing_board(cells: pd.DataFrame, days: list[str]):
     return style(alt.layer(fill, numbers, clickable).resolve_scale(color="independent").properties(height=44 * len(BOARD_ROWS)))
 
 
-def week_lines(frame: pd.DataFrame, days: list[str], value: str, series: str, colors: dict, y_title: str, number_format: str, y_domain=None, height=290, day_size=12):
+def week_lines(frame: pd.DataFrame, days: list[str], value: str, series: str, colors: dict, y_title: str, number_format: str, y_domain=None, height=290, short_days=False):
     """Lines across the week. Hovering over a day shows every series for that day."""
     scale = alt.Scale(domain=list(colors), range=list(colors.values()))
-    x = alt.X("day:N", sort=days, title=None, axis=alt.Axis(labelAngle=0, labelOverlap=False, labelFontSize=day_size, ticks=False))
+    # Narrow charts show only the weekday on the axis. The hover readout still gives the full date.
+    label_text = "split(datum.label, ' ')[0]" if short_days else "datum.label"
+    x = alt.X("day:N", sort=days, title=None, axis=alt.Axis(labelAngle=0, labelOverlap=False, labelExpr=label_text, ticks=False))
     base = alt.Chart(frame).encode(
         x=x,
         y=alt.Y(f"{value}:Q", title=y_title, scale=alt.Scale(domain=y_domain) if y_domain else alt.Scale(zero=False), axis=alt.Axis(ticks=False, domain=False)),
@@ -393,7 +395,7 @@ with demand_tab:
         long["series"] = long["series"].map({"forecast": "Our forecast", "benchmark": "Benchmark"})
         with column:
             st.markdown(f"**{name}**")
-            st.altair_chart(week_lines(long, days, "units", "series", {"Benchmark": DRAFT_COLOR, "Our forecast": DEPARTMENT_COLORS[name]}, "Demand units", ",.1f", height=240, day_size=10), width="stretch")
+            st.altair_chart(week_lines(long, days, "units", "series", {"Benchmark": DRAFT_COLOR, "Our forecast": DEPARTMENT_COLORS[name]}, "Demand units", ",.1f", height=240, short_days=True), width="stretch")
     st.markdown("**What drives each day**")
     driver_department = st.segmented_control("Department", list(DEPT_NAMES.values()), default="Front End", required=True, key="driver_department", label_visibility="collapsed")
     drivers = daily[daily["department"] == driver_department]
