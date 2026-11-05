@@ -82,20 +82,22 @@ deliverables/        Costco_Case_Analysis.docx, for the team
 
 ## App views
 
+`UI_FRAMEWORK.md` covers the look, behavior and demo path in full.
+
 | View | Shows | Requirements |
 |---|---|---|
 | Sidebar | Scenario and warehouse selectors. What-if sliders for callouts, demand and service goal, which rerun the search | R-04, R-13 |
-| Staffing | Recommended headcount by warehouse, department, day and shift, against the draft | R-11, R-17, R-18, R-21 |
-| Cost and service | Labor cost and service risk against the draft | R-04, R-12, R-19 |
+| Staffing | A clickable weekly board of recommended headcount against the draft, with the clicked block's reason below | R-11, R-17, R-18, R-21 |
+| Cost and service | All three scenarios side by side, then labor cost and service risk against the draft | R-04, R-12, R-19 |
 | Demand | When demand rises or falls, and why | R-09, R-16 |
 | Why | Reason and assumptions for each change | R-14, R-22 |
 | Playbook | Triggers and actions per scenario, the holiday PTO test, rules for the day and the tightest blocks | R-20, R-23 |
 
-Totals across all warehouses sit above the tabs. The tabs show the selected warehouse. Everything is prepared on first load, about 15 seconds, and then cached (F-56). A block's **cushion** is the people it can lose, or the extra demand it can take, before its chance of meeting target falls to 50% (`cushion()` in `src/risk.py`).
+An answer in words and totals across all warehouses sit above the tabs, and the tabs show the selected warehouse. Everything is prepared on first load, up to 20 seconds, and then cached (F-56, F-59). A block's **cushion** is the people it can lose, or the extra demand it can take, before its chance of meeting target falls to 50% (`cushion()` in `src/risk.py`).
 
 ## Charts
 
-Colors follow one palette throughout. Front End, Merchandising and Pharmacy use blue, orange and aqua, which pass the color-blind check, and the draft is gray. The staffing grid runs from red (cut) through gray to blue (add). Every chart in the app has a hover tooltip and a table or labels beside it, because color alone shouldn't carry meaning. Word file charts are drawn by `src/charts.py`, and app charts in `app.py`.
+Front End, Merchandising and Pharmacy use blue, orange and green, which pass the color-blind check. Word file charts are drawn by `src/charts.py`, and app charts in `app.py`. `UI_FRAMEWORK.md` describes the rest of the current look.
 
 ## Outputs
 
@@ -108,7 +110,7 @@ Colors follow one palette throughout. Front End, Merchandising and Pharmacy use 
 | `explanations.csv` | Every block: action, reasons, cushion and assumptions |
 | `capacity_gaps.csv` | People short of need by scenario, day and department |
 | `goal_tradeoff.csv` | Cost and expected service at each service goal |
-| `pto_what_if.csv` | The holiday PTO test |
+| `pto_what_if.csv` | The holiday PTO test. The app reads this copy, and a test checks that it's current |
 | `forecast_daily.csv`, `forecast_blocks.csv` | The forecast by day and by block, with the benchmark |
 | `service_limits.csv` | Utilization for a 95%, 90% and 50% chance of meeting target |
 | `diagnosis_staffing_gaps.csv`, `diagnosis_callout_rates.csv`, `diagnosis_service_bands.csv` | The historical diagnosis |
@@ -125,7 +127,7 @@ Colors follow one palette throughout. Front End, Merchandising and Pharmacy use 
 | `tests/test_service_and_risk.py` | Service curves, and the risk calculation against simulation |
 | `tests/test_search_and_submission.py` | The search's rules and the submission validator |
 | `tests/test_explain_and_playbook.py` | Reasons, assumptions, cushions, playbook and the PTO test |
-| `tests/test_app.py` | The app, run without a browser. `planning/evidence/drive_app.py` covers a real browser |
+| `tests/test_app.py` | The app, run without a browser, plus readable numbers on the board. `planning/evidence/drive_app.py` covers a real browser |
 
 ## Commands
 
@@ -150,7 +152,7 @@ node scripts/build_analysis_doc.js   # needs npm install once
 python -m streamlit run app.py
 ```
 
-The start command reads `.streamlit/config.toml`, which runs headless, binds to `localhost`, turns off usage stats and sets a light theme with a minimal toolbar. It was tested in Chrome and in a clean environment (F-56, F-57). `README.md` has the full setup steps.
+The start command reads `.streamlit/config.toml`, which runs headless, binds to `localhost`, turns off usage stats and sets a light theme with a minimal toolbar. It also holds the current theme, which can change freely (D-23). It was tested in Chrome and in a clean environment (F-56, F-57). `README.md` has the full setup steps.
 
 ## Optional SQL Server build
 

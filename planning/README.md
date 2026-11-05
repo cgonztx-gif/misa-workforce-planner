@@ -9,7 +9,8 @@ How we plan and track the Texas MISA Costco case. `README.md` in the project roo
 | `PLAN.md` | Current focus, milestones, every task | A task starts, finishes or changes |
 | `REQUIREMENTS.md` | Every case requirement, its source and the tasks that cover it | A requirement is met or the rules change |
 | `DECISIONS.md` | Choices made, why, and what was rejected | A choice is proposed, accepted or reversed |
-| `DESIGN.md` | How the tool works: data, calculations, modules, demo setup | The design changes |
+| `DESIGN.md` | How the tool works: data, calculations, modules, outputs, tests | The design changes |
+| `UI_FRAMEWORK.md` | The app's look, screens, behavior and demo path. Direction, not rules | The app's UI changes |
 | `FINDINGS.md` | Verified facts about the data and environment | Something is measured or confirmed |
 | `ASSUMPTIONS.md` | Assumptions we add beyond the case's own | The model relies on something unverified |
 | `QUESTIONS.md` | Open questions and who can answer them | An unknown appears or an answer arrives |

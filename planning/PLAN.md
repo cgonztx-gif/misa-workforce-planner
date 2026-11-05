@@ -115,6 +115,8 @@ Never cut these, because the case requires them: a valid CSV for all three scena
 | T-54 | What-if control that recalculates live, such as callout rate, plus the playbook | T-42, T-50 | Moving it changes the recommendation | Done |
 | T-55 | Cache the three scenarios at startup and time the app (D-11) | T-50 to T-54 | Timings in `FINDINGS.md` and fast enough to demo | Done |
 | T-68 | Install skills for the app's UI, design and behavior (D-22) | | Reviewed, installed, and visible to a new session | Done |
+| T-69 | Write the UI guide (`UI_FRAMEWORK.md`, D-23) | T-68 | Covers the goal, limits, look, screens, behavior and demo path | Done |
+| T-70 | Restyle the app so it looks good (D-23) | T-50 to T-54 | Screenshots look right, and the browser check passes (F-59) | Done |
 | T-56 | Package it: `requirements.txt`, start command, `.streamlit/config.toml` (Q-04) | T-55 | Runs from a clean environment using written steps | Done |
 
 ### Phase 6: Deliverables

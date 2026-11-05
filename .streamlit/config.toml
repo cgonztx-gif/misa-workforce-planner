@@ -5,9 +5,40 @@ address = "localhost"
 [browser]
 gatherUsageStats = false
 
-[theme]
-base = "light"
-primaryColor = "#2a78d6"
-
 [client]
 toolbarMode = "minimal"
+
+# Current look. Nothing depends on these exact values, so change them freely.
+# Fonts stay on this computer, because the demo has to work with Wi-Fi off.
+[theme]
+base = "light"
+primaryColor = "#1c5cab"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f1f4f6"
+textColor = "#1f2933"
+borderColor = "#d5dbe1"
+linkColor = "#1c5cab"
+font = "'Segoe UI', system-ui, -apple-system, sans-serif"
+baseRadius = "8px"
+buttonRadius = "8px"
+showSidebarBorder = false
+headingFontSizes = ["32px", "22px", "19px", "18px", "15px", "14px"]
+headingFontWeights = [700, 600, 600, 500, 600, 600]
+metricValueFontSize = "28px"
+metricValueFontWeight = 600
+dataframeBorderColor = "#d5dbe1"
+dataframeHeaderBackgroundColor = "#f1f4f6"
+chartCategoricalColors = ["#2a78d6", "#eb6834", "#1baf7a"]
+greenColor = "#0ca30c"
+greenTextColor = "#006300"
+greenBackgroundColor = "#e3f4e3"
+orangeColor = "#c2571a"
+orangeTextColor = "#8a3f10"
+orangeBackgroundColor = "#fdeedd"
+redColor = "#d03b3b"
+redTextColor = "#a32020"
+redBackgroundColor = "#fbe6e6"
+
+[theme.sidebar]
+backgroundColor = "#f1f4f6"
+secondaryBackgroundColor = "#ffffff"

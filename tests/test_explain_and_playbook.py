@@ -1,4 +1,6 @@
 """Explanations and the playbook (T-41, T-42, R-14, R-20, R-22, R-23)."""
+from pathlib import Path
+
 import pandas as pd
 import pytest
 
@@ -114,6 +116,12 @@ def test_keeping_more_people_never_makes_the_plan_worse(setup):
     assert table["expected_met"].is_monotonic_increasing
     assert table.loc[0, "people_kept"] == 0
     assert isinstance(table, pd.DataFrame)
+
+
+def test_the_saved_pto_table_the_app_reads_is_up_to_date(setup):
+    curves, inputs, _ = setup
+    saved = pd.read_csv(Path(__file__).resolve().parents[1] / "outputs" / "pto_what_if.csv")
+    pd.testing.assert_frame_equal(saved, pto_what_if(inputs, curves), check_dtype=False)
 
 
 def test_keeping_enough_people_clears_every_block_holiday_pto_touches(setup):

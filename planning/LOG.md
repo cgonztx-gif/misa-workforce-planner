@@ -4,6 +4,13 @@ Newest first. Add an entry at the end of every work session.
 
 ## 2026-11-04
 
+**UI guide and restyle (Wednesday night).** The user asked for an extensive UI framework and updated docs. Claude began a rigid design system, and the user stopped it before anything was saved: the goal is an app that looks nice, it's built once, and no strict color scheme or layout is needed (D-23).
+
+- Wrote `UI_FRAMEWORK.md` as direction: the goal, the few real limits, the current look, each screen's job, how it behaves and a two-minute demo path (T-69).
+- Restyled the app, judging it from screenshots (T-70): a new theme and font, the answer in words at the top, a tidier summary band, and a weekly staffing board that explains any block you click. Scenario and warehouse are now buttons, table columns sort as numbers, and the Cost tab compares all three scenarios.
+- The browser check caught a blank board that the tests had passed (F-59). The first load is also shorter on the PTO step, since the app now reads the saved table.
+- All 77 tests pass. The app was started on port 8501 so the user could look at it, and the browser check moved to port 8502.
+
 **UI and design skills installed (Wednesday night).** The user asked for skills covering the app's UI, design and how it functions. Reviewed the options, then installed Streamlit's `developing-with-streamlit` and Anthropic's `frontend-design` at project level (T-68, D-22, F-58). Streamlit's recommended install would have meant upgrading from 1.56, so the app's version stays as it is and the skill is copied from the 1.57.0 package. A new session sees both. The app itself wasn't changed.
 
 **Documentation audit (Wednesday night).** The user asked to make sure everything is documented. Checked every tracked file, decision and result against the records, then fixed what was missing.

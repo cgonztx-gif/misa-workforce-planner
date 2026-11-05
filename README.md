@@ -13,6 +13,7 @@ All data in this case is simulated. It is not real Costco data and must not be p
 | See the staffing plan we'd submit | `outputs/TEAM_SUBMISSION_TEMPLATE_filled.csv` |
 | See why any block changed | `outputs/explanations.csv`, or the app's Why tab |
 | See the plan, decisions and open questions | `planning/README.md`, then `planning/PLAN.md` |
+| See how the app should look and behave, and a demo path | `planning/UI_FRAMEWORK.md` |
 | Check the case rules | `data/team_distribution/README.md`, after the setup below |
 
 ## Run the app
@@ -36,9 +37,9 @@ python -m zipfile -e "MISA/Student Teams/Costco_Case_Competition_TEAMS.zip" data
 python -m streamlit run app.py
 ```
 
-The first page load takes about 15 seconds, and after that it's fast. **Before a demo, open the app once** so this doesn't happen in front of the judges. The app needs no internet once it's installed.
+The first page load takes up to 20 seconds, and after that it's fast. **Before a demo, open the app once** so this doesn't happen in front of the judges. The app needs no internet once it's installed.
 
-**Using it:** pick a scenario and a warehouse in the sidebar. The tabs show staffing, cost and service, demand, why each block changed, and the playbook. The sliders under "What if?" recalculate the plan, and Reset returns to the plan we'd submit.
+**Using it:** pick a scenario and a warehouse in the sidebar. The tabs show staffing, cost and service, demand, why each block changed, and the playbook. Click any block on the staffing board to see why it changed. The sliders under "What if?" recalculate the plan, and "Reset what-if" returns to the plan we'd submit.
 
 ## Rebuild the results
 
@@ -67,6 +68,7 @@ python -c "import pandas as pd; from src.submission import validate; print(valid
 
 ```text
 app.py                     The Streamlit app
+assets/                    The app's page icon
 src/                       The analysis: forecast, service curves, risk, staffing search, explanations, playbook
 tests/                     Automated tests
 outputs/                   Generated results: the submission CSV, tables, charts, analysis_summary.json
@@ -78,7 +80,7 @@ MISA.zip                   The original case files
 Texas MISA ... .pptx       The original case deck. It's out of date, so trust the PDF and data pack docs
 requirements.txt           Pinned Python packages
 package.json               Node package for the Word file
-.streamlit/config.toml     App settings: local only, light theme
+.streamlit/config.toml     App settings and the current theme. It stays local
 pytest.ini                 Test settings
 CLAUDE.md                  Essentials for Claude Code sessions
 .claude/                   Claude Code settings and UI skills. Not needed to run the app

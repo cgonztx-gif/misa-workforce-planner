@@ -145,3 +145,11 @@
   - Third-party design plugins such as Superdesign: not needed, and they would send work to an outside service.
 - **Limits:** a skill is guidance, and the case rules and `CLAUDE.md` still win. `frontend-design` favors a distinctive look, which should stay subordinate to a clear tool a warehouse leader can use. Installing these changed nothing in the app.
 - **Revisit if:** the UI work needs a Streamlit feature newer than 1.56. An upgrade would then need the full tests and `evidence/drive_app.py`.
+
+## D-23: Aim for a good-looking app, with no strict design system
+
+- **Status:** Accepted, 2026-11-04, at the user's request: "the goal should be looking nice, it will just be made once so there is no strict layout to follow."
+- **Choice:** `UI_FRAMEWORK.md` gives direction: the goal, a few real limits, the current look, each screen's job, how it behaves and a demo path. Exact colors and layout can change freely, and nothing tests them. The app stays in `app.py`, with testable helpers in `src/app_data.py`.
+- **Rejected:** a design-token module, a component library, a multi-layer `src/ui/` package, and tests that fail on stray colors or direct Streamlit calls. Claude began writing these from an earlier request for an "extensive framework". The user stopped it before any of it was saved, because it suits a product that lives on, not a one-time build.
+- **Kept as tests:** only what protects the demo: scenario switching, what-if settings, the reason panel, the simulated-data label, escaped dollar signs, readable board numbers, and default values matching the submission.
+
