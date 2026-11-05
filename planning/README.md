@@ -7,6 +7,7 @@ How we plan and track the Texas MISA Costco case. `README.md` in the project roo
 | File | Holds | Update it when |
 |---|---|---|
 | `PLAN.md` | Current focus, milestones, every task | A task starts, finishes or changes |
+| `DELIVERABLES_PLAN.md` | The final push in detail: checking the analysis, the new web app, the report, the deck and the notebook, with gates and tasks T-71 to T-95 | The plan changes or a gate passes |
 | `REQUIREMENTS.md` | Every case requirement, its source and the tasks that cover it | A requirement is met or the rules change |
 | `DECISIONS.md` | Choices made, why, and what was rejected | A choice is proposed, accepted or reversed |
 | `DESIGN.md` | How the tool works: data, calculations, modules, outputs, tests | The design changes |

@@ -1,6 +1,6 @@
 # Decisions
 
-**Proposed** means recommended but not yet confirmed. The user confirmed the stack on 2026-11-03 (D-03 to D-10). D-05 and D-07 have since been refined by D-19 and D-18.
+**Proposed** means recommended but not yet confirmed. The user confirmed the stack on 2026-11-03 (D-03 to D-10). D-05 and D-07 have since been refined by D-19 and D-18. On 2026-11-05 the user chose a React front end for the web tool (D-24), which supersedes D-03 and D-09 for the app's interface.
 
 ## D-01: Trust the data pack docs and the PDF over the `.pptx`
 
@@ -15,7 +15,7 @@
 
 ## D-03: Use Python with Streamlit
 
-- **Status:** Accepted, 2026-11-03. Confirmed by the user (Q-09).
+- **Status:** Accepted, 2026-11-03. Confirmed by the user (Q-09). **Superseded for the demo app's interface by D-24 on 2026-11-05.** Python stays the engine, and the Streamlit app stays as the fallback (D-27).
 - **Why:** most of it is already installed (F-21), it builds quickly, and it can recalculate live when a judge switches scenario.
 - **Rejected:**
   - **Power BI or Tableau:** good for displaying results, but they can't easily run the forecast and search, and the case asks for more than a dashboard.
@@ -57,7 +57,7 @@
 
 ## D-09: Use Altair for charts
 
-- **Status:** Accepted, 2026-11-03
+- **Status:** Accepted, 2026-11-03. **Superseded for the new web app by D-24 on 2026-11-05,** which uses a JavaScript chart library. Altair stays in the Streamlit fallback.
 - **Why:** it ships with Streamlit, so it adds no dependency.
 
 ## D-10: Keep the allocation rule in one function
@@ -152,4 +152,36 @@
 - **Choice:** `UI_FRAMEWORK.md` gives direction: the goal, a few real limits, the current look, each screen's job, how it behaves and a demo path. Exact colors and layout can change freely, and nothing tests them. The app stays in `app.py`, with testable helpers in `src/app_data.py`.
 - **Rejected:** a design-token module, a component library, a multi-layer `src/ui/` package, and tests that fail on stray colors or direct Streamlit calls. Claude began writing these from an earlier request for an "extensive framework". The user stopped it before any of it was saved, because it suits a product that lives on, not a one-time build.
 - **Kept as tests:** only what protects the demo: scenario switching, what-if settings, the reason panel, the simulated-data label, escaped dollar signs, readable board numbers, and default values matching the submission.
+
+## D-24: Rebuild the web tool in React, served by a thin FastAPI layer over the Python engine
+
+- **Status:** Accepted, 2026-11-05. The user asked for a from-scratch rebuild that is "perfectly functional, easy to follow, yet comprehensive and accurate", looking "like a real platform Costco could use" and "like a tech company's website". Given the choice, the user picked this over rebuilding in Streamlit. It supersedes D-03 for the interface and D-09 for its charts. D-22's "stay on Streamlit 1.56" now applies only to the fallback.
+- **Why:** full control of layout and interaction, so it reads as a real product. Streamlit's look is recognizable, and the case is sponsored by an IT consultancy. The engine in `src/` is finished and tested, so the new layer is thin: an API over `run_scenario` and the saved outputs.
+- **Choice:** Vite, React and TypeScript, Tailwind, Radix UI primitives, Recharts and lucide icons. FastAPI and uvicorn on `localhost:8501` serve the API and the built app from one process. Details are in `DELIVERABLES_PLAN.md` section 7.
+- **Rejected:** rebuilding in Streamlit, which is lower risk but still looks like Streamlit.
+- **Cost:** a Node build step, a second language, and new tests. The Streamlit app stays as the fallback (D-27).
+
+## D-25: Install the skills and tools for the deck, notebook and browser checks
+
+- **Status:** Accepted, 2026-11-05. The user asked for UI and design skills for the deck, and anything else where skills help, and chose to install them before implementation starts.
+- **Choice:** `webapp-testing` and `theme-factory` from Anthropic's skills repository, at project level, read before installing (F-60). Python tools go in `requirements-dev.txt`, so the app's `requirements.txt` stays small. Node tools for the deck go in `package.json`. The `pptx`, `docx`, `dataviz` and `frontend-design` skills were already available.
+- **Rejected:** `superdesign`, which sends work to an outside service (as in D-22). `canvas-design`, which isn't needed. The Playwright MCP plugin, because `webapp-testing` and Claude in Chrome cover it. Anthropic's `document-skills` plugin, which duplicates the account's `pptx` and `docx` skills.
+
+## D-26: One look across the app, deck, report and notebook
+
+- **Status:** Accepted, 2026-11-05. The user asked that the deck match the app's formatting, including its charts.
+- **Choice:** `design/tokens.json` holds the colors, font, shapes and chart styling. The app turns it into CSS variables, `src/viz_style.py` turns it into a matplotlib style for the report and notebook, and the deck's builder turns it into a pptxgenjs theme. The font is Segoe UI, which is installed here and in Office and works offline. PDF copies of the deck and report embed it.
+- **Why not a design system:** D-23 still holds. This is one shared palette so the deliverables match, not a set of rules or tests.
+
+## D-27: Keep the Streamlit app as the fallback demo until the new app is accepted
+
+- **Status:** Proposed, 2026-11-05
+- **Why:** it works today (F-56, F-59). If the new app isn't ready by M4, Friday at 1 pm, the team still has a tested demo, and the deck's screenshots come from it.
+- **Choice:** `app.py` and its tests stay untouched until M4. After that, it runs on port 8502 as a documented fallback.
+
+## D-28: Freeze the numbers before writing, and print no figures by hand
+
+- **Status:** Proposed, 2026-11-05. Extends D-20 to the deck and the notebook.
+- **Why:** the deck, report and notebook are written in parallel, so they must all quote the same plan. Any model change after the freeze means rebuilding all three.
+- **Choice:** after the checks in `DELIVERABLES_PLAN.md` section 5, rerun the pipeline, commit and tag `numbers-freeze` (M6). The deck's and report's builders read every calculated figure from `outputs/analysis_summary.json`, and the notebook recomputes and asserts against it.
 

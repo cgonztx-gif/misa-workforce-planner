@@ -58,3 +58,18 @@ Status as of 2026-11-04, for first versions that work. **Partial** usually means
 | R-28 | Beat the naive benchmark forecast, which the case calls "a floor to beat" | `docs/ASSUMPTIONS.md` section 8 | T-21 | Partial |
 | R-29 | Forecast the Valentine's Day and Presidents' Day effects ourselves | README, PDF p5 | T-22 | Met |
 | R-30 | Treat the data as simulated: it is not Costco data, so don't present it as such | README, PDF p7 | T-60, T-61 | Partial |
+
+## What the user asked for (2026-11-05)
+
+These come from the user, not the case, and `DELIVERABLES_PLAN.md` covers them. T-66's final check includes them.
+
+| ID | Requirement | Source | Covered by | Status |
+|---|---|---|---|---|
+| R-31 | Rebuild the web tool from scratch, using the current app only as a draft: fully functional, easy to follow, comprehensive and accurate, with a professional UI that looks like a tech company's product Costco could use | User | T-80 to T-90 | Not met |
+| R-32 | The presentation fits the slot: 6-7 minutes of slides, a 5-minute live demo, and 3-4 minutes of questions, 15 minutes at most (Q-12) | User | T-93, T-65 | Not met |
+| R-33 | The deck puts the project in context and explains the most important parts of the tool | User | T-93 | Not met |
+| R-34 | The deck matches the tool's formatting, including its charts (D-26) | User | T-79, T-93 | Not met |
+| R-35 | The Word file gives a written analysis of the whole project and how the tool works, detailed enough for someone with no context | User | T-92 | Not met |
+| R-36 | The Word file and the deck use data visualizations wherever they help | User | T-92, T-93 | Not met |
+| R-37 | A comprehensive Jupyter notebook serves as the appendix for the analysis code | User | T-91 | Not met |
+| R-38 | The analysis is checked against every element of the case deck, and is confirmed as the best approach | User | T-73 to T-78 | Not met |

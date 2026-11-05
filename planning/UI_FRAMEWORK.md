@@ -1,5 +1,7 @@
 # UI guide
 
+> **Note, 2026-11-05:** this guide describes the Streamlit app, which becomes the fallback demo (D-27). The web tool is being rebuilt in React with a FastAPI layer (D-24). Until T-90 rewrites this guide, the new app's pages, behavior, look and demo script are in `DELIVERABLES_PLAN.md` sections 6 and 7.
+
 **The goal is an app that looks good and makes the story easy to follow in a live demo.** It's being built once, for this competition, so this is direction, not a design system. The colors, layout, spacing and wording below are the current choices, and any of them can change whenever something looks better. No test checks them (D-23).
 
 ## The only real limits

@@ -8,11 +8,11 @@ Entry for the Texas MISA Fall 2026 case competition: the Costco workforce planni
 
 **Submission is due the morning of Saturday, Nov 7, 2026.**
 
-First versions of the analysis, staffing CSV, explanations, playbook and app all work. The deck doesn't exist yet. Git is local only, on `main`. `MISA/` and `data/` aren't tracked because they extract from `MISA.zip`.
+First versions of the analysis, staffing CSV, explanations, playbook and Streamlit app all work. **The final push is planned in `planning/DELIVERABLES_PLAN.md`:** a new React web app, a rewritten report, the deck and a notebook appendix. Start there. Git is local only, on `main`. `MISA/` and `data/` aren't tracked because they extract from `MISA.zip`.
 
 ## Stack
 
-Python with Streamlit, pandas on the CSVs, a statsmodels regression forecast, SciPy service curves, a risk model checked by NumPy simulation, Altair charts, and an exhaustive per-shift staffing search with no optimization solver. A small Node script builds the team's Word file. The reasons are in `planning/DECISIONS.md`.
+Python for the analysis: pandas on the CSVs, a statsmodels regression forecast, SciPy service curves, a risk model checked by NumPy simulation, and an exhaustive per-shift staffing search with no optimization solver. The web app is being rebuilt in React with a thin FastAPI layer (D-24). The Streamlit app, with Altair charts, stays as the fallback until M4 (D-27). Small Node scripts build the Word file and the deck. The reasons are in `planning/DECISIONS.md`.
 
 ## Planning system
 
@@ -29,6 +29,9 @@ All plans, decisions and findings live in `planning/`.
 ```bash
 # Install pinned packages
 python -m pip install -r requirements.txt
+
+# Tools for the deck, notebook and browser checks (then run once: python -m playwright install chromium)
+python -m pip install -r requirements-dev.txt
 
 # Extract the data pack if data/ is missing (creates MISA/ and data/team_distribution/)
 python -m zipfile -e MISA.zip .
@@ -60,6 +63,6 @@ python -I planning/evidence/verify_findings.py
 - **Solve Front End and Merchandising together.** They share cross-trained staff in each shift.
 - **Read availability per scenario from the grid.** The docs understate what DISRUPT changes.
 - **Join the submission template on keys, never row position.** It needs all 567 rows, total employees per block, and 0 for closed blocks.
-- **For UI work, the goal is that it looks good, with no strict design system.** `planning/UI_FRAMEWORK.md` gives direction, and colors and layout can change freely (D-23). Use the project's skills: `developing-with-streamlit`, `frontend-design` and `dataviz`. Check changes in a browser with `planning/evidence/drive_app.py`, because tests miss visual problems. The app stays on Streamlit 1.56 unless the user decides otherwise, and the demo must work offline, so use no remote fonts or the Streamlit skill's themes (D-22).
+- **For UI work, the goal is that it looks good, with no strict design system (D-23).** The new app's direction is in sections 6 and 7 of `planning/DELIVERABLES_PLAN.md`, and the deck, report and notebook charts match it through `design/tokens.json` (D-26). Use `frontend-design`, `dataviz` and `webapp-testing` for the app, and `pptx`, `docx` and `theme-factory` for the deck and report. Check every change in a real browser or as rendered pages, because tests miss visual problems. The demo must work offline, so use no CDNs, remote fonts or the Streamlit skill's themes. The Streamlit fallback stays on 1.56 (D-22).
 - **The team name is still a placeholder.** Replace `TEAM_ID` in `src/submission.py` before submitting.
 - **Calculated figures in the Word file come from `outputs/`.** Change the code or `scripts/build_analysis_doc.js`, and don't type those numbers in by hand. Rebuilding replaces hand edits and fails while the file is open.

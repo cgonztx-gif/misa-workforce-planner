@@ -52,6 +52,8 @@ python -m src.charts                 # writes outputs/charts/
 python planning/evidence/reconcile_dashboard.py > planning/evidence/reconcile_dashboard.output.txt
 ```
 
+The tools for building the deck and notebook and for the browser checks are in `requirements-dev.txt`: run `python -m pip install -r requirements-dev.txt`, then `python -m playwright install chromium` once. The plan for the final deliverables is in `planning/DELIVERABLES_PLAN.md`.
+
 To rebuild the Word file, run `npm install` once, then `node scripts/build_analysis_doc.js`. This needs Node.js, and it isn't needed to run the app. **A rebuild replaces the Word file, including any edits made in it, and it fails while the file is open in Word.**
 
 ## Before submitting
@@ -79,7 +81,8 @@ planning/evidence/         Scripts and saved output that back up the findings
 MISA.zip                   The original case files
 Texas MISA ... .pptx       The original case deck. It's out of date, so trust the PDF and data pack docs
 requirements.txt           Pinned Python packages
-package.json               Node package for the Word file
+requirements-dev.txt       Extra tools for the deck, notebook and browser checks
+package.json               Node packages for the Word file and the deck
 .streamlit/config.toml     App settings and the current theme. It stays local
 pytest.ini                 Test settings
 CLAUDE.md                  Essentials for Claude Code sessions

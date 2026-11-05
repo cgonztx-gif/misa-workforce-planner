@@ -2,6 +2,19 @@
 
 Newest first. Add an entry at the end of every work session.
 
+## 2026-11-05
+
+**Final push planned, skills installed (Thursday).** The user asked for a full plan covering five things: checking the analysis against the case deck; rebuilding the web tool from scratch to look like a tech company's product; rewriting the Word file for readers with no context; building the deck to match the app (6-7 minutes of slides, a 5-minute live demo and 3-4 minutes of questions, in 15 minutes at most); and a Jupyter notebook as the code appendix. Implementation waits for the user's go.
+
+- The user chose React with a FastAPI layer over a Streamlit rebuild (D-24), the plan's home in `planning/` rather than a new `docs/` folder or Claude Docs, and installing the skills now.
+- Wrote `DELIVERABLES_PLAN.md` (T-72): a coverage matrix of every case element, 11 accuracy checks, a shared look, the app's API, pages, tests and demo script, the notebook, report and deck outlines, gates M4, M6 and M7, risks and tasks T-73 to T-95. Added R-31 to R-38 for what the user asked, D-24 to D-28, and Q-12 to Q-14.
+- Installed `webapp-testing` and `theme-factory` after reading them, plus the deck, notebook and browser tools, and smoke-tested the whole chain: deck built, validated and rendered through PowerPoint; notebook run and exported; headless Chrome (T-71, D-25, F-60). LibreOffice isn't installed, so slides and pages render through Office by COM.
+- New fact: promotions in history fall on every weekend and holiday day, so the forecast already carries them (F-61). The case names promotions, weather and traffic as demand drivers, and the deliverables don't yet say how each was handled, so that's a gap to close (T-73).
+- Worth a look before the numbers freeze: the risk model runs slightly high near the goal (F-46), so T-75 tests a recalibration, and any change to the submitted plan goes to the user first.
+- The baseline holds: all 77 tests pass. No code or results changed.
+
+**Still open:** the team name (Q-07), the exact deadline (Q-11, and Thursday was the date to come back to the organizer questions), whether anyone hand-edited the Word file (Q-13), and the tool's name (Q-14).
+
 ## 2026-11-04
 
 **UI guide and restyle (Wednesday night).** The user asked for an extensive UI framework and updated docs. Claude began a rigid design system, and the user stopped it before anything was saved: the goal is an app that looks nice, it's built once, and no strict color scheme or layout is needed (D-23).
