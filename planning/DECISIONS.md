@@ -193,3 +193,9 @@
 - **Rejected:** scaling the scatter (fix a), which isn't clearly better and is unstable. Letting scatter vary with utilization (fix b), which is clearly better but tiny (+3 people) and leaves the bias near the goal.
 - **Cost:** a model change the day before the freeze. Nothing downstream had been built yet, so the rebuild is cheap.
 
+## D-30: A private GitHub repository for the team to run the app
+
+- **Status:** Accepted, 2026-11-05. The user asked: "make a private repo and push. on github. others will be running the app, not changing anything."
+- **Choice:** `https://github.com/cgonztx-gif/misa-workforce-planner`, private, as the `origin` remote of `main`. Teammates clone it and follow the README: Python only, because the built front end (`web/dist`) is committed. A fresh clone was tested on 2026-11-05: data extracted, server ready in 25.5 seconds, the app served, and BASE's cost matched the submission.
+- **Rules:** teammates run the app and don't change it, so `main` stays the one source. Push finished, tested work when the user asks. Don't push `.vscode/` or anything untracked by `.gitignore`. Teammates need to be added as collaborators to see the repository.
+

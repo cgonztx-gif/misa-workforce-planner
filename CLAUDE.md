@@ -8,7 +8,7 @@ Entry for the Texas MISA Fall 2026 case competition: the Costco workforce planni
 
 **Submission is due Saturday, Nov 7, 2026 at 7:00 AM (Q-11).**
 
-The analysis, staffing CSV and the new web app work, and **the numbers are frozen at the `numbers-freeze` tag (M6, D-28)**: after it, only a bug fix changes a number, and then every deliverable is rebuilt. **The final push is planned in `planning/DELIVERABLES_PLAN.md`:** the app, the rewritten report, the deck, a notebook appendix and a Q&A sheet. Start there, with "Current focus" in `planning/PLAN.md`. Git is local only, on `main`. `MISA/` and `data/` aren't tracked because they extract from `MISA.zip`.
+The analysis, staffing CSV and the new web app work, and **the numbers are frozen at the `numbers-freeze` tag (M6, D-28)**: after it, only a bug fix changes a number, and then every deliverable is rebuilt. **The final push is planned in `planning/DELIVERABLES_PLAN.md`:** the app, the rewritten report, the deck, a notebook appendix and a Q&A sheet. Start there, with "Current focus" in `planning/PLAN.md`. Git is on `main`, with a private GitHub remote, `origin` (`cgonztx-gif/misa-workforce-planner`), so teammates can run the app (D-30). `MISA/` and `data/` aren't tracked because they extract from `MISA.zip`.
 
 ## Stack
 
@@ -19,7 +19,7 @@ Python for the analysis: pandas on the CSVs, a statsmodels regression forecast, 
 All plans, decisions and findings live in `planning/`.
 
 - **Starting work:** read "Current focus" in `planning/PLAN.md`. `planning/README.md` explains what goes where.
-- **Finishing work:** update the task status in `planning/PLAN.md`, add an entry to `planning/LOG.md`, and commit once the tests pass. Don't add a remote or push without asking.
+- **Finishing work:** update the task status in `planning/PLAN.md`, add an entry to `planning/LOG.md`, and commit once the tests pass. Push to `origin` only when the user asks, and only tested work, because teammates run what's there.
 - **New facts:** add them to `planning/FINDINGS.md` with a way to reproduce them. Anything unverified goes in `planning/ASSUMPTIONS.md`.
 
 ## Commands

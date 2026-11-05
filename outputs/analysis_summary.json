@@ -2685,7 +2685,7 @@
     "actions": [
      "Schedule the BASE plan: 11,658 hours, at a cost of $377,504.",
      "Approve 974 hours of overtime ahead of time, mostly for the holiday weekend, so it isn't arranged at the last minute.",
-     "Deal with the 44-person gap across 26 blocks before the week starts. The largest is Warehouse 1 Front End on Sat Feb 14, at 6 people across its shifts. Limiting holiday PTO is the most direct fix."
+     "Deal with the 43-person gap across 25 blocks before the week starts. The largest is Warehouse 2 Front End on Sat Feb 14, at 6 people across its shifts. Limiting holiday PTO is the most direct fix."
     ]
    },
    "PEAK": {
@@ -2703,7 +2703,7 @@
      "Switch to the DISRUPT plan: -370 hours against BASE, because fewer people are available, at a cost of $366,649.",
      "Don't use the current draft here: it schedules 36 more people than can be fielded, across 12 blocks.",
      "Warehouse 2 Front End loses the most (100 fewer employee shifts across the week). Move every available cross-trained person there once Merchandising's own need is met.",
-     "Escalate early. The plan is 201 people short across 40 blocks, led by Warehouse 2 Front End on Sat Feb 14 (57 people across its shifts), and no schedule can close that gap."
+     "Escalate early. The plan is 200 people short across 39 blocks, led by Warehouse 2 Front End on Sat Feb 14 (57 people across its shifts), and no schedule can close that gap."
     ]
    }
   },

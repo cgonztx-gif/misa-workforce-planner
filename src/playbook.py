@@ -68,9 +68,12 @@ def scenario_actions(explained: pd.DataFrame) -> dict[str, dict]:
     hours = frame.groupby("scenario_code")["hours"].sum()
     overtime = frame.assign(ot_hours=frame["fill_overtime"] * frame["paid_hours"]).groupby("scenario_code")["ot_hours"].sum()
     cost = frame.groupby("scenario_code")["cost"].sum()
-    short = (frame["need"] - frame["recommended"]).clip(lower=0).groupby(frame["scenario_code"]).sum()
-    blocks_short = (frame["need"] > frame["recommended"]).groupby(frame["scenario_code"]).sum()
-    need = frame["need"]
+    # A block counts as short only when it's below the goal by the shared rule, so a block at 94.99% that every
+    # other view shows as reaching the goal isn't counted one person short here (F-50, capacity_gaps).
+    below = frame["chance_met"] < SERVICE_GOAL - 0.0005
+    need = frame["need"].where(below, frame["recommended"])
+    short = (need - frame["recommended"]).clip(lower=0).groupby(frame["scenario_code"]).sum()
+    blocks_short = (need > frame["recommended"]).groupby(frame["scenario_code"]).sum()
 
     pivot = frame.pivot_table(index=["store_id", "dept_id", "day_date", "shift_code"], columns="scenario_code", values="recommended", aggfunc="first")
     peak_move = (pivot["PEAK"] - pivot["BASE"]).groupby(level=["store_id", "dept_id"]).sum()
