@@ -81,6 +81,7 @@ package.json               Node package for the Word file
 .streamlit/config.toml     App settings: local only, light theme
 pytest.ini                 Test settings
 CLAUDE.md                  Essentials for Claude Code sessions
+.claude/                   Claude Code settings and UI skills. Not needed to run the app
 ```
 
 `MISA/` and `data/` aren't in git, because they're extracted from `MISA.zip`.

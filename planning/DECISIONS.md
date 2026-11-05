@@ -131,3 +131,17 @@
 
 - **Status:** Accepted, 2026-11-04. The user asked for the dashboard to be rebuilt and verified.
 - **Why:** the dashboard is at https://claude.ai/artifact/Y4fhxQ8KMaWau2LssMyWLn, and `planning/evidence/dashboard_2026-11-02/` holds the tables we compare against, so the comparison still runs if the dashboard changes. The dashboard itself wasn't changed, including the figures we've corrected (F-40, F-42, F-46).
+
+## D-22: Install two official skills for UI work, and keep Streamlit at 1.56
+
+- **Status:** Accepted, 2026-11-04. The user asked for skills covering the app's UI, design and how it functions. Keeping Streamlit at 1.56 was Claude's call, and the user can reverse it.
+- **Choice:** installed at project level, so they travel with the repository:
+  - `developing-with-streamlit`: Streamlit's own skill for layout, design, widgets, dashboards, session state and performance. A copy from the Streamlit 1.57.0 package is in `.claude/skills/`.
+  - `frontend-design`: Anthropic's plugin for visual direction and interface wording, version 1.1.1 from the official marketplace. `.claude/settings.json` enables it.
+  - `dataviz`, already available, still governs charts.
+- **Why not upgrade to get the newest copy:** Streamlit's recommended route is `streamlit skills`, which needs 1.58 or later. That changes the framework under a tested app three days before the deadline, just to get documentation. 1.57 is the closest copy to our pinned version.
+- **Rejected:**
+  - `streamlit/agent-skills`: archived. It only points to the copy inside a Streamlit package of 1.57 or later, so it finds nothing on 1.56.
+  - Third-party design plugins such as Superdesign: not needed, and they would send work to an outside service.
+- **Limits:** a skill is guidance, and the case rules and `CLAUDE.md` still win. `frontend-design` favors a distinctive look, which should stay subordinate to a clear tool a warehouse leader can use. Installing these changed nothing in the app.
+- **Revisit if:** the UI work needs a Streamlit feature newer than 1.56. An upgrade would then need the full tests and `evidence/drive_app.py`.

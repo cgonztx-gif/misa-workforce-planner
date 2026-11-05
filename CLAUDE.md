@@ -60,5 +60,6 @@ python -I planning/evidence/verify_findings.py
 - **Solve Front End and Merchandising together.** They share cross-trained staff in each shift.
 - **Read availability per scenario from the grid.** The docs understate what DISRUPT changes.
 - **Join the submission template on keys, never row position.** It needs all 567 rows, total employees per block, and 0 for closed blocks.
+- **For UI work, use the project's skills:** `developing-with-streamlit` for how the app is built and behaves, `frontend-design` for its look and wording, and `dataviz` for charts. The app stays on Streamlit 1.56 unless the user decides otherwise, and the demo must work offline, so use no remote fonts or the Streamlit skill's themes (D-22).
 - **The team name is still a placeholder.** Replace `TEAM_ID` in `src/submission.py` before submitting.
 - **Calculated figures in the Word file come from `outputs/`.** Change the code or `scripts/build_analysis_doc.js`, and don't type those numbers in by hand. Rebuilding replaces hand edits and fails while the file is open.

@@ -13,3 +13,6 @@ __pycache__/
 
 # Node packages for the document builder
 node_modules/
+
+# Claude Code settings for this machine only
+.claude/settings.local.json

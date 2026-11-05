@@ -4,6 +4,8 @@ Newest first. Add an entry at the end of every work session.
 
 ## 2026-11-04
 
+**UI and design skills installed (Wednesday night).** The user asked for skills covering the app's UI, design and how it functions. Reviewed the options, then installed Streamlit's `developing-with-streamlit` and Anthropic's `frontend-design` at project level (T-68, D-22, F-58). Streamlit's recommended install would have meant upgrading from 1.56, so the app's version stays as it is and the skill is copied from the 1.57.0 package. A new session sees both. The app itself wasn't changed.
+
 **Documentation audit (Wednesday night).** The user asked to make sure everything is documented. Checked every tracked file, decision and result against the records, then fixed what was missing.
 
 - Added a root `README.md` with setup steps, how to rebuild, and the final check before submitting. Followed it in a brand-new environment from only the tracked files: all 74 tests pass and results are identical, so T-56 is done (F-57).
