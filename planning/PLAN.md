@@ -148,21 +148,21 @@ Section numbers refer to `DELIVERABLES_PLAN.md`, which has the details, checks a
 | T-71 | Install and smoke-test the skills and tools for the deck, notebook and browser checks (D-25) | | Installed, pinned and smoke-tested (F-60) | Done |
 | T-72 | Write the final deliverables plan | | `DELIVERABLES_PLAN.md` exists and the planning files point to it | Done |
 | T-73 | Complete the case coverage matrix and close its gaps (5.1, 5.2, V-03) | | No ✗ remains except deliverables being built | Done |
-| T-74 | Reproduce everything and check the submission independently (V-01, V-02) | | Tests pass, outputs are identical, the submission checks pass | In progress |
-| T-75 | Calibration study and model-free check of expected service (V-04, V-11) | T-74 | Result recorded, and any change to the plan decided by the user | In progress |
-| T-76 | Check the forecast's and scenarios' inputs (V-05, V-06) | T-74 | All hold, or the changes go to the user | In progress |
-| T-77 | Independent checks of the search and cost, plus a test that explanations match their numbers (V-07 to V-09) | T-74 | 20 of 20 shifts agree, costs match to the cent, the test passes | In progress |
+| T-74 | Reproduce everything and check the submission independently (V-01, V-02) | | Tests pass, outputs are identical, the submission checks pass | Done (F-66, F-67). Rerun after D-29 |
+| T-75 | Calibration study and model-free check of expected service (V-04, V-11) | T-74 | Result recorded, and any change to the plan decided by the user | Done: F-62 to F-65. The user chose the smooth bend (D-29), which is being applied before the freeze |
+| T-76 | Check the forecast's and scenarios' inputs (V-05, V-06) | T-74 | All hold, or the changes go to the user | Done (F-68, F-69) |
+| T-77 | Independent checks of the search and cost, plus a test that explanations match their numbers (V-07 to V-09) | T-74 | 20 of 20 shifts agree, costs match to the cent, the test passes | Done (F-70 to F-72). Rerun after D-29 |
 | T-78 | Freeze the numbers (5.4, D-28) | T-73 to T-77 | Pipeline rerun, committed, tagged `numbers-freeze` (M6) | Not started |
 | T-79 | Shared look: `design/tokens.json`, `src/viz_style.py`, the deck theme (section 6, D-26) | | A sample chart in each medium looks like the same product | In progress |
 | T-80 | API layer and its tests (7.3) | | `tests/test_api.py` passes, and defaults equal the submission | In progress |
-| T-81 | Web app shell: layout, navigation, top bar, data client, "preparing" screen (7.2) | T-79, T-80 | Served by FastAPI on localhost:8501, with no outside requests | In progress |
-| T-82 | Overview page (7.4) | T-81 | Checked in a browser | Not started |
-| T-83 | Schedule page: board, block drawer, changes list, export (7.4) | T-81 | Checked in a browser | Not started |
-| T-84 | Demand page (7.4) | T-81 | Checked in a browser | Not started |
-| T-85 | Cost and service page (7.4) | T-81 | Checked in a browser | Not started |
-| T-86 | Scenario lab (7.4) | T-81 | A what-if finishes in under 8 seconds and Reset works | Not started |
-| T-87 | Playbook page (7.4) | T-81 | Checked in a browser | Not started |
-| T-88 | Methods page (7.4) | T-81 | Checked in a browser | Not started |
+| T-81 | Web app shell: layout, navigation, top bar, data client, "preparing" screen (7.2) | T-79, T-80 | Served by FastAPI on localhost:8501, with no outside requests | Done: shell, shared components and chart theme, checked in Chromium (`evidence/web_screenshots/`) |
+| T-82 | Overview page (7.4) | T-81 | Checked in a browser | In progress |
+| T-83 | Schedule page: board, block drawer, changes list, export (7.4) | T-81 | Checked in a browser | In progress |
+| T-84 | Demand page (7.4) | T-81 | Checked in a browser | In progress |
+| T-85 | Cost and service page (7.4) | T-81 | Checked in a browser | In progress |
+| T-86 | Scenario lab (7.4) | T-81 | A what-if finishes in under 8 seconds and Reset works | In progress |
+| T-87 | Playbook page (7.4) | T-81 | Checked in a browser | In progress |
+| T-88 | Methods page (7.4) | T-81 | Checked in a browser | In progress |
 | T-89 | Browser checks, screenshots, offline and timing checks (7.8) | T-82 to T-88 | `planning/evidence/drive_web.py` passes | Not started |
 | T-90 | Polish, fresh-eyes review, the M4 decision, then update the README, `CLAUDE.md`, `DESIGN.md` and the UI guide (7.9) | T-89 | M4 met with the new app or the fallback | Not started |
 | T-91 | Jupyter appendix (section 8) | T-78, T-79 | Runs with no errors, and its reproducibility cell passes | Not started |

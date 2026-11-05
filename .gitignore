@@ -16,3 +16,6 @@ node_modules/
 
 # Claude Code settings for this machine only
 .claude/settings.local.json
+
+# The React app's packages (web/dist stays tracked: the demo laptop runs without Node)
+web/node_modules/

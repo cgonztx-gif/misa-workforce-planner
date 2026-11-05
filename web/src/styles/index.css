@@ -1,0 +1,158 @@
+/* Global styles. Colors, type and shape come from tokens.css (generated from design/tokens.json).
+   Tailwind's default palette and type scale are cleared, so only token colors exist and no text
+   class can go below 14px: text-xs and text-sm are both 14px here. */
+@import "tailwindcss";
+@import "./tokens.css";
+
+@theme {
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --text-*: initial;
+  --text-xs: 14px;
+  --text-sm: 14px;
+  --text-label: 14px;
+  --text-base: 15px;
+  --text-body: 15px;
+  --text-md: 16px;
+  --text-body-lg: 16px;
+  --text-title-sm: 17px;
+  --text-lg: 18px;
+  --text-lead: 18px;
+  --text-xl: 20px;
+  --text-title: 20px;
+  --text-2xl: 24px;
+  --text-page: 28px;
+  --text-3xl: 28px;
+  --text-kpi: 30px;
+  --text-4xl: 36px;
+  --text-hero: 44px;
+}
+
+@theme inline {
+  --color-canvas: var(--wp-color-canvas);
+  --color-surface: var(--wp-color-surface);
+  --color-raised: var(--wp-color-raised);
+  --color-border: var(--wp-color-border);
+  --color-border-strong: var(--wp-color-border-strong);
+  --color-ink: var(--wp-color-ink);
+  --color-ink-muted: var(--wp-color-ink-muted);
+  --color-ink-subtle: var(--wp-color-ink-subtle);
+  --color-accent: var(--wp-color-accent);
+  --color-accent-strong: var(--wp-color-accent-strong);
+  --color-accent-soft: var(--wp-color-accent-soft);
+  --color-accent-line: var(--wp-color-accent-line);
+  --color-on-accent: var(--wp-color-on-accent);
+  --color-plan: var(--wp-color-plan);
+  --color-draft: var(--wp-color-draft);
+  --color-draft-soft: var(--wp-color-draft-soft);
+  --color-benchmark: var(--wp-color-benchmark);
+  --color-good: var(--wp-color-good);
+  --color-good-soft: var(--wp-color-good-soft);
+  --color-good-ink: var(--wp-color-good-ink);
+  --color-warning: var(--wp-color-warning);
+  --color-warning-soft: var(--wp-color-warning-soft);
+  --color-warning-ink: var(--wp-color-warning-ink);
+  --color-risk: var(--wp-color-risk);
+  --color-risk-soft: var(--wp-color-risk-soft);
+  --color-risk-ink: var(--wp-color-risk-ink);
+  --color-dept-fe: var(--wp-color-dept-front-end);
+  --color-dept-ms: var(--wp-color-dept-merchandising);
+  --color-dept-rx: var(--wp-color-dept-pharmacy);
+  --color-navy: var(--wp-color-navy);
+  --color-navy-raised: var(--wp-color-navy-raised);
+  --color-navy-border: var(--wp-color-navy-border);
+  --color-navy-ink: var(--wp-color-navy-ink);
+  --color-navy-ink-muted: var(--wp-color-navy-ink-muted);
+  --color-navy-accent: var(--wp-color-navy-accent);
+  --color-grid: var(--wp-chart-grid);
+  --color-band: var(--wp-chart-band);
+
+  --font-sans: var(--wp-type-family-ui);
+  --font-display: var(--wp-type-family-display);
+  --font-mono: var(--wp-type-family-mono);
+
+  --radius-chip: var(--wp-shape-radius-chip);
+  --radius-control: var(--wp-shape-radius-control);
+  --radius-card: var(--wp-shape-radius-card);
+  --radius-frame: var(--wp-shape-radius-frame);
+
+  --shadow-card: var(--wp-elevation-card);
+  --shadow-raised: var(--wp-elevation-raised);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    margin: 0;
+    background: var(--wp-color-canvas);
+    color: var(--wp-color-ink);
+    font-family: var(--wp-type-family-ui);
+    font-size: 15px;
+    line-height: var(--wp-type-line-normal);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--wp-type-family-display);
+    line-height: var(--wp-type-line-tight);
+    margin: 0;
+  }
+  :focus-visible {
+    outline: var(--wp-shape-focus-width) solid var(--wp-color-focus);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--wp-color-accent-soft);
+  }
+}
+
+@layer utilities {
+  /* Tables, axis ticks, deltas and board cells: columns of digits line up. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--wp-color-border-strong) transparent;
+  }
+}
+
+/* Indeterminate progress bar for the preparing screen. */
+@keyframes wp-indeterminate {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+.wp-progress-bar {
+  animation: wp-indeterminate 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Skeleton shimmer. */
+@keyframes wp-shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+.wp-skeleton {
+  background: linear-gradient(90deg, var(--wp-color-raised) 0%, var(--wp-color-border) 50%, var(--wp-color-raised) 100%);
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+  background-color: var(--wp-color-raised);
+  animation: wp-shimmer 1.4s ease-in-out infinite;
+}
+
+/* Drawer slide-in, driven by Radix's data-state. */
+@keyframes wp-drawer-in { from { transform: translateX(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes wp-fade-in { from { opacity: 0; } to { opacity: 1; } }
+.wp-drawer[data-state="open"] { animation: wp-drawer-in 180ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.wp-overlay[data-state="open"] { animation: wp-fade-in 160ms ease-out; }
+.wp-pop[data-state="delayed-open"], .wp-pop[data-state="instant-open"], .wp-pop[data-state="open"] { animation: wp-fade-in 120ms ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wp-progress-bar, .wp-skeleton, .wp-drawer, .wp-overlay, .wp-pop { animation: none !important; }
+}
