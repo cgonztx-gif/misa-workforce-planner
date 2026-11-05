@@ -76,10 +76,10 @@ export const yAxisProps = { tick, tickLine: false, axisLine: false, tickMargin: 
 export const zeroDomain: [number, string] = [0, "auto"];
 
 export const lineProps = {
-  plan: { type: "monotone" as const, stroke: c.plan, strokeWidth: ch.line_width_plan, dot: false, activeDot: { r: 5, stroke: c.surface, strokeWidth: 2 }, isAnimationActive: false },
-  draft: { type: "monotone" as const, stroke: c.draft, strokeWidth: ch.line_width, dot: false, activeDot: { r: 4, stroke: c.surface, strokeWidth: 2 }, isAnimationActive: false },
+  plan: { type: "linear" as const, stroke: c.plan, strokeWidth: ch.line_width_plan, dot: false, activeDot: { r: 5, stroke: c.surface, strokeWidth: 2 }, isAnimationActive: false },
+  draft: { type: "linear" as const, stroke: c.draft, strokeWidth: ch.line_width, dot: false, activeDot: { r: 4, stroke: c.surface, strokeWidth: 2 }, isAnimationActive: false },
   benchmark: {
-    type: "monotone" as const,
+    type: "linear" as const,
     stroke: c.benchmark,
     strokeWidth: ch.line_width,
     strokeDasharray: (ch.benchmark_dash as readonly number[]).join(" "),
@@ -88,7 +88,7 @@ export const lineProps = {
     isAnimationActive: false,
   },
   /** A department series line. */
-  dept: (dept: number | string) => ({ type: "monotone" as const, stroke: deptColor(dept), strokeWidth: ch.line_width, dot: false, isAnimationActive: false }),
+  dept: (dept: number | string) => ({ type: "linear" as const, stroke: deptColor(dept), strokeWidth: ch.line_width, dot: false, isAnimationActive: false }),
 };
 
 export const barProps = {

@@ -86,7 +86,23 @@ export function useView(): View {
     },
     [update],
   );
-  const setWarehouse = useCallback((w: WarehouseKey) => update({ wh: w }), [update]);
+  const setWarehouse = useCallback(
+    (w: WarehouseKey) => {
+      // A selected block moves to the same dept|date|shift at the chosen warehouse, so the drawer
+      // never shows a block that isn't on the board. "All" shows every store, so it keeps the block.
+      const changes: Record<string, string | null> = { wh: w };
+      const current = liveParams().get("block");
+      if (current && w !== "all") {
+        const parts = current.split("|");
+        if (parts.length === 5) {
+          parts[1] = w;
+          changes.block = parts.join("|");
+        }
+      }
+      update(changes);
+    },
+    [update],
+  );
   const setBlock = useCallback((key: string | null) => update({ block: key }), [update]);
 
   const carry = useMemo(() => {

@@ -30,16 +30,36 @@ export function groupFor(s: CompareScenario, warehouse: WarehouseKey): CompareGr
   return warehouse === "all" ? s : s.by_warehouse.find((w) => String(w.store_id) === warehouse);
 }
 
-/** Draft and plan expected service on one 0-100% track, with the goal marked. */
+/**
+ * Draft and plan expected service as a static dumbbell on a 0-100% axis with quarter ticks, and the
+ * per-block goal as a labeled dotted line. A hairline axis rather than a rounded track, so it can't be
+ * mistaken for a slider.
+ */
 function ServiceTrack({ draft, plan, goal, active }: { draft: number | null; plan: number | null; goal: number; active: boolean }) {
-  const x = (v: number | null) => `${Math.max(0, Math.min(1, v ?? 0)) * 100}%`;
+  const pct = (v: number | null) => Math.max(0, Math.min(1, v ?? 0)) * 100;
+  const lo = Math.min(pct(draft), pct(plan));
+  const hi = Math.max(pct(draft), pct(plan));
   return (
-    <div className="relative mt-2 h-4" aria-hidden>
-      <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-raised ring-1 ring-border ring-inset" />
-      <div className="absolute top-1/2 h-1 -translate-y-1/2 rounded-full bg-accent-line" style={{ left: x(draft), width: `calc(${x(plan)} - ${x(draft)})` }} />
-      <div className="absolute top-[-3px] bottom-[-3px] w-0 border-l-2 border-dotted border-ink-subtle" style={{ left: x(goal) }} />
-      <span className="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-draft ring-2 ring-surface" style={{ left: x(draft) }} />
-      <span className={cn("absolute top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-surface", active ? "bg-plan" : "bg-plan/80")} style={{ left: x(plan) }} />
+    <div className="mt-2 grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-x-2" aria-hidden>
+      <span className="tnum text-sm leading-4 text-ink-subtle">0%</span>
+      <div>
+        <div className="relative h-4">
+          <div className="absolute inset-x-0 top-1/2 h-px bg-border-strong" />
+          {[0, 25, 50, 75, 100].map((t) => (
+            <span key={t} className="absolute top-1/2 h-[5px] w-px bg-border-strong" style={{ left: `${t}%` }} />
+          ))}
+          <div className="absolute -top-0.5 h-[38px] w-0 border-l-2 border-dotted border-ink-subtle" style={{ left: `${pct(goal)}%` }} />
+          <div className="absolute top-1/2 h-[3px] -translate-y-1/2 rounded-full bg-accent-line" style={{ left: `${lo}%`, width: `${hi - lo}%` }} />
+          <span className="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-draft ring-2 ring-surface" style={{ left: `${pct(draft)}%` }} />
+          <span className={cn("absolute top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-surface", active ? "bg-plan" : "bg-plan/80")} style={{ left: `${pct(plan)}%` }} />
+        </div>
+        <div className="relative h-5">
+          <span className="absolute top-1 -translate-x-full pr-1.5 text-sm leading-4 whitespace-nowrap text-ink-subtle" style={{ left: `${pct(goal)}%` }}>
+            {fmtPct(goal, 0)} per-block goal
+          </span>
+        </div>
+      </div>
+      <span className="tnum text-sm leading-4 text-ink-subtle">100%</span>
     </div>
   );
 }
@@ -63,7 +83,7 @@ export function ScenarioStrip({
   return (
     <Card
       title="All three scenarios"
-      description={`Expected service from draft (gray) to plan (iris) against the ${fmtPct(goal, 0)} goal (dotted), with cost and blocks below the goal, for ${warehouseName}. Click one to switch.`}
+      description={`Expected service from draft (gray) to plan (iris), with the ${fmtPct(goal, 0)} per-block goal dotted, and cost and blocks below the goal, for ${warehouseName}. Click one to switch.`}
       padding="sm"
     >
       <div className="grid gap-3 lg:grid-cols-3" role="radiogroup" aria-label="Scenario">
@@ -105,7 +125,7 @@ export function ScenarioStrip({
                     </span>
                   </div>
                   <ServiceTrack draft={g.draft.expected_met} plan={g.plan.expected_met} goal={goal} active={active} />
-                  <div className="tnum mt-3 flex items-baseline justify-between gap-3 text-sm text-ink-muted">
+                  <div className="tnum mt-2 flex items-baseline justify-between gap-3 text-sm text-ink-muted">
                     <span>
                       <span className="font-semibold text-ink">{fmtMoney(g.plan.cost, true)}</span> {signedMoney(g.change.cost, true)} vs draft
                     </span>

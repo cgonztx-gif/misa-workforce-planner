@@ -32,6 +32,11 @@ export default function PlaybookPage() {
   const assumption = data && meta?.assumptions.find((a) => a.id === data.pto.assumption);
   const tight = data?.tightest[scenario]?.[warehouse] ?? [];
   const where = warehouse === "all" ? "all warehouses" : warehouseName;
+  // What the scenario on screen leaves short where you're looking: shown on its card, so the filters visibly apply.
+  const below = plan.blocks.filter((b) => b.below_goal);
+  const short = below.reduce((acc, b) => acc + Math.max(0, (b.need ?? b.plan) - b.plan), 0);
+  const inView = plan.data ? { where, blocks: below.length, short } : null;
+  const ptoView = scenario === "BASE" && warehouse === "all" ? null : `${scenario}, ${where}`;
 
   return (
     <>
@@ -41,7 +46,10 @@ export default function PlaybookPage() {
         meta={
           <>
             <Badge>Submitted plan</Badge>
-            <span>Actions for the week, for each scenario</span>
+            <Badge tone="accent">{scenario}</Badge>
+            <span>
+              {scenarioName}, {where}
+            </span>
           </>
         }
         actions={<HelpTip term="Cushion" label="What's a cushion?" />}
@@ -54,7 +62,7 @@ export default function PlaybookPage() {
         </div>
       ) : (
         <div className="space-y-6">
-          <PtoCard rows={data.pto.rows} intro={data.pto.intro} assumption={data.pto.assumption} assumptionText={assumption?.text} goal={goal} />
+          <PtoCard rows={data.pto.rows} intro={data.pto.intro} assumption={data.pto.assumption} assumptionText={assumption?.text} goal={goal} view={ptoView} />
 
           <section aria-labelledby="plays-title">
             <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
@@ -63,11 +71,10 @@ export default function PlaybookPage() {
               </h2>
               <p className="text-sm text-ink-subtle">Switching here changes the scenario across the app.</p>
             </div>
-            <ScenarioPlays plays={data.scenarios} current={scenario} onSwitch={setScenario} />
+            <ScenarioPlays plays={data.scenarios} current={scenario} onSwitch={setScenario} inView={inView} />
           </section>
 
-          <div className="grid gap-6 2xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-            <DayRules rules={data.on_the_day} />
+          <div className="grid items-start gap-6 2xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
             <Card
               title="Blocks with the least cushion"
               description={`${scenario}, ${where}: the blocks closest to a miss. Open one to see why.`}
@@ -78,6 +85,7 @@ export default function PlaybookPage() {
                 <TightestTable rows={tight} scenario={scenario} blockByKey={plan.blockByKey} showWarehouse={warehouse === "all"} />
               </Refreshing>
             </Card>
+            <DayRules rules={data.on_the_day} />
           </div>
         </div>
       )}

@@ -1,6 +1,6 @@
 import { AlertTriangle, Clock, DollarSign, Gauge, Layers, ShieldCheck } from "lucide-react";
 import { Badge, DataTable, DeltaChip, KpiRow, KpiTile, type Column } from "../../components";
-import { fmtHours, fmtInt, fmtMoney, fmtPct, plural, signedHours, signedInt, signedMoney, signedPts } from "../../lib/format";
+import { fmtHours, fmtInt, fmtMoney, fmtPct, signedHours, signedInt, signedMoney, signedPts } from "../../lib/format";
 import type { Summary } from "../../lib/types";
 import type { WhatIfChange } from "./types";
 
@@ -28,9 +28,9 @@ export function LabKpis({ whatIf, kept, submitted, changes }: LabKpisProps) {
         label="Labor cost"
         icon={<DollarSign />}
         value={fmtMoney(whatIf.cost)}
-        delta={{ value: whatIf.cost - kept.cost, format: (n) => signedMoney(n, true), goodWhen: "down" }}
-        sub={`Submitted ${fmtMoney(kept.cost, true)}`}
-        help={`The re-planned week's loaded labor cost, against the submitted plan's ${fmtMoney(kept.cost)} for the staff it can field under these conditions.`}
+        delta={{ value: whatIf.cost - kept.cost, format: (n) => signedMoney(n, true), goodWhen: "neutral" }}
+        sub={`If kept as submitted: ${fmtMoney(kept.cost, true)}`}
+        help={`The re-planned week's loaded labor cost, against the submitted plan's ${fmtMoney(kept.cost)} for the staff it can field under these conditions. The change is shown in neutral gray, because cost moves with the service the re-plan buys.`}
       />
       <KpiTile
         label="Hours"
@@ -46,7 +46,7 @@ export function LabKpis({ whatIf, kept, submitted, changes }: LabKpisProps) {
         tone="accent"
         value={fmtPct(whatIf.expected_met)}
         delta={{ value: whatIf.expected_met != null && kept.expected_met != null ? whatIf.expected_met - kept.expected_met : null, format: (n) => signedPts(n), goodWhen: "up" }}
-        sub={`Submitted ${fmtPct(kept.expected_met)}`}
+        sub={`If kept as submitted: ${fmtPct(kept.expected_met)}`}
         help={`The average chance of meeting target under these conditions: ${fmtPct(whatIf.expected_met)} re-planned, ${fmtPct(kept.expected_met)} if the submitted plan stays as it is. ${asSubmitted}${fmtPct(submitted.expected_met)}.`}
       />
       <KpiTile
@@ -55,7 +55,7 @@ export function LabKpis({ whatIf, kept, submitted, changes }: LabKpisProps) {
         tone={whatIf.below_goal > 0 ? "risk" : "default"}
         value={fmtInt(whatIf.below_goal)}
         delta={{ value: whatIf.below_goal - kept.below_goal, format: signedInt, goodWhen: "down" }}
-        sub={`Submitted ${plural(kept.below_goal, "block")}`}
+        sub={`If kept as submitted: ${fmtInt(kept.below_goal)}`}
         help={`Blocks under the goal even with all their own staff: ${fmtInt(whatIf.below_goal)} re-planned, ${fmtInt(kept.below_goal)} if the submitted plan stays as it is. ${asSubmitted}${fmtInt(submitted.below_goal)}.`}
       />
       <KpiTile

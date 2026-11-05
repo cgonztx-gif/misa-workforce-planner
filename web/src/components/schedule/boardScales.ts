@@ -88,7 +88,14 @@ export function legendStops(mode: ColorMode): LegendStop[] {
     const short = rangeLabels(UTIL_SCALE.breaks);
     return UTIL_SCALE.stops.map((fill, i) => ({ fill, ink: UTIL_SCALE.ink[i], label: UTIL_SCALE.labels[i], sample: short[i] }));
   }
-  return ch.stops.map((fill, i) => ({ fill, ink: ch.label_ink[i], label: ch.labels[i], sample: signedInt(ch.values[i]) }));
+  // The end chips cover everything beyond them (cells reach +14 and -6), so they say so.
+  const last = ch.stops.length - 1;
+  return ch.stops.map((fill, i) => ({
+    fill,
+    ink: ch.label_ink[i],
+    label: ch.labels[i],
+    sample: i === 0 ? `${signedInt(ch.values[i])} or fewer` : i === last ? `${signedInt(ch.values[i])} or more` : signedInt(ch.values[i]),
+  }));
 }
 
 /** Order of departments and shifts down the board. */

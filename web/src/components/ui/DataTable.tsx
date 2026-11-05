@@ -36,6 +36,8 @@ export interface DataTableProps<T> {
   dense?: boolean;
   /** Accessible caption (visually hidden). */
   caption?: string;
+  /** Show only the first N rows after sorting (the caller offers "Show all"). */
+  limit?: number;
   className?: string;
 }
 
@@ -49,15 +51,17 @@ const compare = (a: unknown, b: unknown) => {
 };
 
 /** A sortable table. Click a header to sort; numbers are right-aligned in tabular figures. */
-export function DataTable<T>({ columns, rows, rowKey, initialSort, onRowClick, selectedKey, empty, maxHeight, dense, caption, className }: DataTableProps<T>) {
+export function DataTable<T>({ columns, rows, rowKey, initialSort, onRowClick, selectedKey, empty, maxHeight, dense, caption, limit, className }: DataTableProps<T>) {
   const [sort, setSort] = useState(initialSort ?? null);
   const sorted = useMemo(() => {
-    if (!sort) return rows;
-    const col = columns.find((c) => c.key === sort.key);
-    if (!col) return rows;
-    const out = [...rows].sort((a, b) => compare(col.value(a), col.value(b)));
-    return sort.dir === "desc" ? out.reverse() : out;
-  }, [rows, columns, sort]);
+    const col = sort ? columns.find((c) => c.key === sort.key) : undefined;
+    let out = rows;
+    if (sort && col) {
+      out = [...rows].sort((a, b) => compare(col.value(a), col.value(b)));
+      if (sort.dir === "desc") out.reverse();
+    }
+    return limit != null && limit < out.length ? out.slice(0, limit) : out;
+  }, [rows, columns, sort, limit]);
 
   const toggle = (key: string) =>
     setSort((prev) => (prev?.key === key ? { key, dir: prev.dir === "asc" ? "desc" : "asc" } : { key, dir: "desc" }));

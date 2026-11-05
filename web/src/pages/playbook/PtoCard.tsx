@@ -1,8 +1,8 @@
-import { BookmarkCheck } from "lucide-react";
+import { BookmarkCheck, Info } from "lucide-react";
 import type { ReactElement, ReactNode } from "react";
-import { Bar, BarChart, CartesianGrid, LabelList, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip as RTooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Cell, LabelList, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip as RTooltip, XAxis, YAxis } from "recharts";
 import { Badge, barTooltipProps, Card, chartColors, ChartLegend, DataTable, gridProps, tooltipContent, tooltipProps, Tooltip, xAxisProps, yAxisProps, type Column } from "../../components";
-import { fmtInt, fmtMoney, fmtPct } from "../../lib/format";
+import { fmtInt, fmtMoney, fmtPct, signedMoney, signedPct } from "../../lib/format";
 import { tokens } from "../../styles/tokens";
 import type { PtoRow } from "./types";
 
@@ -68,8 +68,23 @@ const TABLE: Column<PtoRow>[] = [
   { key: "ot", header: "Overtime", value: (r) => r.overtime_hours, align: "right", render: (r) => `${fmtInt(r.overtime_hours)} h` },
 ];
 
-/** The headline recommendation: blocks below the goal, expected service and cost against PTO kept per block. */
-export function PtoCard({ rows, intro, assumption, assumptionText, goal }: { rows: PtoRow[]; intro: string; assumption: string; assumptionText?: string; goal: number }) {
+/** The total above a stacked bar, drawn on the "other" segment when the holiday-PTO segment on top is empty
+ *  (Recharts skips zero-height bars and their labels, which left the last bar unlabeled). */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const totalOnOther = (data: { other: number; below_goal_with_holiday_pto: number; blocks_below_goal: number }[]) => (props: any) => {
+  const { x, y, width, index } = props;
+  const r = data[index];
+  if (!r || r.below_goal_with_holiday_pto > 0) return null;
+  return (
+    <text x={Number(x) + Number(width) / 2} y={Number(y) - 6} textAnchor="middle" fill={chartColors.label} fontSize={14} fontWeight={600} className="tnum">
+      {r.blocks_below_goal}
+    </text>
+  );
+};
+
+/** The headline recommendation: blocks below the goal, expected service and cost against PTO kept per block.
+ *  Tested in BASE across all warehouses; `view` names the scenario and warehouse on screen when they differ. */
+export function PtoCard({ rows, intro, assumption, assumptionText, goal, view }: { rows: PtoRow[]; intro: string; assumption: string; assumptionText?: string; goal: number; view?: string | null }) {
   const data = rows.map((r) => ({ ...r, other: r.blocks_below_goal - r.below_goal_with_holiday_pto }));
   const ticks = countTicks(Math.max(...data.map((r) => r.blocks_below_goal)));
   const met = data.map((r) => r.expected_met);
@@ -78,11 +93,16 @@ export function PtoCard({ rows, intro, assumption, assumptionText, goal }: { row
   const metDomain: [number, number] = [lo / 100, hi / 100];
   const metTicks = Array.from({ length: hi - lo + 1 }, (_, i) => (lo + i) / 100);
   const tip = tooltipContent({ labelFormat: (l) => `${kept(l ?? 0)}` });
+  const first = data[0];
+  const last = data[data.length - 1];
+  const saving = last.cost - first.cost;
   return (
     <Card
       title="Limit holiday PTO"
-      description="The headline recommendation, tested in BASE by re-running the search with some holiday PTO kept back."
+      description="The headline recommendation, tested by re-running the search with some holiday PTO kept back."
       actions={
+        <>
+        <Badge tone="navy">BASE, all warehouses</Badge>
         <Tooltip content={assumptionText ?? assumption} width={340}>
           <span tabIndex={0} className="inline-flex rounded-chip">
             <Badge tone="outline" icon={<BookmarkCheck />}>
@@ -90,8 +110,18 @@ export function PtoCard({ rows, intro, assumption, assumptionText, goal }: { row
             </Badge>
           </span>
         </Tooltip>
+        </>
       }
     >
+      {view && (
+        <p className="mb-4 flex items-start gap-2.5 rounded-control border border-accent-line bg-accent-soft px-3.5 py-2.5 text-base leading-snug text-ink">
+          <Info className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
+          <span>
+            This what-if is run in <span className="font-semibold">BASE across all warehouses</span>, where holiday PTO drives the shortage. The scenario plan and the
+            blocks with the least cushion below follow <span className="font-semibold">{view}</span>.
+          </span>
+        </p>
+      )}
       <p className="max-w-[110ch] text-base leading-relaxed text-ink-muted">{intro}</p>
 
       <div className="mt-5 grid gap-x-8 gap-y-6 lg:grid-cols-3">
@@ -101,7 +131,12 @@ export function PtoCard({ rows, intro, assumption, assumptionText, goal }: { row
             <XAxis {...xProps} />
             <YAxis {...yAxisProps} width={36} domain={[0, ticks[ticks.length - 1]]} ticks={ticks} />
             <RTooltip {...barTooltipProps} content={tip} />
-            <Bar dataKey="other" name="Other blocks" stackId="b" fill={OTHER} stroke={chartColors.surface} strokeWidth={2} maxBarSize={28} isAnimationActive={false} />
+            <Bar dataKey="other" name="Other blocks" stackId="b" fill={OTHER} stroke={chartColors.surface} strokeWidth={2} maxBarSize={28} isAnimationActive={false}>
+              {data.map((r) => (
+                <Cell key={r.kept_per_block} radius={(r.below_goal_with_holiday_pto > 0 ? [0, 0, 0, 0] : [4, 4, 0, 0]) as unknown as number} />
+              ))}
+              <LabelList dataKey="blocks_below_goal" content={totalOnOther(data)} />
+            </Bar>
             <Bar dataKey="below_goal_with_holiday_pto" name="With holiday PTO" stackId="b" fill={chartColors.plan} stroke={chartColors.surface} strokeWidth={2} radius={[4, 4, 0, 0]} maxBarSize={28} isAnimationActive={false}>
               <LabelList dataKey="blocks_below_goal" position="top" offset={6} fill={chartColors.label} fontSize={14} fontWeight={600} />
             </Bar>
@@ -114,18 +149,25 @@ export function PtoCard({ rows, intro, assumption, assumptionText, goal }: { row
             <YAxis {...yAxisProps} width={48} domain={metDomain} ticks={metTicks} tickFormatter={(v: number) => fmtPct(v, 0)} />
             <ReferenceLine y={goal} stroke={chartColors.benchmark} strokeDasharray="4 4" />
             <RTooltip {...tooltipProps} content={tooltipContent({ format: (v) => fmtPct(v), labelFormat: (l) => kept(l ?? 0) })} />
-            <Line dataKey="expected_met" name="Expected service" type="monotone" stroke={chartColors.plan} strokeWidth={2.5} dot={{ r: 4, fill: chartColors.plan, stroke: chartColors.surface, strokeWidth: 2 }} isAnimationActive={false}>
+            <Line dataKey="expected_met" name="Expected service" type="linear" stroke={chartColors.plan} strokeWidth={2.5} dot={{ r: 4, fill: chartColors.plan, stroke: chartColors.surface, strokeWidth: 2 }} isAnimationActive={false}>
               <LabelList dataKey="expected_met" content={endLabel((v) => fmtPct(v), met, "beside")} />
             </Line>
           </LineChart>
         </Multiple>
-        <Multiple title="Labor cost for the week">
+        <Multiple
+          title="Labor cost for the week"
+          note={
+            <span className="tnum text-sm font-semibold text-ink-muted" title="Change at the largest step, against the plan as submitted. The axis doesn't start at zero.">
+              {signedMoney(saving)} ({signedPct(saving / first.cost, 1)})
+            </span>
+          }
+        >
           <LineChart data={data} margin={margin}>
             <CartesianGrid {...gridProps} />
             <XAxis {...xProps} padding={{ left: 12, right: 12 }} />
             <YAxis {...yAxisProps} width={60} domain={["auto", "auto"]} tickFormatter={(v: number) => fmtMoney(v, true)} tickCount={4} />
             <RTooltip {...tooltipProps} content={tooltipContent({ format: (v) => fmtMoney(v), labelFormat: (l) => kept(l ?? 0) })} />
-            <Line dataKey="cost" name="Labor cost" type="monotone" stroke={chartColors.plan} strokeWidth={2.5} dot={{ r: 4, fill: chartColors.plan, stroke: chartColors.surface, strokeWidth: 2 }} isAnimationActive={false}>
+            <Line dataKey="cost" name="Labor cost" type="linear" stroke={chartColors.plan} strokeWidth={2.5} dot={{ r: 4, fill: chartColors.plan, stroke: chartColors.surface, strokeWidth: 2 }} isAnimationActive={false}>
               <LabelList dataKey="cost" content={endLabel((v) => fmtMoney(v, true), data.map((r) => r.cost))} />
             </Line>
           </LineChart>

@@ -113,7 +113,7 @@ export const BoardCell = memo(function BoardCell({ block, mode, selected, onSele
         <span className="flex items-baseline gap-1.5 leading-none">
           <span className="tnum font-display text-[19px] font-semibold tracking-[-0.01em]">{block.plan}</span>
           <span className={cn("tnum text-sm font-semibold", block.change === 0 && "opacity-60")}>
-            {block.change === 0 ? "±0" : signedInt(block.change)}
+            {block.change === 0 ? "0" : signedInt(block.change)}
           </span>
         </span>
         <span className={cn("tnum mt-1 text-sm leading-none", light ? "opacity-75" : "opacity-85")}>{metric}</span>

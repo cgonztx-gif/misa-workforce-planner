@@ -1,6 +1,6 @@
 import * as D from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import type { ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
 import { cn } from "../../lib/cn";
 
 export interface DrawerProps {
@@ -32,12 +32,21 @@ export interface DrawerProps {
  * Keep `open` in the URL (useView().block) so a refresh reopens it.
  */
 export function Drawer({ open, onOpenChange, title, description, badges, footer, width = 520, modal = true, top = 0, children }: DrawerProps) {
+  const content = useRef<HTMLDivElement>(null);
   return (
     <D.Root open={open} onOpenChange={onOpenChange} modal={modal}>
       <D.Portal>
         {modal && <D.Overlay className="wp-overlay fixed inset-0 z-40 bg-navy/25" />}
         <D.Content
+          ref={content}
+          tabIndex={-1}
           onInteractOutside={modal ? undefined : (e) => e.preventDefault()}
+          // Focus the panel, not the X: Chrome counts focus set before any click (a link or a refresh) as
+          // keyboard focus and would draw the ring on the X. Tab still reaches the X, and Esc closes.
+          onOpenAutoFocus={(e) => {
+            e.preventDefault();
+            content.current?.focus({ preventScroll: true });
+          }}
           style={{ width: `min(${width}px, 100vw)`, top }}
           className={cn(
             "wp-drawer fixed inset-y-0 right-0 z-50 flex flex-col border-l border-border bg-surface shadow-raised outline-none",

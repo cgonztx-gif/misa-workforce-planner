@@ -7,6 +7,7 @@ import { scenarioDemand, surgeDays, weekTotals, fmtUnits, type ForecastDay, type
 
 const VALENTINE = "Valentine's Day";
 const BASE_LINE = tokens.scale.chance.stops[2]; // a lighter iris for BASE beside PEAK
+// Valentine's Day sits inside the holiday window, so it takes a clearly deeper shade than the window's band.
 const VALENTINE_FILL = tokens.color.accent_line;
 const SURGE_FILL = tokens.color.accent;
 
@@ -35,6 +36,22 @@ const rowsFor = (s: ForecastSeries, scenario: ScenarioCode): Row[] =>
     const forecast = scenarioDemand(d, scenario);
     return { i, day: d, forecast, base: d.forecast, benchmark: d.benchmark, surge: scenario === "PEAK" ? [d.forecast, forecast] : null, gap: forecast / d.benchmark - 1 };
   });
+
+/**
+ * One rule for every department's y-axis: round ticks (at most six), the floor a round number at least
+ * 12% of the range below the lowest point so nothing sits on the axis, and the top the next round number.
+ */
+function niceAxis(values: number[]): { domain: [number, number]; ticks: number[] } {
+  const lo = Math.min(...values);
+  const hi = Math.max(...values);
+  const pad = Math.max((hi - lo) * 0.12, hi * 0.02);
+  for (const step of [5, 10, 20, 25, 50, 100, 200, 250, 500, 1000, 2000, 5000]) {
+    const floor = Math.max(0, Math.floor((lo - pad) / step) * step);
+    const top = Math.ceil(hi / step) * step;
+    if ((top - floor) / step <= 5) return { domain: [floor, top], ticks: Array.from({ length: (top - floor) / step + 1 }, (_, i) => floor + i * step) };
+  }
+  return { domain: [0, hi], ticks: [0, hi] };
+}
 
 /** Index of the day where our forecast sits furthest from the benchmark. */
 const widestGap = (rows: Row[]) => rows.reduce((best, r) => (Math.abs(r.gap) > Math.abs(rows[best].gap) ? r.i : best), 0);
@@ -86,14 +103,22 @@ function DeptChart({ series, scenario, labelLines }: { series: ForecastSeries; s
   const val = rows.find((r) => r.day.holiday === VALENTINE);
   const peak = widestGap(rows);
   const showSurge = scenario === "PEAK" && surgeDays(series, scenario).length > 0;
+  const axis = niceAxis(rows.flatMap((r) => [r.forecast, r.benchmark, r.base]));
 
   // Direct labels at the widest gap: the size of the gap, and (top chart) the names of the lines.
   const forecastLabel = (p: { x?: number | string; y?: number | string; index?: number }) => {
     if (p.index !== peak || p.x == null || p.y == null) return <g />;
     const above = rows[peak].forecast >= rows[peak].benchmark;
     const text = `${labelLines ? "Our forecast " : ""}${signedPct(rows[peak].gap, 1)}`;
+    // Keep the label off the line: a neighbour on the label's side means a segment runs through that corner.
+    const cur = rows[peak].forecast;
+    const clear = (n?: Row) => !n || (above ? n.forecast <= cur : n.forecast >= cur);
+    const leftClear = clear(rows[peak - 1]);
+    const rightClear = clear(rows[peak + 1]);
+    const side = leftClear && rightClear ? "middle" : rightClear ? "start" : leftClear ? "end" : "middle";
+    const dx = side === "start" ? 9 : side === "end" ? -9 : 0;
     return (
-      <text x={Number(p.x)} y={Number(p.y) + (above ? -12 : 22)} textAnchor="middle" fontSize={14} fontWeight={600} fill={tokens.color.ink}>
+      <text x={Number(p.x) + dx} y={Number(p.y) + (above ? -12 : 22)} textAnchor={side} fontSize={14} fontWeight={600} fill={tokens.color.ink}>
         {text}
       </text>
     );
@@ -113,7 +138,7 @@ function DeptChart({ series, scenario, labelLines }: { series: ForecastSeries; s
       <ComposedChart data={rows} margin={{ top: 26, right: 24, bottom: 0, left: 0 }}>
         <CartesianGrid {...gridProps} />
         {win.length > 0 && <ReferenceArea x1={win[0].i - 0.5} x2={win[win.length - 1].i + 0.5} fill={chartColors.band} fillOpacity={1} strokeOpacity={0} ifOverflow="hidden" />}
-        {val && <ReferenceArea x1={val.i - 0.5} x2={val.i + 0.5} fill={VALENTINE_FILL} fillOpacity={0.6} strokeOpacity={0} ifOverflow="hidden" />}
+        {val && <ReferenceArea x1={val.i - 0.5} x2={val.i + 0.5} fill={VALENTINE_FILL} fillOpacity={1} strokeOpacity={0} ifOverflow="hidden" />}
         <XAxis
           type="number"
           dataKey="i"
@@ -123,7 +148,7 @@ function DeptChart({ series, scenario, labelLines }: { series: ForecastSeries; s
           {...xAxisProps}
           allowDecimals={false}
         />
-        <YAxis {...yAxisProps} width={52} domain={["auto", "auto"]} tickCount={4} tickFormatter={(v: number) => fmtInt(v)} />
+        <YAxis {...yAxisProps} width={52} domain={axis.domain} ticks={axis.ticks} allowDataOverflow tickFormatter={(v: number) => fmtInt(v)} />
         <RTooltip {...tooltipProps} content={(p) => <DayTooltip active={p.active} payload={p.payload as never} scenario={scenario} unit={series.unit} />} />
         {showSurge && <Area dataKey="surge" name="PEAK surge" stroke="none" fill={SURGE_FILL} fillOpacity={0.16} isAnimationActive={false} activeDot={false} type="linear" />}
         {showSurge && <Line dataKey="base" name="Our forecast, BASE" {...lineProps.plan} type="linear" stroke={BASE_LINE} strokeWidth={1.5} activeDot={false} />}
@@ -171,7 +196,7 @@ export function ForecastByDay({ series, scenario, warehouseName, onShowPeak }: F
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-border px-5 pb-3">
         <ChartLegend items={legend} />
         <BandSwatch color={chartColors.band} label="Presidents' Day window, Feb 13-16" />
-        <BandSwatch color={VALENTINE_FILL} opacity={0.6} label="Valentine's Day" />
+        <BandSwatch color={VALENTINE_FILL} label="Valentine's Day" />
         {scenario === "PEAK" && <BandSwatch color={SURGE_FILL} opacity={0.16} label="PEAK surge" />}
       </div>
       {series.map((s, idx) => {

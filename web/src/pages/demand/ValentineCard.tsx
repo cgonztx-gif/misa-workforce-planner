@@ -25,6 +25,8 @@ export function ValentineCard({ valentine, capacity }: ValentineCardProps) {
       title="If Valentine's Day is bigger than we assumed"
       description={`Expected service on Sat Feb 14, Front End and Merchandising, all warehouses. We assume +${Math.round(ours * 100)}% (${valentine.assumption}).`}
       actions={<Badge tone="neutral">BASE</Badge>}
+      className="flex flex-col"
+      bodyClassName="flex flex-1 flex-col"
       footer={
         capacity
           ? `Replanning for a larger uplift barely helps: ${capacity.atCapacity} of the ${capacity.blocks} blocks that day are already at capacity, so there's little room to add people.`
@@ -32,25 +34,28 @@ export function ValentineCard({ valentine, capacity }: ValentineCardProps) {
       }
     >
       <ChartLegend items={[{ label: `Our plan, built for +${Math.round(ours * 100)}%`, color: chartColors.plan }, { label: "Replanned for each uplift", color: REPLANNED }]} />
-      <ResponsiveContainer width="100%" height={232}>
-        <LineChart data={rows} margin={{ top: 16, right: 24, bottom: 4, left: 0 }}>
-          <CartesianGrid {...gridProps} />
-          <XAxis type="number" dataKey="x" {...xAxisProps} domain={[0, worst.x]} ticks={rows.map((r) => r.x)} tickFormatter={(v: number) => `${Math.round(v * 100)}%`} />
-          <YAxis {...yAxisProps} width={52} domain={[lo, hi]} ticks={Array.from({ length: Math.round((hi - lo) / 0.05) + 1 }, (_, i) => lo + i * 0.05)} tickFormatter={(v: number) => fmtPct(v, 0)} />
-          <ReferenceLine x={ours} stroke={tokens.color.ink_subtle} strokeWidth={1} label={{ value: "Our assumption", position: "insideTopLeft", fill: tokens.color.ink_subtle, fontSize: 14, dx: 6 }} />
-          <RTooltip
-            {...tooltipProps}
-            content={tooltipContent({
-              format: (v) => fmtPct(v),
-              labelFormat: (_l, row) => `True uplift ${row?.label ?? ""}`,
-              footer: (row) =>
-                row ? `Feb 14 cost: ours ${fmtMoney(Number(row.our_plan_feb14_cost))}, replanned ${fmtMoney(Number(row.replanned_feb14_cost))}` : null,
-            })}
-          />
-          <Line dataKey="replanned_expected_met" name="Replanned" {...lineProps.plan} type="linear" stroke={REPLANNED} strokeWidth={2} dot={{ r: 4, fill: REPLANNED, stroke: chartColors.surface, strokeWidth: 2 }} />
-          <Line dataKey="our_plan_expected_met" name="Our plan" {...lineProps.plan} type="linear" dot={{ r: 4, fill: chartColors.plan, stroke: chartColors.surface, strokeWidth: 2 }} />
-        </LineChart>
-      </ResponsiveContainer>
+      {/* The chart grows to fill the card when the shift split beside it is taller, so no empty band is left. */}
+      <div className="relative min-h-[232px] flex-1">
+        <ResponsiveContainer width="100%" height="100%" className="absolute inset-0">
+          <LineChart data={rows} margin={{ top: 16, right: 24, bottom: 4, left: 0 }}>
+            <CartesianGrid {...gridProps} />
+            <XAxis type="number" dataKey="x" {...xAxisProps} domain={[0, worst.x]} ticks={rows.map((r) => r.x)} tickFormatter={(v: number) => `${Math.round(v * 100)}%`} />
+            <YAxis {...yAxisProps} width={52} domain={[lo, hi]} ticks={Array.from({ length: Math.round((hi - lo) / 0.05) + 1 }, (_, i) => lo + i * 0.05)} tickFormatter={(v: number) => fmtPct(v, 0)} />
+            <ReferenceLine x={ours} stroke={tokens.color.ink_subtle} strokeWidth={1} label={{ value: "Our assumption", position: "insideTopLeft", fill: tokens.color.ink_subtle, fontSize: 14, dx: 6 }} />
+            <RTooltip
+              {...tooltipProps}
+              content={tooltipContent({
+                format: (v) => fmtPct(v),
+                labelFormat: (_l, row) => `True uplift ${row?.label ?? ""}`,
+                footer: (row) =>
+                  row ? `Feb 14 cost: ours ${fmtMoney(Number(row.our_plan_feb14_cost))}, replanned ${fmtMoney(Number(row.replanned_feb14_cost))}` : null,
+              })}
+            />
+            <Line dataKey="replanned_expected_met" name="Replanned" {...lineProps.plan} type="linear" stroke={REPLANNED} strokeWidth={2} dot={{ r: 4, fill: REPLANNED, stroke: chartColors.surface, strokeWidth: 2 }} />
+            <Line dataKey="our_plan_expected_met" name="Our plan" {...lineProps.plan} type="linear" dot={{ r: 4, fill: chartColors.plan, stroke: chartColors.surface, strokeWidth: 2 }} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
       <p className="mt-2 text-sm text-ink-muted">
         At a true uplift of {worst.label}, our plan reaches <span className="tnum font-semibold text-ink">{fmtPct(worst.our_plan_expected_met)}</span> and a plan built for it{" "}
         <span className="tnum font-semibold text-ink">{fmtPct(worst.replanned_expected_met)}</span>, for{" "}

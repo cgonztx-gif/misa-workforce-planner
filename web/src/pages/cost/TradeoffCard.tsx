@@ -72,8 +72,9 @@ export function TradeoffCard({ points, scenario, warehouseNote }: { points: Goal
     >
       <div className="grid gap-6 min-[1280px]:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
         <div className="min-w-0">
-          <p className="mb-2 text-sm font-medium text-ink-subtle">Expected service against labor cost</p>
-          <ResponsiveContainer width="100%" height={286}>
+          {/* Axis titles: the y title above its axis, the x title under the axis. Each point is a goal level. */}
+          <p className="mb-1 text-sm font-medium text-ink-subtle">Expected service</p>
+          <ResponsiveContainer width="100%" height={276}>
             <LineChart data={points} margin={{ top: 24, right: 28, bottom: 4, left: 0 }}>
               <CartesianGrid {...gridProps} />
               <XAxis type="number" dataKey="cost" {...xAxisProps} domain={[xLo, xHi]} ticks={xTicks} tickFormatter={kDollars} />
@@ -96,9 +97,16 @@ export function TradeoffCard({ points, scenario, warehouseNote }: { points: Goal
                   content={(l: { x?: number | string; y?: number | string; value?: unknown; index?: number }) => {
                     const p = l.index != null ? points[l.index] : undefined;
                     if (!p || l.x == null || l.y == null) return null;
+                    // The curve rises and flattens, so the space below-right of each point is empty; the submitted
+                    // point and the last one sit above-left instead, which keeps neighbouring labels apart.
+                    const aboveLeft = p.selected || l.index === points.length - 1;
                     return (
-                      <text x={Number(l.x)} y={Number(l.y) - 14} textAnchor={l.index === points.length - 1 ? "end" : "middle"} fontSize={14} fontWeight={p.selected ? 600 : 400} fill={p.selected ? tokens.color.accent_strong : tokens.color.ink_muted}>
-                        {p.selected ? `${goalLabel(p.goal)} goal, submitted` : goalLabel(p.goal)}
+                      <text
+                        x={Number(l.x) + (aboveLeft ? -10 : 10)}
+                        y={Number(l.y) + (aboveLeft ? -12 : 20)}
+                        textAnchor={aboveLeft ? "end" : "start"}
+                        fontSize={14} fontWeight={p.selected ? 600 : 400} fill={p.selected ? tokens.color.accent_strong : tokens.color.ink_muted}>
+                        {p.selected ? `Goal ${goalLabel(p.goal)}, submitted` : `Goal ${goalLabel(p.goal)}`}
                       </text>
                     );
                   }}
@@ -106,10 +114,11 @@ export function TradeoffCard({ points, scenario, warehouseNote }: { points: Goal
               </Line>
             </LineChart>
           </ResponsiveContainer>
+          <p className="mt-1 text-center text-sm font-medium text-ink-subtle">Labor cost for the week, at each service goal</p>
         </div>
         <div className="min-w-0">
-          <p className="mb-2 text-sm font-medium text-ink-subtle">Cost of each extra point of expected service</p>
-          <ResponsiveContainer width="100%" height={286}>
+          <p className="mb-1 text-sm font-medium text-ink-subtle">Cost of each extra point of expected service</p>
+          <ResponsiveContainer width="100%" height={276}>
             <BarChart data={steps} margin={{ top: 24, right: 8, bottom: 4, left: 0 }}>
               <CartesianGrid {...gridProps} />
               <XAxis dataKey="step" {...xAxisProps} />
@@ -135,6 +144,7 @@ export function TradeoffCard({ points, scenario, warehouseNote }: { points: Goal
               </Bar>
             </BarChart>
           </ResponsiveContainer>
+          <p className="mt-1 text-center text-sm font-medium text-ink-subtle">Raising the service goal</p>
         </div>
       </div>
     </Card>

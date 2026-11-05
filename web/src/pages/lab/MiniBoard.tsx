@@ -26,6 +26,15 @@ export interface MiniBoardProps {
 
 const HATCH = "repeating-linear-gradient(135deg, var(--wp-color-border-strong) 0 1px, transparent 1px 6px)";
 
+/** The below-goal marker, the same red disc with a warning sign as on the Schedule board. */
+function BelowGoalMark({ className }: { className?: string }) {
+  return (
+    <span aria-hidden className={cn("inline-flex size-4 items-center justify-center rounded-full bg-risk text-white shadow-[0_0_0_1.5px_var(--wp-color-surface)]", className)}>
+      <AlertTriangle className="size-[9px]" strokeWidth={3} />
+    </span>
+  );
+}
+
 /** One cell: the change against the submitted plan, colored on the diverging scale. */
 function Cell({ block, change, height }: { block: Block | undefined; change: WhatIfChange | undefined; height: number }) {
   if (!block) return <div style={{ height }} className="rounded-[5px] bg-raised" />;
@@ -64,14 +73,13 @@ function Cell({ block, change, height }: { block: Block | undefined; change: Wha
         aria-label={`${block.label}: ${delta === 0 ? "no change" : `${signedInt(delta)} people`}${block.below_goal ? ", below the goal" : ""}`}
         style={{ height, background: fill?.fill, color: fill?.ink }}
         className={cn(
-          "relative flex items-center justify-center rounded-[5px] text-sm font-semibold tnum outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1",
+          "flex items-center justify-between gap-1 rounded-[5px] px-2 text-base font-semibold tnum outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1",
           !fill && "bg-raised text-ink-subtle",
         )}
       >
-        {delta !== 0 ? signedInt(delta) : ""}
-        {block.below_goal && (
-          <span aria-hidden className="absolute top-0 right-0 size-0 border-t-[9px] border-l-[9px] border-t-risk border-l-transparent" style={{ borderTopRightRadius: 5 }} />
-        )}
+        {/* Number on the left and the marker on the right, as on the Schedule board, so they never overlap. */}
+        <span>{delta !== 0 ? signedInt(delta) : ""}</span>
+        {block.below_goal && <BelowGoalMark className="shrink-0" />}
       </div>
     </Tooltip>
   );
@@ -158,9 +166,7 @@ export function MiniBoardLegend({ vertical = false }: { vertical?: boolean }) {
         Closed
       </span>
       <span className="inline-flex items-center gap-2">
-        <span aria-hidden className="relative h-3.5 w-5 rounded-[3px] bg-raised">
-          <span className="absolute top-0 right-0 size-0 border-t-[7px] border-l-[7px] border-t-risk border-l-transparent" />
-        </span>
+        <BelowGoalMark />
         Below the goal
       </span>
     </div>

@@ -7,9 +7,20 @@ import { SCENARIOS, type Block, type ScenarioCode } from "../../lib/types";
 import type { DayRule, ScenarioPlay, TightBlock } from "./types";
 
 /** When to use each scenario's plan, and what to do. The scenario on screen is marked; the others switch to it. */
-export function ScenarioPlays({ plays, current, onSwitch }: { plays: Record<ScenarioCode, ScenarioPlay>; current: ScenarioCode; onSwitch: (s: ScenarioCode) => void }) {
+export function ScenarioPlays({
+  plays,
+  current,
+  onSwitch,
+  inView,
+}: {
+  plays: Record<ScenarioCode, ScenarioPlay>;
+  current: ScenarioCode;
+  onSwitch: (s: ScenarioCode) => void;
+  /** The scenario on screen at the selected warehouse(s): blocks below the goal and people short. */
+  inView?: { where: string; blocks: number; short: number } | null;
+}) {
   return (
-    <div className="grid gap-5 lg:grid-cols-3">
+    <div className="grid items-start gap-5 lg:grid-cols-3">
       {SCENARIOS.filter((code) => plays[code]).map((code) => {
         const play = plays[code];
         const on = code === current;
@@ -23,6 +34,22 @@ export function ScenarioPlays({ plays, current, onSwitch }: { plays: Record<Scen
               <Badge tone={on ? "accent" : "neutral"} className="mt-px">{code}</Badge>
               <h3 className="min-w-0 text-title-sm font-semibold text-ink">{play.name}</h3>
             </header>
+            {on && inView && (
+              <p className="mx-5 mt-3 flex items-center gap-2 text-base text-ink">
+                {inView.blocks > 0 ? <AlertTriangle className="size-4 shrink-0 text-risk" aria-hidden /> : <CheckCircle2 className="size-4 shrink-0 text-good" aria-hidden />}
+                <span>
+                  At {inView.where}:{" "}
+                  {inView.blocks > 0 ? (
+                    <>
+                      <span className="tnum font-semibold">{fmtInt(inView.blocks)}</span> {inView.blocks === 1 ? "block" : "blocks"} below the goal,{" "}
+                      <span className="tnum font-semibold">{fmtInt(inView.short)}</span> {inView.short === 1 ? "person" : "people"} short
+                    </>
+                  ) : (
+                    "every block reaches the goal"
+                  )}
+                </span>
+              </p>
+            )}
             <div className="mx-5 mt-3 rounded-control bg-raised px-3.5 py-2.5">
               <p className="text-sm font-semibold text-ink">Use it when</p>
               <p className="mt-0.5 text-base leading-snug text-ink-muted">{play.trigger}</p>

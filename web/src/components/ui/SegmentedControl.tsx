@@ -10,6 +10,8 @@ export interface SegmentOption<T extends string> {
   description?: ReactNode;
   icon?: ReactNode;
   disabled?: boolean;
+  /** Accessible name when the label isn't plain text. */
+  ariaLabel?: string;
 }
 
 export interface SegmentedControlProps<T extends string> {
@@ -48,7 +50,7 @@ export function SegmentedControl<T extends string>({ value, onChange, options, l
             key={opt.value}
             value={opt.value}
             disabled={opt.disabled}
-            aria-label={typeof opt.label === "string" ? opt.label : undefined}
+            aria-label={opt.ariaLabel ?? (typeof opt.label === "string" ? opt.label : undefined)}
             className={cn(
               "inline-flex items-center gap-1.5 whitespace-nowrap rounded-[6px] font-medium transition-colors outline-none",
               size === "sm" ? "h-7 px-2.5 text-sm" : "h-8 px-3 text-sm",

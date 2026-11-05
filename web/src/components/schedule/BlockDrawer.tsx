@@ -2,13 +2,16 @@
 // the Changes table or a link; the selected block lives in the URL so a refresh reopens it.
 import { AlertTriangle, ArrowRight, BookOpen, CalendarDays, ChevronLeft, ChevronRight, DollarSign, Gauge, LifeBuoy, ShieldCheck, TrendingUp, Users } from "lucide-react";
 import { Link } from "react-router";
+import { cn } from "../../lib/cn";
 import { fmtDec1, fmtHours, fmtMoney, fmtPct, signedInt, signedMoney } from "../../lib/format";
 import type { Block } from "../../lib/types";
 import { Badge } from "../ui/Badge";
 import { Button } from "../ui/Button";
 import { Drawer, DrawerSection } from "../ui/Drawer";
+import { useMediaQuery } from "../../lib/useMediaQuery";
 import { DeltaChip } from "../ui/KpiTile";
 import { tokens } from "../../styles/tokens";
+import { fmtChance } from "./boardScales";
 import { ServiceBars, SourcesTable, Stat } from "./drawerParts";
 
 export interface BlockDrawerProps {
@@ -31,12 +34,14 @@ export function BlockDrawer({ block, onClose, goal, demandUnit, prev, next, onNa
   const open = !!block;
   const b = block;
   const goalPct = fmtPct(goal, 0);
+  // Below 1600px a 580px drawer would cover the middle of the board (Sat Feb 14 at 1366), so it narrows.
+  const wide = useMediaQuery("(min-width: 1600px)");
 
   return (
     <Drawer
       open={open}
       onOpenChange={(o) => !o && onClose()}
-      width={580}
+      width={wide ? 580 : 440}
       modal={false}
       top={tokens.shape.topbar_height}
       title={b?.label ?? ""}
@@ -120,18 +125,22 @@ function OpenBlock({ b, goal, unit, carry }: { b: Block; goal: number; unit?: st
             <DeltaChip value={b.change} format={signedInt} goodWhen="neutral" suffix={b.change === 1 || b.change === -1 ? "person" : "people"} />
           </div>
         </div>
+        <p className="tnum mt-3 flex flex-wrap items-baseline gap-x-2 text-base text-ink-muted">
+          <span>Chance of meeting target</span>
+          <span>{fmtChance(b.chance_draft, b.below_goal_draft, goal)}</span>
+          <ArrowRight className="size-3.5 self-center text-ink-subtle" aria-hidden />
+          <span className={cn("font-semibold", b.below_goal ? "text-risk-ink" : "text-ink")}>{fmtChance(b.chance, b.below_goal, goal)}</span>
+          <span className="text-ink-subtle">(goal {goalPct})</span>
+        </p>
         <p className="mt-4 text-body-lg leading-relaxed text-ink">{b.explanation.why}</p>
         {b.below_goal && (
-          <div className="mt-3 flex items-start gap-2.5 rounded-control border border-risk/25 bg-risk-soft px-3 py-2.5 text-base text-risk-ink">
-            <AlertTriangle className="mt-0.5 size-4 shrink-0" aria-hidden />
-            <span>
-              Even at capacity this block stays under the {goalPct} goal.{" "}
-              <Link to={`/playbook${carry}`} className="font-semibold underline underline-offset-2">
-                See the Playbook
-              </Link>{" "}
-              for what to do on the day.
-            </span>
-          </div>
+          <Link
+            to={`/playbook${carry}`}
+            className="mt-3 inline-flex items-center gap-1.5 text-base font-semibold text-risk-ink underline-offset-4 hover:underline"
+          >
+            What to do on the day: see the Playbook
+            <ArrowRight className="size-4" aria-hidden />
+          </Link>
         )}
       </section>
 

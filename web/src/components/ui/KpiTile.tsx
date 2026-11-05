@@ -64,6 +64,8 @@ export interface KpiTileProps {
   delta?: DeltaChipProps;
   /** A quiet line under the chip: "Draft $398,120". */
   sub?: ReactNode;
+  /** A one-line definition under the figures: "Average chance a block meets its wait target". */
+  note?: ReactNode;
   /** Hover explanation for the whole tile: what it measures and where it comes from. */
   help?: ReactNode;
   /** A lucide icon element shown beside the label. */
@@ -76,7 +78,7 @@ export interface KpiTileProps {
 }
 
 /** A stat tile: label, big value, delta chip vs the draft, optional sub line and tooltip. */
-export function KpiTile({ label, value, delta, sub, help, icon, tone = "default", onClick, className }: KpiTileProps) {
+export function KpiTile({ label, value, delta, sub, note, help, icon, tone = "default", onClick, className }: KpiTileProps) {
   const body = (
     <>
       <div className="flex items-center gap-2 text-sm font-medium text-ink-subtle">
@@ -92,6 +94,7 @@ export function KpiTile({ label, value, delta, sub, help, icon, tone = "default"
         {delta && value !== null && <DeltaChip {...delta} />}
         {sub && <span className="tnum text-sm text-ink-subtle">{sub}</span>}
       </div>
+      {note && <p className="mt-2 border-t border-border pt-2 text-sm leading-snug text-ink-muted">{note}</p>}
     </>
   );
   const classes = cn(
@@ -102,7 +105,7 @@ export function KpiTile({ label, value, delta, sub, help, icon, tone = "default"
     className,
   );
   const tile = onClick ? (
-    <button type="button" onClick={onClick} className={cn(classes, "w-full")}>
+    <button type="button" onClick={onClick} className={cn(classes, "flex w-full flex-col justify-start")}>
       {body}
     </button>
   ) : (

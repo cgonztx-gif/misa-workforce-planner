@@ -55,7 +55,7 @@ export default function CostServicePage() {
   const answer =
     plan && draft && change ? (
       <>
-        Against the draft, the {scenario} plan spends {signedMoney(change.cost)} a week ({signedPct((plan.cost - draft.cost) / draft.cost, 1)}) and takes expected service from{" "}
+        Against the draft, the {scenario} plan spends {fmtMoney(Math.abs(change.cost ?? 0))} {(change.cost ?? 0) >= 0 ? "more" : "less"} a week ({signedPct((plan.cost - draft.cost) / draft.cost, 1)}) and takes expected service from{" "}
         {fmtPct(draft.expected_met)} to {fmtPct(plan.expected_met)}.
         {selected?.cost_per_point != null && ` ${warehouse === "all" ? "Going" : "Across all warehouses, going"} from a ${fmtPct(points[points.indexOf(selected) - 1]?.goal ?? 0, 1)} to a ${fmtPct(selected.goal, 0)} goal costs ${fmtMoney(selected.cost_per_point)} per point of service, and each point above that costs more.`}
       </>
@@ -83,9 +83,9 @@ export default function CostServicePage() {
             label="Labor cost"
             icon={<DollarSign />}
             value={plan ? fmtMoney(plan.cost) : null}
-            delta={{ value: change?.cost, format: (n) => signedMoney(n, true), goodWhen: "down", suffix: "vs draft" }}
+            delta={{ value: change?.cost, format: (n) => signedMoney(n, true), goodWhen: "neutral", suffix: "vs draft" }}
             sub={draft && `Draft ${fmtMoney(draft.cost, true)}`}
-            help="Loaded labor cost for the week: regular staff first, then cross-trained staff, then overtime, at the case's rates."
+            help="Loaded labor cost for the week: regular staff first, then cross-trained staff, then overtime, at the case's rates. The extra cost buys the service gain, so the change is shown in neutral gray rather than as a loss."
           />
           <KpiTile
             label="Expected service"

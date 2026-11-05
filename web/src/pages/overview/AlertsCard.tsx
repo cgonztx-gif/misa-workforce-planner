@@ -1,34 +1,36 @@
-// What needs attention in this scenario and warehouse, each linking to the page that handles it.
-import { AlertTriangle, ChevronRight, Info, ShieldCheck, Users } from "lucide-react";
+// What needs attention in this scenario and warehouse: a compact day-by-day count of blocks that can't
+// reach the goal, plus the draft's over-capacity warning, each linking to the page that handles it.
+import { AlertTriangle, ChevronRight, ShieldCheck, Users } from "lucide-react";
 import { Link } from "react-router";
 import { Card, EmptyState } from "../../components";
 import { cn } from "../../lib/cn";
+import { fmtPct, plural } from "../../lib/format";
 import type { Alert } from "../../lib/types";
 import { PAGES } from "../../lib/view";
 
-const ICON = { below_goal: AlertTriangle, draft_over_capacity: Users } as Record<string, typeof AlertTriangle>;
+/** "Sat Feb 14: 11 blocks can't ..." -> "Sat Feb 14". */
+const dayOf = (a: Alert) => /^([A-Z][a-z]{2} [A-Z][a-z]{2} \d{1,2}):/.exec(a.text)?.[1] ?? a.date ?? "This week";
+/** The message without its trailing "See the Playbook." */
+const message = (a: Alert) => a.text.replace(/\s*See the [A-Z][\w ]+\.?\s*$/, "");
 
-/** Split "Sat Feb 14: 11 blocks can't ... See the Playbook." into the day, the message, and the link target's name. */
-function parts(alert: Alert) {
-  let text = alert.text.replace(/\s*See the [A-Z][\w ]+\.?\s*$/, "");
-  let day: string | null = null;
-  const m = alert.date ? /^([A-Z][a-z]{2} [A-Z][a-z]{2} \d{1,2}):\s*/.exec(text) : null;
-  if (m) {
-    day = m[1];
-    text = text.slice(m[0].length);
-  }
-  return { day, text: text.charAt(0).toUpperCase() + text.slice(1) };
-}
+export function AlertsCard({ alerts, carry, goal = 0.95 }: { alerts: Alert[]; carry: string; goal?: number }) {
+  const days = alerts.filter((a) => a.kind === "below_goal");
+  const others = alerts.filter((a) => a.kind !== "below_goal");
+  const worst = days.reduce((m, a) => Math.max(m, a.count), 0);
+  const total = days.reduce((s, a) => s + a.count, 0);
+  const link = (a: Alert) => `/${PAGES.find((p) => p.path === a.page)?.path ?? "playbook"}${carry}`;
 
-export function AlertsCard({ alerts, carry }: { alerts: Alert[]; carry: string }) {
-  const worst = alerts.reduce((m, a) => Math.max(m, a.count), 0);
   return (
     <Card
       title="Alerts"
-      description={alerts.length ? "Where the plan runs out of room. Each links to what to do." : undefined}
+      description={
+        alerts.length
+          ? `Days with blocks that can't reach the ${fmtPct(goal, 0)} goal even with all their own staff and overtime. Red marks the worst day; amber the others.`
+          : undefined
+      }
       padding="none"
       className="flex h-full flex-col"
-      bodyClassName="flex-1"
+      bodyClassName="flex flex-1 flex-col"
     >
       {alerts.length === 0 ? (
         <div className="p-5">
@@ -37,41 +39,53 @@ export function AlertsCard({ alerts, carry }: { alerts: Alert[]; carry: string }
           </EmptyState>
         </div>
       ) : (
-        <ul className="divide-y divide-border border-t border-border">
-          {alerts.map((a, i) => {
-            const { day, text } = parts(a);
-            const Icon = ICON[a.kind] ?? Info;
-            const page = PAGES.find((p) => p.path === a.page);
-            const risk = a.level === "risk" || (a.kind === "below_goal" && a.count === worst && worst > 0);
-            return (
-              <li key={`${a.kind}-${a.date ?? i}`}>
-                <Link
-                  to={`/${page?.path ?? "playbook"}${carry}`}
-                  className="group flex items-start gap-3 px-5 py-3 outline-none hover:bg-raised focus-visible:bg-accent-soft"
-                >
-                  <span
-                    className={cn(
-                      "mt-0.5 inline-flex size-8 shrink-0 items-center justify-center rounded-full [&>svg]:size-4",
-                      risk ? "bg-risk-soft text-risk-ink" : "bg-warning-soft text-warning-ink",
-                    )}
-                  >
-                    <Icon aria-hidden />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="flex items-baseline justify-between gap-3">
-                      <span className="font-semibold whitespace-nowrap text-ink">{day ?? (a.kind === "draft_over_capacity" ? "The draft" : "This week")}</span>
-                      <span className="inline-flex shrink-0 items-center gap-0.5 text-sm font-medium text-accent group-hover:text-accent-strong">
-                        {page?.label ?? "Playbook"}
-                        <ChevronRight className="size-4" aria-hidden />
+        <>
+          {days.length > 0 && (
+            <ul className="border-t border-border" aria-label="Blocks below the goal, by day">
+              {days.map((a) => {
+                const risk = a.level === "risk" || a.count === worst;
+                return (
+                  <li key={a.date ?? a.text} className="border-b border-border last:border-b-0">
+                    <Link
+                      to={link(a)}
+                      title={message(a)}
+                      className="group grid grid-cols-[20px_88px_minmax(0,1fr)_auto_16px] items-center gap-3 px-5 py-2.5 outline-none hover:bg-raised focus-visible:bg-accent-soft"
+                    >
+                      <AlertTriangle className={cn("size-4", risk ? "text-risk" : "text-warning")} aria-label={risk ? "Worst day" : "Below the goal"} />
+                      <span className="font-semibold whitespace-nowrap text-ink">{dayOf(a)}</span>
+                      <span className="h-2 overflow-hidden rounded-full bg-raised" aria-hidden>
+                        <span className={cn("block h-full rounded-full", risk ? "bg-risk" : "bg-warning")} style={{ width: `${(a.count / Math.max(worst, 1)) * 100}%` }} />
                       </span>
-                    </span>
-                    <span className="mt-0.5 block text-base leading-snug text-ink-muted">{text}</span>
-                  </span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+                      <span className="tnum text-right text-base whitespace-nowrap text-ink-muted">
+                        <span className="font-semibold text-ink">{a.count}</span> {a.count === 1 ? "block" : "blocks"}
+                      </span>
+                      <ChevronRight className="size-4 text-ink-subtle group-hover:text-accent" aria-hidden />
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+          {others.map((a) => (
+            <Link
+              key={`${a.kind}-${a.date ?? ""}`}
+              to={link(a)}
+              className="group flex items-start gap-3 border-t border-border px-5 py-3 outline-none hover:bg-raised focus-visible:bg-accent-soft"
+            >
+              <Users className="mt-0.5 size-4 shrink-0 text-warning" aria-hidden />
+              <span className="min-w-0 flex-1 text-base leading-snug text-ink-muted">{message(a)}</span>
+              <ChevronRight className="mt-0.5 size-4 shrink-0 text-ink-subtle group-hover:text-accent" aria-hidden />
+            </Link>
+          ))}
+          {days.length > 0 && (
+            <p className="mt-auto border-t border-border bg-raised px-5 py-3 text-sm text-ink-muted">
+              {plural(total, "block")} in all. Moving hours can't fix them; they need more people available.{" "}
+              <Link to={`/playbook${carry}`} className="font-medium text-accent hover:text-accent-strong">
+                See the Playbook
+              </Link>
+            </p>
+          )}
+        </>
       )}
     </Card>
   );

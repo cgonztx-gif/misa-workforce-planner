@@ -13,10 +13,12 @@ interface Metric {
   format: (n: number) => string;
   goodWhen: DeltaChipProps["goodWhen"];
   draft: (s: Summary) => string;
+  /** Extra hover text after the draft figure. */
+  note?: string;
 }
 
 const METRICS: Metric[] = [
-  { key: "cost", header: "Labor cost", title: "Loaded labor cost for the week", value: (s) => fmtMoney(s.cost), delta: (c) => c.cost, format: (n) => signedMoney(n, true), goodWhen: "down", draft: (s) => fmtMoney(s.cost) },
+  { key: "cost", header: "Labor cost", title: "Loaded labor cost for the week", value: (s) => fmtMoney(s.cost), delta: (c) => c.cost, format: (n) => signedMoney(n, true), goodWhen: "neutral", draft: (s) => fmtMoney(s.cost), note: "Gray, not red: the extra cost buys the service gain." },
   { key: "hours", header: "Hours", title: "Paid hours", value: (s) => fmtHours(s.hours), delta: (c) => c.hours, format: signedHours, goodWhen: "neutral", draft: (s) => fmtHours(s.hours) },
   { key: "service", header: "Expected service", title: "Average chance of meeting target over open blocks", value: (s) => fmtPct(s.expected_met), delta: (c) => c.expected_met, format: (n) => signedPts(n), goodWhen: "up", draft: (s) => fmtPct(s.expected_met) },
   { key: "below", header: "Below the goal", title: "Blocks whose chance of meeting target stays under the service goal", value: (s) => fmtInt(s.below_goal), delta: (c) => c.below_goal, format: signedInt, goodWhen: "down", draft: (s) => plural(s.below_goal, "block") },
@@ -49,7 +51,7 @@ function Row({ label, comp, strong, dept }: { label: string; comp: Comparison; s
         <td key={m.key} className="border-b border-border px-3 py-2.5 text-right align-middle">
           <div className={cn("tnum whitespace-nowrap", strong ? "font-semibold text-ink" : "text-ink")}>{m.value(comp.plan)}</div>
           <div className="mt-1 flex justify-end">
-            <DeltaChip size="sm" value={m.delta(comp.change)} format={m.format} goodWhen={m.goodWhen} tooltip={`Draft: ${m.draft(comp.draft)}`} />
+            <DeltaChip size="sm" value={m.delta(comp.change)} format={m.format} goodWhen={m.goodWhen} tooltip={`Draft: ${m.draft(comp.draft)}${m.note ? `. ${m.note}` : ""}`} />
           </div>
         </td>
       ))}

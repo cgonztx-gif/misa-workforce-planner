@@ -8,6 +8,7 @@ export function scheduleAnswer(blocks: Block[], days: BoardDay[], goal: number):
   const adds = open.filter((b) => b.change > 0);
   const cuts = open.filter((b) => b.change < 0);
   const added = adds.reduce((s, b) => s + b.change, 0);
+  const cut = cuts.reduce((s, b) => s - b.change, 0);
   const net = open.reduce((s, b) => s + b.change, 0);
   const below = open.filter((b) => b.below_goal).length;
 
@@ -19,7 +20,9 @@ export function scheduleAnswer(blocks: Block[], days: BoardDay[], goal: number):
   if (added > 0 && windowDays.length) {
     const first = windowDays[0].label;
     const last = windowDays[windowDays.length - 1].label;
-    parts.push(`${fmtPct(inWindow / added, 0)} of the ${added} people the plan adds go to the holiday window, ${first} to ${last}.`);
+    // Gross adds and cuts with the net, so the sentence squares with the board's per-department nets.
+    const moves = cut > 0 ? `The plan adds ${added} people and cuts ${cut}, a net ${signedInt(net)} against the draft.` : `The plan adds ${added} people to the draft.`;
+    parts.push(`${moves} ${fmtPct(inWindow / added, 0)} of the added people go to the holiday window, ${first} to ${last}.`);
   } else {
     parts.push(`The plan adds people to ${plural(adds.length, "block")} and trims ${cuts.length}: ${signedInt(net)} against the draft.`);
   }

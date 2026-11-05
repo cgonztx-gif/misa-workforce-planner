@@ -36,7 +36,7 @@ function buildSteps(s: ForecastSeries, date: string, scenario: ScenarioCode): { 
   const sc = d.scenarios[scenario];
   const steps: Step[] = [];
   const normal = d.normal_day;
-  steps.push({ key: "normal", label: `Normal ${weekdayName(d.date)}`, short: `Normal ${weekdayName(d.date).slice(0, 3)}`, axisSub: "weekday", sub: "weekday level", value: normal, range: [0, normal], total: true, why: `What a normal ${weekdayName(d.date)} brings for ${s.department}, at the recent weekly level.` });
+  steps.push({ key: "normal", label: `Normal ${weekdayName(d.date)}`, short: "Normal", axisSub: weekdayName(d.date), sub: "weekday level", value: normal, range: [0, normal], total: true, why: `What a normal ${weekdayName(d.date)} brings for ${s.department}, at the recent weekly level.` });
   const afterHoliday = normal + d.holiday_effect;
   steps.push({
     key: "holiday",
@@ -180,13 +180,21 @@ export function DayWaterfall({ series, scenario, dept, date, onDept, onDate, war
                 dataKey="range"
                 maxBarSize={tokens.chart.bar_max_width * 2}
                 isAnimationActive={false}
-                label={(p: { x?: number | string; y?: number | string; width?: number | string; index?: number; value?: unknown }) => {
+                label={(p: { x?: number | string; y?: number | string; width?: number | string; height?: number | string; index?: number; value?: unknown }) => {
                   // Match the label to its step by range, not index (a skipped bar would shift indexes).
                   const v = Array.isArray(p.value) ? (p.value as number[]) : null;
                   const st = (v && steps.find((x) => Math.abs(x.range[0] - v[0]) < 1e-9 && Math.abs(x.range[1] - v[1]) < 1e-9)) || (p.index != null ? steps[p.index] : undefined);
                   if (!st || p.x == null || p.y == null) return <g />;
+                  // If the dashed benchmark line crosses where the label would sit, lift the label above the line.
+                  let baseline = Number(p.y) - 8;
+                  const h = Math.abs(Number(p.height ?? 0));
+                  const [r0, r1] = st.range;
+                  if (h > 0 && r1 > r0) {
+                    const benchY = Number(p.y) + ((r1 - benchmark) * h) / (r1 - r0);
+                    if (benchY > baseline - 18 && benchY < baseline + 6) baseline = benchY - 7;
+                  }
                   return (
-                    <text x={Number(p.x) + Number(p.width ?? 0) / 2} y={Number(p.y) - 8} textAnchor="middle" fontSize={14} fontWeight={st.total ? 600 : 500} fill={st.total ? tokens.color.ink : tokens.color.ink_muted} className="tnum">
+                    <text x={Number(p.x) + Number(p.width ?? 0) / 2} y={baseline} textAnchor="middle" fontSize={14} fontWeight={st.total ? 600 : 500} fill={st.total ? tokens.color.ink : tokens.color.ink_muted} className="tnum">
                       {st.total ? fmtUnits(st.value) : signedUnits(st.value)}
                     </text>
                   );

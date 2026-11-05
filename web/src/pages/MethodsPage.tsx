@@ -65,7 +65,7 @@ export default function MethodsPage() {
   const all = data.forecast.backtest_daily.find((r) => r.group === "All");
   const problems = data.plan.validator_problems.length;
   const answer = all
-    ? `The engine runs ${data.engine.length} steps, from the case's data to a reason for every block. On held-out normal weeks the forecast's daily error is ${fmtPct(all.model)} against the benchmark method's ${fmtPct(all.benchmark)}, and the risk model's Brier score is ${data.service.brier.model.toFixed(3)} against ${data.service.brier.base_rate.toFixed(3)} for the average rate.`
+    ? `The engine runs ${data.engine.length} steps, from the case's data to a reason for every block. On held-out normal weeks the forecast's daily error is ${fmtPct(all.model)} against the benchmark method's ${fmtPct(all.benchmark)}, and the risk model's chances track what really happened far better than one average rate (Brier score ${data.service.brier.model.toFixed(3)} against ${data.service.brier.base_rate.toFixed(3)}; lower is better).`
     : `The engine runs ${data.engine.length} steps, from the case's data to a reason for every block.`;
 
   return (

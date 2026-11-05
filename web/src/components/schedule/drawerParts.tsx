@@ -87,15 +87,19 @@ export function SourcesTable({ block }: { block: Block }) {
   const rows = [
     { label: "Plan", values: plan, total: block.plan, fills: PLAN_FILLS, tone: "strong", unfilled: 0 },
     { label: "Draft", values: draft, total: block.draft, fills: DRAFT_FILLS, tone: "muted", unfilled },
-    { label: "Can field", values: avail, total: block.availability.capacity, fills: [c.border, c.border, c.border], tone: "avail", unfilled: 0 },
+    { label: "Can field", values: avail, total: block.availability.capacity, fills: [c.border_strong, c.border_strong, c.border_strong], tone: "avail", unfilled: 0 },
   ] as const;
+  // In a wide drawer each bar sits in its own column; in the narrow one (below 480px) it runs the full width
+  // under the row's numbers, drawn from the label cell so the table keeps one row per source line.
+  const wideBar = "hidden @min-[480px]:table-cell";
+  const pad = "pt-2 pb-7 @min-[480px]:pb-2";
   return (
-    <>
+    <div className="@container">
     <table className="tnum mt-3 w-full text-base">
       <thead>
         <tr className="text-sm text-ink-subtle">
           <th className="pb-1.5 text-left font-normal" />
-          <th className="w-[34%] pb-1.5 font-normal" />
+          <th className={cn("w-[34%] pb-1.5 font-normal", wideBar)} />
           {SOURCES.map((s, i) => (
             <th key={s.key} className="pb-1.5 pl-2 text-right font-normal whitespace-nowrap">
               <span className="inline-flex items-center gap-1.5">
@@ -111,22 +115,24 @@ export function SourcesTable({ block }: { block: Block }) {
         {rows.map((r) => {
           const strong = r.tone === "strong";
           const ink = strong ? "text-ink" : "text-ink-muted";
+          const bar = <StackBar parts={[...r.values]} fills={[...r.fills]} total={scale} unfilled={r.unfilled} />;
           return (
             <tr key={r.label} className="border-t border-border">
-              <td className={cn("py-2 pr-3 text-sm whitespace-nowrap", strong ? "font-semibold text-ink" : "text-ink-muted")}>{r.label}</td>
-              <td className="py-2" aria-hidden>
-                {r.tone === "avail" ? (
-                  <div className="h-3 rounded-full border border-dashed border-border-strong" style={{ width: `${(r.total / Math.max(scale, 1)) * 100}%` }} />
-                ) : (
-                  <StackBar parts={[...r.values]} fills={[...r.fills]} total={scale} unfilled={r.unfilled} />
-                )}
+              <td className={cn("relative pr-3 align-top text-sm whitespace-nowrap", pad, strong ? "font-semibold text-ink" : "text-ink-muted")}>
+                {r.label}
+                <div aria-hidden className="absolute bottom-3 left-0 w-[100cqw] @min-[480px]:hidden">
+                  {bar}
+                </div>
+              </td>
+              <td className={cn("py-2 align-middle", wideBar)} aria-hidden>
+                {bar}
               </td>
               {r.values.map((v, i) => (
-                <td key={i} className={cn("py-2 pl-2 text-right", ink)}>
+                <td key={i} className={cn("pl-2 text-right align-top", pad, ink)}>
                   {v}
                 </td>
               ))}
-              <td className={cn("py-2 pl-2 text-right whitespace-nowrap", strong ? "font-semibold text-ink" : "text-ink-muted")}>
+              <td className={cn("pl-2 text-right align-top whitespace-nowrap", pad, strong ? "font-semibold text-ink" : "text-ink-muted")}>
                 {r.total}
               </td>
             </tr>
@@ -140,6 +146,6 @@ export function SourcesTable({ block }: { block: Block }) {
         The draft's total includes {unfilled} {unfilled === 1 ? "person" : "people"} this block can't field.
       </p>
     )}
-    </>
+    </div>
   );
 }

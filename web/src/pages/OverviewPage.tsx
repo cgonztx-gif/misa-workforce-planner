@@ -99,6 +99,7 @@ export default function OverviewPage() {
             value={plan ? fmtPct(plan.expected_met) : null}
             delta={{ value: change?.expected_met, format: (n) => signedPts(n), goodWhen: "up", suffix: "vs draft" }}
             sub={draft && `Draft ${fmtPct(draft.expected_met)}`}
+            note="Average chance a block meets its wait target"
             help="The average predicted chance of meeting the service target across open blocks. It's a prediction from our model, not a measured result."
           />
           <KpiTile
@@ -115,8 +116,14 @@ export default function OverviewPage() {
             label="Over capacity"
             icon={<Users />}
             value={plan ? fmtInt(plan.over_capacity) : null}
-            delta={{ value: change?.over_capacity, format: signedInt, goodWhen: "down", suffix: "vs draft" }}
-            sub={draft && `Draft ${plural(draft.over_capacity, "block")}`}
+            // A zero against a zero says nothing as a chip, so say what it means instead.
+            delta={plan && draft && plan.over_capacity === 0 && draft.over_capacity === 0 ? undefined : { value: change?.over_capacity, format: signedInt, goodWhen: "down", suffix: "vs draft" }}
+            sub={
+              draft &&
+              (plan && plan.over_capacity === 0 && draft.over_capacity === 0
+                ? "Plan and draft both fit what each block can field"
+                : `Draft ${plural(draft.over_capacity, "block")}${draft.unfilled ? `, ${plural(draft.unfilled, "person", "people")} too many` : ""}`)
+            }
             help="Blocks that schedule more people than can be fielded from regular staff, cross-trained staff and overtime."
           />
         </KpiRow>
@@ -129,7 +136,7 @@ export default function OverviewPage() {
       <Refreshing active={query.isPlaceholderData}>
         <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
           {loading ? <SkeletonCard chart className="h-[560px]" /> : <ByDayCharts totals={totals} goal={goal} holidayWindow={(d) => windowDates.has(d)} windowName={windowName} />}
-          {loading ? <SkeletonCard lines={6} /> : <AlertsCard alerts={totals.alerts} carry={carry} />}
+          {loading ? <SkeletonCard lines={6} /> : <AlertsCard alerts={totals.alerts} carry={carry} goal={goal} />}
         </div>
 
         <div className="mt-6">

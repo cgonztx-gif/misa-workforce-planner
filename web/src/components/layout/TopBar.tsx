@@ -31,12 +31,20 @@ export function TopBar() {
     { id: 2, label: "Warehouse 2", size: "Large" },
     { id: 4, label: "Warehouse 4", size: "Large" },
   ];
+  const ids = warehouses.map((w) => w.id).join(", ").replace(/, (?=[^,]*$)/, " and ");
   const warehouseOptions = [
-    { value: "all" as WarehouseKey, label: "All", description: "All three warehouses together" },
+    { value: "all" as WarehouseKey, label: "All", description: `All three warehouses together: ${ids}, the ones the case covers` },
     ...warehouses.map((w) => ({
       value: String(w.id) as WarehouseKey,
-      label: `${w.id} ${w.size}`,
-      description: `${w.label}, ${w.size.toLowerCase()} warehouse`,
+      // "WH2 Large", so the number reads as a warehouse ID rather than a count; the size is lighter.
+      label: (
+        <>
+          <span>WH{w.id}</span>
+          <span className="font-normal">{w.size}</span>
+        </>
+      ),
+      ariaLabel: `${w.id} ${w.size}`,
+      description: `${w.label}, a ${w.size.toLowerCase()} warehouse. The case covers warehouses ${ids}.`,
     })),
   ];
 
@@ -56,6 +64,9 @@ export function TopBar() {
         </button>
       </Tooltip>
       <span className="hidden text-sm text-navy-ink-muted min-[1440px]:inline">Week of Thu Feb 12 to Wed Feb 18, 2026</span>
+      <span className="hidden text-sm whitespace-nowrap text-navy-ink-muted min-[1280px]:inline min-[1440px]:hidden" title="Week of Thu Feb 12 to Wed Feb 18, 2026">
+        Feb 12–18, 2026
+      </span>
 
       <div className="ml-auto flex items-center gap-5">
         <div className="flex items-center gap-2.5">

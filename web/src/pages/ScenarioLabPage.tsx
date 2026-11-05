@@ -2,7 +2,7 @@ import { FlaskConical } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Badge, Card, ErrorPanel, PageHeader, SkeletonCard } from "../components";
 import { useWhatIf } from "../lib/api";
-import { fmtInt, fmtMoney, fmtPct, plural } from "../lib/format";
+import { fmtInt, fmtMoney, fmtPct, plural, signedInt } from "../lib/format";
 
 const moneyWord = (n: number) => (Math.abs(n) < 0.5 ? "no change in cost" : `${fmtMoney(Math.abs(n))} ${n > 0 ? "more" : "less"}`);
 import { useCurrentPlan, useViewNames } from "../lib/hooks";
@@ -60,6 +60,15 @@ export default function ScenarioLabPage() {
   };
 
   const net = changes.reduce((sum, c) => sum + c.change, 0);
+  // One definition everywhere: people added and cut, with the net, as on the "Blocks changed" tile.
+  const addedPeople = changes.reduce((sum, c) => sum + Math.max(0, c.change), 0);
+  const cutPeople = changes.reduce((sum, c) => sum + Math.max(0, -c.change), 0);
+  const moves =
+    addedPeople && cutPeople
+      ? `adds ${plural(addedPeople, "person", "people")} and cuts ${fmtInt(cutPeople)} (net ${signedInt(net)})`
+      : cutPeople
+        ? `cuts ${plural(cutPeople, "person", "people")}`
+        : `adds ${plural(addedPeople, "person", "people")}`;
   const where = warehouse === "all" ? "all warehouses" : warehouseName;
 
   // When a run started here finishes, bring the results to the top of the view.
@@ -88,9 +97,9 @@ export default function ScenarioLabPage() {
     : !applied
       ? "Change the conditions and the plan recalculates live. Results here are what-ifs, never the submitted plan."
       : fresh && group.submitted_rescored.unfilled > 0
-        ? `With ${describeConditions(applied, lab.defaults)}, the submitted ${scenario} plan${warehouse === "all" ? "" : ` at ${warehouseName}`} schedules ${plural(group.submitted_rescored.unfilled, "person", "people")} who can't be fielded. Re-planning ${net >= 0 ? "adds" : "cuts"} ${plural(Math.abs(net), "person", "people")} across ${plural(changes.length, "block")} and takes expected service from ${fmtPct(group.submitted_rescored.expected_met)} to ${fmtPct(group.what_if.expected_met)}, at ${moneyWord(group.what_if.cost - group.submitted_rescored.cost)} than the submitted plan's fielded staff cost.`
+        ? `With ${describeConditions(applied, lab.defaults)}, the submitted ${scenario} plan${warehouse === "all" ? "" : ` at ${warehouseName}`} schedules ${plural(group.submitted_rescored.unfilled, "person", "people")} who can't be fielded. Re-planning ${moves} across ${plural(changes.length, "block")} and takes expected service from ${fmtPct(group.submitted_rescored.expected_met)} to ${fmtPct(group.what_if.expected_met)}, at ${moneyWord(group.what_if.cost - group.submitted_rescored.cost)} than the submitted plan's fielded staff cost.`
       : fresh
-        ? `With ${describeConditions(applied, lab.defaults)}, re-planning ${scenario}${warehouse === "all" ? "" : ` at ${warehouseName}`} ${net >= 0 ? "adds" : "cuts"} ${plural(Math.abs(net), "person", "people")} across ${plural(changes.length, "block")}, for ${moneyWord(group.what_if.cost - group.submitted_rescored.cost)}. Expected service is ${fmtPct(group.what_if.expected_met)}, against ${fmtPct(group.submitted_rescored.expected_met)} if the submitted plan stays as it is.`
+        ? `With ${describeConditions(applied, lab.defaults)}, re-planning ${scenario}${warehouse === "all" ? "" : ` at ${warehouseName}`} ${moves} across ${plural(changes.length, "block")}, for ${moneyWord(group.what_if.cost - group.submitted_rescored.cost)}. Expected service is ${fmtPct(group.what_if.expected_met)}, against ${fmtPct(group.submitted_rescored.expected_met)} if the submitted plan stays as it is.`
         : query.error && !running
           ? `The what-if with ${describeConditions(applied, lab.defaults)} didn't finish. Try again, or reset to the submitted plan.`
           : `Re-planning ${scenario} with ${describeConditions(applied, lab.defaults)}.`;
@@ -170,7 +179,10 @@ export default function ScenarioLabPage() {
       {applied && data && group && lab && (
         <WhatIfFrame label={data.label} conditions={conditionChips} seconds={query.isPlaceholderData ? null : data.seconds} dimmed={running}>
           <RunProgress running={running} scenario={scenario} />
-          <p className="mb-3 text-sm text-ink-subtle">Each change compares the re-planned week with the submitted plan kept as it is, under the same conditions.</p>
+          <p className="mb-3 text-base text-ink-muted">
+            Each change compares the re-planned week with what the submitted plan would do <span className="font-semibold text-ink">under these same conditions</span> ("if kept as
+            submitted"). Under normal conditions the submitted plan is unchanged.
+          </p>
           <LabKpis whatIf={group.what_if} kept={group.submitted_rescored} submitted={group.submitted} changes={changes} />
           {group.submitted_rescored.unfilled > 0 && (
             <p className="mt-3 text-sm text-warning-ink">
@@ -186,7 +198,9 @@ export default function ScenarioLabPage() {
               footer={stores.length > 1 ? <MiniBoardLegend /> : undefined}
             >
               {stores.length > 1 ? (
-                <div className="grid gap-6 lg:grid-cols-3">
+                // Two boards a row below 1700px, so cells stay about 60px wide on a 1366 projector; the
+                // department summary fills the fourth slot. Three a row on wide screens.
+                <div className="grid gap-x-8 gap-y-6 min-[768px]:grid-cols-2 min-[1700px]:grid-cols-3">
                   {stores.map((s) => (
                     <div key={s.id} className="min-w-0">
                       <div className="mb-1 flex items-baseline justify-between gap-2">
@@ -195,9 +209,13 @@ export default function ScenarioLabPage() {
                         </h4>
                         <span className="text-sm text-ink-subtle tnum">{fmtInt(changes.filter((c) => c.store_id === s.id).length)} changed</span>
                       </div>
-                      <MiniBoard blocks={data.blocks.filter((b) => b.store_id === s.id)} changes={changeByKey} days={lab.days} shifts={lab.shifts} departments={lab.departments} cellHeight={28} />
+                      <MiniBoard blocks={data.blocks.filter((b) => b.store_id === s.id)} changes={changeByKey} days={lab.days} shifts={lab.shifts} departments={lab.departments} cellHeight={32} />
                     </div>
                   ))}
+                  <aside className="min-w-0 min-[1700px]:hidden">
+                    <h4 className="text-base font-semibold text-ink">By department, {where}</h4>
+                    <DeptSummary changes={changes} departments={lab.departments} />
+                  </aside>
                 </div>
               ) : (
                 <div className="grid gap-8 lg:grid-cols-[minmax(0,680px)_minmax(260px,1fr)]">

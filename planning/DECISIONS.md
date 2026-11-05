@@ -178,6 +178,7 @@
 - **Status:** Accepted, 2026-11-05, when the user said to start implementing the plan.
 - **Why:** it works today (F-56, F-59). If the new app isn't ready by M4, Friday at 1 pm, the team still has a tested demo, and the deck's screenshots come from it.
 - **Choice:** `app.py` and its tests stay untouched until M4. After that, it runs on port 8502 as a documented fallback.
+- **Outcome, 2026-11-05 (night):** the new app passed M4 (27 of 27 browser checks, F-74) and is the demo. The Streamlit app is the documented fallback on port 8502.
 
 ## D-28: Freeze the numbers before writing, and print no figures by hand
 

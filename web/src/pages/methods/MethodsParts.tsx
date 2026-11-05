@@ -1,5 +1,5 @@
 import { BookOpen, Check, CheckCircle2, Copy, Download, FileSpreadsheet, FileText, FlaskConical, NotebookPen, Presentation, UserX, Users } from "lucide-react";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Badge, Card, LinkButton, Tooltip } from "../../components";
 import { submissionCsvUrl } from "../../lib/api";
 import type { MethodsAssumption } from "./types";
@@ -44,12 +44,34 @@ export function PerBlockCard() {
 function Status({ status }: { status?: string | null }) {
   if (!status) return null;
   const s = status.toLowerCase();
-  const word = s.startsWith("confirmed") ? "Confirmed" : s.startsWith("checked") ? "Checked" : status;
+  // "Proposed" means we stated it as our own judgment, not that it's unfinished.
+  const word = s.startsWith("confirmed") ? "Confirmed" : s.startsWith("checked") ? "Checked" : s.startsWith("proposed") ? "Our judgment" : status;
   const good = word === "Confirmed" || word === "Checked";
   return (
-    <Badge tone={good ? "good" : "neutral"} icon={good ? <CheckCircle2 /> : undefined} title={status}>
+    <Badge tone={good ? "good" : "neutral"} icon={good ? <CheckCircle2 /> : undefined} title={word === "Our judgment" ? "Stated as our judgment: reasoned from the data, not separately tested" : status}>
       {word}
     </Badge>
+  );
+}
+
+/** Keep short ranges such as "Feb 13-16" or "weeks 3-6" on one line, so they never break at the hyphen. */
+function keepRangesWhole(text: string): ReactNode {
+  const parts = text.split(/((?:[A-Z][a-z]{2}|weeks?) \d{1,2}[-–]\d{1,2})/);
+  return parts.length === 1 ? text : parts.map((p, i) => (i % 2 ? <span key={i} className="whitespace-nowrap">{p}</span> : p));
+}
+
+/** A file path that wraps only after a slash or underscore, never mid-word. */
+function PathText({ path }: { path: string }) {
+  const pieces = path.split(/(?<=[/_])/);
+  return (
+    <>
+      {pieces.map((p, i) => (
+        <span key={i}>
+          {p}
+          {i < pieces.length - 1 && <wbr />}
+        </span>
+      ))}
+    </>
   );
 }
 
@@ -63,7 +85,7 @@ function AssumptionList({ items, showStatus }: { items: MethodsAssumption[]; sho
               {a.id}
             </span>
           </Tooltip>
-          <p className="min-w-0 flex-1 text-base leading-snug text-ink-muted">{a.text}</p>
+          <p className="min-w-0 flex-1 text-base leading-snug text-ink-muted">{keepRangesWhole(a.text)}</p>
           {showStatus && (
             <span className="shrink-0">
               <Status status={a.status} />
@@ -79,9 +101,12 @@ function AssumptionList({ items, showStatus }: { items: MethodsAssumption[]; sho
 export function AssumptionsSection({ assumptions }: { assumptions: MethodsAssumption[] }) {
   const ours = assumptions.filter((a) => a.source === "ours");
   const theirs = assumptions.filter((a) => a.source !== "ours");
+  // Numbers missing from our sequence (A-08) were retired, not lost: say so rather than leave a silent gap.
+  const nums = ours.map((a) => Number(a.id.replace(/\D/g, ""))).filter((n) => n > 0);
+  const retired = nums.length ? Array.from({ length: Math.max(...nums) }, (_, i) => i + 1).filter((n) => !nums.includes(n)).map((n) => `A-${String(n).padStart(2, "0")}`) : [];
   return (
     <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
-      <Card title={`Our assumptions (${ours.length})`} description="What we added to the case. Each is tested or stated as a judgment; hover an ID for its basis." padding="none">
+      <Card title={`Our assumptions (${ours.length})`} description={`What we added to the case. Each is tested or stated as a judgment; hover an ID for its basis.${retired.length ? ` ${retired.join(", ")} ${retired.length === 1 ? "was" : "were"} retired.` : ""}`} padding="none">
         <AssumptionList items={ours} showStatus />
       </Card>
       <Card title={`The case's assumptions (${theirs.length})`} description="Given in the data pack. We use them as stated." padding="none">
@@ -146,7 +171,9 @@ export function DocumentsCard({ documents }: { documents: { name: string; path: 
               </span>
               <div className="min-w-0 flex-1">
                 <p className="font-medium text-ink">{d.name}</p>
-                <p className="font-mono text-sm break-all text-ink-subtle select-all">{d.path}</p>
+                <p className="font-mono text-sm break-words text-ink-subtle select-all">
+                  <PathText path={d.path} />
+                </p>
               </div>
               {csv && (
                 <LinkButton href={submissionCsvUrl} download size="sm" icon={<Download />}>

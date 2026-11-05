@@ -1,5 +1,5 @@
 {
- "started": "2026-11-05T16:06:15",
+ "started": "2026-11-05T16:42:46",
  "base_url": "http://127.0.0.1:8611/",
  "budgets": {
   "cold_start_s": 30.0,
@@ -12,13 +12,13 @@
   {
    "check": "Cold start: launch to /api/health ready",
    "result": "PASS",
-   "value": "26.82 s (listening after 1.59 s; the server's own prepare time 25.278778 s; system CPU 60.3% meanwhile)",
+   "value": "24.77 s (listening after 1.58 s; the server's own prepare time 23.197174 s; system CPU 62.2% meanwhile)",
    "budget": "30 s"
   },
   {
    "check": "Page changes (sidebar click to the page drawn with its data)",
    "result": "PASS",
-   "value": "first visit: worst Methods 148 ms, median 106 ms; return visit: worst Cost and service 188 ms, median 86 ms",
+   "value": "first visit: worst Cost and service 147 ms, median 67 ms; return visit: worst Demand 91 ms, median 54 ms",
    "budget": "300 ms"
   },
   {
@@ -43,13 +43,13 @@
   {
    "check": "Scenario switch time (click to new KPIs drawn)",
    "result": "PASS",
-   "value": "worst 76 ms, all [75.7, 73.7, 28.6, 41.5, 36.6, 29.2]",
+   "value": "worst 80 ms, all [79.8, 73.7, 37, 35.6, 40.9, 36.5]",
    "budget": "500 ms"
   },
   {
    "check": "Warehouse switch changes the KPIs to the API's figures, fast (7.5)",
    "result": "PASS",
-   "value": "worst 37 ms, all [37.1, 26.6, 24.7, 29.5]",
+   "value": "worst 40 ms, all [39, 36.7, 36.8, 39.7]",
    "budget": "500 ms",
    "detail": {
     "mismatches": null
@@ -68,7 +68,7 @@
    "result": "PASS",
    "value": "all fields match",
    "detail": {
-    "open_ms": 80.2,
+    "open_ms": 36.8,
     "mismatches": null
    }
   },
@@ -77,7 +77,7 @@
    "result": "PASS",
    "value": "all fields match",
    "detail": {
-    "open_ms": 36.4,
+    "open_ms": 30.5,
     "mismatches": null
    }
   },
@@ -86,7 +86,7 @@
    "result": "PASS",
    "value": "all fields match",
    "detail": {
-    "open_ms": 39.8,
+    "open_ms": 29.2,
     "mismatches": null
    }
   },
@@ -95,14 +95,14 @@
    "result": "PASS",
    "value": "all fields match",
    "detail": {
-    "open_ms": 38,
+    "open_ms": 28.8,
     "mismatches": null
    }
   },
   {
    "check": "What-if, demo settings (demand +10%, callouts 150%): warm and fast",
    "result": "PASS",
-   "value": "310 ms click to results, X-Cache hit, sliders ['+10%', '150%'], run 26.8 s after ready",
+   "value": "124 ms click to results, X-Cache hit, sliders ['+10%', '150%'], run 22.6 s after ready",
    "budget": "1000 ms and a cache hit"
   },
   {
@@ -125,8 +125,8 @@
   },
   {
    "check": "What-if, new settings (demand +5%, callouts 125%) finish in time",
-   "result": "FAIL",
-   "value": "11.97 s click to results, server 11.749 s, X-Cache miss, progress state shown True, system CPU 68.1% meanwhile",
+   "result": "PASS",
+   "value": "3.24 s click to results, server 3.159 s, X-Cache miss, progress state shown True, system CPU 50.6% meanwhile",
    "budget": "8 s"
   },
   {
@@ -155,7 +155,7 @@
   {
    "check": "Every page: Overview renders, no console errors or warnings",
    "result": "PASS",
-   "value": "1366: ok (3,047 chars), 1440: ok (3,047 chars), 1920: ok (3,047 chars)",
+   "value": "1366: ok (2,985 chars), 1440: ok (2,985 chars), 1920: ok (2,985 chars)",
    "detail": {
     "problems": null
    }
@@ -163,7 +163,7 @@
   {
    "check": "Every page: Schedule renders, no console errors or warnings",
    "result": "PASS",
-   "value": "1366: ok (4,244 chars), 1440: ok (4,244 chars), 1920: ok (4,244 chars)",
+   "value": "1366: ok (4,281 chars), 1440: ok (4,281 chars), 1920: ok (4,281 chars)",
    "detail": {
     "problems": null
    }
@@ -171,7 +171,7 @@
   {
    "check": "Every page: Demand renders, no console errors or warnings",
    "result": "PASS",
-   "value": "1366: ok (6,502 chars), 1440: ok (6,502 chars), 1920: ok (6,502 chars)",
+   "value": "1366: ok (6,511 chars), 1440: ok (6,511 chars), 1920: ok (6,511 chars)",
    "detail": {
     "problems": null
    }
@@ -179,7 +179,7 @@
   {
    "check": "Every page: Cost and service renders, no console errors or warnings",
    "result": "PASS",
-   "value": "1366: ok (7,854 chars), 1440: ok (7,854 chars), 1920: ok (7,854 chars)",
+   "value": "1366: ok (6,443 chars), 1440: ok (6,443 chars), 1920: ok (6,443 chars)",
    "detail": {
     "problems": null
    }
@@ -195,7 +195,7 @@
   {
    "check": "Every page: Playbook renders, no console errors or warnings",
    "result": "PASS",
-   "value": "1366: ok (5,762 chars), 1440: ok (5,762 chars), 1920: ok (5,762 chars)",
+   "value": "1366: ok (5,859 chars), 1440: ok (5,859 chars), 1920: ok (5,859 chars)",
    "detail": {
     "problems": null
    }
@@ -203,7 +203,7 @@
   {
    "check": "Every page: Methods renders, no console errors or warnings",
    "result": "PASS",
-   "value": "1366: ok (7,665 chars), 1440: ok (7,665 chars), 1920: ok (7,665 chars)",
+   "value": "1366: ok (7,790 chars), 1440: ok (7,790 chars), 1920: ok (7,790 chars)",
    "detail": {
     "problems": null
    }
@@ -227,19 +227,19 @@
  ],
  "timings": {
   "cold_start": {
-   "ready_s": 26.82,
-   "listening_s": 1.59,
+   "ready_s": 24.77,
+   "listening_s": 1.58,
    "health": {
     "ready": true,
-    "seconds": 25.278778,
+    "seconds": 23.197174,
     "error": null,
     "status": "ready",
     "step": "Ready",
-    "elapsed": 25.278778
+    "elapsed": 23.197174
    },
    "steps": [
     [
-     1.59,
+     1.58,
      "Loading the engine"
     ],
     [
@@ -247,90 +247,90 @@
      "Fitting the service curves"
     ],
     [
-     2.44,
+     2.43,
      "Building the planning inputs"
     ],
     [
-     2.86,
+     2.64,
      "Planning BASE"
     ],
     [
-     10.51,
+     9.96,
      "Planning PEAK"
     ],
     [
-     18.15,
+     16.82,
      "Planning DISRUPT"
     ],
     [
-     25.77,
+     23.91,
      "Reading the saved analysis"
     ],
     [
-     26.19,
+     24.33,
      "Preparing the forecast"
     ],
     [
-     26.82,
+     24.77,
      "Ready"
     ]
    ],
    "exit_code": null,
    "machine_load": {
-    "system_cpu_percent": 60.3,
+    "system_cpu_percent": 62.2,
     "logical_cpus": 8,
     "busiest_percent_of_one_cpu": [
-     "System Idle Process (pid 0): 322",
-     "svchost.exe (pid 16412): 183",
-     "python3.13.exe (pid 24636): 88",
-     "claude.exe (pid 21868): 16",
-     "python3.13.exe (pid 21396): 13",
-     "MsMpEng.exe (pid 40664): 12"
+     "svchost.exe (pid 16412): 181",
+     "python3.13.exe (pid 23544): 86",
+     "chrome.exe (pid 33324): 11",
+     "python3.13.exe (pid 16536): 10",
+     "Surfshark.exe (pid 21064): 9",
+     "dwm.exe (pid 1728): 8"
     ]
    }
   },
   "page_change_ms": {
    "first visit": {
-    "Schedule": 63,
-    "Demand": 106.1,
-    "Cost and service": 106.1,
-    "Scenario lab": 34.6,
-    "Playbook": 111.2,
-    "Methods": 148.3,
-    "Overview": 87.4
+    "Schedule": 72.2,
+    "Demand": 115.5,
+    "Cost and service": 147.4,
+    "Scenario lab": 33.3,
+    "Playbook": 62.5,
+    "Methods": 66.9,
+    "Overview": 51.7
    },
    "return visit": {
-    "Schedule": 117.1,
-    "Demand": 176.3,
-    "Cost and service": 188.3,
-    "Scenario lab": 47.6,
-    "Playbook": 85.6,
-    "Methods": 84.2,
-    "Overview": 77.9
+    "Schedule": 73.6,
+    "Demand": 90.8,
+    "Cost and service": 83.3,
+    "Scenario lab": 31.3,
+    "Playbook": 49.4,
+    "Methods": 53.9,
+    "Overview": 52.6
    }
   },
   "scenario_switch_ms": {
-   "1. to PEAK": 75.7,
+   "1. to PEAK": 79.8,
    "2. to DISRUPT": 73.7,
-   "3. to BASE": 28.6,
-   "4. to PEAK": 41.5,
-   "5. to DISRUPT": 36.6,
-   "6. to BASE": 29.2
+   "3. to BASE": 37,
+   "4. to PEAK": 35.6,
+   "5. to DISRUPT": 40.9,
+   "6. to BASE": 36.5
   },
   "warehouse_switch_ms": {
-   "1": 37.1,
-   "2": 26.6,
-   "4": 24.7,
-   "all": 29.5
+   "1": 39,
+   "2": 36.7,
+   "4": 36.8,
+   "all": 39.7
   },
   "drawer_open_ms": {
-   "BASE|1|38|2026-02-14|MID": 80.2,
-   "DISRUPT|4|38|2026-02-14|MID": 36.4,
-   "PEAK|1|95|2026-02-14|EVE": 39.8,
-   "PEAK|4|38|2026-02-13|EVE": 38
+   "BASE|1|38|2026-02-14|MID": 36.8,
+   "DISRUPT|4|38|2026-02-14|MID": 30.5,
+   "PEAK|1|95|2026-02-14|EVE": 29.2,
+   "PEAK|4|38|2026-02-13|EVE": 28.8
   },
   "what_if_demo": {
-   "ms": 309.5,
+   "ms": 124.5,
    "sliders": [
     "+10%",
     "150%"
@@ -343,18 +343,18 @@
    },
    "url": "http://127.0.0.1:8611/#/scenario-lab?scenario=BASE&wh=all&callouts=1.5&demand=0.1",
    "machine_load": {
-    "system_cpu_percent": 66.2,
+    "system_cpu_percent": 49.4,
     "logical_cpus": 8,
     "busiest_percent_of_one_cpu": [
-     "System Idle Process (pid 0): 274",
-     "svchost.exe (pid 16412): 170",
-     "python3.13.exe (pid 24636): 71",
-     "python3.13.exe (pid 21396): 70",
-     "MsMpEng.exe (pid 40664): 23",
-     "python3.13.exe = the test server (pid 44976): 22"
+     "svchost.exe (pid 16412): 194",
+     "python3.13.exe (pid 16536): 88",
+     "chrome-headless-shell.exe (pid 27252): 20",
+     "System (pid 4): 8",
+     "Code.exe (pid 50412): 8",
+     "claude.exe (pid 21868): 4"
     ]
    },
-   "seconds_after_server_ready": 26.8
+   "seconds_after_server_ready": 22.6
   },
   "warm_up": {
    "passes": [
@@ -376,10 +376,10 @@
      }
     }
    ],
-   "warm_up_over_s_after_ready": 39.0
+   "warm_up_over_s_after_ready": 26.2
   },
   "what_if_new": {
-   "ms": 11971.8,
+   "ms": 3239.9,
    "sliders": [
     "+5%",
     "125%"
@@ -388,26 +388,26 @@
    "api": {
     "status": 200,
     "x-cache": "miss",
-    "x-seconds": "11.749"
+    "x-seconds": "3.159"
    },
    "url": "http://127.0.0.1:8611/#/scenario-lab?scenario=BASE&wh=all&callouts=1.25&demand=0.05",
    "machine_load": {
-    "system_cpu_percent": 68.1,
+    "system_cpu_percent": 50.6,
     "logical_cpus": 8,
     "busiest_percent_of_one_cpu": [
-     "System Idle Process (pid 0): 260",
-     "svchost.exe (pid 16412): 177",
-     "python3.13.exe (pid 24636): 78",
-     "python3.13.exe = the test server (pid 44976): 52",
-     "chrome-headless-shell.exe (pid 43688): 25",
-     "python3.13.exe (pid 21396): 24"
+     "svchost.exe (pid 16412): 188",
+     "python3.13.exe = the test server (pid 9928): 64",
+     "python3.13.exe (pid 16536): 25",
+     "chrome-headless-shell.exe (pid 27252): 14",
+     "Surfshark.exe (pid 21064): 8",
+     "chrome-headless-shell.exe (pid 12048): 8"
     ]
    },
-   "seconds_after_server_ready": 63.0
+   "seconds_after_server_ready": 33.4
   },
   "demo_switch_ms": {
-   "PEAK (drawer open)": 55.8,
-   "DISRUPT": 48.9,
+   "PEAK (drawer open)": 52.5,
+   "DISRUPT": 48.3,
    "Warehouse 2": 31.4
   }
  },
@@ -429,49 +429,49 @@
    "step": "Overview, BASE, all warehouses",
    "ok": true,
    "observed": "KPIs equal the API and the verdict shows; the app says 12.7% more hours, expected service 68.5% to 95.6%",
-   "seconds": 1.65
+   "seconds": 1.53
   },
   {
    "at": "0:40",
    "step": "Schedule, Warehouse 1",
    "ok": true,
-   "observed": "warehouse switch 27 ms, board equals the API; blocks with people added: 25 of 33 on Feb 13-16, 15 of 27 on other days",
-   "seconds": 0.91
+   "observed": "warehouse switch 28 ms, board equals the API; blocks with people added: 25 of 33 on Feb 13-16, 15 of 27 on other days",
+   "seconds": 0.92
   },
   {
    "at": "1:10",
    "step": "Click Sat Feb 14, Front End, Midday",
    "ok": true,
-   "observed": "drawer open in 31 ms, every field equals /api/plan",
-   "seconds": 0.64
+   "observed": "drawer open in 36 ms, every field equals /api/plan",
+   "seconds": 0.68
   },
   {
    "at": "1:50",
    "step": "Switch to PEAK, then DISRUPT at Warehouse 2",
    "ok": true,
-   "observed": "PEAK 56 ms with the drawer following (matches the API), DISRUPT 49 ms, Warehouse 2 31 ms, board equals the API; drawer after the warehouse switch: 'Sat Feb 14, Front End, Midday | Warehouse 1, DISRUPT, 12:30 to 16:00 (3.5 paid hours)'; Front End at Warehouse 2 on Feb 13-16: 12 of 12 blocks have fewer regular staff than BASE, 11 get a different plan",
-   "seconds": 1.27
+   "observed": "PEAK 52 ms with the drawer following (matches the API), DISRUPT 48 ms, Warehouse 2 31 ms, board equals the API; drawer after the warehouse switch: 'Sat Feb 14, Front End, Midday | Warehouse 2, DISRUPT, 12:30 to 16:00 (3.5 paid hours)'; Front End at Warehouse 2 on Feb 13-16: 12 of 12 blocks have fewer regular staff than BASE, 11 get a different plan",
+   "seconds": 1.24
   },
   {
    "at": "2:40",
    "step": "Demand page",
    "ok": true,
-   "observed": "opened in 124 ms with 6 charts; answer \"Front End and Merchandising demand rises over the Presidents' Day weekend while Pharmacy's falls, and the benchmark misses it: on Sat Feb 14\"",
-   "seconds": 0.92
+   "observed": "opened in 112 ms with 6 charts; answer \"Front End and Merchandising demand rises over the Presidents' Day weekend while Pharmacy's falls, and the benchmark misses it: on Sat Feb 14\"",
+   "seconds": 0.9
   },
   {
    "at": "3:10",
    "step": "Scenario lab: demand +10%, callouts 150%, Run",
    "ok": true,
-   "observed": "DISRUPT at Warehouse 2: 67 ms, X-Cache hit, sliders ['+10%', '150%']; answer 'With demand +10% and callouts at 150% of history, re-planning DISRUPT at Warehouse 2 adds 59 people across 40 blocks, for $10,442 more. Expected service is 69.7'",
-   "seconds": 4.1
+   "observed": "DISRUPT at Warehouse 2: 65 ms, X-Cache hit, sliders ['+10%', '150%']; answer 'With demand +10% and callouts at 150% of history, re-planning DISRUPT at Warehouse 2 adds 61 people and cuts 2 (net +59) across 40 blocks, for $10,442 more. Exp'",
+   "seconds": 4.18
   },
   {
    "at": "4:00",
    "step": "Playbook: holiday PTO",
    "ok": true,
    "observed": "PTO card and headline shown: 'Keeping up to 5 people per block from holiday PTO cuts blocks below the goal from 25 to 6, raises expected service from 95.6% to 97.2%, and lowers cost by $4,381.'. At 2 kept per block, service 95.6% to 97.1%, cost $377,504 to $375,613: rises and falls as the script says",
-   "seconds": 0.88
+   "seconds": 0.83
   },
   {
    "at": "4:40",
@@ -484,7 +484,7 @@
  "layout": {
   "overview@1366x768": {
    "page_scrolls_sideways": false,
-   "content_height": 2130,
+   "content_height": 2201,
    "inner_sideways_scrollers": [],
    "text_cut_with_ellipsis": [],
    "text_cut_count": 0,
@@ -492,7 +492,7 @@
   },
   "schedule@1366x768": {
    "page_scrolls_sideways": false,
-   "content_height": 2625,
+   "content_height": 2650,
    "inner_sideways_scrollers": [],
    "text_cut_with_ellipsis": [],
    "text_cut_count": 0,
@@ -508,10 +508,8 @@
   },
   "cost-service@1366x768": {
    "page_scrolls_sideways": false,
-   "content_height": 3704,
-   "inner_sideways_scrollers": [
-    "div: Blocks below the goal Day Shift Warehouse Department Chance Plan Need "
-   ],
+   "content_height": 3861,
+   "inner_sideways_scrollers": [],
    "text_cut_with_ellipsis": [],
    "text_cut_count": 0,
    "poking_past_right_edge": []
@@ -534,7 +532,7 @@
   },
   "methods@1366x768": {
    "page_scrolls_sideways": false,
-   "content_height": 3632,
+   "content_height": 3774,
    "inner_sideways_scrollers": [],
    "text_cut_with_ellipsis": [],
    "text_cut_count": 0,
@@ -542,7 +540,7 @@
   },
   "overview@1440x900": {
    "page_scrolls_sideways": false,
-   "content_height": 2130,
+   "content_height": 2201,
    "inner_sideways_scrollers": [],
    "text_cut_with_ellipsis": [],
    "text_cut_count": 0,
@@ -550,7 +548,7 @@
   },
   "schedule@1440x900": {
    "page_scrolls_sideways": false,
-   "content_height": 2625,
+   "content_height": 2650,
    "inner_sideways_scrollers": [],
    "text_cut_with_ellipsis": [],
    "text_cut_count": 0,
@@ -566,7 +564,7 @@
   },
   "cost-service@1440x900": {
    "page_scrolls_sideways": false,
-   "content_height": 3664,
+   "content_height": 3676,
    "inner_sideways_scrollers": [],
    "text_cut_with_ellipsis": [],
    "text_cut_count": 0,
@@ -590,7 +588,7 @@
   },
   "methods@1440x900": {
    "page_scrolls_sideways": false,
-   "content_height": 3524,
+   "content_height": 3665,
    "inner_sideways_scrollers": [],
    "text_cut_with_ellipsis": [],
    "text_cut_count": 0,
@@ -598,7 +596,7 @@
   },
   "overview@1920x1080": {
    "page_scrolls_sideways": false,
-   "content_height": 2085,
+   "content_height": 2157,
    "inner_sideways_scrollers": [],
    "text_cut_with_ellipsis": [],
    "text_cut_count": 0,
@@ -606,7 +604,7 @@
   },
   "schedule@1920x1080": {
    "page_scrolls_sideways": false,
-   "content_height": 2625,
+   "content_height": 2650,
    "inner_sideways_scrollers": [],
    "text_cut_with_ellipsis": [],
    "text_cut_count": 0,
@@ -622,7 +620,7 @@
   },
   "cost-service@1920x1080": {
    "page_scrolls_sideways": false,
-   "content_height": 3593,
+   "content_height": 3605,
    "inner_sideways_scrollers": [],
    "text_cut_with_ellipsis": [],
    "text_cut_count": 0,
@@ -722,12 +720,10 @@
   "Demo script 0:00 says '14% more hours ... take expected service from 70% to 96%'. The app's BASE plan adds 1,313.5 hours to the draft's 10,344: 12.7% (employees +13.4%), and service goes from 68.5% to 95.6%.",
   "Demo script 4:00 says 'keep 2 people per block from holiday PTO'. The Playbook's headline says: Keeping up to 5 people per block from holiday PTO cuts blocks below the goal from 25 to 6, raises expected service from 95.6% to 97.2%, and lowers cost by $4,381."
  ],
- "finished": "2026-11-05T16:08:58",
+ "finished": "2026-11-05T16:44:49",
  "summary": {
-  "passed": 26,
-  "failed": 1,
-  "failed_checks": [
-   "What-if, new settings (demand +5%, callouts 125%) finish in time"
-  ]
+  "passed": 27,
+  "failed": 0,
+  "failed_checks": []
  }
 }
