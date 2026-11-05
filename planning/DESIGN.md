@@ -1,6 +1,6 @@
 # Design
 
-Status: the analysis engine and first submission CSV are built. The app is still a placeholder, and explanations aren't built yet. The choices behind this design are in `DECISIONS.md` (D-03 to D-11 and D-17 to D-21).
+Status: first versions of the analysis engine, submission CSV, explanations, playbook and app are all built. The choices behind this design are in `DECISIONS.md` (D-03 to D-11 and D-17 to D-21).
 
 Paths like `csv/` are relative to `data/team_distribution/`, created by T-07.
 
@@ -57,10 +57,10 @@ Each block's chance of meeting target combines forecast error (T-24, plus A-11 o
 
 ## Layout
 
-Built so far: everything below except `src/explain.py`. `app.py` is still a placeholder.
+All of this is built.
 
 ```text
-app.py               Streamlit entry point
+app.py               Streamlit entry point: the views below
 src/data.py          Load CSVs, join them, map holiday labels
 src/diagnosis.py     Staffing gaps, callouts, and the rebuilt dashboard figures
 src/forecast.py      Daily regression and shift split
@@ -68,7 +68,9 @@ src/service.py       Service curve fit and prediction
 src/allocation.py    Regular, flex and overtime allocation, and cost (D-10)
 src/search.py        Per-shift staffing search
 src/risk.py          Service risk: exact calculation and Monte Carlo check
-src/explain.py       Recommendation text (D-08)
+src/explain.py       A reason and assumptions for every block (D-08)
+src/playbook.py      Triggers, actions and the holiday PTO test
+src/app_data.py      What the app shows, kept testable without Streamlit
 src/submission.py    Export and validate the template; team_id is one constant, TEAM_NAME until Q-07
 src/pipeline.py      Runs everything and writes outputs/
 src/charts.py        Charts for the Word file
@@ -82,12 +84,14 @@ deliverables/        Costco_Case_Analysis.docx, for the team
 
 | View | Shows | Requirements |
 |---|---|---|
-| Scenario input | Scenario selector and what-if control | R-04, R-13 |
+| Sidebar | Scenario and warehouse selectors. What-if sliders for callouts, demand and service goal, which rerun the search | R-04, R-13 |
 | Staffing | Recommended headcount by warehouse, department, day and shift, against the draft | R-11, R-17, R-18, R-21 |
 | Cost and service | Labor cost and service risk against the draft | R-04, R-12, R-19 |
 | Demand | When demand rises or falls, and why | R-09, R-16 |
 | Why | Reason and assumptions for each change | R-14, R-22 |
-| Playbook | What to do when conditions shift | R-20, R-23 |
+| Playbook | Triggers and actions per scenario, the holiday PTO test, rules for the day and the tightest blocks | R-20, R-23 |
+
+Totals across all warehouses sit above the tabs. The tabs show the selected warehouse. Everything is prepared on first load, about 15 seconds, and then cached (F-56). A block's **cushion** is the people it can lose, or the extra demand it can take, before its chance of meeting target falls to 50% (`cushion()` in `src/risk.py`).
 
 ## Commands
 

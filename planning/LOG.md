@@ -4,6 +4,15 @@ Newest first. Add an entry at the end of every work session.
 
 ## 2026-11-04
 
+**Explanations, playbook and app (Wednesday night).** The user asked to start on these.
+
+- Built `src/explain.py`, `src/playbook.py` and the full app (T-41, T-42, T-50 to T-55). All are first versions that work, ahead of the schedule. M3 is met.
+- The main new result: limiting holiday PTO lifts service and lowers cost (F-55, A-16). It is now the headline recommendation.
+- Drove the app in headless Chrome, which caught problems the tests couldn't see, all fixed (F-56). A test now guards the dollar-sign problem.
+- Updated the Word file with the playbook and this result (T-67), and moved 17 requirements to Met (first versions).
+
+**Still open:** T-56 packaging, the deck and appendix, the real team name, the organizer questions, and a rehearsal with Wi-Fi off.
+
 **Callouts decided (Wednesday evening).** The user chose to plan as if judges apply callouts (A-03), so the plan and CSV don't change. The Word file was closed by then, so it has now been rebuilt, and it shows both the service goal and the callout allowance as decided. That rebuild replaced whatever was in the file, including any edits saved while it was open. Q-02 stays open, but an answer could now only save cost.
 
 **Service goal confirmed (Wednesday evening).** The user set the service goal at 95% (A-13), so the plan and CSV don't change. `scripts/build_analysis_doc.js` now shows it as decided, and the callout allowance as the one open decision. **The Word file itself hasn't been rebuilt,** because it was open in Word and locked, so commit `6b9722a`'s message overstates this. Close the file and run `node scripts/build_analysis_doc.js` to update it. The user asked what applying callouts means, which was explained. That decision stays open (A-03, Q-02).

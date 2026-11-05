@@ -2619,6 +2619,142 @@
    "department": "Pharmacy"
   }
  ],
+ "pto_what_if": [
+  {
+   "kept_per_block": 0,
+   "people_kept": 0,
+   "blocks_below_goal": 25,
+   "below_goal_with_holiday_pto": 19,
+   "expected_met": 0.958,
+   "cost": 376176.165,
+   "overtime_hours": 958.0
+  },
+  {
+   "kept_per_block": 1,
+   "people_kept": 62,
+   "blocks_below_goal": 16,
+   "below_goal_with_holiday_pto": 10,
+   "expected_met": 0.968,
+   "cost": 374674.56,
+   "overtime_hours": 763.0
+  },
+  {
+   "kept_per_block": 2,
+   "people_kept": 115,
+   "blocks_below_goal": 10,
+   "below_goal_with_holiday_pto": 4,
+   "expected_met": 0.971,
+   "cost": 373711.385,
+   "overtime_hours": 615.5
+  },
+  {
+   "kept_per_block": 3,
+   "people_kept": 150,
+   "blocks_below_goal": 7,
+   "below_goal_with_holiday_pto": 1,
+   "expected_met": 0.972,
+   "cost": 372031.575,
+   "overtime_hours": 493.5
+  },
+  {
+   "kept_per_block": 4,
+   "people_kept": 171,
+   "blocks_below_goal": 6,
+   "below_goal_with_holiday_pto": 0,
+   "expected_met": 0.972,
+   "cost": 371424.585,
+   "overtime_hours": 430.0
+  },
+  {
+   "kept_per_block": 5,
+   "people_kept": 179,
+   "blocks_below_goal": 6,
+   "below_goal_with_holiday_pto": 0,
+   "expected_met": 0.972,
+   "cost": 371185.52,
+   "overtime_hours": 404.5
+  }
+ ],
+ "playbook": {
+  "scenarios": {
+   "BASE": {
+    "trigger": "No promotion surge or illness has been confirmed. This is the default.",
+    "actions": [
+     "Schedule the BASE plan: 11,618 hours, at a cost of $376,176.",
+     "Approve 958 hours of overtime ahead of time, mostly for the holiday weekend, so it isn't arranged at the last minute.",
+     "Deal with the 42-person gap across 25 blocks before the week starts. The largest is Warehouse 2 Front End on Sat Feb 14, at 6 people across its shifts. Limiting holiday PTO is the most direct fix."
+    ]
+   },
+   "PEAK": {
+    "trigger": "The Feb 13 member promotion is confirmed, or a winter-storm advisory covers Feb 13-14.",
+    "actions": [
+     "Switch to the PEAK plan: +280 hours against BASE, at a cost of $387,092.",
+     "Put extra staff first into Warehouse 4 Merchandising, which gains the most (13 more employee shifts across the week).",
+     "Approve 1,216 hours of overtime, against 958 in BASE.",
+     "Expect waits even with this plan. It is 187 people short across 44 blocks, led by Warehouse 4 Front End on Sat Feb 14 (25 people across its shifts). Arrange outside cover, or tell members and staff what to expect."
+    ]
+   },
+   "DISRUPT": {
+    "trigger": "Warehouse 2 reports the illness cluster for Feb 13-16 (about 30% of Front End unavailable, one Pharmacy team member out per block), or Warehouse 4's opening stocking crew is about 35% short on Feb 12-13.",
+    "actions": [
+     "Switch to the DISRUPT plan: -370 hours against BASE, because fewer people are available, at a cost of $365,321.",
+     "Don't use the current draft here: it schedules 36 more people than can be fielded, across 12 blocks.",
+     "Warehouse 2 Front End loses the most (100 fewer employee shifts across the week). Move every available cross-trained person there once Merchandising's own need is met.",
+     "Escalate early. The plan is 197 people short across 39 blocks, led by Warehouse 2 Front End on Sat Feb 14 (57 people across its shifts), and no schedule can close that gap."
+    ]
+   }
+  },
+  "on_the_day": [
+   {
+    "trigger": "Callouts in a block pass its cushion. The typical cushion in people is: Front End 3, Merchandising 2, Pharmacy 1.",
+    "action": "Replace them in this order: cross-trained staff if the partner department has people to spare, since they cost the regular rate, then overtime if the block has room. Each block's own cushion is on the Why tab."
+   },
+   {
+    "trigger": "Traffic runs above forecast by more than the cushion. The typical cushion is: Front End 21%, Merchandising 19%, Pharmacy 41%.",
+    "action": "Treat the rest of the day as PEAK: bring in the extra staff for later shifts, starting with the blocks closest to their limit."
+   },
+   {
+    "trigger": "Waits pass target: 5 minutes at checkout, 60 minutes for replenishment, or 20 minutes in Pharmacy.",
+    "action": "Don't wait for the next shift. Service falls off a cliff near 85-90% utilization, so one late person can make a block miss. Pull in help now."
+   },
+   {
+    "trigger": "Traffic runs well below forecast, with no callouts.",
+    "action": "Offer voluntary time off in overtime blocks first, because overtime costs about 32% more per hour. Don't cut below minimum staff."
+   }
+  ]
+ },
+ "explanation_examples": {
+  "added": {
+   "store_id": 2,
+   "department": "Front End",
+   "day": "Sun Feb 15",
+   "shift": "MID",
+   "headline": "Add 15: 32 in the draft to 47 in the plan",
+   "why": "The draft's 32 people would run at 108% utilization, with a 0% chance of meeting target. Adding 15 brings it to 73% utilization and a 97% chance.",
+   "demand_driver": "The weekend before Presidents' Day: 12% more Front End demand than a normal day, going by the MLK weekend.",
+   "cushion_text": "Before a miss becomes the likelier outcome, this block can lose 7 people, or take 19% more demand."
+  },
+  "cut": {
+   "store_id": 4,
+   "department": "Merchandising",
+   "day": "Wed Feb 18",
+   "shift": "OPEN",
+   "headline": "Cut 3: 21 in the draft to 18 in the plan",
+   "why": "The draft's 21 people would run at 64% utilization, with a 100% chance of meeting target. That is more than this block needs. With 18, it runs at 75% utilization and still has a 98% chance.",
+   "demand_driver": "A normal Wednesday for Merchandising.",
+   "cushion_text": "Before a miss becomes the likelier outcome, this block can lose 2 people, or take 18% more demand."
+  },
+  "short": {
+   "store_id": 1,
+   "department": "Front End",
+   "day": "Sat Feb 14",
+   "shift": "MID",
+   "headline": "Add 5: 29 in the draft to 34 in the plan",
+   "why": "This block can't reach the goal. It needs 38 people for a 95% chance of meeting target, but the plan can only field 34, using all of its own regular staff and overtime. The draft's 29 people would run at 96% utilization, with a 6% chance of meeting target. The plan's chance is 62%.",
+   "demand_driver": "The weekend before Presidents' Day: 12% more Front End demand than a normal day, going by the MLK weekend. Valentine's Day adds 3%, as a judgment call.",
+   "cushion_text": "Before a miss becomes the likelier outcome, this block can lose 3 people, or take 10% more demand."
+  }
+ },
  "stress_share_over85": [
   {
    "scenario_code": "BASE",

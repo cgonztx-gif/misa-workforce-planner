@@ -12,6 +12,8 @@ import numpy as np
 import pandas as pd
 
 from src.data import ROOT, load_labor_standard, load_planning_grid, open_history
+from src.explain import explain_plan
+from src.playbook import on_the_day, pto_what_if, scenario_actions
 from src.diagnosis import (
     DEPT_NAMES,
     callout_rates,
@@ -327,6 +329,23 @@ def run() -> dict:
     gaps_after_plan = capacity_gaps(evaluated, curves)
     gaps_after_plan.to_csv(OUTPUTS / "capacity_gaps.csv", index=False, date_format="%Y-%m-%d")
 
+    explained = explain_plan(evaluated, draft, curves)
+    explanation_columns = [
+        "scenario_code", "store_id", "dept_id", "day_date", "shift_code", "draft_scheduled_employees", "recommended", "change", "action",
+        "why", "demand_driver", "staffing", "cost_effect", "service_effect", "cushion_people", "cushion_demand", "cushion_text",
+    ]
+    explained.assign(assumptions=explained["assumption_ids"].map("; ".join))[[*explanation_columns, "assumptions"]].to_csv(
+        OUTPUTS / "explanations.csv", index=False, date_format="%Y-%m-%d"
+    )
+    pto = pto_what_if(inputs, curves)
+    pto.to_csv(OUTPUTS / "pto_what_if.csv", index=False)
+    open_explained = explained[(explained["scenario_code"] == "BASE") & (explained["is_open"] == 1)]
+    examples = {
+        "added": open_explained.sort_values("change", ascending=False).iloc[0],
+        "cut": open_explained.sort_values("change").iloc[0],
+        "short": open_explained.sort_values("chance_met").iloc[0],
+    }
+
     summary_json = {
         "service_goal": SERVICE_GOAL,
         "level_weeks": LEVEL_WEEKS,
@@ -384,6 +403,21 @@ def run() -> dict:
         "valentine_sensitivity": _records(valentine, 3),
         "buffer_test": _records(buffer, 3),
         "capacity_gaps": _records(gaps_after_plan, 1),
+        "pto_what_if": _records(pto, 3),
+        "playbook": {"scenarios": scenario_actions(explained), "on_the_day": on_the_day(explained)},
+        "explanation_examples": {
+            name: {
+                "store_id": int(row["store_id"]),
+                "department": DEPT_NAMES[row["dept_id"]],
+                "day": f"{row['day_date']:%a %b} {row['day_date'].day}",
+                "shift": row["shift_code"],
+                "headline": row["headline"],
+                "why": row["why"],
+                "demand_driver": row["demand_driver"],
+                "cushion_text": row["cushion_text"],
+            }
+            for name, row in examples.items()
+        },
         "stress_share_over85": _records(
             stress.assign(over=stress["utilization"] > 0.85)
             .groupby(["scenario_code", "day_date", "dept_id"], as_index=False, sort=False)["over"].mean(), 3

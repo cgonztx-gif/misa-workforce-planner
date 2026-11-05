@@ -177,6 +177,9 @@ body.push(BUL(`**Our first plan lifts expected service a lot, at a real cost.** 
 const baseBelowFeb14 = S.below_goal_by_day.find((r) => r.scenario_code === "BASE" && r.day_date === "2026-02-14").blocks;
 const BS = S.base_shortfall;
 body.push(BUL(`**Capacity runs short around the holiday.** Even using everyone available, ${BS.blocks} BASE blocks can't reach a ${pct(S.service_goal, 0)} chance of meeting target, and their average chance is ${pct(BS.average_chance, 0)}. Of those, ${BS.holiday_blocks} fall on Feb 13-16, including ${baseBelowFeb14} on Saturday, Feb 14. This is the main problem to raise with a warehouse leader, because rearranging the schedule can't fix it. Changing availability can.`));
+const PTO = S.pto_what_if;
+const pto3 = PTO.find((r) => r.kept_per_block === 3);
+body.push(BUL(`**Limiting holiday PTO is the strongest move we've found.** Keeping up to 3 more people per block on Feb 14-16 cuts the BASE blocks below the goal from ${PTO[0].blocks_below_goal} to ${pto3.blocks_below_goal}, and saves ${money(PTO[0].cost - pto3.cost)}, because regular staff replace overtime. This assumes some of that PTO can still be limited.`));
 body.push(SPACER());
 body.push(NOTE([
   new Paragraph({ spacing: { after: 80 }, children: rich("**Decisions made**") }),
@@ -192,8 +195,8 @@ body.push(TABLE(["Part", "Status", "Notes"], [
   ["Demand forecast", "First version done", "More accurate than the benchmark on held-out weeks, because it removes holiday distortion. Holiday effects themselves can't be fully tested"],
   ["Service curves and risk model", "First version done", "Checked against held-out weeks and simulation"],
   ["Staffing plan and submission CSV", "First version done", `All 567 rows pass our validator. The team name is still the placeholder ${S.team_id}`],
-  ["Explanations and leader playbook", "Not started", ""],
-  ["App views and demo", "Not started", "Only a placeholder app exists so far"],
+  ["Explanations and leader playbook", "First version done", "Every block has a reason, and each scenario has triggers and actions"],
+  ["App", "First version done", "Runs locally with all views. Packaging for another machine and a rehearsal are still to do"],
   ["Deck and appendix", "Not started", "This document is the starting material"],
 ], [3000, 1800, 4560], { leftAll: true }));
 body.push(CAPTION("This document is generated from the analysis, so its figures update when it's rebuilt. A rebuild replaces the file, so send comments or edits to whoever is running the code."));
@@ -321,7 +324,7 @@ body.push(TABLE(["People short of need", "BASE", "PEAK", "DISRUPT"], [
   ["Blocks affected", ...SCEN.map((s) => num(gapTotals[s].blocks))],
 ], [3660, 1900, 1900, 1900]));
 body.push(CAPTION(`Table 10. People beyond capacity needed to reach the ${pct(S.service_goal, 0)} goal, summed across blocks. A block in this table already uses all of its own regular staff and overtime. Being short of the goal doesn't mean a block is expected to fail: in BASE, the average chance in these blocks is ${pct(BS.average_chance, 0)}, and ${BS.near_goal_blocks} of the ${BS.blocks} sit between 90% and 95%.`));
-body.push(P(`**Feb 14 is the pinch point in every scenario,** because holiday-weekend PTO cuts availability just as demand peaks. Front End's available regular staff falls by about 4 to 5 people per block that weekend, compared with recent weekends. This points to actions beyond the schedule, which the playbook should cover: limiting PTO approvals for that Saturday, or arranging extra cover ahead of time.`));
+body.push(P(`**Feb 14 is the pinch point in every scenario,** because holiday-weekend PTO cuts availability just as demand peaks. Front End's available regular staff falls by about 4 to 5 people per block that weekend, compared with recent weekends. This points to actions beyond the schedule, which the playbook below covers.`));
 body.push(P(`In DISRUPT, the illness cluster leaves Warehouse 2 Front End far short of need. A plan can't solve that alone, so the deck should say plainly what the leader should expect and do.`));
 body.push(P(`**The Feb 17 row rests on thin data.** Those ${BS.feb17_pharmacy_short} BASE blocks are all Pharmacy, and they come from the ${pct(S.callout_rates.find((x) => x.dept_id === 95 && x.context === "day_after_holiday").rate, 0)} day-after-holiday callout rate. At Pharmacy's ${pct(BS.feb17_weekday_rate)} weekday rate, only ${BS.feb17_pharmacy_short_at_weekday_rate} of them would stay below the goal.`));
 
@@ -343,6 +346,36 @@ body.push(TABLE(["Service goal", "Cost", "Change from draft", "Expected service"
 body.push(CAPTION("Table 12. BASE scenario. More blocks fall below a higher goal because capacity stays fixed."));
 body.push(P(`We set the goal at ${pct(S.service_goal, 0)}. Going from 92.5% to 95% adds ${money(goalRow(0.95).cost - goalRow(0.925).cost)} for ${((goalRow(0.95).expected_met - goalRow(0.925).expected_met) * 100).toFixed(1)} points of expected service, while going from 97.5% to 99% adds ${money(goalRow(0.99).cost - goalRow(0.975).cost)} for only ${((goalRow(0.99).expected_met - goalRow(0.975).expected_met) * 100).toFixed(1)}. This is one setting, so changing it takes minutes.`));
 
+// Playbook.
+body.push(H1("What a warehouse leader should do"));
+body.push(P("The app shows all of this for the selected scenario. Every number comes from the plan."));
+body.push(H2("Before the week: limit holiday PTO"));
+body.push(P("Holiday-weekend PTO takes about 4 Front End and 3 Merchandising people out of each block on Feb 14-15. We tested keeping some of them working, never more than each block lost against recent weeks."));
+body.push(TABLE(["Limit on people kept per block", "Employee shifts kept", "Blocks below the goal", "Expected service", "Labor cost", "Overtime hours"],
+  PTO.map((r) => [r.kept_per_block === 0 ? "0 (the plan as it stands)" : String(r.kept_per_block), num(r.people_kept), num(r.blocks_below_goal), pct(r.expected_met), money(r.cost), num(r.overtime_hours)]),
+  [2560, 1300, 1300, 1400, 1400, 1400]));
+body.push(CAPTION("Table 13. BASE scenario. Each row reruns the staffing search with those people available at the regular rate. The data doesn't show how much PTO is already approved, so this assumes some of it can still be limited (A-16)."));
+const ptoLast = PTO[PTO.length - 1];
+if (ptoLast.below_goal_with_holiday_pto !== 0) throw new Error("The PTO wording no longer holds");
+body.push(P(`**Service improves and cost falls.** Most of the gain comes from the first 3 people per block. At the highest limit, the ${ptoLast.blocks_below_goal} blocks still below the goal are all on days holiday PTO doesn't touch, Feb 13 and Feb 17.`));
+body.push(H2("Which plan to use, and what to do"));
+const PB = S.playbook;
+for (const name of SCEN) {
+  body.push(P(`**${name}. Use it when:** ${PB.scenarios[name].trigger}`));
+  for (const action of PB.scenarios[name].actions) body.push(BUL(action));
+}
+body.push(H2("On the day"));
+body.push(P("Each block has a **cushion**: the people it can lose, or the extra demand it can take, before missing target becomes the likelier outcome. The app shows each block's cushion."));
+body.push(TABLE(["If", "Then"], PB.on_the_day.map((r) => [r.trigger, r.action]), [4360, 5000], { leftAll: true }));
+body.push(SPACER());
+body.push(H2("Why each block changed"));
+const EX = S.explanation_examples;
+body.push(P("The tool gives every block a plain reason, filled in from the calculated numbers, along with the assumptions behind it. Two examples from BASE:"));
+for (const example of [EX.added, EX.cut]) {
+  body.push(P(`**${WH[example.store_id]} ${example.department}, ${example.day}, ${SHIFT[example.shift]}. ${example.headline}.** ${example.why} ${example.demand_driver} ${example.cushion_text}`));
+}
+body.push(P("The reasons for all 567 blocks are in outputs/explanations.csv."));
+
 // Verification.
 body.push(H1("How we checked this"));
 body.push(BUL(`**Rebuilt the Nov 2 EDA dashboard from the raw CSVs.** Of its ${RECON.calculated} calculated headline figures, we reproduced ${RECON.matched}, which includes the 29-person shortfall we then correct below. The other ${RECON.differ} are explained below. Its full tables for hours, service bands, holiday factors, callouts and capacity also matched.`));
@@ -350,7 +383,8 @@ body.push(BUL(`**Tested forecasts on held-out weeks,** and service curves by lea
 const c9599 = cal.find((r) => r.bin === "95-99%");
 body.push(BUL(`**Checked the predicted chances against what happened.** Blocks predicted at 95-99% met target ${pct(c9599.observed)} of the time, against ${pct(c9599.predicted)} predicted. So our expected service may run a little high near the goal.`));
 body.push(BUL("**Checked the risk calculation against a direct simulation.** This caught a real error in our first version, which is now fixed, and a test keeps it from returning."));
-body.push(BUL("**Wrote automated tests** for the allocation rule, forecast, risk model, search and submission validator."));
+body.push(BUL("**Wrote automated tests** for the allocation rule, forecast, risk model, search, submission validator, explanations, playbook and app."));
+body.push(BUL("**Drove the app in Chrome,** through every tab, scenario and a what-if. This found display problems that the tests couldn't see, which we fixed. The page requested nothing from outside this computer."));
 if (CHECK) body.push(BUL(CHECK.summary));
 body.push(H2("Corrections to the dashboard"));
 body.push(BUL(`**DISRUPT shortfall.** The dashboard says the draft is 29 people short. Limiting cross-trained staff to what the partner department can spare, as the case's rule says, makes it **${num(K.disrupt_shortfall_usable_flex)}**, still across 12 blocks. The draft's DISRUPT cost is ${money(K.draft_cost_disrupt)}, not $327,334, because the dashboard also let overtime run past its limit.`));
@@ -381,6 +415,7 @@ body.push(TABLE(["ID", "Assumption", "If it's wrong"], [
   ["A-13", `The service goal is a ${pct(S.service_goal, 0)} chance of meeting target in each block. Confirmed`, "Cost and service move along the trade-off above"],
   ["A-14", "A future week's demand level matches the average of the last four weeks. Weekly levels have ranged about 5% either way", "All forecasts shift together"],
   ["A-15", "Callout rates by situation are used as measured, even where few people stand behind them, as with Pharmacy", "A few Pharmacy blocks are over- or under-buffered, most visibly on Feb 17"],
+  ["A-16", "Some holiday-weekend PTO can still be limited, up to what each block lost against recent weeks", "The PTO savings in Table 13 shrink or disappear"],
 ], [760, 5100, 3500], { leftAll: true }));
 body.push(SPACER());
 
@@ -390,18 +425,18 @@ body.push(H2("Waiting on someone"));
 body.push(BUL("**Organizer questions, on hold.** Nothing has been sent. We still need the exact Saturday deadline and how to hand everything in, so we should come back to this by Thursday. Their answer on scoring callouts would also show whether the callout allowance is needed."));
 body.push(BUL(`**Team name.** The CSV uses the placeholder ${S.team_id}, which must be replaced before submitting.`));
 body.push(H2("Still to build"));
-body.push(BUL("**App:** scenario selector, staffing, cost and risk views, a demand view, and a \"why this recommendation\" panel."));
-body.push(BUL("**Explanations:** a reason for every changed block."));
-body.push(BUL("**Leader playbook:** what to do when demand or staffing shifts, especially on Feb 14 and in the Warehouse 2 illness case."));
+body.push(BUL("**App packaging:** written steps that run the app on a clean machine."));
 body.push(BUL("**Deck and appendix:** 12-15 minutes covering diagnosis, forecast, recommendation and all three scenarios, with a demo."));
 body.push(BUL("**Rehearsal and backup:** run the demo in a real browser with Wi-Fi off, record a backup, and time the full presentation."));
 body.push(H2("Work that doesn't need coding"));
 body.push(BUL("Outline the deck from the sections above. The diagnosis and scenario stories are ready to use."));
-body.push(BUL("Draft the leader playbook, using the capacity table and the scenario descriptions."));
+body.push(BUL("Review the leader playbook, and say where a real warehouse leader would push back."));
 body.push(BUL("Challenge the assumptions above, especially Valentine's Day, and question anything that doesn't make business sense."));
 body.push(H2("Where everything is"));
 body.push(BUL("**Submission CSV:** outputs/TEAM_SUBMISSION_TEMPLATE_filled.csv"));
 body.push(BUL("**Block-by-block comparison:** outputs/plan_vs_draft.csv"));
+body.push(BUL("**The reason for every block:** outputs/explanations.csv"));
+body.push(BUL("**The app:** run python -m streamlit run app.py, then open http://localhost:8501"));
 body.push(BUL("**Plans, decisions and findings:** the planning folder"));
 
 const doc = new Document({

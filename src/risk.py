@@ -60,6 +60,14 @@ def chance_met(
     return float(pmf[usable] @ by_outcome)
 
 
+def cushion(curve: Curve, store: int, workload_hours: float, employees: int, paid_hours: float) -> tuple[int, float]:
+    """People a block can lose, or the rise in demand it can take, before missing target becomes the likelier outcome."""
+    trouble_line = curve.utilization_for(store, 0.5)
+    people = int(np.floor(employees - workload_hours / (trouble_line * paid_hours) + 1e-9))
+    demand = trouble_line * employees * paid_hours / workload_hours - 1
+    return max(people, 0), max(float(demand), 0.0)
+
+
 def monte_carlo_chance(
     curve: Curve,
     store: int,

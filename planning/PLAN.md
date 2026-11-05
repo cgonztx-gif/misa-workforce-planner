@@ -2,15 +2,17 @@
 
 ## Current focus
 
-**Deadline: the morning of Saturday, Nov 7, 2026.** The exact time isn't known yet (Q-11), so we aim to finish Friday night (D-14). As of Wednesday evening, that leaves Thursday and Friday.
+**Deadline: the morning of Saturday, Nov 7, 2026.** The exact time isn't known yet (Q-11), so we aim to finish Friday night (D-14). As of Wednesday night, that leaves Thursday and Friday.
 
-**Now: M2 is met, ahead of the schedule.** Diagnosis, forecast, allocation rule, service curves, risk model, staffing search and a valid submission CSV all exist, and a separate check recomputed the tables (F-39 to F-54). The team's analysis is in `deliverables/Costco_Case_Analysis.docx` (T-67). The app is still only a placeholder.
+**Now: M2 and M3 are met, ahead of the schedule.** The analysis, plan, explanations, playbook and all app views exist and work in Chrome (F-39 to F-56). The team's analysis is in `deliverables/Costco_Case_Analysis.docx` (T-67).
 
 Next actions:
 
-1. **T-41, T-42:** explanations for each changed block, and the leader playbook. Feb 14 capacity (F-50) and the Warehouse 2 illness case need clear actions.
-2. **T-50, T-51, T-52, T-53:** build the app views on `src/search.py` and `outputs/`.
-3. **Settled:** the service goal is 95% (A-13), and the plan allows for callouts (A-03). Neither is waiting on the organizers.
+1. **T-56:** package the app and test it from a clean environment.
+2. **T-60, T-61:** build the deck and appendix. The Word file has the material, and limiting holiday PTO is the headline recommendation (F-55).
+3. **T-05, Q-07:** come back to the organizer questions by Thursday, and get the real team name.
+4. **T-63 to T-66:** rehearse with Wi-Fi off, record a backup, time the full run and do the final check.
+5. **Settled:** the service goal is 95% (A-13), and the plan allows for callouts (A-03). Neither is waiting on the organizers.
 
 Held for now:
 
@@ -25,8 +27,8 @@ The team is 4 people with one main coder, so coding work mostly runs in sequence
 |---|---|---|---|
 | Tue Nov 3, evening | T-04, T-06, T-07, T-09, T-10 (done) | T-08 (done Wed Nov 4), T-05 (deferred) | M1 |
 | Wed Nov 4 | T-11, T-12, T-13, T-20 to T-24, T-30 to T-35, T-40 (done, ahead of schedule) | Deck outline for T-60, using `deliverables/Costco_Case_Analysis.docx` | M2: met |
-| Thu Nov 5 | T-41, T-50, T-51, T-52, T-53 | T-42, T-60, T-61, and come back to T-05 | M3 |
-| Fri Nov 6 | T-54, T-55, T-56, T-62, T-63, T-64 | Finish T-60 and T-61, then T-65 and T-66 | M4 by afternoon, M5 by night |
+| Thu Nov 5 | T-41, T-42, T-50 to T-55 (done Wed Nov 4, ahead of schedule), then T-56 | T-60, T-61, and come back to T-05 | M3: met |
+| Fri Nov 6 | T-62, T-63, T-64 | Finish T-60 and T-61, then T-65 and T-66 | M4 by afternoon, M5 by night |
 | Sat Nov 7, morning | Submit. No new work, only buffer | | |
 
 ### If we fall behind
@@ -46,7 +48,7 @@ Never cut these, because the case requires them: a valid CSV for all three scena
 |---|---|---|---|
 | M1 | Setup complete | T-04 and T-06 to T-10 are done, with T-05 deferred | Tue Nov 3 (finished Wed Nov 4 with T-08) |
 | M2 | Diagnosis and forecast locked | Phases 1 and 2 are done, and a first valid submission CSV exists | Wed Nov 4, night (met) |
-| M3 | Staffing plans generated | Phases 3 and 4 are done, covering all three scenarios | Thu Nov 5, night |
+| M3 | Staffing plans generated | Phases 3 and 4 are done, covering all three scenarios | Thu Nov 5, night (met Wed Nov 4) |
 | M4 | App ready to demo | Phase 5 is done | Fri Nov 6, afternoon |
 | M5 | Submission ready and frozen | Phase 6 is done | Fri Nov 6, night |
 
@@ -102,19 +104,19 @@ Never cut these, because the case requires them: a valid CSV for all three scena
 | ID | Task | Needs | Done when | Status |
 |---|---|---|---|---|
 | T-40 | Build the service-risk estimate (D-07, D-18) | T-13, T-24, T-31 | Each block has a chance of missing target | Done |
-| T-41 | Generate explanations: change from draft, demand driver, cost and risk effect (D-08) | T-34, T-40 | Every changed block has a reason | Not started |
-| T-42 | Write the leader playbook: what to do when demand or staffing shifts | T-34 | Each scenario has clear triggers and actions | Not started |
+| T-41 | Generate explanations: change from draft, demand driver, cost and risk effect (D-08) | T-34, T-40 | Every changed block has a reason | Done |
+| T-42 | Write the leader playbook: what to do when demand or staffing shifts | T-34 | Each scenario has clear triggers and actions | Done |
 
 ### Phase 5: App
 
 | ID | Task | Needs | Done when | Status |
 |---|---|---|---|---|
-| T-50 | Scenario selector and staffing view by warehouse, department, day and shift | T-32 | Switching scenario updates the view | Not started |
-| T-51 | Cost and service-risk view compared with the draft | T-34, T-40 | Both are shown for the selected scenario | Not started |
-| T-52 | Demand view: when demand rises or falls, and why | T-23 | Peaks and their drivers are visible | Not started |
-| T-53 | "Why this recommendation" panel, including the assumptions behind it | T-41 | Available for any changed block | Not started |
-| T-54 | What-if control that recalculates live, such as callout rate, plus the playbook | T-42, T-50 | Moving it changes the recommendation | Not started |
-| T-55 | Cache the three scenarios at startup and time the app (D-11) | T-50 to T-54 | Timings in `FINDINGS.md` and fast enough to demo | Not started |
+| T-50 | Scenario selector and staffing view by warehouse, department, day and shift | T-32 | Switching scenario updates the view | Done |
+| T-51 | Cost and service-risk view compared with the draft | T-34, T-40 | Both are shown for the selected scenario | Done |
+| T-52 | Demand view: when demand rises or falls, and why | T-23 | Peaks and their drivers are visible | Done |
+| T-53 | "Why this recommendation" panel, including the assumptions behind it | T-41 | Available for any changed block | Done |
+| T-54 | What-if control that recalculates live, such as callout rate, plus the playbook | T-42, T-50 | Moving it changes the recommendation | Done |
+| T-55 | Cache the three scenarios at startup and time the app (D-11) | T-50 to T-54 | Timings in `FINDINGS.md` and fast enough to demo | Done |
 | T-56 | Package it: `requirements.txt`, start command, `.streamlit/config.toml` (Q-04) | T-55 | Runs from a clean environment using written steps | Not started |
 
 ### Phase 6: Deliverables

@@ -8,7 +8,7 @@ Entry for the Texas MISA Fall 2026 case competition: the Costco workforce planni
 
 **Submission is due the morning of Saturday, Nov 7, 2026.**
 
-The analysis engine and a first valid staffing CSV exist. The app is still a placeholder. Git is local only, on `main`. `MISA/` and `data/` aren't tracked because they extract from `MISA.zip`.
+First versions of the analysis, staffing CSV, explanations, playbook and app all work. The deck doesn't exist yet. Git is local only, on `main`. `MISA/` and `data/` aren't tracked because they extract from `MISA.zip`.
 
 ## Stack
 

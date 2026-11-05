@@ -1,6 +1,6 @@
 # Findings
 
-Verified facts, with what to do about each. **Measured** findings (F-01 to F-20) reproduce with `evidence/verify_findings.py`; the section codes in its saved output match these IDs. **Docs** findings cite the data pack. F-21 to F-25 and F-36 to F-38 come from checks on this machine. F-39 to F-53 reproduce with `python -m src.pipeline`, whose results are in `outputs/`. F-54 records an independent check of them.
+Verified facts, with what to do about each. **Measured** findings (F-01 to F-20) reproduce with `evidence/verify_findings.py`; the section codes in its saved output match these IDs. **Docs** findings cite the data pack. F-21 to F-25 and F-36 to F-38 come from checks on this machine. F-39 to F-53 reproduce with `python -m src.pipeline`, whose results are in `outputs/`. F-54 records an independent check of them. F-55 reproduces with the pipeline too, and F-56 comes from driving the app in Chrome.
 
 ## Sources
 
@@ -134,3 +134,9 @@ Expected service below means the average chance of meeting target across open bl
 ## Independent check (as of 2026-11-04)
 
 - **F-54: A separate recomputation found no numeric errors in the tables, but did find overstated wording (`evidence/independent_check.md`).** Every table it could recompute from the raw CSVs matched, and its model-based results were close (BASE plan service 95.4% against 95.8%). Its service model shares our structure, so that supports the arithmetic, not the assumptions. Of its 9 main points, we reproduced 8 and fixed the wording. We didn't reproduce the point about weekly swings, because the Word file's 10% and 2% are correct by department. The most important fix is that we no longer claim the forecast beats the benchmark in the planning week (F-44). *Use:* quote these figures with the limits stated.
+
+## Playbook and app (as of 2026-11-04)
+
+- **F-55: Limiting holiday PTO is the strongest move found (T-42, A-16).** PTO takes about 4 Front End and 3 Merchandising people per block out of Feb 14-15 against the last three normal weeks. Rerunning the BASE search with up to N of them kept per block, capped at what each block lost, gives (N, employee shifts kept, blocks below goal, expected service, cost, overtime hours): 0, 0, 25, 95.8%, $376,176, 958; 1, 62, 16, 96.8%, $374,675, 763; 2, 115, 10, 97.1%, $373,711, 616; 3, 150, 7, 97.2%, $372,032, 494; 4, 171, 6, 97.2%, $371,425, 430; 5, 179, 6, 97.2%, $371,186, 404. Cost falls because regular staff replace overtime. At N = 5, the 6 blocks still below the goal are all on Feb 13 and Feb 17, which holiday PTO doesn't touch. Table: `outputs/pto_what_if.csv`. *Use:* this is the headline recommendation for a warehouse leader. It relies on some PTO still being open to change, which the data doesn't show.
+- **F-56: The app works in Chrome and is fast enough to demo (T-50 to T-55).** Driven with Playwright in headless Chrome against `python -m streamlit run app.py`. Over two runs: first page load 14.5 to 15 seconds, tabs under 1 second, scenario switches under 1 second, and a what-if 2.4 to 5 seconds. No exceptions or console errors, and no requests off this machine. This caught problems `AppTest` can't see, all fixed: dollar signs rendering as math, a Playbook tab blank during its first calculation, a color scale drifting through purple, cut-off text, and a warning that shifted the tabs. **Not tested:** a person using it with Wi-Fi off (T-63), and hover tooltips. *Use:* open the app once before presenting, so the cold start doesn't happen in front of judges.
+
