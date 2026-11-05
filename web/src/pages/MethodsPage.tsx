@@ -1,6 +1,6 @@
 import { BadgeCheck, CheckCircle2, ClipboardCheck, FlaskConical, Target, TrendingDown } from "lucide-react";
 import type { ReactNode } from "react";
-import { Card, ErrorPanel, KpiRow, KpiTile, PageHeader, SkeletonCard } from "../components";
+import { Card, ErrorPanel, KpiRow, KpiTile, PageHeader, SkeletonCard, Tooltip } from "../components";
 import { useForecast, useMethods } from "../lib/api";
 import { fmtInt, fmtPct } from "../lib/format";
 import { EngineDiagram } from "./methods/EngineDiagram";
@@ -9,14 +9,14 @@ import type { ForecastAccuracy, MethodsResponse } from "./methods/types";
 import { BacktestCard, CalibrationCard, LimitsCard } from "./methods/Validation";
 
 /** Independent checks behind the numbers, each recorded as a finding with a way to reproduce it. No figures here: those are on the cards. */
-const CHECKS: { text: string; ref: string }[] = [
-  { text: "Rerunning the analysis rewrites every output file byte for byte.", ref: "F-66" },
-  { text: "The submission passes an independent rebuild: joined on keys, closed blocks at 0, every block within capacity and at or above minimum staff.", ref: "F-67" },
-  { text: "An independent brute force over every feasible staffing pair picks the same answer as the search.", ref: "F-70" },
-  { text: "Costs rebuilt row by row from the README's rule, without our code, match the plan's.", ref: "F-71" },
-  { text: "Every explanation quotes its own block's numbers, checked by a test on every row.", ref: "F-72" },
-  { text: "The exact risk calculation agrees with a Monte Carlo simulation.", ref: "F-47" },
-  { text: "Expected service agrees with history when the model is set aside.", ref: "F-65" },
+const CHECKS: { label: string; text: string; ref: string }[] = [
+  { label: "Rerun is byte for byte", text: "Rerunning the analysis rewrites every output file byte for byte.", ref: "F-66" },
+  { label: "Submission rebuilt independently", text: "The submission passes an independent rebuild: joined on keys, closed blocks at 0, every block within capacity and at or above minimum staff.", ref: "F-67" },
+  { label: "Brute force picks the same plan", text: "An independent brute force over every feasible staffing pair picks the same answer as the search.", ref: "F-70" },
+  { label: "Costs rebuilt without our code", text: "Costs rebuilt row by row from the README's rule, without our code, match the plan's.", ref: "F-71" },
+  { label: "Every explanation quotes its block", text: "Every explanation quotes its own block's numbers, checked by a test on every row.", ref: "F-72" },
+  { label: "Risk math matches simulation", text: "The exact risk calculation agrees with a Monte Carlo simulation.", ref: "F-47" },
+  { label: "Expected service matches history", text: "Expected service agrees with history when the model is set aside.", ref: "F-65" },
 ];
 
 function Section({ id, title, lead, children }: { id: string; title: string; lead?: string; children: ReactNode }) {
@@ -26,7 +26,7 @@ function Section({ id, title, lead, children }: { id: string; title: string; lea
         <h2 id={id} className="text-title font-semibold text-ink">
           {title}
         </h2>
-        {lead && <p className="mt-1 max-w-[90ch] text-base text-ink-muted">{lead}</p>}
+        {lead && <p className="sr-only">{lead}</p>}
       </div>
       {children}
     </section>
@@ -85,7 +85,6 @@ export default function MethodsPage() {
           <KpiTile
             label="Forecast error, by day"
             icon={<TrendingDown />}
-            tone="accent"
             value={fmtPct(all?.model)}
             sub={`Benchmark method ${fmtPct(all?.benchmark)}`}
             help={accuracy?.text ?? "Mean absolute percentage error on held-out normal weeks."}
@@ -118,10 +117,14 @@ export default function MethodsPage() {
           <Card title="Independent checks" description="Each is recorded as a finding with a way to reproduce it." padding="none">
             <ul className="divide-y divide-border border-t border-border">
               {CHECKS.map((c) => (
-                <li key={c.ref} className="flex items-start gap-3 px-5 py-2.5">
-                  <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-good" aria-hidden />
-                  <span className="min-w-0 flex-1 text-base leading-snug text-ink-muted">{c.text}</span>
-                  <span className="shrink-0 font-mono text-sm text-ink-subtle">{c.ref}</span>
+                <li key={c.ref}>
+                  <Tooltip content={c.text} width={340} side="left">
+                    <div tabIndex={0} className="flex h-11 items-center gap-3 px-5 outline-none hover:bg-raised focus-visible:bg-accent-soft">
+                      <CheckCircle2 className="size-4 shrink-0 text-good" aria-hidden />
+                      <span className="min-w-0 flex-1 truncate text-base text-ink">{c.label}</span>
+                      <span className="shrink-0 font-mono text-sm text-ink-subtle">{c.ref}</span>
+                    </div>
+                  </Tooltip>
                 </li>
               ))}
             </ul>

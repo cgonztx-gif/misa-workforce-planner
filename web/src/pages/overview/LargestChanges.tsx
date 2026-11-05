@@ -1,7 +1,7 @@
 // The blocks that move most from the draft. Each row opens that block on the Schedule page.
-import { AlertTriangle, ChevronRight } from "lucide-react";
+import { ChevronRight, TriangleAlert } from "lucide-react";
 import { Link } from "react-router";
-import { Card, DeltaChip, deptColor, Tooltip } from "../../components";
+import { Card, DeltaChip, Tooltip } from "../../components";
 import { signedInt, signedMoney } from "../../lib/format";
 import { fmtChance } from "../../components/schedule/boardScales";
 import type { Block } from "../../lib/types";
@@ -21,21 +21,26 @@ function Dumbbell({ draft, plan, max }: { draft: number; plan: number; max: numb
   );
 }
 
-export function LargestChanges({ blocks, showWarehouse, scenario, goal }: { blocks: Block[]; showWarehouse: boolean; scenario: string; goal: number }) {
+export function LargestChanges({ blocks, showWarehouse, scenario, goal, allChanges }: { blocks: Block[]; showWarehouse: boolean; scenario: string; goal: number; allChanges: string }) {
   const max = Math.max(...blocks.map((b) => Math.max(b.plan, b.draft)), 1);
+  const cols = "grid grid-cols-[minmax(0,1.6fr)_minmax(140px,1fr)_72px_minmax(0,0.8fr)_16px] gap-x-5";
   return (
     <Card
-      title="Largest changes from the draft"
-      description="The blocks the plan moves most. Click one to open it on the Schedule."
+      title="Largest changes"
+      description="The blocks the plan moves most from the draft: people, and the chance of meeting target, draft to plan. Click one to open it on the Schedule."
+      actions={
+        <Link to={allChanges} className="inline-flex items-center gap-0.5 text-sm font-medium text-accent hover:text-accent-strong">
+          All changes <ChevronRight className="size-4" aria-hidden />
+        </Link>
+      }
       padding="none"
     >
       <div className="border-t border-border">
-        <div className="grid grid-cols-[minmax(0,1.5fr)_minmax(120px,1fr)_88px_minmax(0,0.9fr)_96px_20px] gap-x-4 bg-raised px-5 py-2 text-sm text-ink-subtle">
+        <div className={`${cols} bg-raised px-5 py-2 text-sm text-ink-subtle`}>
           <span>Block</span>
-          <span>Draft to plan</span>
+          <span>People</span>
           <span className="text-right">Change</span>
-          <span className="text-right">Chance of meeting target</span>
-          <span className="text-right">Cost</span>
+          <span className="text-right">Chance</span>
           <span />
         </div>
         <ul className="divide-y divide-border">
@@ -43,23 +48,21 @@ export function LargestChanges({ blocks, showWarehouse, scenario, goal }: { bloc
             <li key={b.key}>
               <Link
                 to={`/schedule?scenario=${scenario}&wh=${b.store_id}&block=${encodeURIComponent(b.key)}`}
-                className="group grid grid-cols-[minmax(0,1.5fr)_minmax(120px,1fr)_88px_minmax(0,0.9fr)_96px_20px] items-center gap-x-4 px-5 py-2.5 outline-none hover:bg-raised focus-visible:bg-accent-soft"
+                title={`${b.label}${showWarehouse ? `, ${b.warehouse}` : ""}: ${b.draft} to ${b.plan} people, ${signedMoney(b.cost_change)} labor cost`}
+                className={`group ${cols} h-12 items-center px-5 outline-none hover:bg-raised focus-visible:bg-accent-soft`}
               >
-                <span className="min-w-0">
-                  <span className="flex items-center gap-2 truncate text-base font-medium text-ink">
-                    <span aria-hidden className="size-2.5 shrink-0 rounded-full" style={{ background: deptColor(b.dept_id) }} />
-                    <span className="truncate">{b.label}</span>
-                    {b.below_goal && (
-                      <Tooltip content="Below the goal, even at capacity">
-                        <AlertTriangle className="size-4 shrink-0 text-risk" aria-label="Below the goal" />
-                      </Tooltip>
-                    )}
-                  </span>
-                  {showWarehouse && <span className="ml-[18px] block text-sm text-ink-subtle">{b.warehouse}</span>}
+                <span className="flex min-w-0 items-center gap-2 text-base font-medium text-ink">
+                  <span className="truncate">{b.label}</span>
+                  {showWarehouse && <span className="shrink-0 text-sm font-normal text-ink-subtle">WH{b.store_id}</span>}
+                  {b.below_goal && (
+                    <Tooltip content="Below the goal, even at capacity">
+                      <TriangleAlert className="size-4 shrink-0 text-warning" aria-label="Below the goal" />
+                    </Tooltip>
+                  )}
                 </span>
                 <span className="flex items-center gap-3">
                   <span className="tnum w-[52px] shrink-0 text-sm text-ink-muted">
-                    {b.draft} <span className="text-ink-subtle">to</span> <span className="font-semibold text-ink">{b.plan}</span>
+                    {b.draft} <span className="text-ink-subtle">→</span> <span className="font-semibold text-ink">{b.plan}</span>
                   </span>
                   <Dumbbell draft={b.draft} plan={b.plan} max={max} />
                 </span>
@@ -67,9 +70,8 @@ export function LargestChanges({ blocks, showWarehouse, scenario, goal }: { bloc
                   <DeltaChip value={b.change} format={signedInt} size="sm" />
                 </span>
                 <span className="tnum text-right text-sm whitespace-nowrap text-ink-muted">
-                  {fmtChance(b.chance_draft, b.below_goal_draft, goal)} <span className="text-ink-subtle">to</span> <span className="font-semibold text-ink">{fmtChance(b.chance, b.below_goal, goal)}</span>
+                  {fmtChance(b.chance_draft, b.below_goal_draft, goal)} <span className="text-ink-subtle">→</span> <span className="font-semibold text-ink">{fmtChance(b.chance, b.below_goal, goal)}</span>
                 </span>
-                <span className="tnum text-right text-sm text-ink-muted">{signedMoney(b.cost_change)}</span>
                 <ChevronRight className="size-4 text-ink-subtle group-hover:text-accent" aria-hidden />
               </Link>
             </li>

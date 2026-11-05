@@ -28,7 +28,7 @@ export function LabKpis({ whatIf, kept, submitted, changes }: LabKpisProps) {
         label="Labor cost"
         icon={<DollarSign />}
         value={fmtMoney(whatIf.cost)}
-        delta={{ value: whatIf.cost - kept.cost, format: (n) => signedMoney(n, true), goodWhen: "neutral" }}
+        delta={{ value: whatIf.cost - kept.cost, format: (n) => signedMoney(n, true), goodWhen: "neutral", suffix: "vs kept" }}
         sub={`If kept as submitted: ${fmtMoney(kept.cost, true)}`}
         help={`The re-planned week's loaded labor cost, against the submitted plan's ${fmtMoney(kept.cost)} for the staff it can field under these conditions. The change is shown in neutral gray, because cost moves with the service the re-plan buys.`}
       />
@@ -36,16 +36,15 @@ export function LabKpis({ whatIf, kept, submitted, changes }: LabKpisProps) {
         label="Hours"
         icon={<Clock />}
         value={fmtHours(whatIf.hours)}
-        delta={{ value: whatIf.hours - kept.hours, format: signedHours, goodWhen: "neutral" }}
+        delta={{ value: whatIf.hours - kept.hours, format: signedHours, goodWhen: "neutral", suffix: "vs kept" }}
         sub={`${fmtInt(whatIf.overtime_hours)} h overtime`}
         help={`Paid hours in the re-planned week. The submitted plan has ${fmtHours(kept.hours)}, ${fmtInt(kept.overtime_hours)} of them overtime.`}
       />
       <KpiTile
         label="Expected service"
         icon={<Gauge />}
-        tone="accent"
         value={fmtPct(whatIf.expected_met)}
-        delta={{ value: whatIf.expected_met != null && kept.expected_met != null ? whatIf.expected_met - kept.expected_met : null, format: (n) => signedPts(n), goodWhen: "up" }}
+        delta={{ value: whatIf.expected_met != null && kept.expected_met != null ? whatIf.expected_met - kept.expected_met : null, format: (n) => signedPts(n), goodWhen: "up", suffix: "vs kept" }}
         sub={`If kept as submitted: ${fmtPct(kept.expected_met)}`}
         help={`The average chance of meeting target under these conditions: ${fmtPct(whatIf.expected_met)} re-planned, ${fmtPct(kept.expected_met)} if the submitted plan stays as it is. ${asSubmitted}${fmtPct(submitted.expected_met)}.`}
       />
@@ -54,7 +53,7 @@ export function LabKpis({ whatIf, kept, submitted, changes }: LabKpisProps) {
         icon={whatIf.below_goal > 0 ? <AlertTriangle /> : <ShieldCheck />}
         tone={whatIf.below_goal > 0 ? "risk" : "default"}
         value={fmtInt(whatIf.below_goal)}
-        delta={{ value: whatIf.below_goal - kept.below_goal, format: signedInt, goodWhen: "down" }}
+        delta={{ value: whatIf.below_goal - kept.below_goal, format: signedInt, goodWhen: "down", suffix: "vs kept" }}
         sub={`If kept as submitted: ${fmtInt(kept.below_goal)}`}
         help={`Blocks under the goal even with all their own staff: ${fmtInt(whatIf.below_goal)} re-planned, ${fmtInt(kept.below_goal)} if the submitted plan stays as it is. ${asSubmitted}${fmtInt(submitted.below_goal)}.`}
       />
@@ -124,7 +123,7 @@ export function ChangesTable({ rows, showWarehouse, maxHeight = 460 }: { rows: W
       dense
       maxHeight={maxHeight}
       caption="Blocks whose headcount differs from the submitted plan"
-      empty={<p className="px-5 py-8 text-center text-base text-ink-muted">No block's headcount changes here. The submitted plan already fits these conditions.</p>}
+      empty={<p className="px-5 py-8 text-center text-base text-ink-muted">No blocks change: the submitted plan already fits.</p>}
     />
   );
 }

@@ -127,7 +127,7 @@ export function DayWaterfall({ series, scenario, dept, date, onDept, onDate, war
   const day = s.days.find((x) => x.date === date)!;
 
   return (
-    <Card title="How one day's demand is built" description={`From a normal weekday to the demand the plan staffs for, for ${warehouseName}. Pick a department and a day.`}>
+    <Card title="How one day's demand is built" description={`From a normal weekday to the demand the plan staffs for, for ${warehouseName}. Pick a department and a day; hover the box under the table for the drivers in words.`}>
       <div className="flex flex-wrap items-center gap-3">
         <SegmentedControl
           label="Department"
@@ -238,12 +238,18 @@ export function DayWaterfall({ series, scenario, dept, date, onDept, onDate, war
               </tr>
             </tbody>
           </table>
-          <p className="mt-3 rounded-control bg-raised px-3.5 py-3 text-sm leading-relaxed text-ink-muted">
-            <span className="font-semibold text-ink">{day.day}, {s.department}: </span>
-            {scenario === "BASE" ? "our forecast" : `${scenario} demand`} is <span className="tnum font-semibold text-ink">{signedPct(final / benchmark - 1, 1)}</span> against the benchmark.{" "}
-            {day.driver ?? steps.filter((st) => (st.key === "holiday" || st.key === "valentine") && Math.abs(st.value) > 1e-9).map((st) => st.why).join(" ")}
-            {scenario !== "BASE" && ` ${steps.find((st) => st.key === "scenario")?.why ?? ""}`}
-          </p>
+          <div
+            className="mt-3 rounded-control bg-raised px-3.5 py-3"
+            title={[day.driver ?? steps.filter((st) => (st.key === "holiday" || st.key === "valentine") && Math.abs(st.value) > 1e-9).map((st) => st.why).join(" "), scenario !== "BASE" ? steps.find((st) => st.key === "scenario")?.why ?? "" : ""].filter(Boolean).join(" ")}
+          >
+            <div className="text-sm text-ink-subtle">
+              {day.day} · {s.department}
+            </div>
+            <div className="tnum mt-0.5 flex items-baseline gap-2">
+              <span className="font-display text-[22px] font-semibold text-ink">{signedPct(final / benchmark - 1, 1)}</span>
+              <span className="text-sm text-ink-subtle">vs benchmark</span>
+            </div>
+          </div>
         </div>
       </div>
     </Card>

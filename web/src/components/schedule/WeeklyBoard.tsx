@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef } from "react";
 import { cn } from "../../lib/cn";
 import { signedInt } from "../../lib/format";
 import type { Block } from "../../lib/types";
-import { deptColor } from "../charts/chartTheme";
 import { BoardCell } from "./BoardCell";
 import { DEPT_ORDER, shiftIndex, type ColorMode } from "./boardScales";
 
@@ -147,7 +146,7 @@ export function WeeklyBoard({ blocks, days, mode, selectedKey, onSelect, dayTota
                     style={{ gridRow: `span ${dept.shifts.length}` }}
                     className={cn("relative flex flex-col justify-center pr-2 pl-4", di > 0 ? "pt-4 pb-1" : "py-1")}
                   >
-                    <span aria-hidden className={cn("absolute bottom-1.5 left-0 w-1 rounded-full", di > 0 ? "top-[18px]" : "top-1.5")} style={{ background: deptColor(dept.id) }} />
+                    <span aria-hidden className={cn("absolute bottom-1.5 left-0 w-[3px] rounded-full bg-border-strong", di > 0 ? "top-[18px]" : "top-1.5")} />
                     <span className="text-base leading-tight font-semibold text-ink">{dept.name}</span>
                     <span className="tnum mt-1 text-sm text-ink-subtle">{signedInt(dept.net)} people</span>
                   </div>
@@ -170,7 +169,7 @@ export function WeeklyBoard({ blocks, days, mode, selectedKey, onSelect, dayTota
                       {block ? (
                         <BoardCell block={block} mode={mode} selected={block.key === selectedKey} onSelect={onSelect} goal={goal} />
                       ) : (
-                        <div className="h-[52px] rounded-control border border-dashed border-border" aria-label="No block" />
+                        <div className="h-10 rounded-control border border-dashed border-border" aria-label="No block" />
                       )}
                     </div>
                   );

@@ -1,4 +1,4 @@
-import { Card, deptColor, SwatchLabel, Tooltip } from "../../components";
+import { Card, Tooltip } from "../../components";
 import { fmtInt, fmtMoney, fmtPct } from "../../lib/format";
 import { tokens } from "../../styles/tokens";
 import type { DiagnosisResponse } from "./types";
@@ -15,11 +15,17 @@ export function HistoryCard({ diagnosis }: { diagnosis: DiagnosisResponse }) {
 
   return (
     <Card
-      title="Why the draft needs changing: history"
-      description="Six weeks of past schedules, against the hours an 85% utilization ceiling needs."
-      footer={`All departments: ${fmtInt(k.over_hours)} hours above need, worth ${fmtMoney(k.over_value)}, while ${fmtInt(k.short_hours)} hours were missing elsewhere. Blocks met target ${fmtPct(k.pct_met_all)} of the time.`}
+      title="History: hours in the wrong places"
+      description={`Six weeks of past schedules, against the hours an 85% utilization ceiling needs. Hours were about right in total, but in the wrong places: all departments had ${fmtInt(k.over_hours)} hours above need, worth ${fmtMoney(k.over_value)}, while ${fmtInt(k.short_hours)} hours were missing elsewhere. Blocks met target ${fmtPct(k.pct_met_all)} of the time.`}
     >
-      <p className="font-display text-title font-semibold leading-snug text-ink">Hours were about right in total, but in the wrong places.</p>
+      <div className="tnum flex items-baseline gap-6">
+        <span>
+          <span className="font-display text-kpi font-semibold text-ink">{fmtInt(k.short_hours)} h</span> <span className="text-sm text-ink-subtle">short</span>
+        </span>
+        <span>
+          <span className="font-display text-kpi font-semibold text-ink">{fmtInt(k.over_hours)} h</span> <span className="text-sm text-ink-subtle">above need</span>
+        </span>
+      </div>
       <div className="mt-4 flex items-center justify-between text-sm text-ink-subtle">
         <span className="inline-flex items-center gap-2">
           <span aria-hidden className="size-3 rounded-[3px]" style={{ background: SHORT }} />
@@ -34,10 +40,8 @@ export function HistoryCard({ diagnosis }: { diagnosis: DiagnosisResponse }) {
         {rows.map((r) => (
           <div key={r.dept_id} role="row" className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center gap-0">
             <div role="rowheader" className="col-span-2 mb-1 flex items-center justify-between">
-              <SwatchLabel color={deptColor(r.dept_id)} className="font-medium text-ink">
-                {r.department}
-              </SwatchLabel>
-              <span className="text-sm text-ink-subtle">{fmtInt(r.missed_blocks)} blocks missed target</span>
+              <span className="font-medium text-ink">{r.department}</span>
+              <span className="tnum text-sm text-ink-subtle">{fmtInt(r.missed_blocks)} missed</span>
             </div>
             <div role="cell" className="flex items-center justify-end gap-2 border-r border-border-strong pr-[2px]">
               <span className="tnum text-sm whitespace-nowrap text-ink-muted">{fmtInt(r.short_hours)} h</span>

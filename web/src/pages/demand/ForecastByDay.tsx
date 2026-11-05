@@ -1,5 +1,5 @@
 import { CartesianGrid, ComposedChart, Area, Line, ReferenceArea, ResponsiveContainer, Tooltip as RTooltip, XAxis, YAxis } from "recharts";
-import { Card, ChartLegend, chartColors, DeltaChip, deptColor, gridProps, legendItems, lineProps, SwatchLabel, tooltipProps, xAxisProps, yAxisProps, type LegendItem } from "../../components";
+import { Card, ChartLegend, chartColors, gridProps, legendItems, lineProps, tooltipProps, xAxisProps, yAxisProps, type LegendItem } from "../../components";
 import { fmtInt, signedPct } from "../../lib/format";
 import type { ScenarioCode } from "../../lib/types";
 import { tokens } from "../../styles/tokens";
@@ -175,27 +175,24 @@ export function ForecastByDay({ series, scenario, warehouseName, onShowPeak }: F
   ];
   return (
     <Card
-      title="Forecast against the benchmark, by day"
+      title="Forecast vs benchmark, by day"
       description={`Daily demand for ${warehouseName}, in each department's own workload units. The benchmark is the case's same-weekday average, which ignores holidays.`}
       padding="none"
-      footer={
-        scenario === "PEAK" ? (
-          "The shaded area between the two iris lines is PEAK's surge: the promotion launch and storm stock-up trips, from the case's multipliers."
-        ) : (
-          <span>
-            {scenario === "DISRUPT" ? "DISRUPT leaves demand as in BASE: it changes who can work, not how much work there is. " : "PEAK adds a promotion and storm surge on top of this forecast. "}
-            {onShowPeak && (
-              <button type="button" onClick={onShowPeak} className="font-medium text-accent underline-offset-4 hover:underline">
-                Show PEAK's surge
-              </button>
-            )}
+      actions={
+        scenario === "BASE" && onShowPeak ? (
+          <button type="button" onClick={onShowPeak} className="text-sm font-medium text-accent hover:text-accent-strong" title="PEAK adds the case's promotion and storm surge on top of this forecast">
+            Show PEAK surge
+          </button>
+        ) : scenario === "DISRUPT" ? (
+          <span className="text-sm text-ink-subtle" title="DISRUPT changes who can work, not how much work there is">
+            Same as BASE
           </span>
-        )
+        ) : null
       }
     >
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-border px-5 pb-3">
         <ChartLegend items={legend} />
-        <BandSwatch color={chartColors.band} label="Presidents' Day window, Feb 13-16" />
+        <BandSwatch color={chartColors.band} label="Holiday window" />
         <BandSwatch color={VALENTINE_FILL} label="Valentine's Day" />
         {scenario === "PEAK" && <BandSwatch color={SURGE_FILL} opacity={0.16} label="PEAK surge" />}
       </div>
@@ -204,23 +201,14 @@ export function ForecastByDay({ series, scenario, warehouseName, onShowPeak }: F
         const rows = rowsFor(s, scenario);
         const peak = rows[widestGap(rows)];
         return (
-          <div key={s.dept_id} className="grid grid-cols-[228px_minmax(0,1fr)] items-center border-b border-border last:border-b-0 min-[1440px]:grid-cols-[244px_minmax(0,1fr)]">
-            <div className="self-stretch border-r border-border px-5 py-4">
-              <SwatchLabel color={deptColor(s.dept_id)} className="text-base font-semibold text-ink">
-                {s.department}
-              </SwatchLabel>
-              <p className="mt-0.5 text-sm text-ink-subtle">{s.unit}</p>
-              <p className="mt-3 text-sm font-medium text-ink-subtle">Against the benchmark</p>
-              <div className="mt-1.5 space-y-1.5 text-sm text-ink-muted">
-                <div className="flex items-center justify-between gap-2">
-                  <span>Week</span>
-                  <DeltaChip size="sm" value={week.vsBenchmark} format={(n) => signedPct(n, 1)} tooltip={`Our ${scenario} forecast for the week is ${fmtUnits(week.forecast)} units against the benchmark's ${fmtUnits(week.benchmark)}.`} />
-                </div>
-                <div className="flex items-center justify-between gap-2">
-                  <span className="whitespace-nowrap">Widest, {peak.day.day_short}</span>
-                  <DeltaChip size="sm" value={peak.gap} format={(n) => signedPct(n, 1)} tooltip={`The widest gap of the week. ${peak.day.day}: ${fmtUnits(peak.forecast)} against the benchmark's ${fmtUnits(peak.benchmark)}.`} />
-                </div>
-              </div>
+          <div key={s.dept_id} className="grid grid-cols-[200px_minmax(0,1fr)] items-center border-b border-border last:border-b-0">
+            <div
+              className="flex flex-col justify-center self-stretch border-r border-border px-5 py-4"
+              title={`${s.unit}. Week: ${signedPct(week.vsBenchmark, 1)} against the benchmark (${fmtUnits(week.forecast)} against ${fmtUnits(week.benchmark)}). Widest gap ${peak.day.day}: ${fmtUnits(peak.forecast)} against ${fmtUnits(peak.benchmark)}.`}
+            >
+              <span className="text-base font-semibold text-ink">{s.department}</span>
+              <span className="tnum mt-2 font-display text-kpi leading-none font-semibold tracking-[-0.02em] text-ink">{signedPct(peak.gap, 1)}</span>
+              <span className="tnum mt-1 text-sm text-ink-subtle">vs benchmark, {peak.day.day_short}</span>
             </div>
             <div className="min-w-0 py-2 pr-2">
               <DeptChart series={s} scenario={scenario} labelLines={idx === 0} />

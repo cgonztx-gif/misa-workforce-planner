@@ -24,16 +24,16 @@ export function PerBlockCard() {
     },
   ];
   return (
-    <Card title="Why the plan gives a total per block, not individual shifts">
+    <Card title="A total per block, not individual shifts" description="Why the plan gives a total per block: hover each reason.">
       <div className="grid gap-6 md:grid-cols-3">
         {reasons.map((r) => (
-          <div key={r.title} className="flex gap-3">
-            <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-control bg-raised text-ink-muted ring-1 ring-border [&>svg]:size-[18px]">{r.icon}</span>
-            <div className="min-w-0">
-              <p className="font-semibold text-ink">{r.title}</p>
-              <p className="mt-1 text-base leading-snug text-ink-muted">{r.text}</p>
+          <Tooltip key={r.title} content={r.text} width={320}>
+            <div tabIndex={0} className="flex cursor-help items-center gap-3 rounded-control outline-none focus-visible:ring-2 focus-visible:ring-accent">
+              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-control bg-raised text-ink-muted ring-1 ring-border [&>svg]:size-[18px]">{r.icon}</span>
+              <p className="min-w-0 font-semibold text-ink">{r.title}</p>
+              <p className="sr-only">{r.text}</p>
             </div>
-          </div>
+          </Tooltip>
         ))}
       </div>
     </Card>

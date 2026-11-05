@@ -1,4 +1,4 @@
-import { Badge, Card, ErrorPanel, HelpTip, PageHeader, Refreshing, SkeletonCard } from "../components";
+import { Card, ErrorPanel, HelpTip, PageHeader, Refreshing, SkeletonCard } from "../components";
 import { useMeta, usePlaybook } from "../lib/api";
 import { useCurrentPlan, useViewNames } from "../lib/hooks";
 import { useView } from "../lib/view";
@@ -15,7 +15,7 @@ export default function PlaybookPage() {
   const query = usePlaybook<PlaybookResponse>();
   const meta = useMeta().data;
   const { setScenario } = useView();
-  const { scenario, scenarioName, warehouse, warehouseName } = useViewNames();
+  const { scenario, warehouse, warehouseName } = useViewNames();
   const plan = useCurrentPlan();
   const data = query.data;
 
@@ -43,16 +43,7 @@ export default function PlaybookPage() {
       <PageHeader
         title="Playbook"
         answer={data ? data.pto.headline : null}
-        meta={
-          <>
-            <Badge>Submitted plan</Badge>
-            <Badge tone="accent">{scenario}</Badge>
-            <span>
-              {scenarioName}, {where}
-            </span>
-          </>
-        }
-        actions={<HelpTip term="Cushion" label="What's a cushion?" />}
+        actions={<HelpTip term="Cushion" label="Cushion" />}
       />
 
       {!data ? (
@@ -61,25 +52,23 @@ export default function PlaybookPage() {
           <SkeletonCard lines={6} />
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-5">
           <PtoCard rows={data.pto.rows} intro={data.pto.intro} assumption={data.pto.assumption} assumptionText={assumption?.text} goal={goal} view={ptoView} />
 
           <section aria-labelledby="plays-title">
             <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
               <h2 id="plays-title" className="text-title font-semibold text-ink">
-                Which plan to run, and what to do
+                Which plan to run
               </h2>
-              <p className="text-sm text-ink-subtle">Switching here changes the scenario across the app.</p>
             </div>
             <ScenarioPlays plays={data.scenarios} current={scenario} onSwitch={setScenario} inView={inView} />
           </section>
 
           <div className="grid items-start gap-6 2xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
             <Card
-              title="Blocks with the least cushion"
-              description={`${scenario}, ${where}: the blocks closest to a miss. Open one to see why.`}
+              title="Least cushion"
+              description={`${scenario}, ${where}: the blocks closest to a miss. Cushion is how many people a block can lose, or how much extra demand it can take, before a miss becomes the likelier outcome. Open one to see why.`}
               padding="none"
-              footer={<span>{scenarioName}. Cushion is how many people a block can lose, or how much extra demand it can take, before a miss becomes the likelier outcome.</span>}
             >
               <Refreshing active={plan.query.isPlaceholderData}>
                 <TightestTable rows={tight} scenario={scenario} blockByKey={plan.blockByKey} showWarehouse={warehouse === "all"} />

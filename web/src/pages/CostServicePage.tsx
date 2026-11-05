@@ -1,8 +1,8 @@
-import { AlertTriangle, Clock, DollarSign, Gauge, Repeat, ShieldCheck, Timer } from "lucide-react";
+import { Clock, DollarSign, Gauge, Repeat, Timer } from "lucide-react";
 import { useMemo } from "react";
-import { Badge, ErrorPanel, HelpTip, KpiRow, KpiTile, PageHeader, Refreshing, SkeletonCard } from "../components";
+import { ErrorPanel, HelpTip, KpiRow, KpiTile, PageHeader, Refreshing, SkeletonCard } from "../components";
 import { useDiagnosis, useMeta, usePlan, useTradeoff } from "../lib/api";
-import { fmtHours, fmtMoney, fmtPct, plural, signedHours, signedInt, signedMoney, signedPct, signedPts } from "../lib/format";
+import { fmtHours, fmtMoney, fmtPct, signedHours, signedMoney, signedPct, signedPts } from "../lib/format";
 import { useCurrentPlan, useViewNames } from "../lib/hooks";
 import { SCENARIOS, type GroupTotals, type ScenarioCode } from "../lib/types";
 import { useView } from "../lib/view";
@@ -17,7 +17,7 @@ import type { DiagnosisResponse, TradeoffResponse } from "./cost/types";
 /** Cost and service page (T-85): labor cost and service risk, plan against the draft. */
 export default function CostServicePage() {
   const { scenario, warehouse, setScenario } = useView();
-  const { scenarioName, warehouseName } = useViewNames();
+  const { warehouseName } = useViewNames();
   const { query, totals, blocks, data } = useCurrentPlan();
   const meta = useMeta().data;
   const base = usePlan("BASE");
@@ -66,45 +66,26 @@ export default function CostServicePage() {
       <PageHeader
         title="Cost and service"
         answer={answer}
-        meta={
-          <>
-            <Badge tone="accent">{scenario}</Badge>
-            <span>
-              {scenarioName}, {warehouseName}
-            </span>
-          </>
-        }
-        actions={<HelpTip term="Expected service" label="What's expected service?" />}
+        actions={<HelpTip term="Expected service" label="Expected service" />}
       />
 
       <Refreshing active={query.isPlaceholderData}>
-        <KpiRow columns={5}>
+        <KpiRow columns={4}>
           <KpiTile
             label="Labor cost"
             icon={<DollarSign />}
-            value={plan ? fmtMoney(plan.cost) : null}
+            value={plan ? fmtMoney(plan.cost, true) : null}
             delta={{ value: change?.cost, format: (n) => signedMoney(n, true), goodWhen: "neutral", suffix: "vs draft" }}
-            sub={draft && `Draft ${fmtMoney(draft.cost, true)}`}
+            sub={plan && draft && `${fmtMoney(plan.cost)} plan, ${fmtMoney(draft.cost)} draft`}
             help="Loaded labor cost for the week: regular staff first, then cross-trained staff, then overtime, at the case's rates. The extra cost buys the service gain, so the change is shown in neutral gray rather than as a loss."
           />
           <KpiTile
             label="Expected service"
             icon={<Gauge />}
-            tone="accent"
             value={plan ? fmtPct(plan.expected_met) : null}
             delta={{ value: change?.expected_met, format: (n) => signedPts(n), goodWhen: "up", suffix: "vs draft" }}
             sub={draft && `Draft ${fmtPct(draft.expected_met)}`}
             help="The average predicted chance of meeting the service target across open blocks. A prediction from our model, not a measured result."
-          />
-          <KpiTile
-            label="Below the goal"
-            icon={plan && plan.below_goal > 0 ? <AlertTriangle /> : <ShieldCheck />}
-            tone={plan && plan.below_goal > 0 ? "risk" : "default"}
-            value={plan ? plural(plan.below_goal, "block") : null}
-            delta={{ value: change?.below_goal, format: signedInt, goodWhen: "down", suffix: "vs draft" }}
-            sub={draft && `Draft ${plural(draft.below_goal, "block")}`}
-            help="Blocks whose chance of meeting target stays under the goal even with all their own staff. The table at the bottom lists each one."
-            onClick={() => document.getElementById("below-goal")?.scrollIntoView({ behavior: "smooth", block: "start" })}
           />
           <KpiTile
             label="Overtime"
@@ -129,24 +110,25 @@ export default function CostServicePage() {
           />
         </KpiRow>
 
-        <div className="mt-6 space-y-6">
+        <div className="mt-5 space-y-5">
+          {tradeoff.error ? (
+            <ErrorPanel error={tradeoff.error} what="the trade-off" onRetry={() => tradeoff.refetch()} />
+          ) : tradeoff.data && points.length ? (
+            <TradeoffCard points={points} scenario={scenario} warehouseNote={warehouseNote} />
+          ) : (
+            <SkeletonCard chart />
+          )}
+
           <ScenarioTable totals={all} names={names} current={scenario} onPick={setScenario} warehouseName={place} />
 
           {totals ? <ByDayCharts totals={totals} goal={goal} place={`${scenario}, ${place}`} /> : <SkeletonCard chart />}
 
-          {tradeoff.error ? (
-            <ErrorPanel error={tradeoff.error} what="the trade-off" onRetry={() => tradeoff.refetch()} />
-          ) : tradeoff.data && points.length ? (
-            <>
-              <TradeoffCard points={points} scenario={scenario} warehouseNote={warehouseNote} />
-              <div className="grid gap-6 min-[1280px]:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
-                <CalloutCard allowance={tradeoff.data.callout_allowance} scenario={scenario} warehouseNote={warehouseNote} />
-                {diagnosis.data ? <HistoryCard diagnosis={diagnosis.data} /> : diagnosis.error ? <ErrorPanel error={diagnosis.error} what="the history" /> : <SkeletonCard />}
-              </div>
-            </>
-          ) : (
-            <SkeletonCard chart />
-          )}
+          {tradeoff.data && points.length ? (
+            <div className="grid gap-5 min-[1280px]:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+              <CalloutCard allowance={tradeoff.data.callout_allowance} scenario={scenario} warehouseNote={warehouseNote} />
+              {diagnosis.data ? <HistoryCard diagnosis={diagnosis.data} /> : diagnosis.error ? <ErrorPanel error={diagnosis.error} what="the history" /> : <SkeletonCard />}
+            </div>
+          ) : null}
 
           <div id="below-goal" className="scroll-mt-6">
             {data ? <BelowGoalTable blocks={blocks} goal={goal} place={place} /> : <SkeletonCard />}

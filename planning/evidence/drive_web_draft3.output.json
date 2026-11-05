@@ -1,0 +1,730 @@
+{
+ "started": "2026-11-05T17:49:33",
+ "base_url": "http://127.0.0.1:8611/",
+ "budgets": {
+  "cold_start_s": 30.0,
+  "page_change_ms": 300,
+  "scenario_switch_ms": 500,
+  "what_if_new_s": 8.0,
+  "what_if_demo_ms": 1000
+ },
+ "checks": [
+  {
+   "check": "Cold start: launch to /api/health ready",
+   "result": "PASS",
+   "value": "21.05 s (listening after 1.57 s; the server's own prepare time 19.756015 s; system CPU 47.6% meanwhile)",
+   "budget": "30 s"
+  },
+  {
+   "check": "Page changes (sidebar click to the page drawn with its data)",
+   "result": "PASS",
+   "value": "first visit: worst Methods 158 ms, median 100 ms; return visit: worst Demand 183 ms, median 100 ms",
+   "budget": "300 ms"
+  },
+  {
+   "check": "Overview KPIs equal /api/plan totals (BASE, all)",
+   "result": "PASS",
+   "value": {
+    "Expected service": "95.6%",
+    "Below the goal": "25",
+    "Labor cost": "$377.5K",
+    "Paid hours": "11,658 h"
+   }
+  },
+  {
+   "check": "Scenario switch changes the KPIs to the API's figures",
+   "result": "PASS",
+   "value": "6 switches, 0 wrong",
+   "detail": {
+    "mismatches": null
+   }
+  },
+  {
+   "check": "Scenario switch time (click to new KPIs drawn)",
+   "result": "PASS",
+   "value": "worst 75 ms, all [74.6, 63.6, 28.2, 27.7, 28.7, 27.8]",
+   "budget": "500 ms"
+  },
+  {
+   "check": "Warehouse switch changes the KPIs to the API's figures, fast (7.5)",
+   "result": "PASS",
+   "value": "worst 29 ms, all [27.8, 25.8, 28.8, 25.1]",
+   "budget": "500 ms",
+   "detail": {
+    "mismatches": null
+   }
+  },
+  {
+   "check": "Schedule board cells equal /api/plan (3 scenarios x 4 warehouse views)",
+   "result": "PASS",
+   "value": "12 of 12 views match",
+   "detail": {
+    "mismatches": null
+   }
+  },
+  {
+   "check": "Board cell opens the drawer with /api/plan's numbers: BASE|1|38|2026-02-14|MID",
+   "result": "PASS",
+   "value": "all fields match",
+   "detail": {
+    "open_ms": 80.6,
+    "mismatches": null
+   }
+  },
+  {
+   "check": "Board cell opens the drawer with /api/plan's numbers: DISRUPT|4|38|2026-02-14|MID",
+   "result": "PASS",
+   "value": "all fields match",
+   "detail": {
+    "open_ms": 37.4,
+    "mismatches": null
+   }
+  },
+  {
+   "check": "Board cell opens the drawer with /api/plan's numbers: PEAK|1|95|2026-02-14|EVE",
+   "result": "PASS",
+   "value": "all fields match",
+   "detail": {
+    "open_ms": 30.6,
+    "mismatches": null
+   }
+  },
+  {
+   "check": "Board cell opens the drawer with /api/plan's numbers: PEAK|4|38|2026-02-13|EVE",
+   "result": "PASS",
+   "value": "all fields match",
+   "detail": {
+    "open_ms": 45.1,
+    "mismatches": null
+   }
+  },
+  {
+   "check": "What-if, demo settings (demand +10%, callouts 150%): warm and fast",
+   "result": "PASS",
+   "value": "310 ms click to results, X-Cache hit, sliders ['+10%', '150%'], run 25.0 s after ready",
+   "budget": "1000 ms and a cache hit"
+  },
+  {
+   "check": "What-if KPI tiles equal /api/what-if",
+   "result": "PASS",
+   "value": {
+    "Labor cost": "$410,919",
+    "Hours": "12,558 h",
+    "Expected service": "84.1%",
+    "Below the goal": "64"
+   },
+   "detail": {
+    "expected": {
+     "Labor cost": "$410,919",
+     "Hours": "12,558 h",
+     "Expected service": "84.1%",
+     "Below the goal": "64"
+    }
+   }
+  },
+  {
+   "check": "What-if, new settings (demand +5%, callouts 125%) finish in time",
+   "result": "FAIL",
+   "value": "10.02 s click to results, server 9.863 s, X-Cache miss, progress state shown True, system CPU 53.2% meanwhile",
+   "budget": "8 s"
+  },
+  {
+   "check": "Reset restores the submitted plan",
+   "result": "PASS",
+   "value": "sliders ['0', '1'], 'Submitted plan' badge True, URL clean True, /api/plan unchanged True, Overview KPIs = submitted True"
+  },
+  {
+   "check": "Export: Schedule's Download submission CSV passes validate() and equals outputs/",
+   "result": "PASS",
+   "value": "TEAM_SUBMISSION_TEMPLATE_filled.csv, 40,284 bytes, 567 rows, byte-identical True, validate() [], validate(final=True) ['team_id still holds the placeholder TEAM_NAME (Q-07)']"
+  },
+  {
+   "check": "Export: sidebar's Download CSV passes validate() and equals outputs/",
+   "result": "PASS",
+   "value": "TEAM_SUBMISSION_TEMPLATE_filled.csv, 40,284 bytes, 567 rows, byte-identical True, validate() [], validate(final=True) ['team_id still holds the placeholder TEAM_NAME (Q-07)']"
+  },
+  {
+   "check": "Demo script (7.10) runs end to end",
+   "result": "PASS",
+   "value": "8 of 8 steps ok, 15.5 s of clicking",
+   "detail": {
+    "failed": null
+   }
+  },
+  {
+   "check": "Every page: Overview renders, no console errors or warnings",
+   "result": "PASS",
+   "value": "1366: ok (1,187 chars), 1440: ok (1,187 chars), 1920: ok (1,187 chars)",
+   "detail": {
+    "problems": null
+   }
+  },
+  {
+   "check": "Every page: Schedule renders, no console errors or warnings",
+   "result": "PASS",
+   "value": "1366: ok (2,610 chars), 1440: ok (2,610 chars), 1920: ok (2,610 chars)",
+   "detail": {
+    "problems": null
+   }
+  },
+  {
+   "check": "Every page: Demand renders, no console errors or warnings",
+   "result": "PASS",
+   "value": "1366: ok (2,300 chars), 1440: ok (2,300 chars), 1920: ok (2,300 chars)",
+   "detail": {
+    "problems": null
+   }
+  },
+  {
+   "check": "Every page: Cost and service renders, no console errors or warnings",
+   "result": "PASS",
+   "value": "1366: ok (3,804 chars), 1440: ok (3,804 chars), 1920: ok (3,804 chars)",
+   "detail": {
+    "problems": null
+   }
+  },
+  {
+   "check": "Every page: Scenario lab renders, no console errors or warnings",
+   "result": "PASS",
+   "value": "1366: ok (552 chars), 1440: ok (552 chars), 1920: ok (552 chars)",
+   "detail": {
+    "problems": null
+   }
+  },
+  {
+   "check": "Every page: Playbook renders, no console errors or warnings",
+   "result": "PASS",
+   "value": "1366: ok (3,354 chars), 1440: ok (3,354 chars), 1920: ok (3,354 chars)",
+   "detail": {
+    "problems": null
+   }
+  },
+  {
+   "check": "Every page: Methods renders, no console errors or warnings",
+   "result": "PASS",
+   "value": "1366: ok (6,184 chars), 1440: ok (6,184 chars), 1920: ok (6,184 chars)",
+   "detail": {
+    "problems": null
+   }
+  },
+  {
+   "check": "Offline: no request leaves localhost",
+   "result": "PASS",
+   "value": "107 requests; hosts {'127.0.0.1': 107}; schemes {'http': 107}; external 0",
+   "detail": {
+    "external": null
+   }
+  },
+  {
+   "check": "No console errors or warnings in any step",
+   "result": "PASS",
+   "value": "0 messages in 0 steps",
+   "detail": {
+    "messages": null
+   }
+  }
+ ],
+ "timings": {
+  "cold_start": {
+   "ready_s": 21.05,
+   "listening_s": 1.57,
+   "health": {
+    "ready": true,
+    "seconds": 19.756015,
+    "error": null,
+    "status": "ready",
+    "step": "Ready",
+    "elapsed": 19.756015
+   },
+   "steps": [
+    [
+     1.57,
+     "Loading the engine"
+    ],
+    [
+     2.19,
+     "Fitting the service curves"
+    ],
+    [
+     2.4,
+     "Building the planning inputs"
+    ],
+    [
+     2.63,
+     "Planning BASE"
+    ],
+    [
+     8.63,
+     "Planning PEAK"
+    ],
+    [
+     14.51,
+     "Planning DISRUPT"
+    ],
+    [
+     20.42,
+     "Reading the saved analysis"
+    ],
+    [
+     20.85,
+     "Preparing the forecast"
+    ],
+    [
+     21.05,
+     "Ready"
+    ]
+   ],
+   "exit_code": null,
+   "machine_load": {
+    "system_cpu_percent": 47.6,
+    "logical_cpus": 8,
+    "busiest_percent_of_one_cpu": [
+     "svchost.exe (pid 16412): 189",
+     "python3.13.exe (pid 29964): 14",
+     "Code.exe (pid 17552): 12",
+     "chrome.exe (pid 33324): 11",
+     "claude.exe (pid 42548): 10",
+     "MsMpEng.exe (pid 40664): 8"
+    ]
+   }
+  },
+  "page_change_ms": {
+   "first visit": {
+    "Schedule": 65.4,
+    "Demand": 107.5,
+    "Cost and service": 99.5,
+    "Scenario lab": 27.4,
+    "Playbook": 124.1,
+    "Methods": 157.7,
+    "Overview": 69.4
+   },
+   "return visit": {
+    "Schedule": 120.6,
+    "Demand": 183.2,
+    "Cost and service": 145.9,
+    "Scenario lab": 38.2,
+    "Playbook": 92.4,
+    "Methods": 100.2,
+    "Overview": 66.5
+   }
+  },
+  "scenario_switch_ms": {
+   "1. to PEAK": 74.6,
+   "2. to DISRUPT": 63.6,
+   "3. to BASE": 28.2,
+   "4. to PEAK": 27.7,
+   "5. to DISRUPT": 28.7,
+   "6. to BASE": 27.8
+  },
+  "warehouse_switch_ms": {
+   "1": 27.8,
+   "2": 25.8,
+   "4": 28.8,
+   "all": 25.1
+  },
+  "drawer_open_ms": {
+   "BASE|1|38|2026-02-14|MID": 80.6,
+   "DISRUPT|4|38|2026-02-14|MID": 37.4,
+   "PEAK|1|95|2026-02-14|EVE": 30.6,
+   "PEAK|4|38|2026-02-13|EVE": 45.1
+  },
+  "what_if_demo": {
+   "ms": 309.9,
+   "sliders": [
+    "+10%",
+    "150%"
+   ],
+   "progress_shown": true,
+   "api": {
+    "status": 200,
+    "x-cache": "hit",
+    "x-seconds": "0.000"
+   },
+   "url": "http://127.0.0.1:8611/#/scenario-lab?scenario=BASE&wh=all&callouts=1.5&demand=0.1",
+   "machine_load": {
+    "system_cpu_percent": 57.7,
+    "logical_cpus": 8,
+    "busiest_percent_of_one_cpu": [
+     "svchost.exe (pid 16412): 184",
+     "python3.13.exe (pid 29964): 82",
+     "MsMpEng.exe (pid 40664): 28",
+     "Code.exe (pid 17552): 15",
+     "chrome-headless-shell.exe (pid 40776): 12",
+     "Code.exe (pid 41732): 9"
+    ]
+   },
+   "seconds_after_server_ready": 25.0
+  },
+  "warm_up": {
+   "passes": [
+    {
+     "BASE": {
+      "x-cache": "hit",
+      "x-seconds": "0.000",
+      "waited_s": 0.0
+     },
+     "PEAK": {
+      "x-cache": "hit",
+      "x-seconds": "0.000",
+      "waited_s": 0.0
+     },
+     "DISRUPT": {
+      "x-cache": "hit",
+      "x-seconds": "0.000",
+      "waited_s": 0.03
+     }
+    }
+   ],
+   "warm_up_over_s_after_ready": 34.4
+  },
+  "what_if_new": {
+   "ms": 10017.7,
+   "sliders": [
+    "+5%",
+    "125%"
+   ],
+   "progress_shown": true,
+   "api": {
+    "status": 200,
+    "x-cache": "miss",
+    "x-seconds": "9.863"
+   },
+   "url": "http://127.0.0.1:8611/#/scenario-lab?scenario=BASE&wh=all&callouts=1.25&demand=0.05",
+   "machine_load": {
+    "system_cpu_percent": 53.2,
+    "logical_cpus": 8,
+    "busiest_percent_of_one_cpu": [
+     "svchost.exe (pid 16412): 183",
+     "python3.13.exe = the test server (pid 19644): 70",
+     "chrome-headless-shell.exe (pid 40776): 26",
+     "python3.13.exe (pid 29964): 15",
+     "chrome-headless-shell.exe (pid 46572): 14",
+     "claude.exe (pid 42548): 12"
+    ]
+   },
+   "seconds_after_server_ready": 50.8
+  },
+  "demo_switch_ms": {
+   "PEAK (drawer open)": 108.7,
+   "DISRUPT": 91.1,
+   "Warehouse 2": 61.3
+  }
+ },
+ "console": {},
+ "requests": {
+  "count": 107,
+  "hosts": {
+   "127.0.0.1": 107
+  },
+  "schemes": {
+   "http": 107
+  },
+  "external": [],
+  "failed": []
+ },
+ "demo": [
+  {
+   "at": "0:00",
+   "step": "Overview, BASE, all warehouses",
+   "ok": true,
+   "observed": "KPIs equal the API and the verdict shows; the app says 12.7% more hours, expected service 68.5% to 95.6%",
+   "seconds": 1.65
+  },
+  {
+   "at": "0:40",
+   "step": "Schedule, Warehouse 1",
+   "ok": true,
+   "observed": "warehouse switch 27 ms, board equals the API; blocks with people added: 25 of 33 on Feb 13-16, 15 of 27 on other days",
+   "seconds": 0.93
+  },
+  {
+   "at": "1:10",
+   "step": "Click Sat Feb 14, Front End, Midday",
+   "ok": true,
+   "observed": "drawer open in 35 ms, every field equals /api/plan",
+   "seconds": 0.68
+  },
+  {
+   "at": "1:50",
+   "step": "Switch to PEAK, then DISRUPT at Warehouse 2",
+   "ok": true,
+   "observed": "PEAK 109 ms with the drawer following (matches the API), DISRUPT 91 ms, Warehouse 2 61 ms, board equals the API; drawer after the warehouse switch: 'Sat Feb 14, Front End, Midday | Warehouse 2, DISRUPT, 12:30 to 16:00 (3.5 paid hours)'; Front End at Warehouse 2 on Feb 13-16: 12 of 12 blocks have fewer regular staff than BASE, 11 get a different plan",
+   "seconds": 1.5
+  },
+  {
+   "at": "2:40",
+   "step": "Demand page",
+   "ok": true,
+   "observed": "opened in 246 ms with 6 charts; answer \"Front End and Merchandising demand rises over the Presidents' Day weekend while Pharmacy's falls, and the benchmark misses it: on Sat Feb 14\"",
+   "seconds": 1.07
+  },
+  {
+   "at": "3:10",
+   "step": "Scenario lab: demand +10%, callouts 150%, Run",
+   "ok": true,
+   "observed": "DISRUPT at Warehouse 2: 134 ms, X-Cache hit, sliders ['+10%', '150%']; answer 'With demand +10% and callouts at 150% of history, re-planning DISRUPT at Warehouse 2 adds 61 people and cuts 2 (net +59) across 40 blocks, for $10,442 more. Exp'",
+   "seconds": 7.84
+  },
+  {
+   "at": "4:00",
+   "step": "Playbook: holiday PTO",
+   "ok": true,
+   "observed": "PTO card and headline shown: 'Keeping up to 5 people per block from holiday PTO cuts blocks below the goal from 25 to 6, raises expected service from 95.6% to 97.2%, and lowers cost by $4,381.'. At 2 kept per block, service 95.6% to 97.1%, cost $377,504 to $375,613: rises and falls as the script says",
+   "seconds": 0.97
+  },
+  {
+   "at": "4:40",
+   "step": "Schedule, Export",
+   "ok": true,
+   "observed": "TEAM_SUBMISSION_TEMPLATE_filled.csv, byte-identical to outputs/: True",
+   "seconds": 0.89
+  }
+ ],
+ "layout": {
+  "overview@1366x768": {
+   "page_scrolls_sideways": false,
+   "content_height": 1253,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "schedule@1366x768": {
+   "page_scrolls_sideways": false,
+   "content_height": 2172,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "demand@1366x768": {
+   "page_scrolls_sideways": false,
+   "content_height": 2479,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "cost-service@1366x768": {
+   "page_scrolls_sideways": false,
+   "content_height": 2803,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "scenario-lab@1366x768": {
+   "page_scrolls_sideways": false,
+   "content_height": 739,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "playbook@1366x768": {
+   "page_scrolls_sideways": false,
+   "content_height": 2369,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "methods@1366x768": {
+   "page_scrolls_sideways": false,
+   "content_height": 3054,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "overview@1440x900": {
+   "page_scrolls_sideways": false,
+   "content_height": 1253,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "schedule@1440x900": {
+   "page_scrolls_sideways": false,
+   "content_height": 2172,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "demand@1440x900": {
+   "page_scrolls_sideways": false,
+   "content_height": 2479,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "cost-service@1440x900": {
+   "page_scrolls_sideways": false,
+   "content_height": 2741,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "scenario-lab@1440x900": {
+   "page_scrolls_sideways": false,
+   "content_height": 840,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "playbook@1440x900": {
+   "page_scrolls_sideways": false,
+   "content_height": 2328,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "methods@1440x900": {
+   "page_scrolls_sideways": false,
+   "content_height": 3003,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "overview@1920x1080": {
+   "page_scrolls_sideways": false,
+   "content_height": 1253,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "schedule@1920x1080": {
+   "page_scrolls_sideways": false,
+   "content_height": 2172,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "demand@1920x1080": {
+   "page_scrolls_sideways": false,
+   "content_height": 2446,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "cost-service@1920x1080": {
+   "page_scrolls_sideways": false,
+   "content_height": 2741,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "scenario-lab@1920x1080": {
+   "page_scrolls_sideways": false,
+   "content_height": 1020,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "playbook@1920x1080": {
+   "page_scrolls_sideways": false,
+   "content_height": 1943,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  },
+  "methods@1920x1080": {
+   "page_scrolls_sideways": false,
+   "content_height": 2708,
+   "inner_sideways_scrollers": [],
+   "text_cut_with_ellipsis": [],
+   "text_cut_count": 0,
+   "poking_past_right_edge": []
+  }
+ },
+ "screenshots": [
+  "planning/evidence/web_screenshots/draft3/whatif_demo_run_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/whatif_after_reset_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/demo_1_overview_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/demo_2_schedule_wh1_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/demo_3_drawer_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/demo_4a_peak_drawer_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/demo_4b_disrupt_wh2_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/demo_5_demand_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/demo_6_whatif_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/demo_7_playbook_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/demo_8_export_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/overview_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/overview_1366x768_full.png",
+  "planning/evidence/web_screenshots/draft3/schedule_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/schedule_1366x768_full.png",
+  "planning/evidence/web_screenshots/draft3/demand_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/demand_1366x768_full.png",
+  "planning/evidence/web_screenshots/draft3/cost-service_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/cost-service_1366x768_full.png",
+  "planning/evidence/web_screenshots/draft3/scenario-lab_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/scenario-lab_1366x768_full.png",
+  "planning/evidence/web_screenshots/draft3/playbook_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/playbook_1366x768_full.png",
+  "planning/evidence/web_screenshots/draft3/methods_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/methods_1366x768_full.png",
+  "planning/evidence/web_screenshots/draft3/drawer_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/whatif_result_1366x768.png",
+  "planning/evidence/web_screenshots/draft3/whatif_result_1366x768_full.png",
+  "planning/evidence/web_screenshots/draft3/overview_1440x900.png",
+  "planning/evidence/web_screenshots/draft3/overview_1440x900_full.png",
+  "planning/evidence/web_screenshots/draft3/schedule_1440x900.png",
+  "planning/evidence/web_screenshots/draft3/schedule_1440x900_full.png",
+  "planning/evidence/web_screenshots/draft3/demand_1440x900.png",
+  "planning/evidence/web_screenshots/draft3/demand_1440x900_full.png",
+  "planning/evidence/web_screenshots/draft3/cost-service_1440x900.png",
+  "planning/evidence/web_screenshots/draft3/cost-service_1440x900_full.png",
+  "planning/evidence/web_screenshots/draft3/scenario-lab_1440x900.png",
+  "planning/evidence/web_screenshots/draft3/scenario-lab_1440x900_full.png",
+  "planning/evidence/web_screenshots/draft3/playbook_1440x900.png",
+  "planning/evidence/web_screenshots/draft3/playbook_1440x900_full.png",
+  "planning/evidence/web_screenshots/draft3/methods_1440x900.png",
+  "planning/evidence/web_screenshots/draft3/methods_1440x900_full.png",
+  "planning/evidence/web_screenshots/draft3/drawer_1440x900.png",
+  "planning/evidence/web_screenshots/draft3/whatif_result_1440x900.png",
+  "planning/evidence/web_screenshots/draft3/whatif_result_1440x900_full.png",
+  "planning/evidence/web_screenshots/draft3/overview_1920x1080.png",
+  "planning/evidence/web_screenshots/draft3/overview_1920x1080_full.png",
+  "planning/evidence/web_screenshots/draft3/schedule_1920x1080.png",
+  "planning/evidence/web_screenshots/draft3/schedule_1920x1080_full.png",
+  "planning/evidence/web_screenshots/draft3/demand_1920x1080.png",
+  "planning/evidence/web_screenshots/draft3/demand_1920x1080_full.png",
+  "planning/evidence/web_screenshots/draft3/cost-service_1920x1080.png",
+  "planning/evidence/web_screenshots/draft3/cost-service_1920x1080_full.png",
+  "planning/evidence/web_screenshots/draft3/scenario-lab_1920x1080.png",
+  "planning/evidence/web_screenshots/draft3/scenario-lab_1920x1080_full.png",
+  "planning/evidence/web_screenshots/draft3/playbook_1920x1080.png",
+  "planning/evidence/web_screenshots/draft3/playbook_1920x1080_full.png",
+  "planning/evidence/web_screenshots/draft3/methods_1920x1080.png",
+  "planning/evidence/web_screenshots/draft3/methods_1920x1080_full.png",
+  "planning/evidence/web_screenshots/draft3/drawer_1920x1080.png",
+  "planning/evidence/web_screenshots/draft3/whatif_result_1920x1080.png",
+  "planning/evidence/web_screenshots/draft3/whatif_result_1920x1080_full.png"
+ ],
+ "bugs": [],
+ "notes": [
+  "Demo script 0:00 says '14% more hours ... take expected service from 70% to 96%'. The app's BASE plan adds 1,313.5 hours to the draft's 10,344: 12.7% (employees +13.4%), and service goes from 68.5% to 95.6%.",
+  "Demo script 4:00 says 'keep 2 people per block from holiday PTO'. The Playbook's headline says: Keeping up to 5 people per block from holiday PTO cuts blocks below the goal from 25 to 6, raises expected service from 95.6% to 97.2%, and lowers cost by $4,381."
+ ],
+ "finished": "2026-11-05T17:52:00",
+ "summary": {
+  "passed": 26,
+  "failed": 1,
+  "failed_checks": [
+   "What-if, new settings (demand +5%, callouts 125%) finish in time"
+  ]
+ }
+}

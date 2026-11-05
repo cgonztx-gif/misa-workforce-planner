@@ -1,9 +1,9 @@
 import { Star } from "lucide-react";
-import { Badge, Card, chanceFill, Tooltip } from "../../components";
+import { Badge, Card, Tooltip } from "../../components";
+import { chanceTierFill, legendStops } from "../../components/schedule/boardScales";
 import { cn } from "../../lib/cn";
 import { fmtMoney, fmtPct, signedMoney } from "../../lib/format";
 import type { ScenarioCode } from "../../lib/types";
-import { tokens } from "../../styles/tokens";
 import { metFor, type TradeoffResponse } from "./types";
 
 /** Each plan scored in three worlds: what the callout allowance buys, and what it costs (A-03, F-51). */
@@ -12,22 +12,17 @@ export function CalloutCard({ allowance, scenario, warehouseNote }: { allowance:
   const rec = plans[0];
   const feOnly = plans.find((p) => /forecast error only/i.test(p.plan));
   const isDraft = (name: string) => /draft/i.test(name);
-  const s = tokens.scale.chance;
 
   return (
     <Card
-      title="What the callout allowance buys"
-      description={`${scenario}: each plan scored three ways. ${allowance.note}`}
+      title="Callout allowance"
+      description={`${scenario}: each plan scored three ways. ${allowance.note}${
+        rec && feOnly
+          ? ` Allowing for callouts costs ${fmtMoney(rec.cost - feOnly.cost)} more than allowing for forecast error alone, and keeps expected service at ${fmtPct(rec.met_both_risks)} instead of ${fmtPct(feOnly.met_both_risks)} when callouts run at historical rates.`
+          : ""
+      }`}
       actions={warehouseNote ? <Badge tone="neutral">{warehouseNote}</Badge> : undefined}
       padding="none"
-      footer={
-        rec && feOnly ? (
-          <span>
-            Allowing for callouts costs <span className="tnum font-semibold text-ink">{fmtMoney(rec.cost - feOnly.cost)}</span> more than allowing for forecast error alone, and keeps expected service at{" "}
-            <span className="tnum font-semibold text-ink">{fmtPct(rec.met_both_risks)}</span> instead of <span className="tnum">{fmtPct(feOnly.met_both_risks)}</span> when callouts run at historical rates.
-          </span>
-        ) : undefined
-      }
     >
       <div className="overflow-x-auto">
         <table className="w-full min-w-[560px] border-separate border-spacing-0 text-base">
@@ -74,11 +69,11 @@ export function CalloutCard({ allowance, scenario, warehouseNote }: { allowance:
                 </td>
                 {allowance.worlds.map((w) => {
                   const v = metFor(p, w.id);
-                  const f = chanceFill(v);
+                  const f = chanceTierFill(v);
                   return (
                     <td key={w.id} className="border-b border-border px-1.5 py-1.5 align-middle">
                       <Tooltip content={`${p.plan}, scored for "${w.label}": ${fmtPct(v)} expected service. ${w.text ?? ""}`}>
-                        <div tabIndex={0} className="tnum flex h-9 items-center justify-center rounded-[6px] text-base font-semibold outline-none focus-visible:ring-2 focus-visible:ring-accent" style={{ background: f.fill, color: f.ink }}>
+                        <div tabIndex={0} className="tnum flex h-9 items-center justify-center rounded-[6px] text-base font-semibold ring-1 ring-black/[0.06] ring-inset outline-none focus-visible:ring-2 focus-visible:ring-accent" style={{ background: f.fill, color: f.ink }}>
                           {fmtPct(v)}
                         </div>
                       </Tooltip>
@@ -92,10 +87,10 @@ export function CalloutCard({ allowance, scenario, warehouseNote }: { allowance:
       </div>
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 px-5 py-3 text-sm text-ink-subtle">
         <span>Expected service</span>
-        {s.stops.map((stop, i) => (
-          <span key={stop} className="inline-flex items-center gap-1.5">
-            <span aria-hidden className="size-3 rounded-[3px]" style={{ background: stop }} />
-            {s.labels[i]}
+        {legendStops("chance").map((st) => (
+          <span key={st.sample} className="inline-flex items-center gap-1.5">
+            <span aria-hidden className="size-3 rounded-[3px] ring-1 ring-black/[0.06] ring-inset" style={{ background: st.fill }} />
+            {st.sample}
           </span>
         ))}
       </div>

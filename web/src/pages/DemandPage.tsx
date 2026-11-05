@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useSearchParams } from "react-router";
-import { Badge, ErrorPanel, HelpTip, PageHeader, Refreshing, SkeletonCard } from "../components";
+import { ErrorPanel, HelpTip, PageHeader, Refreshing, SkeletonCard } from "../components";
 import { useApi, useMeta, usePlan } from "../lib/api";
 import { fmtDate, fmtPct, signedPct } from "../lib/format";
 import { useCurrentPlan, useViewNames } from "../lib/hooks";
@@ -23,7 +23,7 @@ export default function DemandPage() {
   const forecast = useApi<ForecastResponse>("forecast");
   const meta = useMeta().data;
   const { scenario, warehouse, setScenario } = useView();
-  const { scenarioName, warehouseName } = useViewNames();
+  const { warehouseName } = useViewNames();
   const { blocks, query: planQuery } = useCurrentPlan();
   const basePlan = usePlan("BASE").data;
   const [params, setParams] = useSearchParams();
@@ -96,15 +96,7 @@ export default function DemandPage() {
       <PageHeader
         title="Demand"
         answer={answer}
-        meta={
-          <>
-            <Badge tone="accent">{scenario}</Badge>
-            <span>
-              {scenarioName}, {warehouseName}
-            </span>
-          </>
-        }
-        actions={data && <HelpTip label="What's the benchmark?">{data.notes.benchmark} {data.notes.units}</HelpTip>}
+        actions={data && <HelpTip label="Benchmark">{data.notes.benchmark} {data.notes.units}</HelpTip>}
       />
 
       {!data || !series.length ? (
@@ -114,10 +106,10 @@ export default function DemandPage() {
         </div>
       ) : (
         <Refreshing active={forecast.isPlaceholderData || planQuery.isPlaceholderData}>
-          <div className="space-y-6">
+          <div className="space-y-5">
             <ForecastByDay series={series} scenario={scenario} warehouseName={warehouseName} onShowPeak={scenario !== "PEAK" ? () => setScenario("PEAK") : undefined} />
             <DayWaterfall series={series} scenario={scenario} dept={dept} date={day} onDept={(d) => setParam("dept", String(d))} onDate={(d) => setParam("day", d)} warehouseName={warehouseName} />
-            <div className="grid gap-6 min-[1280px]:grid-cols-2">
+            <div className="grid gap-5 min-[1280px]:grid-cols-2">
               <ShiftSplit
                 blocks={blocks}
                 departments={series.map((s) => ({ id: s.dept_id, name: s.department }))}

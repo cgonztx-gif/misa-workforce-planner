@@ -64,8 +64,8 @@ export function ScenarioTable({ totals, names, current, onPick, warehouseName }:
   const codes = Object.keys(totals) as ScenarioCode[];
   return (
     <Card
-      title="Every scenario and department, against the draft"
-      description={`The submitted plan for ${warehouseName}. Each figure is the plan, with its change from the draft below it; hover a change to see the draft.`}
+      title="Every scenario, against the draft"
+      description={`The submitted plan for ${warehouseName}. Each figure is the plan, with its change from the draft below it; hover a change to see the draft. Departments show for the scenario in view.`}
       padding="none"
     >
       <div className="overflow-x-auto">
@@ -120,9 +120,9 @@ export function ScenarioTable({ totals, names, current, onPick, warehouseName }:
                         </button>
                       )}
                       {unfilled > 0 && (
-                        <span className="text-sm text-ink-subtle">
-                          The draft's cost covers only the staff it can field: it schedules {plural(unfilled, "person", "people")} more than can be fielded.
-                        </span>
+                        <Badge tone="warning" title={`The draft's cost covers only the staff it can field: it schedules ${plural(unfilled, "person", "people")} more than can be fielded.`}>
+                          Draft over capacity: {unfilled}
+                        </Badge>
                       )}
                     </div>
                   </td>
@@ -130,7 +130,8 @@ export function ScenarioTable({ totals, names, current, onPick, warehouseName }:
                 {t ? (
                   <>
                     <Row label="All departments" comp={t} strong />
-                    {t.by_department.map((d) => (
+                    {/* Draft 3: departments only for the scenario in view, so the table compares scenarios at a glance. */}
+                    {(active ? t.by_department : []).map((d) => (
                       <Row key={d.dept_id} label={d.department} comp={d} dept={d.dept_id} />
                     ))}
                   </>

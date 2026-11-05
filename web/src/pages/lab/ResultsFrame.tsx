@@ -2,7 +2,7 @@ import { FlaskConical, Loader2, Play } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Button } from "../../components";
 import { cn } from "../../lib/cn";
-import { fmtMoney, fmtPct, plural } from "../../lib/format";
+import { fmtInt, fmtMoney, fmtPct } from "../../lib/format";
 import type { Summary } from "../../lib/types";
 
 /** Seconds since `running` turned on, ticking every 100 ms. */
@@ -32,7 +32,7 @@ export function RunProgress({ running, scenario }: { running: boolean; scenario:
         <Loader2 className="size-5 shrink-0 animate-spin text-accent" aria-hidden />
         <div className="min-w-0 flex-1">
           <p className="font-medium text-ink">Re-planning {scenario}</p>
-          <p className="text-sm text-ink-subtle">Re-forecasting demand, searching every shift again and scoring service under the new conditions.</p>
+          <p className="text-sm text-ink-subtle">Forecast · search · score</p>
         </div>
         <span className="font-display text-title font-semibold text-accent-strong tnum">{elapsed.toFixed(1)} s</span>
       </div>
@@ -72,16 +72,25 @@ export function LabIntro({ scenario, where, plan, onDemo, demoLabel, running }: 
       <span className="mb-4 inline-flex size-12 items-center justify-center rounded-full bg-accent-soft text-accent">
         <FlaskConical className="size-6" aria-hidden />
       </span>
-      <h2 className="text-title font-semibold text-ink">Set the conditions, then run a what-if</h2>
-      <p className="mt-2 max-w-[62ch] text-body-lg text-ink-muted">
-        The planner re-forecasts demand, searches every shift again and scores service under the new conditions, live. The submitted plan never changes, and Reset brings it back.
+      <h2 className="text-title font-semibold text-ink">Run a what-if</h2>
+      <p className="mt-1 text-base text-ink-subtle" title="The planner re-forecasts demand, searches every shift again and scores service under the new conditions, live. The submitted plan never changes, and Reset brings it back.">
+        Live re-plan · the submitted plan never changes
       </p>
       {plan && (
-        <p className="mt-4 rounded-control bg-surface px-4 py-2 text-base text-ink-muted ring-1 ring-border tnum">
-          Starting point: the submitted {scenario} plan for {where} costs <span className="font-semibold text-ink">{fmtMoney(plan.cost)}</span>, with{" "}
-          <span className="font-semibold text-ink">{fmtPct(plan.expected_met)}</span> expected service and{" "}
-          <span className="font-semibold text-ink">{plural(plan.below_goal, "block")}</span> below the goal.
-        </p>
+        <div className="tnum mt-5 flex items-stretch divide-x divide-border rounded-control bg-surface ring-1 ring-border" aria-label={`Starting point: the submitted ${scenario} plan for ${where}`}>
+          <div className="px-5 py-2.5 text-left">
+            <div className="text-sm text-ink-subtle">Submitted {scenario}</div>
+            <div className="font-display text-title font-semibold text-ink">{fmtMoney(plan.cost, true)}</div>
+          </div>
+          <div className="px-5 py-2.5 text-left">
+            <div className="text-sm text-ink-subtle">Service</div>
+            <div className="font-display text-title font-semibold text-ink">{fmtPct(plan.expected_met)}</div>
+          </div>
+          <div className="px-5 py-2.5 text-left">
+            <div className="text-sm text-ink-subtle">Below goal</div>
+            <div className="font-display text-title font-semibold text-ink">{fmtInt(plan.below_goal)}</div>
+          </div>
+        </div>
       )}
       <Button variant="primary" className="mt-6" icon={running ? <Loader2 className="animate-spin" /> : <Play />} onClick={onDemo} disabled={running}>
         {demoLabel}

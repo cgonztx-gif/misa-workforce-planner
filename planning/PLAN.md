@@ -4,6 +4,8 @@
 
 **Deadline: Saturday, Nov 7, 2026 at 7:00 AM (Q-11).** The presentation slot isn't known yet. Everything must be finished Friday night (D-14), because Saturday morning is too early to use. As of Thursday, that leaves Thursday and Friday.
 
+**Draft 3 (Thu night, D-31):** at the user's request, the deck and app were redone with less text and one message per page, in `DRAFT3.md`. Draft 2 is kept as the fallback (tag `draft-2`, `python -m server --draft2`, the unchanged deck file). **The team needs to pick a draft.**
+
 **Now: the final push, planned in full in `DELIVERABLES_PLAN.md`. The user said go on Thursday, Nov 5, and by Thursday night M6 and M7 were met:** the numbers are frozen (tag `numbers-freeze`, D-29's smooth curve), the new app has all seven pages and passes its browser checks (F-74), and the deck, report, notebook and Q&A sheet are built from `outputs/`. The code is on a private GitHub repository for teammates to run (D-30). M4 was met the same night with the new app (T-90), and the deck and report carry its final screenshots. **Left, all for the team:** the team name (T-62), rehearsals (T-63, T-65), the backup recording (T-64), the final check (T-66) and packaging (T-95). M2 and M3 were met on Wednesday: the analysis, plan, explanations, playbook and the Streamlit app all work (F-39 to F-59).
 
 Work in this order (`DELIVERABLES_PLAN.md` section 3):
@@ -170,3 +172,5 @@ Section numbers refer to `DELIVERABLES_PLAN.md`, which has the details, checks a
 | T-93 | Build the presentation, main and appendix slides (section 10) | T-78, T-90 | `validate.py` passes, every slide checked as rendered, and the PDF exported | Done: 22 slides, every fix from a fresh-eyes review applied, slide 9 shows the polished app, notes about 6:03 at 130 words a minute, `validate.py` passes, every slide rendered through PowerPoint. Left: the team name (T-62) and timed rehearsals (T-65) |
 | T-94 | Q&A prep sheet (10.6) | T-78 | Saved in `deliverables/` | Done: `deliverables/Costco_QA_Prep.docx` and `.pdf`, 22 questions, built from `outputs/` by `scripts/build_qa_sheet.js` |
 | T-95 | Package the hand-in and tag `submission` (section 11) | T-62, T-66 | The folder is complete and the tag exists | Ready: `python scripts/package_submission.py` builds `submission/` (CSV, deck, report, notebook, source zip, README.txt) and refuses while the team name is the placeholder. Dry run passed with `--draft`. Run it after T-62, then tag `submission` |
+| T-96 | Draft 3 of the app: less text, one message per page (D-31, `DRAFT3.md`) | T-90 | Words audit 0 on the demo pages, browser checks pass, draft 2 still runs with `--draft2` | Done: see `DRAFT3.md` status and F-75. The team picks draft 2 or 3 |
+| T-97 | Draft 3 of the deck (D-31) | T-93, T-96 | Main slides one message each, rendered and checked, demo slide shows draft 3 | Done: `Costco_Workforce_Presentation_draft3.pptx` and `.pdf`, 23 slides. Packaging still takes draft 2 until the team picks |

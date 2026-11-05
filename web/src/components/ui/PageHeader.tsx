@@ -1,32 +1,27 @@
 import type { ReactNode } from "react";
-import { Skeleton } from "./Skeleton";
 
 export interface PageHeaderProps {
   /** Page title, e.g. "Overview". */
   title: string;
-  /** The answer first: one sentence that says what matters on this page. Pass null while loading. */
+  /**
+   * The page's answer as a sentence. Draft 3 is wordless (planning/DRAFT3.md): the sentence is read to screen
+   * readers only, and the KPI tiles and the main card's title carry the answer on screen.
+   */
   answer?: ReactNode | null;
-  /** Context under the answer: scenario and warehouse in words, a what-if label. */
+  /** Compact facts beside the title: a what-if chip, "567 rows". One or two words each, never a sentence. */
   meta?: ReactNode;
   /** Right side: export buttons, toggles. */
   actions?: ReactNode;
 }
 
-/** Title, then the one-sentence answer, then (optionally) context. Every page starts with this. */
+/** Title and actions in one row. Scenario and warehouse already sit in the top bar, so they aren't repeated here. */
 export function PageHeader({ title, answer, meta, actions }: PageHeaderProps) {
   return (
-    <header className="mb-6 flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
-      <div className="min-w-0 max-w-[78ch]">
+    <header className="mb-5 flex min-h-10 flex-wrap items-center justify-between gap-x-8 gap-y-3">
+      <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2">
         <h1 className="text-page font-semibold tracking-[-0.01em] text-ink">{title}</h1>
-        {answer === null ? (
-          <div className="mt-3 space-y-2" aria-hidden>
-            <Skeleton className="h-5 w-[min(640px,90%)]" />
-            <Skeleton className="h-5 w-[min(420px,60%)]" />
-          </div>
-        ) : answer ? (
-          <p className="mt-2 text-lead leading-snug text-ink-muted">{answer}</p>
-        ) : null}
-        {meta && <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-ink-subtle">{meta}</div>}
+        {meta && <div className="flex flex-wrap items-center gap-2 text-sm text-ink-subtle">{meta}</div>}
+        {answer ? <p className="sr-only">{answer}</p> : null}
       </div>
       {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
     </header>

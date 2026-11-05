@@ -130,9 +130,6 @@ export default function ScenarioLabPage() {
             ) : (
               <Badge>Submitted plan</Badge>
             )}
-            <span>
-              {scenarioName}, {where}
-            </span>
           </>
         }
       />
@@ -179,16 +176,16 @@ export default function ScenarioLabPage() {
       {applied && data && group && lab && (
         <WhatIfFrame label={data.label} conditions={conditionChips} seconds={query.isPlaceholderData ? null : data.seconds} dimmed={running}>
           <RunProgress running={running} scenario={scenario} />
-          <p className="mb-3 text-base text-ink-muted">
-            Each change compares the re-planned week with what the submitted plan would do <span className="font-semibold text-ink">under these same conditions</span> ("if kept as
-            submitted"). Under normal conditions the submitted plan is unchanged.
-          </p>
           <LabKpis whatIf={group.what_if} kept={group.submitted_rescored} submitted={group.submitted} changes={changes} />
           {group.submitted_rescored.unfilled > 0 && (
-            <p className="mt-3 text-sm text-warning-ink">
-              Under these conditions the submitted plan schedules {fmtInt(group.submitted_rescored.unfilled)} people who can't be fielded. The re-planned week schedules{" "}
-              {fmtInt(group.what_if.unfilled)}.
-            </p>
+            <div className="mt-3">
+              <Badge
+                tone="warning"
+                title={`Under these conditions the submitted plan schedules ${fmtInt(group.submitted_rescored.unfilled)} people who can't be fielded. The re-planned week schedules ${fmtInt(group.what_if.unfilled)}.`}
+              >
+                Over capacity: {fmtInt(group.submitted_rescored.unfilled)} submitted, {fmtInt(group.what_if.unfilled)} re-planned
+              </Badge>
+            </div>
           )}
 
           <div className="mt-5 space-y-5">

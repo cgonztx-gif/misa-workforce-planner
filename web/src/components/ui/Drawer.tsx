@@ -1,7 +1,8 @@
 import * as D from "@radix-ui/react-dialog";
-import { X } from "lucide-react";
+import { Info, X } from "lucide-react";
 import { useRef, type ReactNode } from "react";
 import { cn } from "../../lib/cn";
+import { Tooltip } from "./Tooltip";
 
 export interface DrawerProps {
   open: boolean;
@@ -79,13 +80,25 @@ export function Drawer({ open, onOpenChange, title, description, badges, footer,
 }
 
 /** A labeled section inside a drawer: "Demand", "Staff sources". */
-export function DrawerSection({ title, icon, children }: { title: string; icon?: ReactNode; children: ReactNode }) {
+/**
+ * A titled section of the drawer. Draft 3: `info` is the section's explanation in words, opened from an (i)
+ * beside the title, so the section itself shows numbers and shapes.
+ */
+export function DrawerSection({ title, icon, info, children }: { title: string; icon?: ReactNode; info?: ReactNode; children: ReactNode }) {
   return (
     <section className="border-b border-border py-4 first:pt-0 last:border-b-0">
-      <h4 className="mb-1.5 flex items-center gap-2 font-sans text-sm font-semibold text-ink [&>svg]:size-4 [&>svg]:text-ink-subtle">
+      <h4 className="mb-2 flex items-center gap-2 font-sans text-sm font-semibold text-ink [&>svg]:size-4 [&>svg]:text-ink-subtle">
         {icon}
         {title}
+        {info && (
+          <Tooltip content={info} side="left" width={360}>
+            <button type="button" aria-label={`About ${title.toLowerCase()}`} className="inline-flex rounded-chip text-ink-subtle/70 hover:text-accent focus-visible:text-accent">
+              <Info className="size-4" aria-hidden />
+            </button>
+          </Tooltip>
+        )}
       </h4>
+      {info && <div className="sr-only">{info}</div>}
       <div className="text-base leading-relaxed text-ink-muted">{children}</div>
     </section>
   );

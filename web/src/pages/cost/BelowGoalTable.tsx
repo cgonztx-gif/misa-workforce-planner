@@ -1,7 +1,7 @@
 import { AlertTriangle, ArrowUpRight, CheckCircle2, ChevronDown, ChevronUp, Lock } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { Badge, Button, Card, DataTable, deptColor, EmptyState, SwatchLabel, Tooltip, type Column } from "../../components";
+import { Badge, Button, Card, DataTable, EmptyState, Tooltip, type Column } from "../../components";
 import { fmtDate, fmtInt, fmtPct, plural } from "../../lib/format";
 import type { Block } from "../../lib/types";
 import { useView } from "../../lib/view";
@@ -40,9 +40,7 @@ export function BelowGoalTable({ blocks, goal, place }: { blocks: Block[]; goal:
       header: "Department",
       value: (b) => b.department,
       render: (b) => (
-        <SwatchLabel color={deptColor(b.dept_id)} className="text-base whitespace-nowrap">
-          {b.department}
-        </SwatchLabel>
+        <span className="text-base whitespace-nowrap">{b.department}</span>
       ),
     },
     { key: "chance", header: "Chance", title: "Chance of meeting target with the plan", value: (b) => b.chance, render: (b) => <span className="font-medium text-ink">{fmtPct(b.chance)}</span>, align: "right", width: "92px" },
@@ -59,7 +57,7 @@ export function BelowGoalTable({ blocks, goal, place }: { blocks: Block[]; goal:
         <Tooltip content={b.explanation.why} width={360}>
           <span tabIndex={0} className="flex min-w-0 items-start gap-2">
             {b.at_capacity ? (
-              <Badge tone="risk" icon={<Lock />}>
+              <Badge tone="outline" icon={<Lock />}>
                 At capacity
               </Badge>
             ) : (
@@ -88,18 +86,14 @@ export function BelowGoalTable({ blocks, goal, place }: { blocks: Block[]; goal:
       title="Blocks below the goal"
       description={
         rows.length
-          ? `${plural(rows.length, "block")} in ${place} stay under a ${fmtPct(goal, 0)} chance of meeting target, ${fmtInt(short)} people short of what the goal would take. ${atCap === rows.length ? "Every one is at capacity: it already uses all its own regular staff, usable cross-trained staff and overtime." : `${atCap} are at capacity.`}${worstDay ? ` The most fall on ${fmtDate(worstDay[0])} (${worstDay[1]}).` : ""}`
+          ? `${plural(rows.length, "block")} in ${place} stay under a ${fmtPct(goal, 0)} chance of meeting target, ${fmtInt(short)} people short of what the goal would take. ${atCap === rows.length ? "Every one is at capacity: it already uses all its own regular staff, usable cross-trained staff and overtime." : `${atCap} are at capacity.`}${worstDay ? ` The most fall on ${fmtDate(worstDay[0])} (${worstDay[1]}).` : ""} Moving hours can't fix these: they need more people available, such as fewer holiday PTO approvals. Click a row to open the block on the Schedule.`
           : undefined
       }
       padding="none"
-      footer={
-        <span>
-          Moving hours can't fix these: they need more people available, such as fewer holiday PTO approvals. See the{" "}
-          <Link to={`/playbook${carry}`} className="font-medium text-accent underline-offset-4 hover:underline">
-            Playbook
-          </Link>
-          . Click a row to open the block on the Schedule.
-        </span>
+      actions={
+        <Link to={`/playbook${carry}`} className="text-sm font-medium text-accent hover:text-accent-strong">
+          Playbook
+        </Link>
       }
     >
       {rows.length ? (

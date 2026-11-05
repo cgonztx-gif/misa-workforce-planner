@@ -8,7 +8,7 @@ Entry for the Texas MISA Fall 2026 case competition: the Costco workforce planni
 
 **Submission is due Saturday, Nov 7, 2026 at 7:00 AM (Q-11).**
 
-The analysis, staffing CSV and the new web app work, and **the numbers are frozen at the `numbers-freeze` tag (M6, D-28)**: after it, only a bug fix changes a number, and then every deliverable is rebuilt. **The final push is planned in `planning/DELIVERABLES_PLAN.md`:** the app, the rewritten report, the deck, a notebook appendix and a Q&A sheet. Start there, with "Current focus" in `planning/PLAN.md`. Git is on `main`, with a private GitHub remote, `origin` (`cgonztx-gif/misa-workforce-planner`), so teammates can run the app (D-30). `MISA/` and `data/` aren't tracked because they extract from `MISA.zip`.
+The analysis, staffing CSV and the new web app work, and **the numbers are frozen at the `numbers-freeze` tag (M6, D-28)**: after it, only a bug fix changes a number, and then every deliverable is rebuilt. **The final push is planned in `planning/DELIVERABLES_PLAN.md`:** the app, the rewritten report, the deck, a notebook appendix and a Q&A sheet. Start there, with "Current focus" in `planning/PLAN.md`. **Draft 3 (D-31, `planning/DRAFT3.md`)** redid the deck and app with less text, on the `dashboard-design` skill. Draft 2 is the fallback: tag `draft-2`, `web/dist-draft2` and the unchanged `Costco_Workforce_Presentation.pptx`. The team still has to pick one. Git is on `main`, with a private GitHub remote, `origin` (`cgonztx-gif/misa-workforce-planner`), so teammates can run the app (D-30). `MISA/` and `data/` aren't tracked because they extract from `MISA.zip`.
 
 ## Stack
 
@@ -46,8 +46,15 @@ python -m src.pipeline
 python -m src.charts
 node scripts/build_analysis_doc.js
 
+# Draft 3 of the deck, and its render (draft 2's builder is scripts/deck/build_deck.js)
+node scripts/deck/build_deck_draft3.js
+python planning/evidence/render_deck.py deliverables/Costco_Workforce_Presentation_draft3.pptx planning/evidence/deck_render_draft3
+
 # Start the app (opens http://localhost:8501 once ready; restart it after rerunning the pipeline)
 python -m server
+
+# Draft 2 of the app, the fallback for draft 3 (or double-click start_app_draft2.bat)
+python -m server --draft2
 
 # The Streamlit fallback
 python -m streamlit run app.py --server.port 8502

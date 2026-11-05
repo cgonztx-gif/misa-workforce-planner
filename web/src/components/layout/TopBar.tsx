@@ -63,8 +63,7 @@ export function TopBar() {
           Simulated data
         </button>
       </Tooltip>
-      <span className="hidden text-sm text-navy-ink-muted min-[1440px]:inline">Week of Thu Feb 12 to Wed Feb 18, 2026</span>
-      <span className="hidden text-sm whitespace-nowrap text-navy-ink-muted min-[1280px]:inline min-[1440px]:hidden" title="Week of Thu Feb 12 to Wed Feb 18, 2026">
+      <span className="tnum hidden text-sm whitespace-nowrap text-navy-ink-muted min-[1280px]:inline" title="Week of Thu Feb 12 to Wed Feb 18, 2026">
         Feb 12–18, 2026
       </span>
 

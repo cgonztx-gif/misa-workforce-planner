@@ -1,4 +1,6 @@
-"""Start the Workforce Planner: python -m server [--port 8501] [--no-browser]
+"""Start the Workforce Planner: python -m server [--port 8501] [--no-browser] [--draft2]
+
+--draft2 serves the frozen draft 2 front end (web/dist-draft2) instead of draft 3 (web/dist), as the fallback.
 
 Serves the API and the built front end on 127.0.0.1 only. The three scenarios are prepared in the
 background, and the browser opens once they're ready (or once startup fails, so the error shows).
@@ -54,6 +56,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="python -m server", description="Serve the Workforce Planner on this computer only.")
     parser.add_argument("--port", type=int, default=8501, help="Port to serve on (default 8501).")
     parser.add_argument("--no-browser", action="store_true", help="Don't open the browser once it's ready.")
+    parser.add_argument("--draft2", action="store_true", help="Serve the draft 2 front end (web/dist-draft2), the fallback for draft 3.")
     args = parser.parse_args(argv)
 
     if port_in_use(args.port):
@@ -66,12 +69,12 @@ def main(argv: list[str] | None = None) -> int:
 
     import uvicorn
 
-    from server.api import create_app
+    from server.api import ROOT, create_app
 
-    app = create_app()
+    app = create_app(dist=ROOT / "web" / "dist-draft2") if args.draft2 else create_app()
     engine = app.state.engine
     url = f"http://localhost:{args.port}/"
-    print(f"Workforce Planner: preparing the three scenarios (about 15 seconds). Serving {url}  (Ctrl+C to stop)", flush=True)
+    print(f"Workforce Planner{' (draft 2 fallback)' if args.draft2 else ''}: preparing the three scenarios (about 15 seconds). Serving {url}  (Ctrl+C to stop)", flush=True)
     engine.start()  # Before uvicorn, so preparing overlaps with server start. The lifespan's start() is then a no-op.
     threading.Thread(target=report_when_ready, args=(engine, url), daemon=True).start()
     if not args.no_browser:

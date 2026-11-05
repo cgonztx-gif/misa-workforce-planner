@@ -81,8 +81,7 @@ export function ShiftSplit({ blocks, departments, dept, onDept, note, scenario, 
   return (
     <Card
       title="The shift split"
-      description={`${note} ${scenario}, ${warehouseName}.`}
-      footer="Each shift's share of the day's forecast demand. The plan staffs each shift for its own share."
+      description={`Each shift's share of the day's forecast demand; the plan staffs each shift for its own share. ${note} ${scenario}, ${warehouseName}.`}
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <SegmentedControl

@@ -1,12 +1,13 @@
-import { Download, FileSpreadsheet, LayoutGrid, ListOrdered } from "lucide-react";
+import { Download, FileSpreadsheet, LayoutGrid, ListOrdered, TriangleAlert } from "lucide-react";
 import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router";
-import { Badge, Button, Card, ErrorPanel, HelpTip, LinkButton, PageHeader, Refreshing, SegmentedControl, SkeletonCard } from "../components";
+import { Button, Card, ErrorPanel, HelpTip, LinkButton, PageHeader, Refreshing, SegmentedControl, SkeletonCard } from "../components";
+import { cn } from "../lib/cn";
 import { BlockDrawer } from "../components/schedule/BlockDrawer";
 import { COLOR_MODES, type ColorMode } from "../components/schedule/boardScales";
 import { WeeklyBoard, type BoardDay } from "../components/schedule/WeeklyBoard";
 import { apiUrl, submissionCsvUrl, useMeta } from "../lib/api";
-import { useCurrentPlan, useViewNames } from "../lib/hooks";
+import { useCurrentPlan } from "../lib/hooks";
 import { useView } from "../lib/view";
 import { signedInt } from "../lib/format";
 import type { Block, PlanResponse, WarehouseKey } from "../lib/types";
@@ -54,7 +55,6 @@ export default function SchedulePage() {
   const view = useView();
   const { scenario, warehouse, setBlock, setWarehouse, carry } = view;
   const { query, data, blocks, blockByKey } = useCurrentPlan();
-  const { scenarioName, warehouseName } = useViewNames();
   const meta = useMeta().data;
   const [params, setParams] = useSearchParams();
   const days = useDays(blocks);
@@ -125,22 +125,14 @@ export default function SchedulePage() {
       <PageHeader
         title="Schedule"
         answer={answer}
-        meta={
-          <>
-            <Badge tone="accent">{scenario}</Badge>
-            <span>
-              {scenarioName}, {warehouseName}
-            </span>
-            <HelpTip term="Block" label="What's a block?" className="ml-2" />
-          </>
-        }
+        meta={<HelpTip term="Block" label="Block" />}
         actions={
           <>
             <Button icon={<FileSpreadsheet />} onClick={exportView} disabled={!data} title={tab === "changes" ? "The changes on screen, as a CSV" : "Every block in this view, as a CSV"}>
-              Export this view
+              Export view
             </Button>
-            <LinkButton variant="primary" icon={<Download />} href={submissionCsvUrl} download title="The filled submission template: all 567 blocks, three scenarios">
-              Download submission CSV
+            <LinkButton variant="primary" icon={<Download />} href={submissionCsvUrl} download aria-label="Download submission CSV" title="The filled submission template: all 567 blocks, three scenarios">
+              Submission CSV
             </LinkButton>
           </>
         }
@@ -158,7 +150,7 @@ export default function SchedulePage() {
         />
         {tab === "board" && (
           <div className="flex items-center gap-2.5">
-            <span className="text-sm text-ink-subtle">Color by</span>
+            <span className="text-sm text-ink-subtle">Color</span>
             <SegmentedControl<ColorMode> label="Color the board by" value={mode} onChange={(m) => setParam("color", m === "change" ? null : m)} options={COLOR_MODES} />
           </div>
         )}
@@ -170,11 +162,9 @@ export default function SchedulePage() {
         <Refreshing active={query.isPlaceholderData}>
           {tab === "board" ? (
             <div className="space-y-5">
-              {stores.length > 1 && (
-                <div className="rounded-card border border-border bg-surface px-5 py-3 shadow-card">
-                  <BoardLegend mode={mode} goal={goal} unfilled={hasUnfilled} />
-                </div>
-              )}
+              <div className="rounded-card border border-border bg-surface px-5 py-2.5 shadow-card">
+                <BoardLegend mode={mode} unfilled={hasUnfilled} />
+              </div>
               {stores.map((store) => {
                 const key = String(store) as WarehouseKey;
                 const own = blocks.filter((b) => b.store_id === store);
@@ -185,15 +175,28 @@ export default function SchedulePage() {
                   <Card
                     key={store}
                     padding="none"
-                    title={multi ? (wh ? `${wh.label} (${wh.size})` : own[0]?.warehouse) : undefined}
-                    description={multi && t ? `${signedInt(t.change.employees)} people against the draft, ${t.plan.below_goal} ${t.plan.below_goal === 1 ? "block" : "blocks"} below the goal` : undefined}
-                    actions={multi ? <Button size="sm" onClick={() => setWarehouse(key)}>Show only this warehouse</Button> : undefined}
+                    title={wh ? `${wh.label} · ${wh.size}` : own[0]?.warehouse}
+                    actions={
+                      <>
+                        {t && (
+                          <span className="tnum flex items-center gap-4 text-sm text-ink-muted">
+                            <span>
+                              <span className="font-semibold text-ink">{signedInt(t.change.employees)}</span> people
+                            </span>
+                            <span className={cn("inline-flex items-center gap-1", t.plan.below_goal > 0 && "text-risk-ink")}>
+                              {t.plan.below_goal > 0 && <TriangleAlert className="size-4" aria-hidden />}
+                              <span className="font-semibold">{t.plan.below_goal}</span> below goal
+                            </span>
+                          </span>
+                        )}
+                        {multi && (
+                          <Button size="sm" onClick={() => setWarehouse(key)} title={`Show only ${wh?.label ?? "this warehouse"}`}>
+                            Only this
+                          </Button>
+                        )}
+                      </>
+                    }
                   >
-                    {!multi && (
-                      <div className="border-b border-border px-5 py-3">
-                        <BoardLegend mode={mode} goal={goal} unfilled={hasUnfilled} />
-                      </div>
-                    )}
                     <div className="px-3 pt-2 pb-3">
                       <WeeklyBoard
                         blocks={own}

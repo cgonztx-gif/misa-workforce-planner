@@ -1,5 +1,6 @@
 import { AlertTriangle } from "lucide-react";
-import { changeFill, deptColor, Tooltip } from "../../components";
+import { deptColor, Tooltip } from "../../components";
+import { changeTierFill } from "../../components/schedule/boardScales";
 import { cn } from "../../lib/cn";
 import { fmtInt, fmtPct, signedInt, signedMoney } from "../../lib/format";
 import type { Block } from "../../lib/types";
@@ -46,7 +47,7 @@ function Cell({ block, change, height }: { block: Block | undefined; change: Wha
     );
   }
   const delta = change?.change ?? 0;
-  const fill = delta !== 0 ? changeFill(delta) : null;
+  const fill = delta !== 0 ? changeTierFill(delta) : null;
   const submitted = change ? change.submitted : block.plan;
   const tip = (
     <div className="space-y-1">
@@ -74,7 +75,7 @@ function Cell({ block, change, height }: { block: Block | undefined; change: Wha
         style={{ height, background: fill?.fill, color: fill?.ink }}
         className={cn(
           "flex items-center justify-between gap-1 rounded-[5px] px-2 text-base font-semibold tnum outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1",
-          !fill && "bg-raised text-ink-subtle",
+          fill ? "ring-1 ring-black/[0.08] ring-inset" : "bg-raised text-ink-subtle",
         )}
       >
         {/* Number on the left and the marker on the right, as on the Schedule board, so they never overlap. */}
@@ -152,10 +153,10 @@ export function MiniBoardLegend({ vertical = false }: { vertical?: boolean }) {
         <span>Fewer</span>
         <span className="inline-flex gap-0.5">
           {steps.map((s) => (
-            <span key={s} aria-hidden className="h-3.5 w-5 rounded-[3px]" style={{ background: changeFill(s).fill }} />
+            <span key={s} aria-hidden className="h-3.5 w-5 rounded-[3px] ring-1 ring-black/[0.08] ring-inset" style={{ background: changeTierFill(s).fill }} />
           ))}
         </span>
-        <span>More people than submitted</span>
+        <span title="People against the submitted plan">More</span>
       </span>
       <span className="inline-flex items-center gap-2">
         <span aria-hidden className="h-3.5 w-5 rounded-[3px] border border-border bg-raised" />

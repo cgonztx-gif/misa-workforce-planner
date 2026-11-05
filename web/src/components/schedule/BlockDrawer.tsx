@@ -1,5 +1,6 @@
-// The block drawer: everything about one block, in its own numbers. Opened from the board,
-// the Changes table or a link; the selected block lives in the URL so a refresh reopens it.
+// The block drawer: everything about one block, in its own numbers. Opened from the board, the Changes table or a
+// link; the selected block lives in the URL so a refresh reopens it. Draft 3: the block's reason is the one text on
+// screen (the case asks why each recommendation was made, R-14); each section's words sit in its (i).
 import { AlertTriangle, ArrowRight, BookOpen, CalendarDays, ChevronLeft, ChevronRight, DollarSign, Gauge, LifeBuoy, ShieldCheck, TrendingUp, Users } from "lucide-react";
 import { Link } from "react-router";
 import { cn } from "../../lib/cn";
@@ -13,6 +14,7 @@ import { DeltaChip } from "../ui/KpiTile";
 import { tokens } from "../../styles/tokens";
 import { fmtChance } from "./boardScales";
 import { ServiceBars, SourcesTable, Stat } from "./drawerParts";
+import { Tooltip } from "../ui/Tooltip";
 
 export interface BlockDrawerProps {
   block: Block | undefined;
@@ -85,7 +87,7 @@ export function BlockDrawer({ block, onClose, goal, demandUnit, prev, next, onNa
             <Button size="sm" variant="ghost" icon={<ChevronLeft />} disabled={!prev} onClick={() => prev && onNavigate(prev.key)}>
               {prev ? prev.day : "First day"}
             </Button>
-            <span className="text-sm text-ink-subtle">Same shift, other days</span>
+            <span className="text-sm text-ink-subtle">Same shift</span>
             <Button size="sm" variant="ghost" disabled={!next} onClick={() => next && onNavigate(next.key)} className="flex-row-reverse">
               <ChevronRight />
               {next ? next.day : "Last day"}
@@ -97,11 +99,37 @@ export function BlockDrawer({ block, onClose, goal, demandUnit, prev, next, onNa
       {b && !b.is_open && (
         <DrawerSection title="Why" icon={<BookOpen />}>
           <p>{b.explanation.why}</p>
-          <p className="mt-2 text-ink-subtle">Closed blocks count as 0 people in the submission.</p>
+          <p className="mt-2 text-sm text-ink-subtle">0 in the submission</p>
         </DrawerSection>
       )}
       {b && b.is_open && <OpenBlock b={b} goal={goal} unit={demandUnit?.(b.dept_id)} carry={carry} />}
     </Drawer>
+  );
+}
+
+/**
+ * The block's reason. Up to three sentences show; a longer one (a block that can't reach the goal) shows its first
+ * two, which carry the reason and the numbers, and the rest, already shown as figures below, opens from "More".
+ */
+function Why({ text }: { text: string }) {
+  const parts = text.split(/(?<=[.!?])\s+(?=[A-Z])/);
+  const shown = parts.length <= 3 ? parts : parts.slice(0, 2);
+  const rest = parts.slice(shown.length);
+  return (
+    <div className="mt-4 text-body-lg leading-relaxed text-ink">
+      {/* The whole reason once for screen readers; the split copy below is for the eye. */}
+      {rest.length > 0 && <p className="sr-only">{text}</p>}
+      <p aria-hidden={rest.length > 0 || undefined}>{shown.join(" ")}</p>
+      {rest.length > 0 && (
+        <details className="group mt-1">
+          <summary className="cursor-pointer list-none text-sm font-medium text-accent hover:text-accent-strong [&::-webkit-details-marker]:hidden">
+            <span className="group-open:hidden">More</span>
+            <span className="hidden group-open:inline">Less</span>
+          </summary>
+          <p aria-hidden className="mt-1 text-base text-ink-muted">{rest.join(" ")}</p>
+        </details>
+      )}
+    </div>
   );
 }
 
@@ -126,89 +154,84 @@ function OpenBlock({ b, goal, unit, carry }: { b: Block; goal: number; unit?: st
           </div>
         </div>
         <p className="tnum mt-3 flex flex-wrap items-baseline gap-x-2 text-base text-ink-muted">
-          <span>Chance of meeting target</span>
+          <span>Chance</span>
           <span>{fmtChance(b.chance_draft, b.below_goal_draft, goal)}</span>
           <ArrowRight className="size-3.5 self-center text-ink-subtle" aria-hidden />
           <span className={cn("font-semibold", b.below_goal ? "text-risk-ink" : "text-ink")}>{fmtChance(b.chance, b.below_goal, goal)}</span>
           <span className="text-ink-subtle">(goal {goalPct})</span>
         </p>
-        <p className="mt-4 text-body-lg leading-relaxed text-ink">{b.explanation.why}</p>
+        <Why text={b.explanation.why} />
         {b.below_goal && (
           <Link
             to={`/playbook${carry}`}
             className="mt-3 inline-flex items-center gap-1.5 text-base font-semibold text-risk-ink underline-offset-4 hover:underline"
           >
-            What to do on the day: see the Playbook
+            Playbook
             <ArrowRight className="size-4" aria-hidden />
           </Link>
         )}
       </section>
 
-      <DrawerSection title="Demand driver" icon={<TrendingUp />}>
-        <p>{b.explanation.demand_driver ?? "No driver recorded for this block."}</p>
-        <div className="mt-3 grid grid-cols-2 gap-2.5">
-          <Stat label="Forecast demand" value={fmtDec1(b.demand)} sub={unit ? unit : undefined} />
-          <Stat
-            label="Callouts allowed for"
-            value={fmtPct(b.callout_rate, 1)}
-            sub={b.callout_context ? `${b.callout_context.replace(/_/g, " ")} rate` : undefined}
-          />
+      <DrawerSection title="Demand" icon={<TrendingUp />} info={b.explanation.demand_driver ?? undefined}>
+        <div className="grid grid-cols-2 gap-2.5">
+          <Stat label="Forecast" value={fmtDec1(b.demand)} sub={unit ? unit : undefined} />
+          <Stat label="Callouts allowed" value={fmtPct(b.callout_rate, 1)} sub={b.callout_context ? `${b.callout_context.replace(/_/g, " ")} rate` : undefined} />
         </div>
         {b.demand_multiplier !== 1 && (
-          <p className="tnum mt-2 text-sm text-ink-subtle">
-            Scenario multiplier x{b.demand_multiplier.toFixed(2)}: {b.adjustment_reason}.
+          <p className="tnum mt-2 text-sm text-ink-subtle" title={b.adjustment_reason ?? undefined}>
+            Scenario ×{b.demand_multiplier.toFixed(2)}
           </p>
         )}
       </DrawerSection>
 
-      <DrawerSection title="Staff sources" icon={<Users />}>
-        <p>{b.explanation.staffing}</p>
+      <DrawerSection title="Staff sources" icon={<Users />} info={<>{b.explanation.staffing}{b.availability.note ? ` Availability: ${b.availability.note}.` : ""}</>}>
         <SourcesTable block={b} />
-        {b.availability.note && <p className="mt-2 text-sm text-ink-subtle">Availability: {b.availability.note}.</p>}
       </DrawerSection>
 
-      <DrawerSection title="Cost effect" icon={<DollarSign />}>
-        <p>{b.explanation.cost_effect}</p>
-        <div className="mt-3 grid grid-cols-3 gap-2.5">
+      <DrawerSection title="Cost" icon={<DollarSign />} info={b.explanation.cost_effect}>
+        <div className="grid grid-cols-3 gap-2.5">
           <Stat label="Draft" value={fmtMoney(b.cost_draft)} sub={fmtHours(b.hours_draft)} tone="muted" />
           <Stat label="Plan" value={fmtMoney(b.cost)} sub={fmtHours(b.hours)} tone="accent" />
           <Stat label="Change" value={signedMoney(b.cost_change)} sub={`${signedInt(b.hours - b.hours_draft)} h`} />
         </div>
       </DrawerSection>
 
-      <DrawerSection title="Service effect" icon={<Gauge />}>
-        <p>{b.explanation.service_effect}</p>
+      <DrawerSection
+        title="Service"
+        icon={<Gauge />}
+        info={<>{b.explanation.service_effect}{b.need != null ? ` A ${goalPct} chance would take ${b.need} people; this block can field ${b.availability.capacity}.` : ""}</>}
+      >
         <ServiceBars block={b} goal={goal} />
-        <p className="tnum text-sm text-ink-subtle">
-          Utilization {fmtPct(b.utilization_draft, 0)} in the draft, {fmtPct(b.utilization, 0)} in the plan.
-          {b.need != null && ` A ${goalPct} chance would take ${b.need} people; this block can field ${b.availability.capacity}.`}
-        </p>
+        <div className="grid grid-cols-2 gap-2.5">
+          <Stat label="Utilization" value={<>{fmtPct(b.utilization_draft, 0)} <span className="text-ink-subtle">→</span> {fmtPct(b.utilization, 0)}</>} sub="draft → plan" />
+          <Stat label="People for the goal" value={b.need ?? "–"} sub={`can field ${b.availability.capacity}`} />
+        </div>
       </DrawerSection>
 
-      <DrawerSection title="Cushion" icon={<LifeBuoy />}>
-        <p>{b.explanation.cushion}</p>
-        <div className="mt-3 grid grid-cols-2 gap-2.5">
+      <DrawerSection title="Cushion" icon={<LifeBuoy />} info={b.explanation.cushion}>
+        <div className="grid grid-cols-2 gap-2.5">
           <Stat label="People it can lose" value={b.cushion_people ?? "–"} />
           <Stat label="Extra demand it can take" value={fmtPct(b.cushion_demand, 0)} />
         </div>
       </DrawerSection>
 
-      <DrawerSection title="Assumptions behind it" icon={<BookOpen />}>
+      <DrawerSection title="Assumptions" icon={<BookOpen />}>
         {b.assumptions.length ? (
-          <ul className="space-y-2">
+          <div className="flex flex-wrap gap-2">
             {b.assumptions.map((a) => (
-              <li key={a.id} className="flex gap-2.5">
-                <span className="tnum mt-0.5 shrink-0 self-start rounded-chip bg-raised px-1.5 text-sm font-medium text-ink-muted ring-1 ring-border">{a.id}</span>
-                <span>{a.text}</span>
-              </li>
+              <Tooltip key={a.id} content={a.text} width={320}>
+                <span tabIndex={0} className="tnum inline-flex cursor-help items-center rounded-chip bg-raised px-2 py-0.5 text-sm font-medium text-ink-muted ring-1 ring-border">
+                  {a.id}
+                </span>
+              </Tooltip>
             ))}
-          </ul>
+            <Link to={`/methods${carry}`} className="inline-flex items-center gap-0.5 text-sm font-medium text-accent hover:text-accent-strong">
+              All <ChevronRight className="size-4" aria-hidden />
+            </Link>
+          </div>
         ) : (
-          <p>No assumptions apply.</p>
+          <p className="text-sm text-ink-subtle">None</p>
         )}
-        <Link to={`/methods${carry}`} className="mt-3 inline-block text-sm font-medium text-accent hover:text-accent-strong">
-          All assumptions, ours and the case's, on the Methods page
-        </Link>
       </DrawerSection>
     </>
   );

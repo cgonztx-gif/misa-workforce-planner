@@ -61,7 +61,9 @@ export function Sidebar() {
 
       <div className="mt-6 rounded-card border border-navy-border p-3.5">
         <p className="text-sm font-medium text-navy-ink">Submitted plan</p>
-        <p className="mt-0.5 text-sm leading-snug text-navy-ink-muted">567 rows (3 scenarios × 189 blocks), ready to submit.</p>
+        <p className="tnum mt-0.5 text-sm text-navy-ink-muted" title="3 scenarios × 189 blocks, in the case's template">
+          567 rows · 3 scenarios
+        </p>
         <a
           href={submissionCsvUrl}
           download

@@ -143,7 +143,9 @@ export function SourcesTable({ block }: { block: Block }) {
     {unfilled > 0 && (
       <p className="mt-2 flex items-center gap-2 text-sm text-risk-ink">
         <span aria-hidden className="inline-block h-3 w-6 rounded-sm" style={{ background: `repeating-linear-gradient(135deg, ${c.risk_soft} 0 4px, ${c.risk} 4px 5.5px)` }} />
-        The draft's total includes {unfilled} {unfilled === 1 ? "person" : "people"} this block can't field.
+        <span title={`The draft's total includes ${unfilled} ${unfilled === 1 ? "person" : "people"} this block can't field.`}>
+          {unfilled} over capacity
+        </span>
       </p>
     )}
     </div>

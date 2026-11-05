@@ -22,16 +22,13 @@ export function ValentineCard({ valentine, capacity }: ValentineCardProps) {
 
   return (
     <Card
-      title="If Valentine's Day is bigger than we assumed"
-      description={`Expected service on Sat Feb 14, Front End and Merchandising, all warehouses. We assume +${Math.round(ours * 100)}% (${valentine.assumption}).`}
+      title="If Valentine's Day is bigger"
+      description={`Expected service on Sat Feb 14, Front End and Merchandising, all warehouses. We assume +${Math.round(ours * 100)}% (${valentine.assumption}).${
+        capacity ? ` Replanning for a larger uplift barely helps: ${capacity.atCapacity} of the ${capacity.blocks} blocks that day are already at capacity, so there's little room to add people.` : ""
+      }`}
       actions={<Badge tone="neutral">BASE</Badge>}
       className="flex flex-col"
       bodyClassName="flex flex-1 flex-col"
-      footer={
-        capacity
-          ? `Replanning for a larger uplift barely helps: ${capacity.atCapacity} of the ${capacity.blocks} blocks that day are already at capacity, so there's little room to add people.`
-          : undefined
-      }
     >
       <ChartLegend items={[{ label: `Our plan, built for +${Math.round(ours * 100)}%`, color: chartColors.plan }, { label: "Replanned for each uplift", color: REPLANNED }]} />
       {/* The chart grows to fill the card when the shift split beside it is taller, so no empty band is left. */}
@@ -56,11 +53,15 @@ export function ValentineCard({ valentine, capacity }: ValentineCardProps) {
           </LineChart>
         </ResponsiveContainer>
       </div>
-      <p className="mt-2 text-sm text-ink-muted">
-        At a true uplift of {worst.label}, our plan reaches <span className="tnum font-semibold text-ink">{fmtPct(worst.our_plan_expected_met)}</span> and a plan built for it{" "}
-        <span className="tnum font-semibold text-ink">{fmtPct(worst.replanned_expected_met)}</span>, for{" "}
-        <span className="tnum">{fmtMoney(Math.abs(worst.replanned_feb14_cost - worst.our_plan_feb14_cost))}</span> {worst.replanned_feb14_cost >= worst.our_plan_feb14_cost ? "more" : "less"} that day.
-      </p>
+      <div className="tnum mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-sm text-ink-muted" title={`Feb 14 cost difference: ${fmtMoney(Math.abs(worst.replanned_feb14_cost - worst.our_plan_feb14_cost))} ${worst.replanned_feb14_cost >= worst.our_plan_feb14_cost ? "more" : "less"} for the replanned day`}>
+        <span className="font-medium text-ink">At +{worst.label.replace(/^\+/, "")}</span>
+        <span>
+          Ours <span className="font-semibold text-ink">{fmtPct(worst.our_plan_expected_met)}</span>
+        </span>
+        <span>
+          Replanned <span className="font-semibold text-ink">{fmtPct(worst.replanned_expected_met)}</span>
+        </span>
+      </div>
     </Card>
   );
 }

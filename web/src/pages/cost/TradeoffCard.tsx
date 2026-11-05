@@ -61,14 +61,13 @@ export function TradeoffCard({ points, scenario, warehouseNote }: { points: Goal
 
   return (
     <Card
-      title="The service-goal trade-off"
-      description={`${scenario}: what each service goal costs and the expected service it buys. Each point is a full replan at that goal.`}
-      actions={warehouseNote ? <Badge tone="neutral">{warehouseNote}</Badge> : undefined}
-      footer={
+      title="Service goal trade-off"
+      description={`${scenario}: what each service goal costs and the expected service it buys. Each point is a full replan at that goal.${
         first && last
-          ? `Each extra point costs more than the last: ${fmtMoney(first.cost_per_point)} a point going to ${goalLabel(first.goal)}, ${fmtMoney(last.cost_per_point)} going to ${goalLabel(last.goal)}. Blocks below the goal rise with the goal, because a higher goal is harder to reach.`
-          : undefined
-      }
+          ? ` Each extra point costs more than the last: ${fmtMoney(first.cost_per_point)} a point going to ${goalLabel(first.goal)}, ${fmtMoney(last.cost_per_point)} going to ${goalLabel(last.goal)}. Blocks below the goal rise with the goal, because a higher goal is harder to reach.`
+          : ""
+      }`}
+      actions={warehouseNote ? <Badge tone="neutral">{warehouseNote}</Badge> : undefined}
     >
       <div className="grid gap-6 min-[1280px]:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
         <div className="min-w-0">
@@ -114,10 +113,10 @@ export function TradeoffCard({ points, scenario, warehouseNote }: { points: Goal
               </Line>
             </LineChart>
           </ResponsiveContainer>
-          <p className="mt-1 text-center text-sm font-medium text-ink-subtle">Labor cost for the week, at each service goal</p>
+          <p className="mt-1 text-center text-sm font-medium text-ink-subtle">Labor cost for the week</p>
         </div>
         <div className="min-w-0">
-          <p className="mb-1 text-sm font-medium text-ink-subtle">Cost of each extra point of expected service</p>
+          <p className="mb-1 text-sm font-medium text-ink-subtle">Cost per extra point</p>
           <ResponsiveContainer width="100%" height={276}>
             <BarChart data={steps} margin={{ top: 24, right: 8, bottom: 4, left: 0 }}>
               <CartesianGrid {...gridProps} />
@@ -144,7 +143,7 @@ export function TradeoffCard({ points, scenario, warehouseNote }: { points: Goal
               </Bar>
             </BarChart>
           </ResponsiveContainer>
-          <p className="mt-1 text-center text-sm font-medium text-ink-subtle">Raising the service goal</p>
+          <p className="mt-1 text-center text-sm font-medium text-ink-subtle">Service goal</p>
         </div>
       </div>
     </Card>

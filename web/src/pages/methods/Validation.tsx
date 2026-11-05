@@ -17,9 +17,8 @@ export function BacktestCard({ daily, block, limit }: { daily: BacktestRow[]; bl
   return (
     <Card
       title="Forecast error on held-out weeks"
-      description="Mean absolute percentage error. Lower is better."
+      description={`Mean absolute percentage error. Lower is better.${limit ? ` ${limit}` : ""}`}
       actions={<SegmentedControl<"daily" | "block"> label="Error measured by" size="sm" value={grain} onChange={setGrain} options={[{ value: "daily", label: "By day" }, { value: "block", label: "By block" }]} />}
-      footer={limit}
     >
       <ChartLegend className="mb-2" items={[{ label: "Our forecast", color: chartColors.plan }, { label: "Benchmark method", color: chartColors.benchmark }]} />
       <ResponsiveContainer width="100%" height={240}>
@@ -44,9 +43,8 @@ export function BacktestCard({ daily, block, limit }: { daily: BacktestRow[]; bl
 export function CalibrationCard({ bins, brier }: { bins: CalibrationBin[]; brier: { model: number; base_rate: number } }) {
   return (
     <Card
-      title="Do predicted chances come true?"
-      description="Each week predicted by a curve fitted without it. Dots on the line mean a predicted chance matched what happened; bigger dots hold more blocks."
-      footer={`Brier score ${brier.model.toFixed(3)} against ${brier.base_rate.toFixed(3)} for always predicting the average rate. Lower is better.`}
+      title="Predicted vs actual"
+      description={`Do predicted chances come true? Each week predicted by a curve fitted without it. Dots on the line mean a predicted chance matched what happened; bigger dots hold more blocks. Brier score ${brier.model.toFixed(3)} against ${brier.base_rate.toFixed(3)} for always predicting the average rate; lower is better.`}
     >
       <ResponsiveContainer width="100%" height={264}>
         <ScatterChart margin={{ top: 16, right: 24, bottom: 22, left: 0 }}>
@@ -87,7 +85,7 @@ export function LimitsCard({ limits }: { limits: ServiceLimit[] }) {
   return (
     <Card
       title="Where service falls off"
-      description="Utilization at which a block's chance of meeting target falls to 95%, from the fitted curves. The second figure is where it falls to 50%."
+      description="Utilization at which a block's chance of meeting target falls to 95%, from the fitted curves. The second figure is where it falls to 50%. This is why the plan never aims for the edge: a block a little past its limit misses far more often."
       padding="none"
     >
       <table className="w-full border-separate border-spacing-0 text-base">
@@ -116,7 +114,6 @@ export function LimitsCard({ limits }: { limits: ServiceLimit[] }) {
           ))}
         </tbody>
       </table>
-      <p className="px-5 py-3 text-sm text-ink-subtle">This is why the plan never aims for the edge: a block a little past its limit misses far more often.</p>
     </Card>
   );
 }

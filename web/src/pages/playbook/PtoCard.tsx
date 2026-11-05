@@ -1,4 +1,4 @@
-import { BookmarkCheck, Info } from "lucide-react";
+import { BookmarkCheck } from "lucide-react";
 import type { ReactElement, ReactNode } from "react";
 import { Bar, BarChart, CartesianGrid, Cell, LabelList, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip as RTooltip, XAxis, YAxis } from "recharts";
 import { Badge, barTooltipProps, Card, chartColors, ChartLegend, DataTable, gridProps, tooltipContent, tooltipProps, Tooltip, xAxisProps, yAxisProps, type Column } from "../../components";
@@ -96,10 +96,13 @@ export function PtoCard({ rows, intro, assumption, assumptionText, goal, view }:
   const first = data[0];
   const last = data[data.length - 1];
   const saving = last.cost - first.cost;
+  const pick = data.find((r) => r.kept_per_block === 2) ?? last;
   return (
     <Card
       title="Limit holiday PTO"
-      description="The headline recommendation, tested by re-running the search with some holiday PTO kept back."
+      description={`The headline recommendation, tested by re-running the search with some holiday PTO kept back. ${intro}${
+        view ? ` This what-if is run in BASE across all warehouses, where holiday PTO drives the shortage; the scenario plans and the blocks with the least cushion below follow ${view}.` : ""
+      }`}
       actions={
         <>
         <Badge tone="navy">BASE, all warehouses</Badge>
@@ -113,16 +116,29 @@ export function PtoCard({ rows, intro, assumption, assumptionText, goal, view }:
         </>
       }
     >
-      {view && (
-        <p className="mb-4 flex items-start gap-2.5 rounded-control border border-accent-line bg-accent-soft px-3.5 py-2.5 text-base leading-snug text-ink">
-          <Info className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
-          <span>
-            This what-if is run in <span className="font-semibold">BASE across all warehouses</span>, where holiday PTO drives the shortage. The scenario plan and the
-            blocks with the least cushion below follow <span className="font-semibold">{view}</span>.
-          </span>
-        </p>
-      )}
-      <p className="max-w-[110ch] text-base leading-relaxed text-ink-muted">{intro}</p>
+      {/* Draft 3: the takeaway as three numbers, keeping 2 per block against none (the deck's and the demo's
+          figure, so the numbers agree everywhere); the words are the (i). */}
+      <p className="mb-2 text-sm font-medium text-ink-muted">Keeping {pick.kept_per_block} per block, vs none</p>
+      <div className="tnum grid grid-cols-3 divide-x divide-border rounded-control bg-raised ring-1 ring-border">
+        <div className="px-4 py-3">
+          <div className="text-sm text-ink-subtle">Below the goal</div>
+          <div className="mt-0.5 flex items-baseline gap-2">
+            <span className="text-base text-ink-subtle">{fmtInt(first.blocks_below_goal)} →</span>
+            <span className="font-display text-kpi leading-none font-semibold text-ink">{fmtInt(pick.blocks_below_goal)}</span>
+          </div>
+        </div>
+        <div className="px-4 py-3">
+          <div className="text-sm text-ink-subtle">Expected service</div>
+          <div className="mt-0.5 flex items-baseline gap-2">
+            <span className="text-base text-ink-subtle">{fmtPct(first.expected_met)} →</span>
+            <span className="font-display text-kpi leading-none font-semibold text-ink">{fmtPct(pick.expected_met)}</span>
+          </div>
+        </div>
+        <div className="px-4 py-3">
+          <div className="text-sm text-ink-subtle">Labor cost</div>
+          <div className="mt-0.5 font-display text-kpi leading-none font-semibold text-ink">{signedMoney(pick.cost - first.cost)}</div>
+        </div>
+      </div>
 
       <div className="mt-5 grid gap-x-8 gap-y-6 lg:grid-cols-3">
         <Multiple title="Blocks below the goal" note={<ChartLegend items={[{ label: "Holiday PTO", color: chartColors.plan }, { label: "Other", color: OTHER }]} />}>
@@ -173,7 +189,7 @@ export function PtoCard({ rows, intro, assumption, assumptionText, goal, view }:
           </LineChart>
         </Multiple>
       </div>
-      <p className="mt-1 text-center text-sm text-ink-subtle">People kept from holiday PTO per block, never more than the block lost against recent weeks</p>
+      <p className="mt-1 text-center text-sm text-ink-subtle" title="Never more than the block lost against recent weeks">People kept from holiday PTO, per block</p>
 
       <div className="mt-5 overflow-hidden rounded-control border border-border">
         <DataTable columns={TABLE} rows={rows} rowKey={(r) => String(r.kept_per_block)} dense caption="Holiday PTO what-if, by people kept per block" />

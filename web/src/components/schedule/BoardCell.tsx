@@ -64,12 +64,12 @@ function CellTip({ block, goal }: { block: Block; goal: number }) {
 }
 
 /** The marker for a block whose draft schedules more people than it can field. */
-export const UnfilledIcon = () => <UserX className="size-[11px]" strokeWidth={2.5} />;
+export const UnfilledIcon = () => <UserX className="size-[10px]" strokeWidth={2.5} />;
 
-/** One block on the board: headcount, change from the draft, and the figure the color encodes. */
+/** One block on the board, on one line: headcount, then the figure the color encodes (change, chance or utilization). */
 export const BoardCell = memo(function BoardCell({ block, mode, selected, onSelect, goal }: BoardCellProps) {
   const base = cn(
-    "group/cell relative flex h-[52px] w-full flex-col justify-center rounded-control px-2.5 text-left outline-none transition-[box-shadow,transform] duration-100",
+    "group/cell relative flex h-10 w-full items-center rounded-control px-2.5 text-left outline-none transition-[box-shadow,transform] duration-100",
     "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2",
     selected
       ? "z-[2] shadow-[0_0_0_2px_var(--wp-color-surface),0_0_0_4.5px_var(--wp-color-navy),0_6px_16px_rgba(19,26,54,0.28)]"
@@ -95,8 +95,8 @@ export const BoardCell = memo(function BoardCell({ block, mode, selected, onSele
   }
 
   const { fill, ink } = cellFill(block, mode);
-  const light = ink !== "#FFFFFF";
   const metric = cellMetric(block, mode, goal);
+  const quiet = mode === "change" && block.change === 0;
   const label = `${block.label}: plan ${block.plan}, ${block.change === 0 ? "no change" : `${signedInt(block.change)} from the draft's ${block.draft}`}, chance of meeting target ${fmtChance(block.chance, block.below_goal, goal)}${block.below_goal ? ", below the goal" : ""}${block.draft_sources.unfilled > 0 ? `, the draft can't field ${block.draft_sources.unfilled}` : ""}`;
 
   return (
@@ -107,32 +107,25 @@ export const BoardCell = memo(function BoardCell({ block, mode, selected, onSele
         aria-label={label}
         aria-pressed={selected}
         onClick={() => onSelect(block.key)}
-        className={cn(base, light && "ring-1 ring-black/[0.04] ring-inset")}
+        className={cn(base, "ring-1 ring-black/[0.06] ring-inset")}
         style={{ background: fill, color: ink }}
       >
         <span className="flex items-baseline gap-1.5 leading-none">
-          <span className="tnum font-display text-[19px] font-semibold tracking-[-0.01em]">{block.plan}</span>
-          <span className={cn("tnum text-sm font-semibold", block.change === 0 && "opacity-60")}>
-            {block.change === 0 ? "0" : signedInt(block.change)}
-          </span>
+          <span className="tnum font-display text-[18px] font-semibold tracking-[-0.01em]">{block.plan}</span>
+          <span className={cn("tnum text-sm font-medium", quiet ? "text-ink-subtle" : "text-ink-muted")}>{metric}</span>
         </span>
-        <span className={cn("tnum mt-1 text-sm leading-none", light ? "opacity-75" : "opacity-85")}>{metric}</span>
-        {block.below_goal && (
-          <span
-            className="absolute top-1 right-1 inline-flex size-[18px] items-center justify-center rounded-full bg-risk text-white shadow-[0_0_0_1.5px_var(--wp-color-surface)]"
-            aria-hidden
-          >
-            <AlertTriangle className="size-[11px]" strokeWidth={2.75} />
-          </span>
-        )}
-        {block.draft_sources.unfilled > 0 && (
-          <span
-            className="absolute right-1 bottom-1 inline-flex size-[18px] items-center justify-center rounded-full bg-surface text-warning-ink ring-[1.5px] ring-warning"
-            aria-hidden
-          >
-            <UnfilledIcon />
-          </span>
-        )}
+        <span className="absolute top-1/2 right-1.5 flex -translate-y-1/2 items-center gap-1">
+          {block.draft_sources.unfilled > 0 && (
+            <span className="inline-flex size-4 items-center justify-center rounded-full bg-surface text-warning-ink ring-[1.5px] ring-warning" aria-hidden>
+              <UnfilledIcon />
+            </span>
+          )}
+          {block.below_goal && (
+            <span className="inline-flex size-[18px] items-center justify-center rounded-full bg-risk text-white shadow-[0_0_0_1.5px_var(--wp-color-surface)]" aria-hidden>
+              <AlertTriangle className="size-[11px]" strokeWidth={2.75} />
+            </span>
+          )}
+        </span>
       </button>
     </Tooltip>
   );

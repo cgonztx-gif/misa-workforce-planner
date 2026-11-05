@@ -1,4 +1,3 @@
-import { Info } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, LabelList, ResponsiveContainer, Tooltip as RTooltip, XAxis, YAxis } from "recharts";
 import { Badge, Card, ChartLegend, chartColors, gridProps, legendItems, barTooltipProps, tooltipContent, xAxisProps, yAxisProps } from "../../components";
 import { fmtPct } from "../../lib/format";
@@ -29,7 +28,7 @@ export function AccuracyCard({ data, normalDayGap, warehouseNote }: AccuracyCard
   return (
     <Card
       title="Forecast accuracy"
-      description="Mean absolute percentage error on held-out weeks 4 to 6, each forecast from earlier weeks only. Lower is better."
+      description={`Mean absolute percentage error on held-out weeks 4 to 6, each forecast from earlier weeks only. Lower is better. ${acc.text} What this doesn't show: ${acc.limit}`}
       actions={
         <>
           <ChartLegend items={[legendItems.forecast, { label: "Benchmark method", color: chartColors.benchmark }]} />
@@ -37,21 +36,18 @@ export function AccuracyCard({ data, normalDayGap, warehouseNote }: AccuracyCard
         </>
       }
     >
-      <div className="grid gap-6 min-[1280px]:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
+      <div className="grid items-center gap-6 min-[1280px]:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)]">
         <div className="min-w-0">
-          <p className="font-display text-title font-semibold leading-snug text-ink">The forecast removes the holiday distortion in the benchmark.</p>
-          <p className="mt-2 text-base leading-relaxed text-ink-muted">{acc.text}</p>
-          <div className="mt-4 flex items-start gap-3 rounded-control border border-border bg-raised px-3.5 py-3">
-            <Info className="mt-0.5 size-4 shrink-0 text-ink-subtle" aria-hidden />
-            <p className="text-sm leading-relaxed text-ink-muted">
-              <span className="font-semibold text-ink">What this doesn't show. </span>
-              {acc.limit}
-            </p>
+          <div className="text-sm text-ink-muted">Daily error, held-out weeks</div>
+          <div className="tnum mt-1 flex items-baseline gap-2">
+            <span className="font-display text-hero leading-none font-semibold tracking-[-0.02em] text-ink">{fmtPct(rows[0]?.model)}</span>
+            <span className="text-lg text-ink-subtle">vs {fmtPct(rows[0]?.benchmark)}</span>
           </div>
-          <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-ink-muted">
+          <div className="mt-1 text-sm text-ink-subtle">ours vs benchmark method</div>
+          <div className="tnum mt-5 flex items-center gap-2 text-sm text-ink-muted">
             <Badge tone="neutral">Planning week</Badge>
             <span>
-              On normal days our forecast and the benchmark agree within <span className="tnum font-semibold text-ink">{fmtPct(normalDayGap)}</span>.
+              normal days within <span className="font-semibold text-ink">{fmtPct(normalDayGap)}</span>
             </span>
           </div>
         </div>

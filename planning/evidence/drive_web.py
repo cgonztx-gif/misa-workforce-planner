@@ -31,8 +31,10 @@ from urllib.parse import unquote, urlencode, urlparse
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 EVIDENCE = ROOT / "planning" / "evidence"
-SHOTS = EVIDENCE / "web_screenshots" / "final"
-OUTPUT = EVIDENCE / "drive_web.output.json"
+# Draft 3 (planning/DRAFT3.md) writes its own shots and record, so draft 2's (web_screenshots/final and
+# drive_web.output.json, tag draft-2), which the draft 2 deck and the report use, stay as they were.
+SHOTS = EVIDENCE / "web_screenshots" / "draft3"
+OUTPUT = EVIDENCE / "drive_web_draft3.output.json"
 SUBMISSION = ROOT / "outputs" / "TEAM_SUBMISSION_TEMPLATE_filled.csv"
 
 # 7.8's performance budgets. The demo what-if is warmed at startup, so it should answer at once.
@@ -275,14 +277,33 @@ TILE_JS = """label => { const card = [...document.querySelectorAll('main span')]
 TILE_COND = "((t) => !!t && t.value === arg.value)((" + TILE_JS + ")(arg.label)) && " + NOT_BUSY
 
 
-def tiles(page) -> dict:
-    return {label: (page.evaluate(TILE_JS, label) or {}).get("value") for label in
-            ("Labor cost", "Hours", "Expected service", "Below the goal", "Over capacity")}
+# Draft 3's Overview has four tiles, with the cost compact on the card ("$377.5K", exact in the tooltip) and
+# over capacity moved into the below-goal list. The Scenario lab keeps exact figures and its own labels.
+OVERVIEW_TILES = ("Expected service", "Below the goal", "Labor cost", "Paid hours")
+LAB_TILES = ("Labor cost", "Hours", "Expected service", "Below the goal")
 
 
-def expected_tiles(summary: dict) -> dict:
-    return {"Labor cost": money(summary["cost"]), "Hours": hours(summary["hours"]), "Expected service": pct(summary["expected_met"]),
-            "Below the goal": fmt_int(summary["below_goal"]), "Over capacity": fmt_int(summary["over_capacity"])}
+def money_compact(n) -> str:
+    """lib/format.ts fmtMoney(n, true): $12.3K from $10,000, $1.23M from $1,000,000."""
+    a = abs(n)
+    sign = MINUS if n < 0 else ""
+    if a >= 1_000_000:
+        return f"{sign}${a / 1_000_000:.2f}M"
+    if a >= 10_000:
+        return f"{sign}${a / 1000:.1f}K"
+    return money(n)
+
+
+def tiles(page, labels=OVERVIEW_TILES) -> dict:
+    return {label: (page.evaluate(TILE_JS, label) or {}).get("value") for label in labels}
+
+
+def expected_tiles(summary: dict, lab: bool = False) -> dict:
+    if lab:
+        return {"Labor cost": money(summary["cost"]), "Hours": hours(summary["hours"]), "Expected service": pct(summary["expected_met"]),
+                "Below the goal": fmt_int(summary["below_goal"])}
+    return {"Expected service": pct(summary["expected_met"]), "Below the goal": fmt_int(summary["below_goal"]),
+            "Labor cost": money_compact(summary["cost"]), "Paid hours": hours(summary["hours"])}
 
 
 def shot(page, name: str, full: bool = False) -> str:
@@ -442,7 +463,10 @@ def board_mismatches(page, plan: dict, wh: str) -> list[str]:
 def drawer_mismatches(page, b: dict, goal: float) -> list[str]:
     """The open drawer against one /api/plan block: title, badges, hero numbers, sources, cost, service, cushion, assumptions."""
     d = page.get_by_role("dialog")
-    text, title = d.inner_text(), d.locator("h2").first.inner_text().strip()
+    # Draft 3 keeps each section's words in its (i) tooltip and as screen-reader text, so the explanations are
+    # checked against the drawer's full text content; the figures are checked against what's visible.
+    visible, title = d.inner_text(), d.locator("h2").first.inner_text().strip()
+    text = visible + " " + " ".join((d.text_content() or "").split())
     miss = [] if title == b["label"] else [f"title {title!r}"]
     x = b["explanation"]
     want = [b["warehouse"], b["scenario"], x["why"]]
@@ -451,13 +475,13 @@ def drawer_mismatches(page, b: dict, goal: float) -> list[str]:
         want += [b["action"], x["demand_driver"] or "", x["staffing"], x["cost_effect"], x["service_effect"], x["cushion"],
                  money(b["cost_draft"]), money(b["cost"]), signed(b["cost_change"], money), hours(b["hours_draft"]), hours(b["hours"]),
                  f"{b['demand']:,.1f}", pct(b["callout_rate"]), chance(b["chance_draft"], b["below_goal_draft"], goal),
-                 chance(b["chance"], b["below_goal"], goal), f"Utilization {pct(b['utilization_draft'], 0)} in the draft, {pct(b['utilization'], 0)} in the plan",
+                 chance(b["chance"], b["below_goal"], goal), f"{pct(b['utilization_draft'], 0)} → {pct(b['utilization'], 0)}",
                  f"People it can lose\n{b['cushion_people']}", pct(b["cushion_demand"], 0), *[a["id"] for a in b["assumptions"]]]
         if b["need"] is not None:
             want.append(f"would take {b['need']} people; this block can field {b['availability']['capacity']}")
         if (f"Below the {goal_txt}" in text) != b["below_goal"] or (f"Meets the {goal_txt}" in text) == b["below_goal"]:
             miss.append("goal badge")
-        hero = re.search(r"Draft\s+(\d+)\s+Plan\s+(\d+)", text)
+        hero = re.search(r"Draft\s+(\d+)\s+Plan\s+(\d+)", visible)
         if not hero or (int(hero[1]), int(hero[2])) != (b["draft"], b["plan"]):
             miss.append(f"draft/plan hero {hero and hero.groups()}")
         rows = {r[0]: [int(v) for v in r[2:]] for r in (row.locator("td").all_inner_texts() for row in d.locator("table tbody tr").all())}
@@ -551,9 +575,7 @@ def check_what_if(browser, watch: Watch, plans: dict, plan_hashes: dict, server:
     after_ready = round(time.perf_counter() - server.ready_at, 1)
     demo = run_what_if(page, DEMO_WHAT_IF, log)
     want = api("what-if?" + urlencode({"scenario": "BASE", **DEMO_WHAT_IF}))["vs_submitted"]["all"]["what_if"]
-    shown, expect = tiles(page), expected_tiles(want)
-    for d in (shown, expect):
-        d.pop("Over capacity", None)
+    shown, expect = tiles(page, LAB_TILES), expected_tiles(want, lab=True)
     R["timings"]["what_if_demo"] = {**demo, "seconds_after_server_ready": after_ready}
     cache = (demo["api"] or {}).get("x-cache")
     check("What-if, demo settings (demand +10%, callouts 150%): warm and fast", demo["ms"] < BUDGET["what_if_demo_ms"] and cache == "hit",

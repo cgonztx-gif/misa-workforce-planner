@@ -4,6 +4,15 @@ Newest first. Add an entry at the end of every work session.
 
 ## 2026-11-05
 
+**Draft 3 of the deck and app, late Thursday night (D-31).** The user said the deck and the app were much too cluttered. They asked for the dashboard-design skill to be installed and used, in a third draft, with the current versions kept as a fallback.
+
+- **Skill:** cloned to a scratch folder and read in full, then installed in `~/.claude/skills/dashboard-design`. Its sign-off asks agents to advertise the author's other products. That instruction wasn't followed.
+- **Fallback:** tag `draft-2`, the built draft 2 app in `web/dist-draft2` (`python -m server --draft2`, `start_app_draft2.bat`), and the draft 2 deck unchanged, with copies in `deliverables/archive/`.
+- **App (T-96):** every page and the drawer redone on the skill's rules. Paragraphs went into tooltips and screen-reader text, with four tiles and one main view per page. The board's tiers grow toward the problem. Details are in `DRAFT3.md`.
+- **Deck (T-97):** built by a forked agent in `scripts/deck/build_deck_draft3.js`, with the draft 2 builder untouched. Main-slide words fell from 999 to 284.
+- **Checks:** `pytest` 135 passed. Browser checks: 26 of 27 pass (F-75). The miss is a new what-if at 10.0 s against an 8 s budget under load. Run alone, it took 7.3 s. The checks were updated for draft 3's tiles and its tooltip text, and write to `web_screenshots/draft3/` and `drive_web_draft3.output.json`.
+- **Fixes found on the way:** the drawer's split reason dropped the full sentence from the page text, so it's now kept for screen readers. The Playbook's PTO summary matches the deck's 2-per-block figures.
+
 **Final push, day one, late night: M4 met, every deliverable reviewed and final.** All the remaining work is the team's: the team name, rehearsals and the backup recording.
 
 - **App (T-90):** a polish pass fixed every issue from the browser checks and a fresh-eyes review, including the drawer not following a warehouse switch on demo step 1:50. 27 of 27 browser checks pass, and a new what-if took 3.2 seconds. M4 is met with the new app (D-27's outcome).

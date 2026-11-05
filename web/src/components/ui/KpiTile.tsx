@@ -77,30 +77,47 @@ export interface KpiTileProps {
   className?: string;
 }
 
-/** A stat tile: label, big value, delta chip vs the draft, optional sub line and tooltip. */
+/**
+ * A stat tile: label with a small monochrome icon square, the big value, and the change vs the draft.
+ * Draft 3 (planning/DRAFT3.md, dashboard-design skill): wordless, so `sub` and `note` no longer print under the
+ * number; they join `help` in the tile's tooltip. No colored edge rule: a tile reports, and only a problem tile
+ * (tone "risk") warms its icon square.
+ */
 export function KpiTile({ label, value, delta, sub, note, help, icon, tone = "default", onClick, className }: KpiTileProps) {
   const body = (
     <>
-      <div className="flex items-center gap-2 text-sm font-medium text-ink-subtle">
-        {icon && <span className="inline-flex text-ink-subtle [&>svg]:size-4">{icon}</span>}
-        <span>{label}</span>
+      <div className="flex items-start justify-between gap-3">
+        <span className="text-sm font-medium text-ink-muted">{label}</span>
+        {icon && (
+          <span
+            aria-hidden
+            className={cn(
+              "inline-flex size-7 shrink-0 items-center justify-center rounded-control [&>svg]:size-4",
+              tone === "risk" ? "bg-warning-soft text-warning-ink" : "bg-raised text-ink-subtle",
+            )}
+          >
+            {icon}
+          </span>
+        )}
       </div>
       {value === null ? (
-        <Skeleton className="mt-3 h-8 w-32" />
+        <Skeleton className="mt-2 h-8 w-32" />
       ) : (
-        <div className="mt-2 font-display text-kpi font-semibold leading-none tracking-[-0.01em] text-ink">{value}</div>
+        <div className="tnum mt-1 font-display text-kpi font-semibold leading-none tracking-[-0.02em] text-ink">{value}</div>
       )}
-      <div className="mt-3 flex min-h-6 flex-wrap items-center gap-x-2 gap-y-1">
-        {delta && value !== null && <DeltaChip {...delta} />}
-        {sub && <span className="tnum text-sm text-ink-subtle">{sub}</span>}
-      </div>
-      {note && <p className="mt-2 border-t border-border pt-2 text-sm leading-snug text-ink-muted">{note}</p>}
+      <div className="mt-3 flex min-h-6 flex-wrap items-center gap-x-2 gap-y-1">{delta && value !== null && <DeltaChip {...delta} />}</div>
     </>
   );
+  const tip =
+    help || sub || note ? (
+      <div className="space-y-1.5">
+        {sub && <p className="tnum font-medium">{sub}</p>}
+        {note && <p>{note}</p>}
+        {help && <div className="text-navy-ink-muted">{help}</div>}
+      </div>
+    ) : null;
   const classes = cn(
     "relative min-w-0 rounded-card border border-border bg-surface px-5 py-4 text-left shadow-card",
-    tone === "risk" && "before:absolute before:inset-y-3 before:left-0 before:w-[3px] before:rounded-r before:bg-risk",
-    tone === "accent" && "before:absolute before:inset-y-3 before:left-0 before:w-[3px] before:rounded-r before:bg-accent",
     onClick && "cursor-pointer transition-colors hover:border-accent-line hover:bg-accent-soft/40",
     className,
   );
@@ -109,12 +126,12 @@ export function KpiTile({ label, value, delta, sub, note, help, icon, tone = "de
       {body}
     </button>
   ) : (
-    <div className={classes} tabIndex={help ? 0 : undefined}>
+    <div className={classes} tabIndex={tip ? 0 : undefined}>
       {body}
     </div>
   );
-  return help ? (
-    <Tooltip content={help} side="bottom" align="start">
+  return tip ? (
+    <Tooltip content={tip} side="bottom" align="start">
       {tile}
     </Tooltip>
   ) : (
@@ -123,7 +140,7 @@ export function KpiTile({ label, value, delta, sub, note, help, icon, tone = "de
 }
 
 /** A responsive row of KPI tiles: 2 columns on narrow screens, up to `columns` on wide ones. */
-export function KpiRow({ children, columns = 5 }: { children: ReactNode; columns?: 3 | 4 | 5 | 6 }) {
-  const cols = { 3: "xl:grid-cols-3", 4: "xl:grid-cols-4", 5: "xl:grid-cols-5", 6: "xl:grid-cols-6" }[columns];
-  return <div className={cn("grid grid-cols-2 gap-4 lg:grid-cols-3", cols)}>{children}</div>;
+export function KpiRow({ children, columns = 4 }: { children: ReactNode; columns?: 3 | 4 | 5 | 6 }) {
+  const cols = { 3: "lg:grid-cols-3", 4: "lg:grid-cols-4", 5: "lg:grid-cols-3 xl:grid-cols-5", 6: "lg:grid-cols-3 xl:grid-cols-6" }[columns];
+  return <div className={cn("grid grid-cols-2 gap-4", cols)}>{children}</div>;
 }

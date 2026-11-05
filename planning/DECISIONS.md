@@ -200,3 +200,15 @@
 - **Choice:** `https://github.com/cgonztx-gif/misa-workforce-planner`, private, as the `origin` remote of `main`. Teammates clone it and follow the README: Python only, because the built front end (`web/dist`) is committed. A fresh clone was tested on 2026-11-05: data extracted, server ready in 25.5 seconds, the app served, and BASE's cost matched the submission.
 - **Rules:** teammates run the app and don't change it, so `main` stays the one source. Push finished, tested work when the user asks. Don't push `.vscode/` or anything untracked by `.gitignore`. Teammates need to be added as collaborators to see the repository.
 
+
+## D-31: A third draft of the deck and app, built on the dashboard-design skill, with draft 2 as the fallback
+
+- **Status:** Accepted, 2026-11-05. The user said: "The pptx and Website tool are much too cluttered, for words and information density. Install this skill and incorporate its design principles and use it extensively to revise those 2 documents. These changes are made to a third draft, keeping the current as a fallback. The message and takeaways from each page should be obvious and simple." The skill is github.com/abdiraimov-otabek/dashboard-design-skill, installed in `~/.claude/skills/dashboard-design`.
+- **Choice:** one question per page or slide, answered at first glance. On screen: names, numbers, short labels and one baseline ("vs draft"). Explanations move into tooltips (app) and speaker notes (deck). Warm color only marks problems. The plan is in `planning/DRAFT3.md`.
+- **Fallback:** draft 2 is tag `draft-2`. Its app is kept built in `web/dist-draft2` (`python -m server --draft2`, `start_app_draft2.bat`), and its deck is the unchanged `Costco_Workforce_Presentation.pptx` (copies in `deliverables/archive/`). Draft 3's deck is `Costco_Workforce_Presentation_draft3.pptx`, built by `scripts/deck/build_deck_draft3.js`.
+- **Replaces part of D-24's principles:** "Answer first: every page opens with one sentence" becomes the sentence read to screen readers only. The KPI tiles and the main card's title carry the answer on screen.
+- **Where the skill's defaults were not followed, and why:**
+  - **No dark mode.** The demo is light-only on a projector, and D-26 keeps one look across the app, deck and report.
+  - **Cost rising is a gray delta, not red.** It's the deliberate trade for service, and the tooltip says so.
+  - **Some words stay.** These are the block drawer's reason (the case asks why each recommendation was made, R-14), the Methods page's assumptions (the case asks for the assumptions, with ours clearly marked, R-06), and the simulated-data notice.
+- **Numbers:** unchanged (D-28). Only how they're shown changed.

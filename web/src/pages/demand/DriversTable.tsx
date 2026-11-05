@@ -1,7 +1,6 @@
 import { Ban, CheckCircle2, MinusCircle, Shuffle } from "lucide-react";
 import type { ReactNode } from "react";
-import { Badge, Card, type Tone } from "../../components";
-import { cn } from "../../lib/cn";
+import { Badge, Card, Tooltip, type Tone } from "../../components";
 import type { DriverRow, ForecastResponse } from "./types";
 
 type Status = "model" | "scenario" | "carried" | "left_out" | "not_used";
@@ -97,67 +96,54 @@ export function DriversTable({ data, windowLabel }: { data: ForecastResponse; wi
   ].map((g) => ({ ...g, lines: g.lines.filter((l): l is Line => l !== null) }));
   const also = fromApi(by.get("Weekly level"), "model", { name: "Weekly level" });
 
-  const head = "sticky top-0 border-b border-border bg-raised px-4 py-2.5 text-left text-sm font-medium text-ink-subtle";
-  const cell = "border-b border-border px-4 py-3 align-top text-base leading-snug text-ink-muted";
-  const renderLine = (driver: string, l: Line, i: number, n: number) => (
-    <tr key={`${driver}-${i}`}>
-      {i === 0 && (
-        <th scope="row" rowSpan={n} className={cn(cell, "bg-surface text-left font-semibold text-ink")}>
-          {driver}
-        </th>
-      )}
-      <td className={cell}>
-        {l.name && <span className="mb-0.5 block text-sm font-semibold text-ink">{l.name}</span>}
-        {l.tested}
-      </td>
-      <td className={cn(cell, "tnum")}>{l.found}</td>
-      <td className={cell}>
-        <Badge tone={STATUS[l.status].tone} icon={STATUS[l.status].icon} className="mb-1.5">
-          {STATUS[l.status].label}
-        </Badge>
-        <span className="block">{l.use}</span>
-      </td>
-    </tr>
-  );
-
+  // Draft 3: one row per driver line, the name and how it enters the plan as a chip. What we tested, what we
+  // found and how it's used are the row's tooltip, so the card reads as a checklist rather than a page of text.
+  const rows = [
+    ...groups.flatMap((g) => g.lines.map((l) => ({ driver: g.driver, l }))),
+    ...(also ? [{ driver: "Weekly level", l: { ...also, name: undefined } as Line }] : []),
+  ];
   return (
     <Card
       title="Drivers we tested"
-      description="Every demand driver the case names, what we tested, what we found, and how it enters the plan."
+      description="Every demand driver the case names, and how it enters the plan. Hover a row for what we tested and found. Figures come from the six weeks of simulated history (Jan 1 to Feb 11)."
       padding="none"
-      footer="Figures come from the six weeks of simulated history (Jan 1 to Feb 11)."
     >
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[920px] border-separate border-spacing-0">
-          <colgroup>
-            <col style={{ width: "15%" }} />
-            <col style={{ width: "25%" }} />
-            <col style={{ width: "30%" }} />
-            <col style={{ width: "30%" }} />
-          </colgroup>
-          <thead>
-            <tr>
-              <th className={head}>Driver the case names</th>
-              <th className={head}>What we tested</th>
-              <th className={head}>What we found</th>
-              <th className={head}>How it enters the plan</th>
-            </tr>
-          </thead>
-          <tbody>
-            {groups.map((g) => g.lines.map((l, i) => renderLine(g.driver, l, i, g.lines.length)))}
-            {also && (
-              <>
-                <tr>
-                  <td colSpan={4} className="border-b border-border bg-raised px-4 py-2 text-sm font-medium text-ink-subtle">
-                    Also tested
-                  </td>
-                </tr>
-                {renderLine("Weekly level", { ...also, name: undefined }, 0, 1)}
-              </>
-            )}
-          </tbody>
-        </table>
-      </div>
+      <ul className="grid border-t border-border min-[1280px]:grid-cols-2 min-[1280px]:[&>li:nth-child(odd)]:border-r">
+        {rows.map(({ driver, l }, i) => (
+          <li key={`${driver}-${i}`} className="border-b border-border">
+            <Tooltip
+              width={380}
+              side="top"
+              content={
+                <div className="space-y-1.5">
+                  <p>
+                    <span className="font-semibold">Tested: </span>
+                    {l.tested}
+                  </p>
+                  <p className="tnum">
+                    <span className="font-semibold">Found: </span>
+                    {l.found}
+                  </p>
+                  <p>
+                    <span className="font-semibold">In the plan: </span>
+                    {l.use}
+                  </p>
+                </div>
+              }
+            >
+              <div tabIndex={0} className="flex h-12 items-center justify-between gap-3 px-5 outline-none hover:bg-raised focus-visible:bg-accent-soft">
+                <span className="min-w-0 truncate text-base text-ink">
+                  <span className="font-medium">{driver}</span>
+                  {l.name && <span className="text-ink-subtle"> · {l.name}</span>}
+                </span>
+                <Badge tone={STATUS[l.status].tone} icon={STATUS[l.status].icon} className="shrink-0">
+                  {STATUS[l.status].label}
+                </Badge>
+              </div>
+            </Tooltip>
+          </li>
+        ))}
+      </ul>
     </Card>
   );
 }

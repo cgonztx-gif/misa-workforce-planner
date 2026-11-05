@@ -1,6 +1,7 @@
 import { Activity, ArrowRight, Calculator, Database, Dices, MessageSquareText, Search, TrendingUp, Workflow, type LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "../../lib/cn";
+import { Tooltip } from "../../components";
 
 interface Step {
   step: string;
@@ -26,8 +27,10 @@ function keepHyphenatedWhole(text: string): ReactNode {
 
 function Node({ step, index, className }: { step: Step; index: number; className?: string }) {
   const Icon = iconFor(step.step);
+  // Draft 3: the step's one-line description is its tooltip; the card shows the icon, number and name.
   return (
-    <div className={cn("relative flex min-w-0 flex-col rounded-card border border-border bg-raised/60 px-3.5 pt-3 pb-3.5", className)}>
+    <Tooltip content={keepHyphenatedWhole(step.text)} width={300}>
+    <div tabIndex={0} className={cn("relative flex min-w-0 cursor-help flex-col rounded-card border border-border bg-raised/60 px-3.5 pt-3 pb-3.5 outline-none hover:border-accent-line focus-visible:ring-2 focus-visible:ring-accent", className)}>
       <div className="flex items-center gap-2.5">
         <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-control bg-accent-soft text-accent">
           <Icon className="size-4" aria-hidden />
@@ -35,8 +38,9 @@ function Node({ step, index, className }: { step: Step; index: number; className
         <span className="text-sm font-medium text-ink-subtle tnum">Step {index + 1}</span>
       </div>
       <h3 className="mt-2.5 text-title-sm font-semibold leading-tight text-balance text-ink">{step.step}</h3>
-      <p className="mt-1 text-base leading-snug text-ink-muted 2xl:text-sm">{keepHyphenatedWhole(step.text)}</p>
+      <p className="sr-only">{keepHyphenatedWhole(step.text)}</p>
     </div>
+    </Tooltip>
   );
 }
 
