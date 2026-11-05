@@ -43,39 +43,41 @@ async function a7(pres) {
 
 async function a8(pres) {
   const goal = D.S.service_goal;
-  const s = appendix(pres, 8, `Above a ${F.pct(goal, 0)} goal each point of service costs more, and the callout allowance buys service`);
-  const rows = D.S.goal_tradeoff.filter((r) => r.scenario_code === "BASE").sort((a, b) => a.goal - b.goal);
+  const s = appendix(pres, 8, "Each extra point of service costs more than the last, and the callout allowance buys service");
+  // Full-precision goal trade-off (outputs/goal_tradeoff.csv), BASE: cost per added point of expected service between goals.
+  const rows = D.goalRows;
+  const goalLabel = (g) => F.pct(g, (g * 1000) % 10 ? 1 : 0);
+  const steps = rows.slice(1).map((r, i) => ({
+    label: `${goalLabel(rows[i].goal).replace("%", "")}→${goalLabel(r.goal)}`,
+    perPoint: (r.cost - rows[i].cost) / ((r.expected_met - rows[i].expected_met) * 100) / 1000,
+  }));
   const lw = 6.3;
-  const box = T.card(s, { x: M, y: TOP, w: lw, h: BOTTOM - TOP, title: "Service goal trade-off, BASE", description: "Each point is the full plan rebuilt for that goal", name: "goal card" });
-  const labels = rows.map((r) => F.pct(r.goal, r.goal * 1000 % 10 ? 1 : 0));
-  const half = (box.h - 0.1) / 2;
-  const minis = [
-    { t: "Labor cost for the week, $ thousands", v: rows.map((r) => r.cost / 1000), fmt: "#,##0" },
-    { t: "Expected service", v: rows.map((r) => r.expected_met), fmt: "0%" },
-  ];
-  minis.forEach((m, i) => {
-    const y = box.y + i * (half + 0.1);
-    s.addText(m.t, text("label", { x: box.x, y, w: box.w, h: 0.28, color: C.ink, fontFace: T.FONT_SEMIBOLD }));
-    const ax = niceAxis(m.v, 2);
-    T.addLineChart(pres, s, { x: box.x - 0.05, y: y + 0.3, w: box.w + 0.05, h: half - 0.3, labels, min: ax.min, max: ax.max, majorUnit: ax.step, format: m.fmt, series: [{ name: m.t, role: "plan", values: m.v }] });
+  const box = T.card(s, { x: M, y: TOP, w: lw, h: BOTTOM - TOP, title: "Cost of each extra point of service, BASE", description: "Labor cost per point of expected service, $ thousands", name: "goal card" });
+  const ax = niceAxis([0, ...steps.map((x) => x.perPoint)], 4);
+  T.addBarChart(pres, s, {
+    x: box.x - 0.05, y: box.y, w: box.w + 0.05, h: box.h - 0.62, labels: steps.map((x) => x.label), max: ax.max, majorUnit: ax.step,
+    showValue: true, format: "0.0", axisFormat: "0", series: [{ name: "Cost per point", role: "plan", values: steps.map((x) => x.perPoint) }],
   });
+  const g = rows.find((r) => Math.abs(r.goal - goal) < 1e-9);
+  s.addText(`Our ${goalLabel(goal)} goal: ${F.moneyK(g.cost)} for ${F.pct(g.expected_met)} expected service. A ${goalLabel(rows[rows.length - 1].goal)} goal would cost ${F.moneyK(rows[rows.length - 1].cost - g.cost)} more for ${F.fixed((rows[rows.length - 1].expected_met - g.expected_met) * 100, 1)} points.`,
+    text("label", { x: box.x, y: box.y + box.h - 0.56, w: box.w, h: 0.56, color: C.ink_muted }));
+
   const bt = D.S.buffer_test.filter((r) => r.scenario_code === "BASE");
   const pick = (start) => bt.find((r) => r.plan.startsWith(start));
   const both = pick("Allows for both"), fc = pick("Allows for forecast"), none = pick("Allows for neither"), draft = pick("Current draft");
   const rx = M + lw + GAP, rw = W - lw - GAP;
-  const card = T.card(s, { x: rx, y: TOP, w: rw, h: BOTTOM - TOP, title: "What allowing for risk buys, BASE", description: "Expected service when each risk occurs", name: "buffer card" });
+  const card = T.card(s, { x: rx, y: TOP, w: rw, h: BOTTOM - TOP, title: "What allowing for risk buys, BASE", description: "Expected service, by which risks actually occur →", name: "buffer card" });
   const nw = 0.88, first = card.w - nw * 4;
   const end = K.table(s, {
     x: card.x, y: card.y, rowH: 0.4, headH: 0.62, margin: [0.04, 0.06, 0.04, 0.06],
     cols: [{ w: first }, { w: nw, align: "right" }, { w: nw, align: "right" }, { w: nw, align: "right" }, { w: nw, align: "right" }],
-    head: ["Plan allows for", "Cost", "Both\nrisks", "Forecast\nonly", "Neither"],
-    rows: [["Both (ours)", both], ["Forecast error", fc], ["Neither", none], ["Current draft", draft]].map(([n, r]) => [n, F.moneyK(r.cost, 0), F.pct(r.met_both_risks, 0), F.pct(r.met_forecast_error_only, 0), F.pct(r.met_neither, 0)]),
+    head: ["Plan allows for", "Cost", "Both\nrisks", "Forecast\nerror", "Neither"],
+    rows: [["Both risks (ours)", both], ["Forecast error", fc], ["Neither", none], ["Current draft", draft]].map(([n, r]) => [n, F.moneyK(r.cost), F.pct(r.met_both_risks, 0), F.pct(r.met_forecast_error_only, 0), F.pct(r.met_neither, 0)]),
     cell: (r, c) => (r === 0 ? { fontFace: T.FONT_SEMIBOLD, color: c ? C.accent_strong : C.ink } : r === 3 ? { color: C.ink_muted } : {}),
   });
   s.addText(`The callout allowance costs ${F.moneyK(both.cost - fc.cost)}. Moving hours alone, at about the draft's cost, already beats the draft under every condition.`, text("label", { x: card.x, y: end + 0.2, w: card.w, h: card.y + card.h - end - 0.2, color: C.ink_muted }));
-  const g = (v) => rows.find((r) => Math.abs(r.goal - v) < 1e-9);
   K.notes(s, { id: "A8", target: "for Q&A", say: [
-    `Each step up in the goal costs more than the last. From ${F.pct(rows[0].goal, 0)} to ${F.pct(goal, 0)} the plan costs ${F.moneyK(g(goal).cost - rows[0].cost)} more; from ${F.pct(goal, 0)} to ${F.pct(rows[rows.length - 1].goal, 0)} another ${F.moneyK(rows[rows.length - 1].cost - g(goal).cost)} buys only ${F.fixed((rows[rows.length - 1].expected_met - g(goal).expected_met) * 100, 1)} points.`,
+    `Each extra point of expected service costs more than the last: about ${F.moneyK(steps[0].perPoint * 1000)} a point from ${goalLabel(rows[0].goal)} to ${goalLabel(rows[1].goal)}, and about ${F.moneyK(steps[steps.length - 1].perPoint * 1000)} a point above ${goalLabel(rows[rows.length - 2].goal)}.`,
     `The callout allowance costs ${F.moneyK(both.cost - fc.cost)}. If the judges don't apply callouts, that's cost without score; we planned for real conditions.`,
   ] });
 }

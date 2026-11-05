@@ -69,6 +69,7 @@ const pvd = parseCsv(path.join(OUT, "plan_vs_draft.csv"));
 const sub = parseCsv(path.join(OUT, "TEAM_SUBMISSION_TEMPLATE_filled.csv"));
 const fdaily = parseCsv(path.join(OUT, "forecast_daily.csv"));
 const expl = parseCsv(path.join(OUT, "explanations.csv"));
+const goalRows = parseCsv(path.join(OUT, "goal_tradeoff.csv")).filter((r) => r.scenario_code === "BASE").sort((a, b) => a.goal - b.goal);
 
 // Input tables from the data pack (case facts, not results).
 const grid = parseCsv(path.join(PACK, "v_PlanningWeekGrid.csv"));
@@ -84,6 +85,7 @@ const windowDays = cal.filter((c) => c.role !== "Normal").map((c) => c.day);
 const holidayDay = cal.find((c) => c.isHoliday);
 const valentineDay = cal.find((c) => c.holiday && !c.isHoliday);
 const holidays = { window: windowDays, holiday: holidayDay, valentine: valentineDay, windowName: `${holidayDay.holiday} window` };
+const warehouses = uniq(gridBase.map((r) => r.store_id)).sort((a, b) => a - b);
 const ptoDays = uniq(gridBase.filter((r) => r.availability_note === "Holiday-weekend PTO requests").map((r) => r.day_date)).sort();
 
 // Service targets by department.
@@ -166,7 +168,7 @@ const otPremium = sum(rates.map((r) => r.loaded_overtime_hourly_cost / r.loaded_
 
 module.exports = {
   F, S, SCEN, DEPTS, DEPT_NAME, plan, draft, days, cal, holidays, ptoDays, target, peak, disrupt, scenarios,
-  board, cliff, fc, factor, normalGap, histWeeks, subFacts, sub, pvd, expl, fdaily,
+  board, cliff, fc, factor, normalGap, histWeeks, subFacts, sub, pvd, expl, fdaily, goalRows, warehouses,
   rates: { regular: rateRange("loaded_regular_hourly_cost"), overtime: rateRange("loaded_overtime_hourly_cost"), otPremium },
   teamName: S.team_id && S.team_id !== "TEAM_NAME" ? S.team_id : null,
   sum, uniq,

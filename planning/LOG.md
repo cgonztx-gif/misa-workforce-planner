@@ -4,6 +4,14 @@ Newest first. Add an entry at the end of every work session.
 
 ## 2026-11-05
 
+**Final push, day one, late night: M4 met, every deliverable reviewed and final.** All the remaining work is the team's: the team name, rehearsals and the backup recording.
+
+- **App (T-90):** a polish pass fixed every issue from the browser checks and a fresh-eyes review, including the drawer not following a warehouse switch on demo step 1:50. 27 of 27 browser checks pass, and a new what-if took 3.2 seconds. M4 is met with the new app (D-27's outcome).
+- **Deck (T-93):** a second fresh-eyes review caught slide 4 claiming more than F-44 allows, and internal to-dos in the speaker notes that judges could read in the .pptx. Both are fixed. Also added: a cost bridge, definitions, the capacity reason, an assumptions strip, honest axes and a closing ask. The notes now run about 6:03 at 130 words a minute.
+- **Report (T-92):** chapter 8 uses the final screenshots, and the claims register still passes.
+- **One more consistency fix:** the Q&A sheet's cost per point of service came from the JSON's rounded expected service. It now reads `goal_tradeoff.csv` at full precision, matching the deck, and F-49 says which source to use.
+- **Final check (T-66):** every requirement is Met except the team's own steps and R-28, which is Partial by design. `scripts/package_submission.py` builds the hand-in folder and refuses the placeholder team name (T-95).
+
 **Final push, day one, evening: content complete, GitHub, and consistency fixes.** M6 and M7 were both met on Thursday night, a day ahead of M7's Friday 5 pm target.
 
 - **Built in parallel by subagents:** the notebook appendix (T-91), a 50-page report with a claims register (T-92), a 22-slide deck rendered through PowerPoint (T-93), the Q&A sheet (T-94), and browser acceptance checks for the app (T-89, F-74: 26 of 27 pass, the miss is machine load).

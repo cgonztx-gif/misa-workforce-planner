@@ -47,13 +47,13 @@ async function a1(pres) {
   s.addText("Demand drivers we tested", text("cardTitle", { x: M, y: ty, w: W, h: 0.32 }));
   const r2 = (v) => F.fixed(v, v > 0.9999 ? 6 : 3);
   K.table(s, {
-    x: M, y: ty + 0.42, rowH: 0.38,
+    x: M, y: ty + 0.42, rowH: 0.34,
     cols: [{ w: 1.9 }, { w: 6.5 }, { w: W - 8.4 }],
     head: ["Driver", "What we found", "How it enters the plan"],
     rows: [
-      ["Weekday", `R² ${r2(k.r2_dow)} on log daily demand with warehouse and weekday alone`, "In the model"],
-      ["Holidays", `R² ${r2(k.r2_dow_hol)} with holiday windows; MLK is the only analog`, "In the model, borrowed from MLK"],
-      ["Weekly level", `R² ${r2(k.r2_full)}; weekly levels ran ${F.fixed(k.week_level_min, 2)} to ${F.fixed(k.week_level_max, 2)}, with no trend`, `Last ${D.S.level_weeks} weeks' average level`],
+      ["Weekday", `In-sample R² ${r2(k.r2_dow)} on log daily demand, warehouse and weekday alone`, "In the model"],
+      ["Holidays", `In-sample R² ${r2(k.r2_dow_hol)} with holiday windows; MLK is the only analog`, "In the model, borrowed from MLK"],
+      ["Weekly level", `Held-out daily error ${F.pct(D.S.backtest_daily.find((r) => r.group === "All").model)}; levels ran ${F.fixed(k.week_level_min, 2)} to ${F.fixed(k.week_level_max, 2)}, no trend`, `Last ${D.S.level_weeks} weeks' average level`],
       ["Weather", `Temperature adds nothing once weekday is known (r = ${F.MINUS}${F.fixed(Math.abs(k.corr_temp_resid), 3)})`, "Left out"],
       ["Promotions", `On every Fri–Sun and holiday, so inseparable (r = ${F.MINUS}${F.fixed(Math.abs(k.corr_promo_resid), 3)})`, "Calendar terms; PEAK's multipliers"],
       ["Traffic", "The data pack marks traffic_index an outcome: never a model input", "Left out"],
@@ -83,7 +83,7 @@ async function a2(pres) {
   const rx0 = M + lw + GAP, rw = W - lw - GAP;
   const lim = T.card(s, { x: rx0, y: TOP, w: rw, h: BOTTOM - TOP, title: "Limits we state", name: "limits card" });
   K.bullets(s, [
-    `The held-out weeks hold no holidays, and three folds is few. By week: ${wk.map((r) => `${F.pct(r.model)} against ${F.pct(r.benchmark)}`).join(", ")}`,
+    `The three test weeks hold no holidays, and three is few. By week: ${wk.map((r) => `${F.pct(r.model)} against ${F.pct(r.benchmark)}`).join(", ")}`,
     `On normal days in the planning week, the two forecasts agree within ${F.pct(D.normalGap)}`,
     `MLK weekend, the only holiday analog: ${F.pct(all.model)} error against ${F.pct(all.benchmark)}, but worse for Pharmacy (${F.pct(rx.model)} against ${F.pct(rx.benchmark)})`,
     "So we say the forecast removes holiday distortion, not that it beats the benchmark in the planning week",
@@ -118,8 +118,8 @@ async function a3(pres) {
   K.bullets(s, [
     `Forecast error: ${sd(38)}, ${sd(92)} and ${sd(95)} by department, more on holiday days`,
     "Callouts by department and situation, with backfill while overtime lasts",
-    "The curve's own scatter, with a smooth bend near the cliff (D-29)",
-    `Calculated exactly, and checked against simulation. Brier score ${F.fixed(D.S.service_brier.model, 3)}, against ${F.fixed(D.S.service_brier.base_rate, 3)} for a flat rate`,
+    "The curve's own scatter, with a smooth bend near the cliff",
+    `Exact, checked by simulation. Brier score ${F.fixed(D.S.service_brier.model, 3)} (lower is better) vs ${F.fixed(D.S.service_brier.base_rate, 3)} for a flat rate`,
   ], { x: rx, y: end + 0.72, w: rw, h: BOTTOM - end - 0.72, fontSize: SIZE.label, space: 6 });
   K.notes(s, { id: "A3", target: "for Q&A", say: [
     "For each department we fit the service metric against utilization, with a smooth bend where the cliff starts, and the scatter around it.",

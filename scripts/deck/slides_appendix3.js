@@ -47,7 +47,7 @@ async function a10(pres) {
   const dz = D.disrupt;
   await iconGrid(s, [
     { icon: L.LuFlaskConical, title: "Simulated data", text: "A competition dataset, not Costco data. Wage rates are mock values. Every figure in this deck comes from it." },
-    { icon: L.LuUserX, title: "DISRUPT cuts more", text: `${dz.changedBlocks} blocks lose staff, including partner cross-trained staff the docs don't mention, so we read availability per scenario from the grid.` },
+    { icon: L.LuUserX, title: "DISRUPT cuts more", text: `DISRUPT removes staff from ${dz.changedBlocks} of ${D.subFacts.perScenario} blocks, including cross-trained staff the docs don't mention, so we read availability from the grid.` },
     { icon: L.LuCalendarDays, title: "Promotions follow the calendar", text: "Promotions run on every Friday to Sunday and holiday, so their effect can't be separated from the weekday and holiday terms." },
     { icon: L.LuBan, title: "Traffic is an outcome", text: "The data pack labels traffic_index an output, never a model input, because it would leak the answer. We left it out." },
     { icon: L.LuRepeat, title: "Holiday labels differ", text: `History names MLK weekend and the planning week names ${D.holidays.holiday.holiday}, so we mapped both to shared holiday roles.` },
@@ -86,7 +86,7 @@ async function a11(pres) {
   ], { x: card.x, y: card.y, w: card.w, h: card.h, fontSize: SIZE.label, space: 8 });
   K.notes(s, { id: "A11", target: "for Q&A", say: [
     `The file is the case's template with all ${f.rows} rows, joined on its keys, total employees per block, and zero for closed blocks. It's the same file the tool exports.`,
-  ], extra: D.teamName ? [] : ["Before submitting: set TEAM_ID in src/submission.py (the file still holds the placeholder team name)."] });
+  ] });
 }
 
 module.exports = { SLIDES: [["A9", a9], ["A10", a10], ["A11", a11]] };

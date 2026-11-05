@@ -1,33 +1,36 @@
-// Main slides 1-5: title, the challenge, the diagnosis, the forecast, the engine.
+// Main slides 1-2: title and the challenge.
 const K = require("./deck_kit");
 const D = require("./deck_data");
 const L = require("react-icons/lu");
 
-const { T, C, F, M, W, TOP, BOTTOM, GAP, SIZE, text } = { ...K, F: D.F };
+const { T, C, M, W, TOP, SIZE, text } = K;
+const F = D.F;
 const SHIFT = { OPEN: "Opening", MID: "Midday", EVE: "Evening" };
 const SHORT_METRIC = { 38: "Checkout wait", 92: "Replenishment response", 95: "Prescription wait" };
 const DEPT_ICON = { 38: L.LuShoppingCart, 92: L.LuPackage, 95: L.LuPill };
 const SECTION = "The case for the plan";
+const week = () => F.span(D.days[0], D.days[D.days.length - 1]);
+
+/** The simulated-data badge on navy, as in the app's header. */
+async function simulatedBadge(s, x, y) {
+  const label = K.SIMULATED, bw = (label.length * SIZE.label * 0.56) / 72 + 0.62;
+  s.addShape("roundRect", { x, y, w: bw, h: 0.44, rectRadius: T.RADIUS.control, fill: { color: C.navy_raised }, line: { color: C.navy_border, width: 1 }, objectName: "simulated badge" });
+  s.addImage({ data: await K.icon(L.LuFlaskConical, C.navy_accent), x: x + 0.14, y: y + 0.11, w: 0.22, h: 0.22, altText: "Simulated data" });
+  s.addText(label, text("label", { x: x + 0.46, y, w: bw - 0.5, h: 0.44, color: C.navy_ink, valign: "middle", fontFace: T.FONT_SEMIBOLD }));
+}
 
 async function title(pres) {
   const s = K.slide(pres, { layout: "WP Title", section: SECTION, title: "Workforce Planner" });
-  const wk = F.span(D.days[0], D.days[D.days.length - 1]);
-  s.addText(`A staffing plan for Costco's holiday week, ${wk}: every block in all three scenarios, set for service first, then cost.`, { placeholder: "subtitle", align: "left" });
-  // App mark and the competition.
+  s.addText(`A staffing plan for Costco's holiday week, ${week()}: every block in all three scenarios, set for service first, then cost.`, { placeholder: "subtitle", align: "left" });
   s.addShape("roundRect", { x: M, y: M, w: 0.46, h: 0.46, rectRadius: T.RADIUS.control, fill: { color: C.accent }, line: { type: "none" }, objectName: "app mark" });
   s.addImage({ data: await K.icon(L.LuLayoutGrid, C.on_accent), x: M + 0.1, y: M + 0.1, w: 0.26, h: 0.26, altText: "Workforce Planner mark" });
   s.addText("Texas MISA Fall 2026 Case Competition  ·  Costco workforce planning challenge", text("body", { x: M + 0.62, y: M, w: 10, h: 0.46, color: C.navy_ink_muted, valign: "middle" }));
   if (D.teamName) s.addText(`Team ${D.teamName}`, text("cardTitle", { x: M, y: 4.95, w: 6.9, h: 0.36, color: C.navy_ink, fontSize: 20 }));
-  // Simulated-data badge, as in the app's header.
-  const label = K.SIMULATED;
-  const bw = (label.length * SIZE.label * 0.56) / 72 + 0.62;
-  s.addShape("roundRect", { x: M, y: 5.55, w: bw, h: 0.44, rectRadius: T.RADIUS.control, fill: { color: C.navy_raised }, line: { color: C.navy_border, width: 1 }, objectName: "simulated badge" });
-  s.addImage({ data: await K.icon(L.LuFlaskConical, C.navy_accent), x: M + 0.14, y: 5.66, w: 0.22, h: 0.22, altText: "Simulated data" });
-  s.addText(label, text("label", { x: M + 0.46, y: 5.55, w: bw - 0.5, h: 0.44, color: C.navy_ink, valign: "middle", fontFace: T.FONT_SEMIBOLD }));
+  await simulatedBadge(s, M, 5.55);
 
-  // A hint of the board: Warehouse 1, BASE, people against the draft (bronze fewer, iris more).
-  const bx = 8.55, by0 = 1.45, cw = (SLIDE_W() - M - bx - 6 * 0.07) / 7, ch = 0.38, g = 0.07, dg = 0.2;
-  let y = by0;
+  // A hint of the board: Warehouse 1, BASE, people against the draft.
+  const bx = 8.55, cw = (K.SLIDE.w - M - bx - 6 * 0.07) / 7, ch = 0.38, g = 0.07, dg = 0.2;
+  let y = 1.45;
   for (const dept of D.DEPTS) {
     for (const shift of ["OPEN", "MID", "EVE"]) {
       D.days.forEach((day, i) => {
@@ -40,23 +43,21 @@ async function title(pres) {
     }
     y += dg - g;
   }
-  s.addText("Warehouse 1, BASE: one cell per block, iris where the plan adds people, bronze where it cuts", text("label", { x: bx, y: y + 0.12, w: SLIDE_W() - M - bx, h: 0.56, color: C.navy_ink_muted }));
+  s.addText("Warehouse 1, BASE: purple adds people, tan cuts, gray is unchanged, dark is closed", text("label", { x: bx, y: y + 0.12, w: K.SLIDE.w - M - bx, h: 0.56, color: C.navy_ink_muted }));
   K.notes(s, {
     id: "1", target: "0:15",
     say: [
       "Thank you for having us. Our answer to Costco's workforce planning challenge is the Workforce Planner: a staffing plan for the holiday week, and a tool that explains every number in it.",
-      "Everything you'll see runs on the case's simulated data, not real Costco data.",
+      "Everything you'll see runs on the case's simulated data.",
     ],
-    extra: D.teamName ? [] : ["Team name not set yet: the title slide shows it once src/submission.py has TEAM_ID and the pipeline reruns."],
   });
 }
-const SLIDE_W = () => K.SLIDE.w;
 
 async function challenge(pres) {
   const h = D.holidays;
   const s = K.slide(pres, { section: SECTION, title: `The holiday week needs staffing that holds service through ${h.valentine.holiday} and ${h.holiday.holiday}` });
   // Week timeline with the holiday window.
-  const n = D.days.length, tg = 0.12, tw = (W - (n - 1) * tg) / n, ty = TOP + 0.38, th = 0.98;
+  const n = D.days.length, tg = 0.12, tw = (W - (n - 1) * tg) / n, ty = TOP + 0.38, th = 0.8;
   const wi = D.days.indexOf(h.window[0]), wj = D.days.indexOf(h.window[h.window.length - 1]);
   const wx = M + wi * (tw + tg) - 0.1, ww = (wj - wi + 1) * (tw + tg) - tg + 0.2;
   s.addShape("roundRect", { x: wx, y: TOP - 0.05, w: ww, h: th + 0.55, rectRadius: T.RADIUS.card, fill: { color: T.CHART.band }, line: { type: "none" }, objectName: "holiday window" });
@@ -64,20 +65,27 @@ async function challenge(pres) {
   D.days.forEach((day, i) => {
     const x = M + i * (tw + tg), inWin = h.window.includes(day);
     s.addShape("roundRect", { x, y: ty, w: tw, h: th, rectRadius: T.RADIUS.control, fill: { color: inWin ? C.surface : C.raised }, line: { color: inWin ? C.accent_line : C.border, width: T.CHART.hairline }, objectName: `day ${day}` });
-    s.addText(F.wkday(day), text("label", { x: x + 0.16, y: ty + 0.12, w: tw - 0.3, h: 0.26 }));
-    s.addText(F.dayMon(day), text("cardTitle", { x: x + 0.16, y: ty + 0.42, w: tw - 0.3, h: 0.4, fontSize: 22 }));
+    s.addText(F.wkday(day), text("label", { x: x + 0.16, y: ty + 0.08, w: tw - 0.3, h: 0.26 }));
+    s.addText(F.dayMon(day), text("cardTitle", { x: x + 0.16, y: ty + 0.36, w: tw - 0.3, h: 0.38, fontSize: 22 }));
   });
   const chipAt = async (day, label, Icon) => {
     const i = D.days.indexOf(day), cx = M + i * (tw + tg) + tw / 2;
     const w = (label.length * SIZE.label * 0.56) / 72 + 0.2 + 2 * K.px(9);
-    T.chip(s, { x: cx - w / 2, y: ty + th + 0.17, label, tone: "accent", icon: await K.icon(Icon, C.accent_strong) });
+    T.chip(s, { x: cx - w / 2, y: ty + th + 0.13, label, tone: "accent", icon: await K.icon(Icon, C.accent_strong) });
   };
   await chipAt(h.valentine.day, h.valentine.holiday, L.LuHeart);
   await chipAt(h.holiday.day, h.holiday.holiday, L.LuFlag);
 
+  // What a block is.
+  const wh = D.warehouses;
+  s.addText([
+    { text: "A block ", options: { fontFace: T.FONT_SEMIBOLD, color: C.ink } },
+    { text: `is one warehouse, department, day and shift: ${D.subFacts.perScenario} per scenario across Warehouses ${wh.slice(0, -1).join(", ")} and ${wh[wh.length - 1]}, each compared with the managers' draft schedule.` },
+  ], text("body", { x: M, y: 3.48, w: W, h: 0.6, color: C.ink_muted }));
+
   // Scenarios (left) and departments (right).
-  const y0 = 3.95, colW = (W - 0.5) / 2, rx = M + colW + 0.5, chipW = 1.12, rowY = (i) => y0 + 0.5 + i * 0.72;
-  s.addText(`Three scenarios, ${D.subFacts.perScenario} blocks each`, text("cardTitle", { x: M, y: y0, w: colW, h: 0.34 }));
+  const y0 = 4.2, colW = (W - 0.5) / 2, rx = M + colW + 0.5, chipW = 1.12, rowY = (i) => y0 + 0.46 + i * 0.66;
+  s.addText("Three scenarios, one plan each", text("cardTitle", { x: M, y: y0, w: colW, h: 0.34 }));
   const sc = {
     BASE: ["Baseline planning week", "Expected demand, with both holidays"],
     PEAK: ["Promotion and winter-weather surge", `Demand up to ${F.spct(D.peak.maxMult - 1, 0)} on ${F.span(D.peak.days[0], D.peak.days[D.peak.days.length - 1])}, same staff`],
@@ -102,12 +110,12 @@ async function challenge(pres) {
   K.notes(s, {
     id: "2", target: "0:40",
     say: [
-      `Costco needs one week of staffing, ${F.span(D.days[0], D.days[D.days.length - 1])}, for three warehouses and three departments.`,
+      `Costco needs one week of staffing, ${week()}, for three warehouses and three departments.`,
       `The week holds ${h.valentine.holiday} on ${F.dayLong(h.valentine.day)} and ${h.holiday.holiday} on ${F.dayLong(h.holiday.day)}, so the busy stretch runs from ${F.dayLong(h.window[0])} through the holiday.`,
-      "Every department has its own service target: checkout wait at the Front End, how fast empty slots get refilled in Merchandising, and prescription wait in Pharmacy.",
-      `And the plan has to hold in three scenarios: the expected week, a promotion and storm surge, and a disruption where illness takes staff out. That's ${D.subFacts.rows} staffing decisions in all.`,
+      "We plan every block, meaning one warehouse, department, day and shift, and compare it with the managers' draft schedule. Each department has its own wait target.",
+      `The plan has to hold in three scenarios: the expected week, a promotion and storm surge, and an illness disruption. That's ${D.subFacts.rows} staffing decisions.`,
     ],
   });
 }
 
-module.exports = { title, challenge, SECTION, SHIFT, SHORT_METRIC, DEPT_ICON };
+module.exports = { title, challenge, simulatedBadge, SECTION, SHIFT, SHORT_METRIC, DEPT_ICON };

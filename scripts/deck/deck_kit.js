@@ -64,9 +64,13 @@ function frame({ x, y, w, h, l = 0.75, r = 0.1, t = 0.12, b = 0.45 }) {
   return fr;
 }
 /** A shaded span behind categories i0..i1 of n (PowerPoint centres each category in an equal slot). */
-function band(slide, fr, n, i0, i1, color = T.CHART.band) {
+// The holiday-window shade: the token band is too faint to project, so slides use the accent's border tint.
+const BAND = C.accent_line;
+function band(slide, fr, n, i0, i1, color = BAND, label) {
   const slot = fr.pw / n;
   slide.addShape("rect", { x: fr.px + i0 * slot, y: fr.py, w: (i1 - i0 + 1) * slot, h: fr.ph, fill: { color }, line: { type: "none" }, objectName: "band" });
+  // An optional one-line label inside the shade, along its bottom (where the charts here leave room).
+  if (label) slide.addText(label, text("label", { x: fr.px + i0 * slot + 0.06, y: fr.py + fr.ph - 0.3, w: (i1 - i0 + 1) * slot - 0.08, h: 0.28, color: C.accent_strong, fontFace: T.FONT_SEMIBOLD, valign: "bottom", wrap: false }));
   return { x: fr.px + i0 * slot, w: (i1 - i0 + 1) * slot };
 }
 
@@ -131,4 +135,4 @@ async function icon(Icon, color = C.ink_subtle) {
   return cache.get(k);
 }
 
-module.exports = { T, C, SLIDE, SIZE, text, px, M, W, TOP, BOTTOM, GAP, SIMULATED, defineLayouts, slide, notes, TIMING, frame, band, marker, iconDot, bullets, stat, panel, hairline, icon, table };
+module.exports = { T, C, SLIDE, SIZE, text, px, M, W, TOP, BOTTOM, GAP, SIMULATED, defineLayouts, slide, notes, TIMING, frame, band, BAND, marker, iconDot, bullets, stat, panel, hairline, icon, table };

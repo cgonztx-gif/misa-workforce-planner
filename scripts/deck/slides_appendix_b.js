@@ -70,13 +70,14 @@ async function a5(pres) {
     ["", "Cost order: regular, then cross-trained, then overtime", "Case, page 7, and README", "Case"],
     ["", "Scenario demand multipliers and availability", "Planning grid", "Case"],
   ];
-  K.table(s, {
+  const end = K.table(s, {
     x: M, y: TOP, rowH: 0.345,
     cols: [{ w: 0.8 }, { w: 6.35 }, { w: 3.6 }, { w: W - 10.75, align: "center" }],
     head: ["ID", "Assumption", "Basis", "Whose"],
     rows,
     cell: (r, c) => (c === 3 ? (rows[r][3] === "Ours" ? { fill: { color: C.accent_soft }, color: C.accent_strong, fontFace: T.FONT_SEMIBOLD } : { fill: { color: C.raised }, color: C.ink_muted }) : c === 0 ? { color: C.ink_muted } : c === 2 ? { color: C.ink_muted } : {}),
   });
+  s.addText("IDs match the report's list of assumptions.", text("label", { x: M, y: end + 0.08, w: W, h: 0.28, color: C.ink_muted }));
   K.notes(s, { id: "A5", target: "for Q&A", say: [
     "These are the assumptions we added, each with its basis; the case's own are at the bottom. The full list, with what happens if each is wrong, is in the report.",
     "The two that matter most are planning for callouts and the 95% goal, both confirmed with the team.",

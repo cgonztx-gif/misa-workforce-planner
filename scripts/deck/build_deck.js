@@ -52,9 +52,10 @@ async function main() {
   // Speaking time from the notes, at 150 words a minute.
   const main = K.TIMING.filter((t) => !t.id.startsWith("A"));
   const total = main.reduce((a, t) => a + t.seconds, 0);
+  const words = main.reduce((a, t) => a + t.words, 0);
   const target = main.reduce((a, t) => a + t.target.split(":").reduce((m, s) => m * 60 + Number(s), 0), 0);
   for (const t of K.TIMING) console.log(`  slide ${t.id.padEnd(9)} target ${t.target.padStart(5)}  notes ${String(t.words).padStart(4)} words  ~${clock(t.seconds)}`);
-  console.log(`Main slides: ~${clock(total)} spoken against ${clock(target)} planned (6:00 to 7:00 allowed).`);
+  console.log(`Main slides: ${words} spoken words, ~${clock(Math.round((words / 130) * 60))} at 130 wpm, ~${clock(total)} at 150 wpm, against ${clock(target)} planned (6:00 to 7:00 allowed).`);
   if (!D.teamName) console.warn("Team name is still the placeholder: set TEAM_ID in src/submission.py, rerun the pipeline, then rebuild.");
 }
 

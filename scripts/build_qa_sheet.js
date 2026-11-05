@@ -104,7 +104,11 @@ const illness = openIn("DISRUPT").filter((b) => b.availability_note.startsWith("
 const illnessAtCap = illness.filter((b) => b.rec >= b.cap).length;
 
 // The service goal trade-off (F-49): cost of a point of expected service between two goals.
-const goals = S.goal_tradeoff.filter((r) => r.scenario_code === "BASE");
+// goal_tradeoff.csv keeps expected service at full precision. The JSON rounds it to 0.1 point, which skews a
+// cost per point taken over a 1.5-point step, so read the CSV (the deck's A8 uses the same source).
+const goals = readCsv("goal_tradeoff.csv")
+  .filter((r) => r.scenario_code === "BASE")
+  .map((r) => ({ ...r, goal: Number(r.goal), cost: Number(r.cost), expected_met: Number(r.expected_met) }));
 const atGoal = (x) => goals.find((r) => Math.abs(r.goal - x) < 1e-9);
 const perPoint = (a, b) => (atGoal(b).cost - atGoal(a).cost) / ((atGoal(b).expected_met - atGoal(a).expected_met) * 100);
 need(Math.abs(atGoal(GOAL).cost - plan.BASE.cost) < 0.01, "the 95% row of goal_tradeoff against the plan");
