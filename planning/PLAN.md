@@ -4,7 +4,7 @@
 
 **Deadline: Saturday, Nov 7, 2026 at 7:00 AM (Q-11).** The presentation slot isn't known yet. Everything must be finished Friday night (D-14), because Saturday morning is too early to use. As of Thursday, that leaves Thursday and Friday.
 
-**Now: the final push, planned in full in `DELIVERABLES_PLAN.md`. The user said go on Thursday, Nov 5, so implementation has started, with subagents running independent tasks in parallel.** T-73 is done. The WS1 checks (T-74 to T-77), the shared look (T-79), the API (T-80) and the app shell (T-81) are running. M2 and M3 were met on Wednesday: the analysis, plan, explanations, playbook and the Streamlit app all work (F-39 to F-59).
+**Now: the final push, planned in full in `DELIVERABLES_PLAN.md`. The user said go on Thursday, Nov 5, and by Thursday night M6 and M7 were met:** the numbers are frozen (tag `numbers-freeze`, D-29's smooth curve), the new app has all seven pages and passes its browser checks (F-74), and the deck, report, notebook and Q&A sheet are built from `outputs/`. The code is on a private GitHub repository for teammates to run (D-30). **Left:** the app's polish pass and the M4 decision (T-90), then fresh screenshots into the deck and report, a fresh-eyes review of the deck, the team name (T-62), rehearsals (T-63, T-65), the backup recording (T-64), the final check (T-66) and packaging (T-95). M2 and M3 were met on Wednesday: the analysis, plan, explanations, playbook and the Streamlit app all work (F-39 to F-59).
 
 Work in this order (`DELIVERABLES_PLAN.md` section 3):
 
@@ -54,7 +54,7 @@ Never cut these, because the case requires them: a valid CSV for all three scena
 | M4 | App ready to demo | Phase 5 is done, which the Streamlit app met. For the new app: it passes section 7.8 of `DELIVERABLES_PLAN.md`, or the Streamlit fallback is chosen (D-27) | Fri Nov 6, 1 pm |
 | M5 | Submission ready and frozen | Phases 6 and 7 are done | Fri Nov 6, night |
 | M6 | Numbers frozen | T-73 to T-78 are done, and the commit is tagged `numbers-freeze` (D-28) | Thu Nov 5, night |
-| M7 | Content complete | Drafts of the deck, report, notebook and Q&A sheet exist (T-91 to T-94) | Fri Nov 6, 5 pm |
+| M7 | Content complete | Drafts of the deck, report, notebook and Q&A sheet exist (T-91 to T-94) | Fri Nov 6, 5 pm (met Thu Nov 5, night) |
 
 ## Tasks
 
@@ -130,14 +130,14 @@ Never cut these, because the case requires them: a valid CSV for all three scena
 
 | ID | Task | Needs | Done when | Status |
 |---|---|---|---|---|
-| T-60 | Build the deck: 6-7 minutes of slides and a 5-minute demo in a 15-minute slot (Q-12). T-93 delivers it | T-34, T-42, T-93 | Covers diagnosis, forecast, recommendation and all three scenarios | Not started |
-| T-61 | Build the appendix: forecast method, assumptions, cost and service against the draft. The deck's appendix slides (T-93), the report (T-92) and the notebook (T-91) deliver it | T-34 | All three are covered | In progress |
+| T-60 | Build the deck: 6-7 minutes of slides and a 5-minute demo in a 15-minute slot (Q-12). T-93 delivers it | T-34, T-42, T-93 | Covers diagnosis, forecast, recommendation and all three scenarios | Delivered by T-93 |
+| T-61 | Build the appendix: forecast method, assumptions, cost and service against the draft. The deck's appendix slides (T-93), the report (T-92) and the notebook (T-91) deliver it | T-34 | All three are covered | Done: the deck's appendix (A1-A11), the report and the notebook |
 | T-62 | Finalize the submission CSV with the real team name (Q-07) | T-35 | Validator passes on the final file, and `team_id` no longer holds `TEAM_NAME` | Not started |
 | T-63 | Rehearse the demo in a real browser with Wi-Fi off (closes the gap in F-22) | T-56 | Works offline, result recorded | Not started |
 | T-64 | Record a backup demo (Q-05) | T-63 | Video saved and watched through | Not started |
 | T-65 | Run two timed full rehearsals | T-60, T-63 | Slides take 6-7 minutes and the whole thing, with the 5-minute demo and questions, ends within 15 (Q-12) | Not started |
 | T-66 | Do a final check against `REQUIREMENTS.md` | T-61, T-62, T-65 | Every requirement is Met | Not started |
-| T-67 | Keep the team's analysis Word file current (D-20). T-92 rewrites it as a standalone report (R-35) | T-34 | `deliverables/Costco_Case_Analysis.docx` matches the latest `outputs/` | In progress |
+| T-67 | Keep the team's analysis Word file current (D-20). T-92 rewrites it as a standalone report (R-35) | T-34 | `deliverables/Costco_Case_Analysis.docx` matches the latest `outputs/` | Replaced by T-92 |
 
 ### Phase 7: Final push (`DELIVERABLES_PLAN.md`)
 
@@ -165,8 +165,8 @@ Section numbers refer to `DELIVERABLES_PLAN.md`, which has the details, checks a
 | T-88 | Methods page (7.4) | T-81 | Checked in a browser | Done: engine diagram, why totals per block (gap 3), validation, assumptions ours and the case's, data notice |
 | T-89 | Browser checks, screenshots, offline and timing checks (7.8) | T-82 to T-88 | `planning/evidence/drive_web.py` passes | Done: 26 of 27 pass, the miss is machine load (F-74) |
 | T-90 | Polish, fresh-eyes review, the M4 decision, then update the README, `CLAUDE.md`, `DESIGN.md` and the UI guide (7.9) | T-89 | M4 met with the new app or the fallback | In progress: fixes from T-89 and a fresh-eyes review; docs cutover done |
-| T-91 | Jupyter appendix (section 8) | T-78, T-79 | Runs with no errors, and its reproducibility cell passes | In progress |
-| T-92 | Rewrite the report (section 9) | T-78, T-79, then T-89 for screenshots | Every page checked as rendered, and the PDF exported | In progress |
-| T-93 | Build the presentation, main and appendix slides (section 10) | T-78, T-90 | `validate.py` passes, every slide checked as rendered, and the PDF exported | In progress (started before M4 for speed; slide 9's screenshot is swapped after T-90) |
+| T-91 | Jupyter appendix (section 8) | T-78, T-79 | Runs with no errors, and its reproducibility cell passes | Done: `deliverables/Costco_Analysis_Appendix.ipynb` and `.html`, 116 cells, runs clean in 1.5-4 minutes, rebuilds all of `analysis_summary.json` with 0 differences, offline HTML |
+| T-92 | Rewrite the report (section 9) | T-78, T-79, then T-89 for screenshots | Every page checked as rendered, and the PDF exported | Done: a 50-page report with 26 figures and 18 tables, 548 claims each traced to a source (V-10), every page rendered through Word, plus the PDF. Left: the polished app's screenshots after T-90, and the team name |
+| T-93 | Build the presentation, main and appendix slides (section 10) | T-78, T-90 | `validate.py` passes, every slide checked as rendered, and the PDF exported | Built: 22 slides (10 main, about 6:12 spoken, plus A1-A11), every figure from `outputs/`, `validate.py` passes, every slide rendered through PowerPoint. Left: slide 9's screenshot after T-90, a fresh-eyes review, the team name |
 | T-94 | Q&A prep sheet (10.6) | T-78 | Saved in `deliverables/` | Done: `deliverables/Costco_QA_Prep.docx` and `.pdf`, 22 questions, built from `outputs/` by `scripts/build_qa_sheet.js` |
 | T-95 | Package the hand-in and tag `submission` (section 11) | T-62, T-66 | The folder is complete and the tag exists | Not started |

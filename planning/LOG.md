@@ -4,6 +4,15 @@ Newest first. Add an entry at the end of every work session.
 
 ## 2026-11-05
 
+**Final push, day one, evening: content complete, GitHub, and consistency fixes.** M6 and M7 were both met on Thursday night, a day ahead of M7's Friday 5 pm target.
+
+- **Built in parallel by subagents:** the notebook appendix (T-91), a 50-page report with a claims register (T-92), a 22-slide deck rendered through PowerPoint (T-93), the Q&A sheet (T-94), and browser acceptance checks for the app (T-89, F-74: 26 of 27 pass, the miss is machine load).
+- **A fresh-eyes review of the app's screenshots** found what the checks couldn't: "people added" totals that don't add up on one screen, the Playbook ignoring the top-bar filters, a confusing what-if baseline, and text under the 14px projector floor. These went to the polish agent (T-90) with priorities.
+- **Cross-checks between agents found four small inconsistencies, all fixed in `src/` before the tag moved:** the playbook text counted a block at 94.99% as short (44 people, not 43), rounded 974.5 overtime hours to 974 where the pages show 975, and computed +266 hours where the displayed totals differ by 265. Each fix changed only playbook sentences, and all 8 WS1 checks were rerun after each.
+- **Findings updated** for D-29: F-49's cost per point, F-54, F-64's Front End caveat, F-67's 154 blocks at capacity, and F-70's 11 guarded shifts.
+- **GitHub:** at the user's request, a private repository, tested from a fresh clone (D-30). Teammates run it with Python only.
+- **The user paused and resumed the agents once.** The paused browser-check run was rerun. Every agent picked up where it stopped.
+
 **Final push, day one: checks, a model change, the API and the new app (Thursday afternoon).** The user said to start the plan, with an emphasis on speed through subagents while keeping it accurate. The main session coordinated and kept the planning files; subagents each owned separate files and didn't commit.
 
 - **Ran in parallel:** the WS1 checks (T-74, T-76, T-77), the calibration study (T-75), the API (T-80), the tokens and app shell (T-79, T-81), then the matplotlib style and deck theme (T-79), then three page builders (T-82 to T-88). All four of the first wave stalled once on a stream timeout and were resumed with their work intact.

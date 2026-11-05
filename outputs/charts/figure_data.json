@@ -1,0 +1,163 @@
+{
+ "note": "Figures the report's charts are drawn from, written by python -m src.charts. Not an engine output.",
+ "timeline": {
+  "window": [
+   "2026-02-13",
+   "2026-02-16"
+  ],
+  "holidays": {
+   "2026-02-14": "Valentine's Day",
+   "2026-02-16": "Presidents' Day"
+  },
+  "pto_days": [
+   "2026-02-14",
+   "2026-02-16"
+  ],
+  "peak_days": [
+   "2026-02-13",
+   "2026-02-15"
+  ],
+  "peak_multiplier_min": 1.05,
+  "peak_multiplier_max": 1.3,
+  "disrupt_days": {
+   "2": [
+    "2026-02-13",
+    "2026-02-16"
+   ],
+   "4": [
+    "2026-02-12",
+    "2026-02-13"
+   ]
+  },
+  "disrupt_changed_blocks": 36
+ },
+ "risk_example": {
+  "store_id": 2,
+  "dept_id": 38,
+  "department": "Front End",
+  "day_date": "2026-02-15",
+  "day": "Sun Feb 15",
+  "shift_code": "MID",
+  "draft": 32,
+  "plan": 47,
+  "need": {
+   "curve": 42,
+   "forecast": 45,
+   "both": 47
+  },
+  "paid_hours": 3.0,
+  "demand": 69.07162273822658,
+  "demand_sd": 0.0592032886129207,
+  "callout_rate": 0.0643086816720257,
+  "chance_plan": {
+   "curve": 0.9999999944096505,
+   "forecast": 0.995510374152844,
+   "both": 0.9673883364287901
+  },
+  "chance_draft": {
+   "curve": 5.66756968363113e-32,
+   "forecast": 0.00016863833271117963,
+   "both": 6.491784193075356e-05
+  },
+  "utilization_plan": 0.7348044972151764,
+  "utilization_draft": 1.0792441052847903
+ },
+ "allocation_example": {
+  "store_id": 1,
+  "dept_id": 92,
+  "department": "Merchandising",
+  "day_date": "2026-02-16",
+  "shift_code": "MID",
+  "paid_hours": 5.0,
+  "regular_rate": 30.0,
+  "overtime_rate": 39.6,
+  "available_regular": 9,
+  "usable_flex": 2,
+  "max_overtime": 3,
+  "capacity": 14,
+  "plan": 14,
+  "fill_regular": 9,
+  "fill_flex": 2,
+  "fill_overtime": 3,
+  "cost": 2244.0,
+  "chance": 0.9857199572426824,
+  "draft": 11,
+  "draft_fill": [
+   9,
+   2,
+   0
+  ],
+  "cost_draft": 1650.0,
+  "shift": [
+   {
+    "dept_id": 92,
+    "department_group": "Merchandising/Stocking",
+    "draft_scheduled_employees": 11,
+    "recommended": 14,
+    "available_regular_employees": 9,
+    "usable_flex": 2,
+    "max_overtime_employees": 3,
+    "capacity": 14,
+    "fill_regular": 9,
+    "fill_flex": 2,
+    "fill_overtime": 3,
+    "chance_met": 0.9857199572426824,
+    "planned_utilization": 0.6987256173431209,
+    "cost": 2244.0
+   },
+   {
+    "dept_id": 38,
+    "department_group": "Front End",
+    "draft_scheduled_employees": 17,
+    "recommended": 18,
+    "available_regular_employees": 20,
+    "usable_flex": 0,
+    "max_overtime_employees": 5,
+    "capacity": 25,
+    "fill_regular": 18,
+    "fill_flex": 0,
+    "fill_overtime": 0,
+    "chance_met": 0.9848932162472476,
+    "planned_utilization": 0.7270573093120566,
+    "cost": 2070.0
+   }
+  ]
+ },
+ "hours_by_day": {
+  "2026-02-12": {
+   "draft_hours": 1407.0,
+   "plan_hours": 1497.5,
+   "capacity_hours": 2310.0
+  },
+  "2026-02-13": {
+   "draft_hours": 1649.5,
+   "plan_hours": 1865.0,
+   "capacity_hours": 2250.5
+  },
+  "2026-02-14": {
+   "draft_hours": 1647.0,
+   "plan_hours": 1953.5,
+   "capacity_hours": 1990.0
+  },
+  "2026-02-15": {
+   "draft_hours": 1424.5,
+   "plan_hours": 1711.0,
+   "capacity_hours": 1781.5
+  },
+  "2026-02-16": {
+   "draft_hours": 1427.5,
+   "plan_hours": 1600.0,
+   "capacity_hours": 1995.0
+  },
+  "2026-02-17": {
+   "draft_hours": 1411.0,
+   "plan_hours": 1548.5,
+   "capacity_hours": 2335.5
+  },
+  "2026-02-18": {
+   "draft_hours": 1377.5,
+   "plan_hours": 1482.0,
+   "capacity_hours": 2331.5
+  }
+ }
+}

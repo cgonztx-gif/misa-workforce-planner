@@ -21,7 +21,8 @@ KEYS = ["store_id", "dept_id", "day_of_week", "shift_code"]
 
 def _whole(value: float) -> int:
     """Round halves away from zero, as the web app's number formatting does. Python's own formatting rounds a
-    half to the even number, so 974.5 overtime hours would read 974 here and 975 on every page (F-74)."""
+    half to the even number, so 974.5 overtime hours would read 974 here and 975 on every page (F-74).
+    Differences between scenarios subtract the rounded totals, so they match the totals people see."""
     return int(math.floor(abs(value) + 0.5)) * (1 if value >= 0 else -1)
 
 
@@ -105,7 +106,7 @@ def scenario_actions(explained: pd.DataFrame) -> dict[str, dict]:
         "PEAK": {
             "trigger": "The Feb 13 member promotion is confirmed, or a winter-storm advisory covers Feb 13-14.",
             "actions": [
-                f"Switch to the PEAK plan: {_whole(hours['PEAK'] - hours['BASE']):+,} hours against BASE, at a cost of ${_whole(cost['PEAK']):,}.",
+                f"Switch to the PEAK plan: {_whole(hours['PEAK']) - _whole(hours['BASE']):+,} hours against BASE, at a cost of ${_whole(cost['PEAK']):,}.",
                 f"Put extra staff first into {WAREHOUSE_NAMES[peak_store]} {DEPT_NAMES[peak_dept]}, which gains the most ({int(peak_move.max())} more employee shifts across the week).",
                 f"Approve {_whole(overtime['PEAK']):,} hours of overtime, against {_whole(overtime['BASE']):,} in BASE.",
                 f"Expect waits even with this plan. It is {int(short['PEAK'])} people short across {int(blocks_short['PEAK'])} blocks, led by {peak_where} ({peak_people} people across its shifts). Arrange outside cover, or tell members and staff what to expect.",
@@ -114,7 +115,7 @@ def scenario_actions(explained: pd.DataFrame) -> dict[str, dict]:
         "DISRUPT": {
             "trigger": "Warehouse 2 reports the illness cluster for Feb 13-16 (about 30% of Front End unavailable, one Pharmacy team member out per block), or Warehouse 4's opening stocking crew is about 35% short on Feb 12-13.",
             "actions": [
-                f"Switch to the DISRUPT plan: {_whole(hours['DISRUPT'] - hours['BASE']):+,} hours against BASE, because fewer people are available, at a cost of ${_whole(cost['DISRUPT']):,}.",
+                f"Switch to the DISRUPT plan: {_whole(hours['DISRUPT']) - _whole(hours['BASE']):+,} hours against BASE, because fewer people are available, at a cost of ${_whole(cost['DISRUPT']):,}.",
                 f"Don't use the current draft here: it schedules 36 more people than can be fielded, across 12 blocks.",
                 f"{WAREHOUSE_NAMES[disrupt_store]} {DEPT_NAMES[disrupt_dept]} loses the most ({-int(disrupt_move.min())} fewer employee shifts across the week). Move every available cross-trained person there once Merchandising's own need is met.",
                 f"Escalate early. The plan is {int(short['DISRUPT'])} people short across {int(blocks_short['DISRUPT'])} blocks, led by {disrupt_where} ({disrupt_people} people across its shifts), and no schedule can close that gap.",

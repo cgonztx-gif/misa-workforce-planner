@@ -429,7 +429,7 @@ The slot is 15 minutes at most: **6-7 minutes of slides, a 5-minute live demo, t
 
 ### 10.2 Main slides
 
-Each title states the slide's message as a sentence. The figures shown below are today's values, and the final ones come from `outputs/` after M6.
+Each title states the slide's message as a sentence. The figures shown below are from before D-29 and are only illustrations: the deck's builder reads every figure from `outputs/` (for example, BASE is now about 13% more hours and 68.5% to 95.6% expected service).
 
 | # | Time | Message (title) | Visual | Source |
 |---|---|---|---|---|
@@ -473,7 +473,7 @@ A one-page sheet in `deliverables/`, with an answer for each likely question:
 |---|---|
 | Why aim for 95%? | Service is judged first, and each point above it costs more and more (F-49, A-13) |
 | Isn't +14% cost a lot? | Moving hours alone, at about the draft's cost, already beats the draft. The rest buys the callout allowance (F-51) |
-| What if judges don't apply callouts? | Then the allowance costs $22,755 and gains nothing in their score. We chose to plan for real conditions (A-03, Q-02) |
+| What if judges don't apply callouts? | Then the allowance (about $22,700 after D-29; the Q&A sheet prints the exact figure from `outputs/`) gains nothing in their score. We chose to plan for real conditions (A-03, Q-02) |
 | How accurate is the forecast? | 2.4% error against 4.1% on held-out weeks. That edge comes from avoiding holiday distortion (F-44) |
 | Why +3% for Valentine's Day? | There's no history for it. Service barely changes between 0% and 10%, because capacity binds (F-52) |
 | Why did you cut some blocks? | History shows those blocks overstaffed. The panel gives each one's reason (F-39) |

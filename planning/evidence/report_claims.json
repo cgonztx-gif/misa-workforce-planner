@@ -1,0 +1,4475 @@
+{
+ "document": "deliverables/Costco_Case_Analysis.docx",
+ "built": "2026-11-05T22:28:44.793Z",
+ "rule": "Every printed figure is a registered claim with a source key; any other digit must be structural (a date, ID, file name or cross-reference). The build fails otherwise.",
+ "passed": true,
+ "counts": {
+  "claims": 548,
+  "data": 482,
+  "fixed": 33,
+  "engine text": 33,
+  "distinct_sources": 457,
+  "unsourced": 0
+ },
+ "unsourced": [],
+ "figures": {
+  "outputs/charts/planning_timeline.png": [
+   "data pack v_PlanningWeekGrid.csv",
+   "outputs/charts/figure_data.json:timeline"
+  ],
+  "outputs/charts/service_cliff.png": [
+   "analysis_summary.json:service_bands"
+  ],
+  "outputs/charts/staffing_gaps.png": [
+   "outputs/diagnosis_staffing_gaps.csv"
+  ],
+  "outputs/charts/callout_rates.png": [
+   "analysis_summary.json:callout_rates"
+  ],
+  "outputs/charts/holiday_factors.png": [
+   "analysis_summary.json:holiday_factors"
+  ],
+  "outputs/charts/backtest_error.png": [
+   "analysis_summary.json:backtest_daily",
+   "analysis_summary.json:backtest_by_day_group"
+  ],
+  "outputs/charts/forecast_vs_benchmark.png": [
+   "analysis_summary.json:forecast_by_day"
+  ],
+  "outputs/charts/service_curves.png": [
+   "analysis_summary.json:curves",
+   "analysis_summary.json:service_bands",
+   "analysis_summary.json:service_goal"
+  ],
+  "outputs/charts/risk_example.png": [
+   "analysis_summary.json:curves",
+   "outputs/plan_vs_draft.csv",
+   "outputs/charts/figure_data.json:risk_example"
+  ],
+  "outputs/charts/allocation_example.png": [
+   "outputs/plan_vs_draft.csv",
+   "outputs/charts/figure_data.json:allocation_example"
+  ],
+  "outputs/charts/goal_tradeoff.png": [
+   "analysis_summary.json:goal_tradeoff",
+   "analysis_summary.json:draft_summary"
+  ],
+  "outputs/charts/plan_vs_draft.png": [
+   "analysis_summary.json:plan_summary",
+   "analysis_summary.json:draft_summary"
+  ],
+  "outputs/charts/service_by_day.png": [
+   "analysis_summary.json:plan_by_day"
+  ],
+  "outputs/charts/hours_by_day.png": [
+   "outputs/plan_vs_draft.csv",
+   "outputs/charts/figure_data.json:hours_by_day"
+  ],
+  "outputs/charts/pto_what_if.png": [
+   "analysis_summary.json:pto_what_if"
+  ],
+  "outputs/charts/calibration.png": [
+   "analysis_summary.json:service_calibration"
+  ],
+  "outputs/charts/architecture.png": [
+   "a diagram, no figures"
+  ]
+ },
+ "screenshots": [
+  "planning/evidence/web_screenshots/overview_base_all_1366.png",
+  "planning/evidence/web_screenshots/schedule_base_wh1_1920.png",
+  "planning/evidence/web_screenshots/schedule_drawer_feb14_fe_mid_1366.png",
+  "planning/evidence/web_screenshots/schedule_changes_disrupt_wh2_1366.png",
+  "planning/evidence/web_screenshots/demand_1366_base_all_fold.png",
+  "planning/evidence/web_screenshots/cost_1366_base_all_fold.png",
+  "planning/evidence/web_screenshots/lab_result_1366.png",
+  "planning/evidence/web_screenshots/playbook_1366.png",
+  "planning/evidence/web_screenshots/methods_1366.png"
+ ],
+ "claims": [
+  {
+   "id": 0,
+   "text": "95%",
+   "kind": "data",
+   "value": 0.95,
+   "source": "analysis_summary.json:service_goal",
+   "where": "Cover"
+  },
+  {
+   "id": 1,
+   "text": "95.6%",
+   "kind": "data",
+   "value": 0.956,
+   "source": "analysis_summary.json:plan_summary[scenario_code=BASE].expected_met",
+   "where": "Summary"
+  },
+  {
+   "id": 2,
+   "text": "68.5%",
+   "kind": "data",
+   "value": 0.685,
+   "source": "analysis_summary.json:draft_summary[scenario_code=BASE].expected_met",
+   "where": "Summary"
+  },
+  {
+   "id": 3,
+   "text": "$377,504",
+   "kind": "data",
+   "value": 377504.48,
+   "source": "analysis_summary.json:plan_summary[scenario_code=BASE].cost",
+   "where": "Summary"
+  },
+  {
+   "id": 4,
+   "text": "+14.7%",
+   "kind": "data",
+   "value": 0.14705282782540285,
+   "source": "derived (plan cost / draft cost - 1) from analysis_summary.json:plan_summary[scenario_code=BASE].cost ; analysis_summary.json:draft_summary[scenario_code=BASE].cost",
+   "where": "Summary"
+  },
+  {
+   "id": 5,
+   "text": "25",
+   "kind": "data",
+   "value": 25,
+   "source": "analysis_summary.json:plan_summary[scenario_code=BASE].below_goal",
+   "where": "Summary"
+  },
+  {
+   "id": 6,
+   "text": "180",
+   "kind": "data",
+   "value": 180,
+   "source": "outputs/plan_vs_draft.csv[scenario_code=BASE,is_open=1] (count)",
+   "where": "Summary"
+  },
+  {
+   "id": 7,
+   "text": "135",
+   "kind": "data",
+   "value": 135,
+   "source": "analysis_summary.json:draft_summary[scenario_code=BASE].below_goal",
+   "where": "Summary"
+  },
+  {
+   "id": 8,
+   "text": "0",
+   "kind": "data",
+   "value": 0,
+   "source": "analysis_summary.json:plan_summary[scenario_code=DISRUPT].over_capacity",
+   "where": "Summary"
+  },
+  {
+   "id": 9,
+   "text": "12",
+   "kind": "data",
+   "value": 12,
+   "source": "analysis_summary.json:draft_summary[scenario_code=DISRUPT].over_capacity",
+   "where": "Summary"
+  },
+  {
+   "id": 10,
+   "text": "68.5%",
+   "kind": "data",
+   "value": 0.685,
+   "source": "analysis_summary.json:draft_summary[scenario_code=BASE].expected_met",
+   "where": "Summary"
+  },
+  {
+   "id": 11,
+   "text": "95.6%",
+   "kind": "data",
+   "value": 0.956,
+   "source": "analysis_summary.json:plan_summary[scenario_code=BASE].expected_met",
+   "where": "Summary"
+  },
+  {
+   "id": 12,
+   "text": "$329,108",
+   "kind": "data",
+   "value": 329108.19,
+   "source": "analysis_summary.json:draft_summary[scenario_code=BASE].cost",
+   "where": "Summary"
+  },
+  {
+   "id": 13,
+   "text": "$377,504",
+   "kind": "data",
+   "value": 377504.48,
+   "source": "analysis_summary.json:plan_summary[scenario_code=BASE].cost",
+   "where": "Summary"
+  },
+  {
+   "id": 14,
+   "text": "+14.7%",
+   "kind": "data",
+   "value": 0.14705282782540285,
+   "source": "derived (plan cost / draft cost - 1) from analysis_summary.json:plan_summary[scenario_code=BASE].cost ; analysis_summary.json:draft_summary[scenario_code=BASE].cost",
+   "where": "Summary"
+  },
+  {
+   "id": 15,
+   "text": "25",
+   "kind": "data",
+   "value": 25,
+   "source": "analysis_summary.json:plan_summary[scenario_code=BASE].below_goal",
+   "where": "Summary"
+  },
+  {
+   "id": 16,
+   "text": "58.3%",
+   "kind": "data",
+   "value": 0.583,
+   "source": "analysis_summary.json:draft_summary[scenario_code=PEAK].expected_met",
+   "where": "Summary"
+  },
+  {
+   "id": 17,
+   "text": "87.0%",
+   "kind": "data",
+   "value": 0.87,
+   "source": "analysis_summary.json:plan_summary[scenario_code=PEAK].expected_met",
+   "where": "Summary"
+  },
+  {
+   "id": 18,
+   "text": "$329,108",
+   "kind": "data",
+   "value": 329108.19,
+   "source": "analysis_summary.json:draft_summary[scenario_code=PEAK].cost",
+   "where": "Summary"
+  },
+  {
+   "id": 19,
+   "text": "$387,926",
+   "kind": "data",
+   "value": 387926.42,
+   "source": "analysis_summary.json:plan_summary[scenario_code=PEAK].cost",
+   "where": "Summary"
+  },
+  {
+   "id": 20,
+   "text": "+17.9%",
+   "kind": "data",
+   "value": 0.17872004339971004,
+   "source": "derived (plan cost / draft cost - 1) from analysis_summary.json:plan_summary[scenario_code=PEAK].cost ; analysis_summary.json:draft_summary[scenario_code=PEAK].cost",
+   "where": "Summary"
+  },
+  {
+   "id": 21,
+   "text": "45",
+   "kind": "data",
+   "value": 45,
+   "source": "analysis_summary.json:plan_summary[scenario_code=PEAK].below_goal",
+   "where": "Summary"
+  },
+  {
+   "id": 22,
+   "text": "66.6%",
+   "kind": "data",
+   "value": 0.666,
+   "source": "analysis_summary.json:draft_summary[scenario_code=DISRUPT].expected_met",
+   "where": "Summary"
+  },
+  {
+   "id": 23,
+   "text": "89.5%",
+   "kind": "data",
+   "value": 0.895,
+   "source": "analysis_summary.json:plan_summary[scenario_code=DISRUPT].expected_met",
+   "where": "Summary"
+  },
+  {
+   "id": 24,
+   "text": "$326,367",
+   "kind": "data",
+   "value": 326367.24,
+   "source": "analysis_summary.json:draft_summary[scenario_code=DISRUPT].cost",
+   "where": "Summary"
+  },
+  {
+   "id": 25,
+   "text": "$366,649",
+   "kind": "data",
+   "value": 366649.01,
+   "source": "analysis_summary.json:plan_summary[scenario_code=DISRUPT].cost",
+   "where": "Summary"
+  },
+  {
+   "id": 26,
+   "text": "+12.3%",
+   "kind": "data",
+   "value": 0.12342467338327223,
+   "source": "derived (plan cost / draft cost - 1) from analysis_summary.json:plan_summary[scenario_code=DISRUPT].cost ; analysis_summary.json:draft_summary[scenario_code=DISRUPT].cost",
+   "where": "Summary"
+  },
+  {
+   "id": 27,
+   "text": "39",
+   "kind": "data",
+   "value": 39,
+   "source": "analysis_summary.json:plan_summary[scenario_code=DISRUPT].below_goal",
+   "where": "Summary"
+  },
+  {
+   "id": 28,
+   "text": "68.5%",
+   "kind": "data",
+   "value": 0.685,
+   "source": "analysis_summary.json:draft_summary[scenario_code=BASE].expected_met",
+   "where": "Summary"
+  },
+  {
+   "id": 29,
+   "text": "73.4%",
+   "kind": "data",
+   "value": 0.734,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for neither,scenario_code=BASE].met_both_risks",
+   "where": "Summary"
+  },
+  {
+   "id": 30,
+   "text": "5",
+   "kind": "data",
+   "value": 5,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=5].kept_per_block",
+   "where": "Summary"
+  },
+  {
+   "id": 31,
+   "text": "25",
+   "kind": "data",
+   "value": 25,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=0].blocks_below_goal",
+   "where": "Summary"
+  },
+  {
+   "id": 32,
+   "text": "6",
+   "kind": "data",
+   "value": 6,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=5].blocks_below_goal",
+   "where": "Summary"
+  },
+  {
+   "id": 33,
+   "text": "$4,381",
+   "kind": "data",
+   "value": 4381.489999999991,
+   "source": "derived (cost with no PTO kept - cost at the highest limit) from analysis_summary.json:pto_what_if[kept_per_block=0].cost ; analysis_summary.json:pto_what_if[kept_per_block=5].cost",
+   "where": "Summary"
+  },
+  {
+   "id": 34,
+   "text": "43",
+   "kind": "data",
+   "value": 43,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=BASE].gap_people (sum)",
+   "where": "Summary"
+  },
+  {
+   "id": 35,
+   "text": "190",
+   "kind": "data",
+   "value": 190,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=PEAK].gap_people (sum)",
+   "where": "Summary"
+  },
+  {
+   "id": 36,
+   "text": "200",
+   "kind": "data",
+   "value": 200,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=DISRUPT].gap_people (sum)",
+   "where": "Summary"
+  },
+  {
+   "id": 37,
+   "text": "5 minutes or less",
+   "kind": "fixed",
+   "value": null,
+   "source": "Case PDF p7 and data pack docs/ASSUMPTIONS.md section 6",
+   "where": "1 The case > Three departments, and why each matters"
+  },
+  {
+   "id": 38,
+   "text": "60 minutes or less",
+   "kind": "fixed",
+   "value": null,
+   "source": "Case PDF p7 and data pack docs/ASSUMPTIONS.md section 6",
+   "where": "1 The case > Three departments, and why each matters"
+  },
+  {
+   "id": 39,
+   "text": "20 minutes or less",
+   "kind": "fixed",
+   "value": null,
+   "source": "Case PDF p7 and data pack docs/ASSUMPTIONS.md section 6",
+   "where": "1 The case > Three departments, and why each matters"
+  },
+  {
+   "id": 40,
+   "text": "189",
+   "kind": "data",
+   "value": 189,
+   "source": "derived (submission rows / 3 scenarios) from analysis_summary.json:kpi.plan_blocks",
+   "where": "1 The case > The planning week"
+  },
+  {
+   "id": 41,
+   "text": "567",
+   "kind": "data",
+   "value": 567,
+   "source": "analysis_summary.json:kpi.plan_blocks",
+   "where": "1 The case > The planning week"
+  },
+  {
+   "id": 42,
+   "text": "9",
+   "kind": "data",
+   "value": 9,
+   "source": "derived (closed rows / 3 scenarios) from outputs/plan_vs_draft.csv[is_open=0] (count)",
+   "where": "1 The case > The planning week"
+  },
+  {
+   "id": 43,
+   "text": "x1.05",
+   "kind": "data",
+   "value": 1.05,
+   "source": "outputs/charts/figure_data.json:timeline.peak_multiplier_min",
+   "where": "1 The case > The three scenarios"
+  },
+  {
+   "id": 44,
+   "text": "x1.30",
+   "kind": "data",
+   "value": 1.3,
+   "source": "outputs/charts/figure_data.json:timeline.peak_multiplier_max",
+   "where": "1 The case > The three scenarios"
+  },
+  {
+   "id": 45,
+   "text": "about 30%",
+   "kind": "fixed",
+   "value": null,
+   "source": "planning grid v_PlanningWeekGrid.csv, availability_note",
+   "where": "1 The case > The three scenarios"
+  },
+  {
+   "id": 46,
+   "text": "about 35%",
+   "kind": "fixed",
+   "value": null,
+   "source": "planning grid v_PlanningWeekGrid.csv, availability_note",
+   "where": "1 The case > The three scenarios"
+  },
+  {
+   "id": 47,
+   "text": "12-15 minutes",
+   "kind": "fixed",
+   "value": null,
+   "source": "data pack README and case PDF p8",
+   "where": "1 The case > What we hand in, and how it's judged"
+  },
+  {
+   "id": 48,
+   "text": "567",
+   "kind": "data",
+   "value": 567,
+   "source": "analysis_summary.json:kpi.plan_blocks",
+   "where": "1 The case > What we hand in, and how it's judged"
+  },
+  {
+   "id": 49,
+   "text": "0",
+   "kind": "fixed",
+   "value": null,
+   "source": "data pack README: enter 0 for closed blocks",
+   "where": "1 The case > What we hand in, and how it's judged"
+  },
+  {
+   "id": 50,
+   "text": "85-90%",
+   "kind": "fixed",
+   "value": null,
+   "source": "F-03: the service cliff (src/diagnosis.py utilization bands)",
+   "where": "1 The case > What we hand in, and how it's judged"
+  },
+  {
+   "id": 51,
+   "text": "1,134",
+   "kind": "data",
+   "value": 1134,
+   "source": "data pack v_ShiftHistory.csv: rows counted by the builder",
+   "where": "2 The data > Sources"
+  },
+  {
+   "id": 52,
+   "text": "567",
+   "kind": "data",
+   "value": 567,
+   "source": "data pack v_PlanningWeekGrid.csv: rows counted by the builder",
+   "where": "2 The data > Sources"
+  },
+  {
+   "id": 53,
+   "text": "63",
+   "kind": "data",
+   "value": 63,
+   "source": "data pack PlanningWeek_BenchmarkForecast.csv: rows counted by the builder",
+   "where": "2 The data > Sources"
+  },
+  {
+   "id": 54,
+   "text": "567",
+   "kind": "data",
+   "value": 567,
+   "source": "data pack TEAM_SUBMISSION_TEMPLATE.csv: rows counted by the builder",
+   "where": "2 The data > Sources"
+  },
+  {
+   "id": 55,
+   "text": "3",
+   "kind": "data",
+   "value": 3,
+   "source": "data pack comp_LaborStandard.csv: rows counted by the builder",
+   "where": "2 The data > Sources"
+  },
+  {
+   "id": 56,
+   "text": "9",
+   "kind": "data",
+   "value": 9,
+   "source": "data pack comp_LaborCostAssumption.csv: rows counted by the builder",
+   "where": "2 The data > Sources"
+  },
+  {
+   "id": 57,
+   "text": "81",
+   "kind": "data",
+   "value": 81,
+   "source": "analysis_summary.json:kpi.closed_blocks",
+   "where": "2 The data > History against the planning week"
+  },
+  {
+   "id": 58,
+   "text": "1,053",
+   "kind": "data",
+   "value": 1053,
+   "source": "analysis_summary.json:kpi.open_blocks",
+   "where": "2 The data > History against the planning week"
+  },
+  {
+   "id": 59,
+   "text": "36",
+   "kind": "data",
+   "value": 36,
+   "source": "outputs/charts/figure_data.json:timeline.disrupt_changed_blocks",
+   "where": "2 The data > What the docs don't say"
+  },
+  {
+   "id": 60,
+   "text": "12",
+   "kind": "data",
+   "value": 12,
+   "source": "analysis_summary.json:kpi.disrupt_blocks_usable_flex",
+   "where": "2 The data > What the docs don't say"
+  },
+  {
+   "id": 61,
+   "text": "36",
+   "kind": "data",
+   "value": 36,
+   "source": "analysis_summary.json:kpi.disrupt_shortfall_usable_flex",
+   "where": "2 The data > What the docs don't say"
+  },
+  {
+   "id": 62,
+   "text": "10,344",
+   "kind": "data",
+   "value": 10344,
+   "source": "analysis_summary.json:draft_summary[scenario_code=BASE].hours",
+   "where": "2 The data > What the docs don't say"
+  },
+  {
+   "id": 63,
+   "text": "10,206.5",
+   "kind": "data",
+   "value": 10206.5,
+   "source": "analysis_summary.json:draft_summary[scenario_code=DISRUPT].hours",
+   "where": "2 The data > What the docs don't say"
+  },
+  {
+   "id": 64,
+   "text": "77.9%",
+   "kind": "data",
+   "value": 0.7787274453941121,
+   "source": "analysis_summary.json:kpi.pct_met_all",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 65,
+   "text": "77.0%",
+   "kind": "data",
+   "value": 0.7696476964769647,
+   "source": "analysis_summary.json:kpi.pct_met_38",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 66,
+   "text": "69.9%",
+   "kind": "data",
+   "value": 0.6991869918699187,
+   "source": "analysis_summary.json:kpi.pct_met_92",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 67,
+   "text": "88.3%",
+   "kind": "data",
+   "value": 0.8825396825396825,
+   "source": "analysis_summary.json:kpi.pct_met_95",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 68,
+   "text": "84%",
+   "kind": "fixed",
+   "value": null,
+   "source": "src/diagnosis.py: utilization bands for kpi.met_below_84, met_85_90 and met_above_90",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 69,
+   "text": "100%",
+   "kind": "data",
+   "value": 1,
+   "source": "analysis_summary.json:kpi.met_below_84",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 70,
+   "text": "85% and 90%",
+   "kind": "fixed",
+   "value": null,
+   "source": "src/diagnosis.py: utilization bands for kpi.met_below_84, met_85_90 and met_above_90",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 71,
+   "text": "62%",
+   "kind": "data",
+   "value": 0.6206896551724138,
+   "source": "analysis_summary.json:kpi.met_85_90",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 72,
+   "text": "90%",
+   "kind": "fixed",
+   "value": null,
+   "source": "src/diagnosis.py: utilization bands for kpi.met_below_84, met_85_90 and met_above_90",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 73,
+   "text": "0.6%",
+   "kind": "data",
+   "value": 0.0056179775280898875,
+   "source": "analysis_summary.json:kpi.met_above_90",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 74,
+   "text": "97%",
+   "kind": "fixed",
+   "value": null,
+   "source": "src/diagnosis.py: saturation band for kpi.sat_ratio",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 75,
+   "text": "4.6",
+   "kind": "data",
+   "value": 4.593333333333333,
+   "source": "analysis_summary.json:kpi.sat_ratio_38",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 76,
+   "text": "4.1",
+   "kind": "data",
+   "value": 4.109114583333333,
+   "source": "analysis_summary.json:kpi.sat_ratio_92",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 77,
+   "text": "4.3",
+   "kind": "data",
+   "value": 4.274642857142857,
+   "source": "analysis_summary.json:kpi.sat_ratio_95",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 78,
+   "text": "85%",
+   "kind": "fixed",
+   "value": null,
+   "source": "src/diagnosis.py: need at 85% utilization, the starter queries' target (F-17)",
+   "where": "3 What history shows > Service falls off a cliff"
+  },
+  {
+   "id": 79,
+   "text": "59,198",
+   "kind": "data",
+   "value": 59197.5,
+   "source": "analysis_summary.json:kpi.worked_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 80,
+   "text": "1.2%",
+   "kind": "data",
+   "value": 0.01217395764762208,
+   "source": "analysis_summary.json:kpi.worked_vs_req85",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 81,
+   "text": "58,486",
+   "kind": "data",
+   "value": 58485.5,
+   "source": "analysis_summary.json:kpi.req85_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 82,
+   "text": "85%",
+   "kind": "fixed",
+   "value": null,
+   "source": "src/diagnosis.py: need at 85% utilization, the starter queries' target (F-17)",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 83,
+   "text": "3,184",
+   "kind": "data",
+   "value": 3184,
+   "source": "analysis_summary.json:kpi.over_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 84,
+   "text": "$103,458",
+   "kind": "data",
+   "value": 103458.23999999999,
+   "source": "analysis_summary.json:kpi.over_value",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 85,
+   "text": "2,472",
+   "kind": "data",
+   "value": 2472,
+   "source": "analysis_summary.json:kpi.short_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 86,
+   "text": "67%",
+   "kind": "data",
+   "value": 0.6712,
+   "source": "analysis_summary.json:worst_over[0].avg_utilization",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 87,
+   "text": "92%",
+   "kind": "data",
+   "value": 0.9199,
+   "source": "analysis_summary.json:worst_short[0].avg_utilization",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 88,
+   "text": "28%",
+   "kind": "data",
+   "value": 0.2759,
+   "source": "analysis_summary.json:worst_short[0].met_target",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 89,
+   "text": "222",
+   "kind": "data",
+   "value": -222,
+   "source": "analysis_summary.json:worst_short[0].scheduled_net_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 90,
+   "text": "96",
+   "kind": "data",
+   "value": -96,
+   "source": "analysis_summary.json:worst_short[4].net_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 91,
+   "text": "54",
+   "kind": "data",
+   "value": -54,
+   "source": "analysis_summary.json:worst_short[4].scheduled_net_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 92,
+   "text": "85%",
+   "kind": "fixed",
+   "value": null,
+   "source": "src/diagnosis.py: need at 85% utilization, the starter queries' target (F-17)",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 93,
+   "text": "26,856",
+   "kind": "data",
+   "value": 26855.5,
+   "source": "analysis_summary.json:gap_value[dept_id=38].worked_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 94,
+   "text": "26,574",
+   "kind": "data",
+   "value": 26573.5,
+   "source": "analysis_summary.json:gap_value[dept_id=38].required_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 95,
+   "text": "1,284",
+   "kind": "data",
+   "value": 1284,
+   "source": "analysis_summary.json:gap_value[dept_id=38].over_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 96,
+   "text": "1,002",
+   "kind": "data",
+   "value": 1002,
+   "source": "analysis_summary.json:gap_value[dept_id=38].short_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 97,
+   "text": "$37,396",
+   "kind": "data",
+   "value": 37395.74,
+   "source": "analysis_summary.json:gap_value[dept_id=38].over_value",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 98,
+   "text": "85",
+   "kind": "data",
+   "value": 85,
+   "source": "analysis_summary.json:gap_value[dept_id=38].missed_blocks",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 99,
+   "text": "27,956",
+   "kind": "data",
+   "value": 27955.5,
+   "source": "analysis_summary.json:gap_value[dept_id=92].worked_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 100,
+   "text": "27,681",
+   "kind": "data",
+   "value": 27680.5,
+   "source": "analysis_summary.json:gap_value[dept_id=92].required_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 101,
+   "text": "1,528",
+   "kind": "data",
+   "value": 1528,
+   "source": "analysis_summary.json:gap_value[dept_id=92].over_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 102,
+   "text": "1,253",
+   "kind": "data",
+   "value": 1253,
+   "source": "analysis_summary.json:gap_value[dept_id=92].short_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 103,
+   "text": "$46,860",
+   "kind": "data",
+   "value": 46860,
+   "source": "analysis_summary.json:gap_value[dept_id=92].over_value",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 104,
+   "text": "111",
+   "kind": "data",
+   "value": 111,
+   "source": "analysis_summary.json:gap_value[dept_id=92].missed_blocks",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 105,
+   "text": "4,387",
+   "kind": "data",
+   "value": 4386.5,
+   "source": "analysis_summary.json:gap_value[dept_id=95].worked_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 106,
+   "text": "4,232",
+   "kind": "data",
+   "value": 4231.5,
+   "source": "analysis_summary.json:gap_value[dept_id=95].required_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 107,
+   "text": "372",
+   "kind": "data",
+   "value": 372,
+   "source": "analysis_summary.json:gap_value[dept_id=95].over_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 108,
+   "text": "217",
+   "kind": "data",
+   "value": 217,
+   "source": "analysis_summary.json:gap_value[dept_id=95].short_hours",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 109,
+   "text": "$19,203",
+   "kind": "data",
+   "value": 19202.5,
+   "source": "analysis_summary.json:gap_value[dept_id=95].over_value",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 110,
+   "text": "37",
+   "kind": "data",
+   "value": 37,
+   "source": "analysis_summary.json:gap_value[dept_id=95].missed_blocks",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 111,
+   "text": "10%",
+   "kind": "data",
+   "value": 0.10093767848005175,
+   "source": "analysis_summary.json:kpi.demand_index_spread",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 112,
+   "text": "2%",
+   "kind": "data",
+   "value": 0.022121014964215924,
+   "source": "analysis_summary.json:kpi.hours_index_spread",
+   "where": "3 What history shows > The right total hours, in the wrong places"
+  },
+  {
+   "id": 113,
+   "text": "5.2%",
+   "kind": "data",
+   "value": 0.0517130849775625,
+   "source": "analysis_summary.json:kpi.callout_rate_all",
+   "where": "3 What history shows > Callouts are predictable"
+  },
+  {
+   "id": 114,
+   "text": "49%",
+   "kind": "data",
+   "value": 0.49173553719008267,
+   "source": "analysis_summary.json:kpi.backfill_share",
+   "where": "3 What history shows > Callouts are predictable"
+  },
+  {
+   "id": 115,
+   "text": "9",
+   "kind": "data",
+   "value": 9,
+   "source": "analysis_summary.json:callout_rates[dept_id=95,context=day_after_holiday].callouts",
+   "where": "3 What history shows > Callouts are predictable"
+  },
+  {
+   "id": 116,
+   "text": "82",
+   "kind": "data",
+   "value": 82,
+   "source": "analysis_summary.json:callout_rates[dept_id=95,context=day_after_holiday].scheduled",
+   "where": "3 What history shows > Callouts are predictable"
+  },
+  {
+   "id": 117,
+   "text": "65%",
+   "kind": "data",
+   "value": 0.6459627329192547,
+   "source": "analysis_summary.json:kpi.met_loss_fe",
+   "where": "3 What history shows > Callouts are predictable"
+  },
+  {
+   "id": 118,
+   "text": "87%",
+   "kind": "data",
+   "value": 0.8653846153846154,
+   "source": "analysis_summary.json:kpi.met_noloss_fe",
+   "where": "3 What history shows > Callouts are predictable"
+  },
+  {
+   "id": 119,
+   "text": "47%",
+   "kind": "data",
+   "value": 0.47191011235955055,
+   "source": "analysis_summary.json:kpi.met_loss_ms",
+   "where": "3 What history shows > Callouts are predictable"
+  },
+  {
+   "id": 120,
+   "text": "77%",
+   "kind": "data",
+   "value": 0.7714285714285715,
+   "source": "analysis_summary.json:kpi.met_noloss_ms",
+   "where": "3 What history shows > Callouts are predictable"
+  },
+  {
+   "id": 121,
+   "text": "48%",
+   "kind": "data",
+   "value": 0.4838709677419355,
+   "source": "analysis_summary.json:kpi.met_loss_rx",
+   "where": "3 What history shows > Callouts are predictable"
+  },
+  {
+   "id": 122,
+   "text": "93%",
+   "kind": "data",
+   "value": 0.926056338028169,
+   "source": "analysis_summary.json:kpi.met_noloss_rx",
+   "where": "3 What history shows > Callouts are predictable"
+  },
+  {
+   "id": 123,
+   "text": "$1,890,242",
+   "kind": "data",
+   "value": 1890242.255,
+   "source": "analysis_summary.json:kpi.labor_cost_6wk",
+   "where": "3 What history shows > Overtime isn't the main cost lever"
+  },
+  {
+   "id": 124,
+   "text": "3.5%",
+   "kind": "data",
+   "value": 0.034790320537184845,
+   "source": "analysis_summary.json:kpi.ot_hours_share",
+   "where": "3 What history shows > Overtime isn't the main cost lever"
+  },
+  {
+   "id": 125,
+   "text": "$21,345",
+   "kind": "data",
+   "value": 21345.375,
+   "source": "analysis_summary.json:kpi.ot_premium_6wk",
+   "where": "3 What history shows > Overtime isn't the main cost lever"
+  },
+  {
+   "id": 126,
+   "text": "1.1%",
+   "kind": "data",
+   "value": 0.011292401777358426,
+   "source": "analysis_summary.json:kpi.ot_premium_share",
+   "where": "3 What history shows > Overtime isn't the main cost lever"
+  },
+  {
+   "id": 127,
+   "text": "99%",
+   "kind": "data",
+   "value": 0.9888888888888889,
+   "source": "analysis_summary.json:kpi.draft_within1",
+   "where": "3 What history shows > The draft schedule's weak points"
+  },
+  {
+   "id": 128,
+   "text": "61%",
+   "kind": "data",
+   "value": 0.6111111111111112,
+   "source": "analysis_summary.json:kpi.draft_over85_base",
+   "where": "3 What history shows > The draft schedule's weak points"
+  },
+  {
+   "id": 129,
+   "text": "85%",
+   "kind": "fixed",
+   "value": null,
+   "source": "src/diagnosis.py: need at 85% utilization, the starter queries' target (F-17)",
+   "where": "3 What history shows > The draft schedule's weak points"
+  },
+  {
+   "id": 130,
+   "text": "86%",
+   "kind": "data",
+   "value": 0.8611111111111112,
+   "source": "analysis_summary.json:kpi.draft_over85_peak",
+   "where": "3 What history shows > The draft schedule's weak points"
+  },
+  {
+   "id": 131,
+   "text": "68.5%",
+   "kind": "data",
+   "value": 0.685,
+   "source": "analysis_summary.json:draft_summary[scenario_code=BASE].expected_met",
+   "where": "3 What history shows > The draft schedule's weak points"
+  },
+  {
+   "id": 132,
+   "text": "12%",
+   "kind": "data",
+   "value": 0.1200000000000001,
+   "source": "derived (factor - 1) from analysis_summary.json:holiday_factors[dept_id=38,window=pre_holiday_weekend].factor",
+   "where": "4 Forecasting demand > The model"
+  },
+  {
+   "id": 133,
+   "text": "4",
+   "kind": "data",
+   "value": 4,
+   "source": "analysis_summary.json:level_weeks",
+   "where": "4 Forecasting demand > The model"
+  },
+  {
+   "id": 134,
+   "text": "97.7%",
+   "kind": "data",
+   "value": 0.9768771677418748,
+   "source": "analysis_summary.json:kpi.r2_dow",
+   "where": "4 Forecasting demand > The model"
+  },
+  {
+   "id": 135,
+   "text": "99.5%",
+   "kind": "data",
+   "value": 0.9946916706854328,
+   "source": "analysis_summary.json:kpi.r2_dow_hol",
+   "where": "4 Forecasting demand > The model"
+  },
+  {
+   "id": 136,
+   "text": "99.9997%",
+   "kind": "data",
+   "value": 0.9999972026086027,
+   "source": "analysis_summary.json:kpi.r2_full",
+   "where": "4 Forecasting demand > The model"
+  },
+  {
+   "id": 137,
+   "text": "1,053",
+   "kind": "data",
+   "value": 1053,
+   "source": "analysis_summary.json:kpi.open_blocks",
+   "where": "4 Forecasting demand > The model"
+  },
+  {
+   "id": 138,
+   "text": "97.7%",
+   "kind": "data",
+   "value": 0.9768771677418748,
+   "source": "analysis_summary.json:kpi.r2_dow",
+   "where": "4 Forecasting demand > Drivers we tested"
+  },
+  {
+   "id": 139,
+   "text": "99.5%",
+   "kind": "data",
+   "value": 0.9946916706854328,
+   "source": "analysis_summary.json:kpi.r2_dow_hol",
+   "where": "4 Forecasting demand > Drivers we tested"
+  },
+  {
+   "id": 140,
+   "text": "0.95",
+   "kind": "data",
+   "value": 0.9526659831595803,
+   "source": "analysis_summary.json:kpi.week_level_min",
+   "where": "4 Forecasting demand > Drivers we tested"
+  },
+  {
+   "id": 141,
+   "text": "1.06",
+   "kind": "data",
+   "value": 1.0601119051846986,
+   "source": "analysis_summary.json:kpi.week_level_max",
+   "where": "4 Forecasting demand > Drivers we tested"
+  },
+  {
+   "id": 142,
+   "text": "4",
+   "kind": "data",
+   "value": 4,
+   "source": "analysis_summary.json:level_weeks",
+   "where": "4 Forecasting demand > Drivers we tested"
+  },
+  {
+   "id": 143,
+   "text": "−0.006",
+   "kind": "data",
+   "value": -0.005620714464328953,
+   "source": "analysis_summary.json:kpi.corr_temp_resid",
+   "where": "4 Forecasting demand > Drivers we tested"
+  },
+  {
+   "id": 144,
+   "text": "−0.57",
+   "kind": "data",
+   "value": -0.567456741239574,
+   "source": "analysis_summary.json:kpi.corr_temp_raw_fe",
+   "where": "4 Forecasting demand > Drivers we tested"
+  },
+  {
+   "id": 145,
+   "text": "−0.017",
+   "kind": "data",
+   "value": -0.0174405943862295,
+   "source": "analysis_summary.json:kpi.corr_promo_resid",
+   "where": "4 Forecasting demand > Drivers we tested"
+  },
+  {
+   "id": 146,
+   "text": "3%",
+   "kind": "data",
+   "value": 0.03,
+   "source": "analysis_summary.json:valentine_uplift.Front End",
+   "where": "4 Forecasting demand > Drivers we tested"
+  },
+  {
+   "id": 147,
+   "text": "0.1%",
+   "kind": "data",
+   "value": 0.0010319585322804414,
+   "source": "analysis_summary.json:kpi.rebound_extra",
+   "where": "4 Forecasting demand > Drivers we tested"
+  },
+  {
+   "id": 148,
+   "text": "30%",
+   "kind": "data",
+   "value": 0.30000000000000004,
+   "source": "derived (1 - factor) from analysis_summary.json:holiday_factors[dept_id=95,window=holiday_monday].factor",
+   "where": "4 Forecasting demand > Holiday effects"
+  },
+  {
+   "id": 149,
+   "text": "9.6%",
+   "kind": "data",
+   "value": 0.0961,
+   "source": "analysis_summary.json:analog_test[group=All].model",
+   "where": "4 Forecasting demand > Holiday effects"
+  },
+  {
+   "id": 150,
+   "text": "10.2%",
+   "kind": "data",
+   "value": 0.1021,
+   "source": "analysis_summary.json:analog_test[group=All].benchmark",
+   "where": "4 Forecasting demand > Holiday effects"
+  },
+  {
+   "id": 151,
+   "text": "8.2%",
+   "kind": "data",
+   "value": 0.0819,
+   "source": "analysis_summary.json:analog_test[group=38].model",
+   "where": "4 Forecasting demand > Holiday effects"
+  },
+  {
+   "id": 152,
+   "text": "12.4%",
+   "kind": "data",
+   "value": 0.1238,
+   "source": "analysis_summary.json:analog_test[group=38].benchmark",
+   "where": "4 Forecasting demand > Holiday effects"
+  },
+  {
+   "id": 153,
+   "text": "8.7%",
+   "kind": "data",
+   "value": 0.0869,
+   "source": "analysis_summary.json:analog_test[group=92].model",
+   "where": "4 Forecasting demand > Holiday effects"
+  },
+  {
+   "id": 154,
+   "text": "11.3%",
+   "kind": "data",
+   "value": 0.1131,
+   "source": "analysis_summary.json:analog_test[group=92].benchmark",
+   "where": "4 Forecasting demand > Holiday effects"
+  },
+  {
+   "id": 155,
+   "text": "11.9%",
+   "kind": "data",
+   "value": 0.1194,
+   "source": "analysis_summary.json:analog_test[group=95].model",
+   "where": "4 Forecasting demand > Holiday effects"
+  },
+  {
+   "id": 156,
+   "text": "7.0%",
+   "kind": "data",
+   "value": 0.0695,
+   "source": "analysis_summary.json:analog_test[group=95].benchmark",
+   "where": "4 Forecasting demand > Holiday effects"
+  },
+  {
+   "id": 157,
+   "text": "2%",
+   "kind": "fixed",
+   "value": null,
+   "source": "assumption A-11 (planning/ASSUMPTIONS.md)",
+   "where": "4 Forecasting demand > Holiday effects"
+  },
+  {
+   "id": 158,
+   "text": "5%",
+   "kind": "fixed",
+   "value": null,
+   "source": "assumption A-11 (planning/ASSUMPTIONS.md)",
+   "where": "4 Forecasting demand > Holiday effects"
+  },
+  {
+   "id": 159,
+   "text": "3%",
+   "kind": "data",
+   "value": 0.03,
+   "source": "analysis_summary.json:valentine_uplift.Front End",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 160,
+   "text": "$59,195",
+   "kind": "data",
+   "value": 59195.015,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0].our_plan_feb14_cost",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 161,
+   "text": "0%",
+   "kind": "data",
+   "value": 0,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0].true_uplift",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 162,
+   "text": "91.0%",
+   "kind": "data",
+   "value": 0.91,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0].our_plan_expected_met",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 163,
+   "text": "90.3%",
+   "kind": "data",
+   "value": 0.903,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0].replanned_expected_met",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 164,
+   "text": "$57,868",
+   "kind": "data",
+   "value": 57867.53,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0].replanned_feb14_cost",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 165,
+   "text": "3%",
+   "kind": "data",
+   "value": 0.03,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0.03].true_uplift",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 166,
+   "text": "85.3%",
+   "kind": "data",
+   "value": 0.853,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0.03].our_plan_expected_met",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 167,
+   "text": "85.3%",
+   "kind": "data",
+   "value": 0.853,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0.03].replanned_expected_met",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 168,
+   "text": "$59,195",
+   "kind": "data",
+   "value": 59195.015,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0.03].replanned_feb14_cost",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 169,
+   "text": "5%",
+   "kind": "data",
+   "value": 0.05,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0.05].true_uplift",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 170,
+   "text": "80.4%",
+   "kind": "data",
+   "value": 0.804,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0.05].our_plan_expected_met",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 171,
+   "text": "80.7%",
+   "kind": "data",
+   "value": 0.807,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0.05].replanned_expected_met",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 172,
+   "text": "$60,096",
+   "kind": "data",
+   "value": 60095.725,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0.05].replanned_feb14_cost",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 173,
+   "text": "10%",
+   "kind": "data",
+   "value": 0.1,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0.1].true_uplift",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 174,
+   "text": "64.5%",
+   "kind": "data",
+   "value": 0.645,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0.1].our_plan_expected_met",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 175,
+   "text": "65.9%",
+   "kind": "data",
+   "value": 0.659,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0.1].replanned_expected_met",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 176,
+   "text": "$60,459",
+   "kind": "data",
+   "value": 60459.235,
+   "source": "analysis_summary.json:valentine_sensitivity[true_uplift=0.1].replanned_feb14_cost",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 177,
+   "text": "11",
+   "kind": "data",
+   "value": 11,
+   "source": "analysis_summary.json:base_shortfall.feb14_front_merch_at_capacity",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 178,
+   "text": "18",
+   "kind": "data",
+   "value": 18,
+   "source": "analysis_summary.json:base_shortfall.feb14_front_merch_blocks",
+   "where": "4 Forecasting demand > Valentine's Day is a judgment"
+  },
+  {
+   "id": 179,
+   "text": "3 points",
+   "kind": "data",
+   "value": 0.03185994397759112,
+   "source": "analysis_summary.json:kpi.fe_mid_shift_pts",
+   "where": "4 Forecasting demand > The shift split"
+  },
+  {
+   "id": 180,
+   "text": "5.6%",
+   "kind": "data",
+   "value": 0.0563,
+   "source": "analysis_summary.json:split_test[option=pooled].front_end_holiday_window_days",
+   "where": "4 Forecasting demand > The shift split"
+  },
+  {
+   "id": 181,
+   "text": "4.2%",
+   "kind": "data",
+   "value": 0.0422,
+   "source": "analysis_summary.json:split_test[option=front_end_holiday_shares].front_end_holiday_window_days",
+   "where": "4 Forecasting demand > The shift split"
+  },
+  {
+   "id": 182,
+   "text": "1.6%",
+   "kind": "data",
+   "value": 0.016,
+   "source": "analysis_summary.json:backtest_by_week[week=4].model",
+   "where": "4 Forecasting demand > Accuracy, and its limits"
+  },
+  {
+   "id": 183,
+   "text": "4.8%",
+   "kind": "data",
+   "value": 0.0484,
+   "source": "analysis_summary.json:backtest_by_week[week=4].benchmark",
+   "where": "4 Forecasting demand > Accuracy, and its limits"
+  },
+  {
+   "id": 184,
+   "text": "4.2%",
+   "kind": "data",
+   "value": 0.0424,
+   "source": "analysis_summary.json:backtest_by_week[week=5].model",
+   "where": "4 Forecasting demand > Accuracy, and its limits"
+  },
+  {
+   "id": 185,
+   "text": "5.5%",
+   "kind": "data",
+   "value": 0.0549,
+   "source": "analysis_summary.json:backtest_by_week[week=5].benchmark",
+   "where": "4 Forecasting demand > Accuracy, and its limits"
+  },
+  {
+   "id": 186,
+   "text": "1.4%",
+   "kind": "data",
+   "value": 0.0143,
+   "source": "analysis_summary.json:backtest_by_week[week=6].model",
+   "where": "4 Forecasting demand > Accuracy, and its limits"
+  },
+  {
+   "id": 187,
+   "text": "1.8%",
+   "kind": "data",
+   "value": 0.0184,
+   "source": "analysis_summary.json:backtest_by_week[week=6].benchmark",
+   "where": "4 Forecasting demand > Accuracy, and its limits"
+  },
+  {
+   "id": 188,
+   "text": "4.2%",
+   "kind": "data",
+   "value": 0.0415,
+   "source": "analysis_summary.json:backtest_block[group=All].model",
+   "where": "4 Forecasting demand > Accuracy, and its limits"
+  },
+  {
+   "id": 189,
+   "text": "5.4%",
+   "kind": "data",
+   "value": 0.0541,
+   "source": "analysis_summary.json:backtest_block[group=All].benchmark",
+   "where": "4 Forecasting demand > Accuracy, and its limits"
+  },
+  {
+   "id": 190,
+   "text": "2.4%",
+   "kind": "data",
+   "value": 0.0242,
+   "source": "analysis_summary.json:backtest_daily[group=All].model",
+   "where": "4 Forecasting demand > Accuracy, and its limits"
+  },
+  {
+   "id": 191,
+   "text": "4.1%",
+   "kind": "data",
+   "value": 0.0406,
+   "source": "analysis_summary.json:backtest_daily[group=All].benchmark",
+   "where": "4 Forecasting demand > Accuracy, and its limits"
+  },
+  {
+   "id": 192,
+   "text": "2.4%",
+   "kind": "data",
+   "value": 0.0242,
+   "source": "analysis_summary.json:backtest_by_day_group[group=Fri-Mon].model",
+   "where": "4 Forecasting demand > Accuracy, and its limits"
+  },
+  {
+   "id": 193,
+   "text": "5.1%",
+   "kind": "data",
+   "value": 0.0508,
+   "source": "analysis_summary.json:backtest_by_day_group[group=Fri-Mon].benchmark",
+   "where": "4 Forecasting demand > Accuracy, and its limits"
+  },
+  {
+   "id": 194,
+   "text": "2.4%",
+   "kind": "data",
+   "value": 0.0242,
+   "source": "analysis_summary.json:backtest_by_day_group[group=Tue-Thu].model",
+   "where": "4 Forecasting demand > Accuracy, and its limits"
+  },
+  {
+   "id": 195,
+   "text": "2.7%",
+   "kind": "data",
+   "value": 0.0269,
+   "source": "analysis_summary.json:backtest_by_day_group[group=Tue-Thu].benchmark",
+   "where": "4 Forecasting demand > Accuracy, and its limits"
+  },
+  {
+   "id": 196,
+   "text": "0.1%",
+   "kind": "data",
+   "value": 0.0007209805335256503,
+   "source": "derived (largest |model / benchmark - 1| on Feb 12, 17 and 18) from analysis_summary.json:forecast_by_day[dept_id=38,day_date=2026-02-12].model_forecast ; analysis_summary.json:forecast_by_day[dept_id=38,day_date=2026-02-12].benchmark ; analysis_summary.json:forecast_by_day[dept_id=38,day_date=2026-02-17].model_forecast ; analysis_summary.json:forecast_by_day[dept_id=38,day_date=2026-02-17].benchmark ; analysis_summary.json:forecast_by_day[dept_id=38,day_date=2026-02-18].model_forecast ; analysis_summary.json:forecast_by_day[dept_id=38,day_date=2026-02-18].benchmark ; analysis_summary.json:forecast_by_day[dept_id=92,day_date=2026-02-12].model_forecast ; analysis_summary.json:forecast_by_day[dept_id=92,day_date=2026-02-12].benchmark ; analysis_summary.json:forecast_by_day[dept_id=92,day_date=2026-02-17].model_forecast ; analysis_summary.json:forecast_by_day[dept_id=92,day_date=2026-02-17].benchmark ; analysis_summary.json:forecast_by_day[dept_id=92,day_date=2026-02-18].model_forecast ; analysis_summary.json:forecast_by_day[dept_id=92,day_date=2026-02-18].benchmark ; analysis_summary.json:forecast_by_day[dept_id=95,day_date=2026-02-12].model_forecast ; analysis_summary.json:forecast_by_day[dept_id=95,day_date=2026-02-12].benchmark ; analysis_summary.json:forecast_by_day[dept_id=95,day_date=2026-02-17].model_forecast ; analysis_summary.json:forecast_by_day[dept_id=95,day_date=2026-02-17].benchmark ; analysis_summary.json:forecast_by_day[dept_id=95,day_date=2026-02-18].model_forecast ; analysis_summary.json:forecast_by_day[dept_id=95,day_date=2026-02-18].benchmark",
+   "where": "4 Forecasting demand > The planning-week forecast"
+  },
+  {
+   "id": 197,
+   "text": "11.8%",
+   "kind": "data",
+   "value": 0.11802165145404375,
+   "source": "derived (daily forecast / benchmark - 1) from analysis_summary.json:forecast_by_day[dept_id=38,day_date=2026-02-14].daily_forecast ; analysis_summary.json:forecast_by_day[dept_id=38,day_date=2026-02-14].benchmark",
+   "where": "4 Forecasting demand > The planning-week forecast"
+  },
+  {
+   "id": 198,
+   "text": "24.1%",
+   "kind": "data",
+   "value": 0.24116772034213452,
+   "source": "derived (benchmark gap, as a positive share) from derived (daily forecast / benchmark - 1) from analysis_summary.json:forecast_by_day[dept_id=95,day_date=2026-02-16].daily_forecast ; analysis_summary.json:forecast_by_day[dept_id=95,day_date=2026-02-16].benchmark",
+   "where": "4 Forecasting demand > The planning-week forecast"
+  },
+  {
+   "id": 199,
+   "text": "+5.4%",
+   "kind": "data",
+   "value": 0.05440579479423713,
+   "source": "derived (week forecast / benchmark - 1) from analysis_summary.json:forecast_week[dept_id=38].daily_forecast ; analysis_summary.json:forecast_week[dept_id=38].benchmark",
+   "where": "4 Forecasting demand > The planning-week forecast"
+  },
+  {
+   "id": 200,
+   "text": "−5.1%",
+   "kind": "data",
+   "value": -0.05127970191191733,
+   "source": "derived (week forecast / benchmark - 1) from analysis_summary.json:forecast_week[dept_id=95].daily_forecast ; analysis_summary.json:forecast_week[dept_id=95].benchmark",
+   "where": "4 Forecasting demand > The planning-week forecast"
+  },
+  {
+   "id": 201,
+   "text": "5.6%",
+   "kind": "data",
+   "value": 0.0557,
+   "source": "analysis_summary.json:forecast_sd[dept_id=38].sd",
+   "where": "4 Forecasting demand > The planning-week forecast"
+  },
+  {
+   "id": 202,
+   "text": "5.3%",
+   "kind": "data",
+   "value": 0.0527,
+   "source": "analysis_summary.json:forecast_sd[dept_id=92].sd",
+   "where": "4 Forecasting demand > The planning-week forecast"
+  },
+  {
+   "id": 203,
+   "text": "4.5%",
+   "kind": "data",
+   "value": 0.0454,
+   "source": "analysis_summary.json:forecast_sd[dept_id=95].sd",
+   "where": "4 Forecasting demand > The planning-week forecast"
+  },
+  {
+   "id": 204,
+   "text": "95%",
+   "kind": "data",
+   "value": 0.95,
+   "source": "analysis_summary.json:service_goal",
+   "where": "4 Forecasting demand > The planning-week forecast"
+  },
+  {
+   "id": 205,
+   "text": "85-90%",
+   "kind": "fixed",
+   "value": null,
+   "source": "F-03: the service cliff (src/diagnosis.py utilization bands)",
+   "where": "5 From demand to staff > The service curve"
+  },
+  {
+   "id": 206,
+   "text": "95%",
+   "kind": "fixed",
+   "value": null,
+   "source": "service_limits.csv, column u95",
+   "where": "5 From demand to staff > The service curve"
+  },
+  {
+   "id": 207,
+   "text": "86.1%",
+   "kind": "data",
+   "value": 0.861,
+   "source": "analysis_summary.json:service_limits[dept_id=38,store_id=1].u95",
+   "where": "5 From demand to staff > The service curve"
+  },
+  {
+   "id": 208,
+   "text": "83.7%",
+   "kind": "data",
+   "value": 0.837,
+   "source": "analysis_summary.json:service_limits[dept_id=38,store_id=2].u95",
+   "where": "5 From demand to staff > The service curve"
+  },
+  {
+   "id": 209,
+   "text": "85.0%",
+   "kind": "data",
+   "value": 0.85,
+   "source": "analysis_summary.json:service_limits[dept_id=38,store_id=4].u95",
+   "where": "5 From demand to staff > The service curve"
+  },
+  {
+   "id": 210,
+   "text": "85.7%",
+   "kind": "data",
+   "value": 0.857,
+   "source": "analysis_summary.json:service_limits[dept_id=92,store_id=1].u95",
+   "where": "5 From demand to staff > The service curve"
+  },
+  {
+   "id": 211,
+   "text": "86.8%",
+   "kind": "data",
+   "value": 0.868,
+   "source": "analysis_summary.json:service_limits[dept_id=92,store_id=2].u95",
+   "where": "5 From demand to staff > The service curve"
+  },
+  {
+   "id": 212,
+   "text": "84.5%",
+   "kind": "data",
+   "value": 0.845,
+   "source": "analysis_summary.json:service_limits[dept_id=92,store_id=4].u95",
+   "where": "5 From demand to staff > The service curve"
+  },
+  {
+   "id": 213,
+   "text": "85.5%",
+   "kind": "data",
+   "value": 0.855,
+   "source": "analysis_summary.json:service_limits[dept_id=95,store_id=1].u95",
+   "where": "5 From demand to staff > The service curve"
+  },
+  {
+   "id": 214,
+   "text": "84.5%",
+   "kind": "data",
+   "value": 0.845,
+   "source": "analysis_summary.json:service_limits[dept_id=95,store_id=2].u95",
+   "where": "5 From demand to staff > The service curve"
+  },
+  {
+   "id": 215,
+   "text": "84.7%",
+   "kind": "data",
+   "value": 0.847,
+   "source": "analysis_summary.json:service_limits[dept_id=95,store_id=4].u95",
+   "where": "5 From demand to staff > The service curve"
+  },
+  {
+   "id": 216,
+   "text": "84%",
+   "kind": "data",
+   "value": 0.837,
+   "source": "derived (lowest u95) from analysis_summary.json:service_limits[dept_id=38,store_id=1].u95 ; analysis_summary.json:service_limits[dept_id=38,store_id=2].u95 ; analysis_summary.json:service_limits[dept_id=38,store_id=4].u95 ; analysis_summary.json:service_limits[dept_id=92,store_id=1].u95 ; analysis_summary.json:service_limits[dept_id=92,store_id=2].u95 ; analysis_summary.json:service_limits[dept_id=92,store_id=4].u95 ; analysis_summary.json:service_limits[dept_id=95,store_id=1].u95 ; analysis_summary.json:service_limits[dept_id=95,store_id=2].u95 ; analysis_summary.json:service_limits[dept_id=95,store_id=4].u95",
+   "where": "5 From demand to staff > The service curve"
+  },
+  {
+   "id": 217,
+   "text": "87%",
+   "kind": "data",
+   "value": 0.868,
+   "source": "derived (highest u95) from analysis_summary.json:service_limits[dept_id=38,store_id=1].u95 ; analysis_summary.json:service_limits[dept_id=38,store_id=2].u95 ; analysis_summary.json:service_limits[dept_id=38,store_id=4].u95 ; analysis_summary.json:service_limits[dept_id=92,store_id=1].u95 ; analysis_summary.json:service_limits[dept_id=92,store_id=2].u95 ; analysis_summary.json:service_limits[dept_id=92,store_id=4].u95 ; analysis_summary.json:service_limits[dept_id=95,store_id=1].u95 ; analysis_summary.json:service_limits[dept_id=95,store_id=2].u95 ; analysis_summary.json:service_limits[dept_id=95,store_id=4].u95",
+   "where": "5 From demand to staff > The service curve"
+  },
+  {
+   "id": 218,
+   "text": "85%",
+   "kind": "fixed",
+   "value": null,
+   "source": "A-04 and the starter queries' target (F-17)",
+   "where": "5 From demand to staff > The service curve"
+  },
+  {
+   "id": 219,
+   "text": "49%",
+   "kind": "data",
+   "value": 0.49173553719008267,
+   "source": "analysis_summary.json:kpi.backfill_share",
+   "where": "5 From demand to staff > Allowing for risk"
+  },
+  {
+   "id": 220,
+   "text": "200,000",
+   "kind": "fixed",
+   "value": null,
+   "source": "src/risk.py: monte_carlo_chance draws",
+   "where": "5 From demand to staff > Allowing for risk"
+  },
+  {
+   "id": 221,
+   "text": "32",
+   "kind": "data",
+   "value": 32,
+   "source": "outputs/charts/figure_data.json:risk_example.draft",
+   "where": "5 From demand to staff > Allowing for risk"
+  },
+  {
+   "id": 222,
+   "text": "108%",
+   "kind": "data",
+   "value": 1.0792441052847903,
+   "source": "outputs/charts/figure_data.json:risk_example.utilization_draft",
+   "where": "5 From demand to staff > Allowing for risk"
+  },
+  {
+   "id": 223,
+   "text": "42",
+   "kind": "data",
+   "value": 42,
+   "source": "outputs/charts/figure_data.json:risk_example.need.curve",
+   "where": "5 From demand to staff > Allowing for risk"
+  },
+  {
+   "id": 224,
+   "text": "45",
+   "kind": "data",
+   "value": 45,
+   "source": "outputs/charts/figure_data.json:risk_example.need.forecast",
+   "where": "5 From demand to staff > Allowing for risk"
+  },
+  {
+   "id": 225,
+   "text": "47",
+   "kind": "data",
+   "value": 47,
+   "source": "outputs/charts/figure_data.json:risk_example.need.both",
+   "where": "5 From demand to staff > Allowing for risk"
+  },
+  {
+   "id": 226,
+   "text": "47",
+   "kind": "data",
+   "value": 47,
+   "source": "outputs/charts/figure_data.json:risk_example.plan",
+   "where": "5 From demand to staff > Allowing for risk"
+  },
+  {
+   "id": 227,
+   "text": "97%",
+   "kind": "data",
+   "value": 0.9673883364287901,
+   "source": "outputs/charts/figure_data.json:risk_example.chance_plan.both",
+   "where": "5 From demand to staff > Allowing for risk"
+  },
+  {
+   "id": 228,
+   "text": "73%",
+   "kind": "data",
+   "value": 0.7348044972151764,
+   "source": "outputs/charts/figure_data.json:risk_example.utilization_plan",
+   "where": "5 From demand to staff > Allowing for risk"
+  },
+  {
+   "id": 229,
+   "text": "18",
+   "kind": "data",
+   "value": 18,
+   "source": "outputs/charts/figure_data.json:allocation_example.shift[1].recommended",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 230,
+   "text": "20",
+   "kind": "data",
+   "value": 20,
+   "source": "outputs/charts/figure_data.json:allocation_example.shift[1].available_regular_employees",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 231,
+   "text": "2",
+   "kind": "data",
+   "value": 2,
+   "source": "derived (partner regular available - partner plan) from outputs/charts/figure_data.json:allocation_example.shift[1].available_regular_employees ; outputs/charts/figure_data.json:allocation_example.shift[1].recommended",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 232,
+   "text": "9",
+   "kind": "data",
+   "value": 9,
+   "source": "outputs/charts/figure_data.json:allocation_example.fill_regular",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 233,
+   "text": "45",
+   "kind": "data",
+   "value": 45,
+   "source": "derived (people x paid hours) from outputs/charts/figure_data.json:allocation_example.fill_regular ; outputs/charts/figure_data.json:allocation_example.paid_hours",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 234,
+   "text": "30.00",
+   "kind": "data",
+   "value": 30,
+   "source": "outputs/charts/figure_data.json:allocation_example.regular_rate",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 235,
+   "text": "$1,350",
+   "kind": "data",
+   "value": 1350,
+   "source": "derived (regular x hours x rate) from outputs/charts/figure_data.json:allocation_example.fill_regular ; outputs/charts/figure_data.json:allocation_example.paid_hours ; outputs/charts/figure_data.json:allocation_example.regular_rate",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 236,
+   "text": "2",
+   "kind": "data",
+   "value": 2,
+   "source": "outputs/charts/figure_data.json:allocation_example.fill_flex",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 237,
+   "text": "10",
+   "kind": "data",
+   "value": 10,
+   "source": "derived (people x paid hours) from outputs/charts/figure_data.json:allocation_example.fill_flex ; outputs/charts/figure_data.json:allocation_example.paid_hours",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 238,
+   "text": "30.00",
+   "kind": "data",
+   "value": 30,
+   "source": "outputs/charts/figure_data.json:allocation_example.regular_rate",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 239,
+   "text": "$300",
+   "kind": "data",
+   "value": 300,
+   "source": "derived (flex x hours x regular rate) from outputs/charts/figure_data.json:allocation_example.fill_flex ; outputs/charts/figure_data.json:allocation_example.paid_hours ; outputs/charts/figure_data.json:allocation_example.regular_rate",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 240,
+   "text": "3",
+   "kind": "data",
+   "value": 3,
+   "source": "outputs/charts/figure_data.json:allocation_example.fill_overtime",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 241,
+   "text": "15",
+   "kind": "data",
+   "value": 15,
+   "source": "derived (people x paid hours) from outputs/charts/figure_data.json:allocation_example.fill_overtime ; outputs/charts/figure_data.json:allocation_example.paid_hours",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 242,
+   "text": "39.60",
+   "kind": "data",
+   "value": 39.6,
+   "source": "outputs/charts/figure_data.json:allocation_example.overtime_rate",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 243,
+   "text": "$594",
+   "kind": "data",
+   "value": 594,
+   "source": "derived (overtime x paid hours x overtime rate) from outputs/charts/figure_data.json:allocation_example.fill_overtime ; outputs/charts/figure_data.json:allocation_example.paid_hours ; outputs/charts/figure_data.json:allocation_example.overtime_rate",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 244,
+   "text": "14",
+   "kind": "data",
+   "value": 14,
+   "source": "outputs/charts/figure_data.json:allocation_example.plan",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 245,
+   "text": "70",
+   "kind": "data",
+   "value": 70,
+   "source": "derived (people x paid hours) from outputs/charts/figure_data.json:allocation_example.plan ; outputs/charts/figure_data.json:allocation_example.paid_hours",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 246,
+   "text": "$2,244",
+   "kind": "data",
+   "value": 2244,
+   "source": "outputs/charts/figure_data.json:allocation_example.cost",
+   "where": "5 From demand to staff > Allocating and costing staff"
+  },
+  {
+   "id": 247,
+   "text": "63",
+   "kind": "data",
+   "value": 63,
+   "source": "outputs/plan_vs_draft.csv[scenario_code=BASE,dept_id=38] (count)",
+   "where": "5 From demand to staff > The search"
+  },
+  {
+   "id": 248,
+   "text": "18",
+   "kind": "data",
+   "value": 18,
+   "source": "outputs/charts/figure_data.json:allocation_example.shift[1].recommended",
+   "where": "5 From demand to staff > The search"
+  },
+  {
+   "id": 249,
+   "text": "98%",
+   "kind": "data",
+   "value": 0.9848932162472476,
+   "source": "outputs/charts/figure_data.json:allocation_example.shift[1].chance_met",
+   "where": "5 From demand to staff > The search"
+  },
+  {
+   "id": 250,
+   "text": "2",
+   "kind": "data",
+   "value": 2,
+   "source": "derived (partner regular available - partner plan) from outputs/charts/figure_data.json:allocation_example.shift[1].available_regular_employees ; outputs/charts/figure_data.json:allocation_example.shift[1].recommended",
+   "where": "5 From demand to staff > The search"
+  },
+  {
+   "id": 251,
+   "text": "3",
+   "kind": "data",
+   "value": 3,
+   "source": "outputs/charts/figure_data.json:allocation_example.fill_overtime",
+   "where": "5 From demand to staff > The search"
+  },
+  {
+   "id": 252,
+   "text": "99%",
+   "kind": "data",
+   "value": 0.9857199572426824,
+   "source": "outputs/charts/figure_data.json:allocation_example.shift[0].chance_met",
+   "where": "5 From demand to staff > The search"
+  },
+  {
+   "id": 253,
+   "text": "2",
+   "kind": "data",
+   "value": 2,
+   "source": "outputs/charts/figure_data.json:allocation_example.fill_flex",
+   "where": "5 From demand to staff > The search"
+  },
+  {
+   "id": 254,
+   "text": "92.5%",
+   "kind": "data",
+   "value": 0.925,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.925].goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 255,
+   "text": "$7,828",
+   "kind": "data",
+   "value": 7827.859999999986,
+   "source": "derived (cost at 0.95 - cost at 0.925) from analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.95].cost ; analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.925].cost",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 256,
+   "text": "1.2 points",
+   "kind": "data",
+   "value": 0.01200000000000001,
+   "source": "derived (service at 0.95 - service at 0.925) from analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.95].expected_met ; analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.925].expected_met",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 257,
+   "text": "97.5%",
+   "kind": "data",
+   "value": 0.975,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.975].goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 258,
+   "text": "99%",
+   "kind": "data",
+   "value": 0.99,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.99].goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 259,
+   "text": "$9,926",
+   "kind": "data",
+   "value": 9926.080000000016,
+   "source": "derived (cost at 0.99 - cost at 0.975) from analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.99].cost ; analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.975].cost",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 260,
+   "text": "0.4 points",
+   "kind": "data",
+   "value": 0.0040000000000000036,
+   "source": "derived (service at 0.99 - service at 0.975) from analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.99].expected_met ; analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.975].expected_met",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 261,
+   "text": "85%",
+   "kind": "data",
+   "value": 0.85,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.85].goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 262,
+   "text": "$355,885",
+   "kind": "data",
+   "value": 355885.33,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.85].cost",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 263,
+   "text": "+8.1%",
+   "kind": "data",
+   "value": 0.08136272755776752,
+   "source": "derived (cost / draft cost - 1) from analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.85].cost ; analysis_summary.json:draft_summary[scenario_code=BASE].cost",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 264,
+   "text": "90.9%",
+   "kind": "data",
+   "value": 0.909,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.85].expected_met",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 265,
+   "text": "11",
+   "kind": "data",
+   "value": 11,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.85].below_goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 266,
+   "text": "90%",
+   "kind": "data",
+   "value": 0.9,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.9].goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 267,
+   "text": "$364,289",
+   "kind": "data",
+   "value": 364289.085,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.9].cost",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 268,
+   "text": "+10.7%",
+   "kind": "data",
+   "value": 0.10689765879117141,
+   "source": "derived (cost / draft cost - 1) from analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.9].cost ; analysis_summary.json:draft_summary[scenario_code=BASE].cost",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 269,
+   "text": "93.4%",
+   "kind": "data",
+   "value": 0.934,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.9].expected_met",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 270,
+   "text": "14",
+   "kind": "data",
+   "value": 14,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.9].below_goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 271,
+   "text": "92.5%",
+   "kind": "data",
+   "value": 0.925,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.925].goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 272,
+   "text": "$369,677",
+   "kind": "data",
+   "value": 369676.62,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.925].cost",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 273,
+   "text": "+12.3%",
+   "kind": "data",
+   "value": 0.12326776188705613,
+   "source": "derived (cost / draft cost - 1) from analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.925].cost ; analysis_summary.json:draft_summary[scenario_code=BASE].cost",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 274,
+   "text": "94.4%",
+   "kind": "data",
+   "value": 0.944,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.925].expected_met",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 275,
+   "text": "21",
+   "kind": "data",
+   "value": 21,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.925].below_goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 276,
+   "text": "95%",
+   "kind": "data",
+   "value": 0.95,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.95].goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 277,
+   "text": "$377,504",
+   "kind": "data",
+   "value": 377504.48,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.95].cost",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 278,
+   "text": "+14.7%",
+   "kind": "data",
+   "value": 0.14705282782540285,
+   "source": "derived (cost / draft cost - 1) from analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.95].cost ; analysis_summary.json:draft_summary[scenario_code=BASE].cost",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 279,
+   "text": "95.6%",
+   "kind": "data",
+   "value": 0.956,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.95].expected_met",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 280,
+   "text": "25",
+   "kind": "data",
+   "value": 25,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.95].below_goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 281,
+   "text": "97.5%",
+   "kind": "data",
+   "value": 0.975,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.975].goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 282,
+   "text": "$388,724",
+   "kind": "data",
+   "value": 388723.87,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.975].cost",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 283,
+   "text": "+18.1%",
+   "kind": "data",
+   "value": 0.1811431067698437,
+   "source": "derived (cost / draft cost - 1) from analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.975].cost ; analysis_summary.json:draft_summary[scenario_code=BASE].cost",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 284,
+   "text": "96.4%",
+   "kind": "data",
+   "value": 0.964,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.975].expected_met",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 285,
+   "text": "36",
+   "kind": "data",
+   "value": 36,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.975].below_goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 286,
+   "text": "99%",
+   "kind": "data",
+   "value": 0.99,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.99].goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 287,
+   "text": "$398,650",
+   "kind": "data",
+   "value": 398649.95,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.99].cost",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 288,
+   "text": "+21.1%",
+   "kind": "data",
+   "value": 0.2113036445553056,
+   "source": "derived (cost / draft cost - 1) from analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.99].cost ; analysis_summary.json:draft_summary[scenario_code=BASE].cost",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 289,
+   "text": "96.8%",
+   "kind": "data",
+   "value": 0.968,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.99].expected_met",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 290,
+   "text": "56",
+   "kind": "data",
+   "value": 56,
+   "source": "analysis_summary.json:goal_tradeoff[scenario_code=BASE,goal=0.99].below_goal",
+   "where": "5 From demand to staff > Choosing the 95% goal"
+  },
+  {
+   "id": 291,
+   "text": "$377,504",
+   "kind": "data",
+   "value": 377504.48,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for both risks (recommended),scenario_code=BASE].cost",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 292,
+   "text": "95.6%",
+   "kind": "data",
+   "value": 0.956,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for both risks (recommended),scenario_code=BASE].met_both_risks",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 293,
+   "text": "99.6%",
+   "kind": "data",
+   "value": 0.996,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for both risks (recommended),scenario_code=BASE].met_forecast_error_only",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 294,
+   "text": "100.0%",
+   "kind": "data",
+   "value": 1,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for both risks (recommended),scenario_code=BASE].met_neither",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 295,
+   "text": "$354,761",
+   "kind": "data",
+   "value": 354761.14,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for forecast error only,scenario_code=BASE].cost",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 296,
+   "text": "90.4%",
+   "kind": "data",
+   "value": 0.904,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for forecast error only,scenario_code=BASE].met_both_risks",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 297,
+   "text": "98.3%",
+   "kind": "data",
+   "value": 0.983,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for forecast error only,scenario_code=BASE].met_forecast_error_only",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 298,
+   "text": "100.0%",
+   "kind": "data",
+   "value": 1,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for forecast error only,scenario_code=BASE].met_neither",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 299,
+   "text": "$328,220",
+   "kind": "data",
+   "value": 328219.98,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for neither,scenario_code=BASE].cost",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 300,
+   "text": "73.4%",
+   "kind": "data",
+   "value": 0.734,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for neither,scenario_code=BASE].met_both_risks",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 301,
+   "text": "86.2%",
+   "kind": "data",
+   "value": 0.862,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for neither,scenario_code=BASE].met_forecast_error_only",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 302,
+   "text": "99.4%",
+   "kind": "data",
+   "value": 0.994,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for neither,scenario_code=BASE].met_neither",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 303,
+   "text": "$329,108",
+   "kind": "data",
+   "value": 329108.19,
+   "source": "analysis_summary.json:buffer_test[plan=Current draft,scenario_code=BASE].cost",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 304,
+   "text": "68.5%",
+   "kind": "data",
+   "value": 0.685,
+   "source": "analysis_summary.json:buffer_test[plan=Current draft,scenario_code=BASE].met_both_risks",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 305,
+   "text": "76.9%",
+   "kind": "data",
+   "value": 0.769,
+   "source": "analysis_summary.json:buffer_test[plan=Current draft,scenario_code=BASE].met_forecast_error_only",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 306,
+   "text": "80.1%",
+   "kind": "data",
+   "value": 0.801,
+   "source": "analysis_summary.json:buffer_test[plan=Current draft,scenario_code=BASE].met_neither",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 307,
+   "text": "$22,743",
+   "kind": "data",
+   "value": 22743.339999999967,
+   "source": "derived (cost allowing for both risks - forecast error only) from analysis_summary.json:buffer_test[plan=Allows for both risks (recommended),scenario_code=BASE].cost ; analysis_summary.json:buffer_test[plan=Allows for forecast error only,scenario_code=BASE].cost",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 308,
+   "text": "98.3%",
+   "kind": "data",
+   "value": 0.983,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for forecast error only,scenario_code=BASE].met_forecast_error_only",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 309,
+   "text": "99.6%",
+   "kind": "data",
+   "value": 0.996,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for both risks (recommended),scenario_code=BASE].met_forecast_error_only",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 310,
+   "text": "90.4%",
+   "kind": "data",
+   "value": 0.904,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for forecast error only,scenario_code=BASE].met_both_risks",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 311,
+   "text": "95.6%",
+   "kind": "data",
+   "value": 0.956,
+   "source": "analysis_summary.json:buffer_test[plan=Allows for both risks (recommended),scenario_code=BASE].met_both_risks",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 312,
+   "text": "95%",
+   "kind": "data",
+   "value": 0.95,
+   "source": "analysis_summary.json:service_goal",
+   "where": "5 From demand to staff > What the allowance for callouts costs"
+  },
+  {
+   "id": 313,
+   "text": "$329,108",
+   "kind": "data",
+   "value": 329108.19,
+   "source": "analysis_summary.json:draft_summary[scenario_code=BASE].cost",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 314,
+   "text": "$329,108",
+   "kind": "data",
+   "value": 329108.19,
+   "source": "analysis_summary.json:draft_summary[scenario_code=PEAK].cost",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 315,
+   "text": "$326,367",
+   "kind": "data",
+   "value": 326367.24,
+   "source": "analysis_summary.json:draft_summary[scenario_code=DISRUPT].cost",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 316,
+   "text": "$377,504",
+   "kind": "data",
+   "value": 377504.48,
+   "source": "analysis_summary.json:plan_summary[scenario_code=BASE].cost",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 317,
+   "text": "$387,926",
+   "kind": "data",
+   "value": 387926.42,
+   "source": "analysis_summary.json:plan_summary[scenario_code=PEAK].cost",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 318,
+   "text": "$366,649",
+   "kind": "data",
+   "value": 366649.01,
+   "source": "analysis_summary.json:plan_summary[scenario_code=DISRUPT].cost",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 319,
+   "text": "+14.7%",
+   "kind": "data",
+   "value": 0.14705282782540285,
+   "source": "derived (plan cost / draft cost - 1) from analysis_summary.json:plan_summary[scenario_code=BASE].cost ; analysis_summary.json:draft_summary[scenario_code=BASE].cost",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 320,
+   "text": "+17.9%",
+   "kind": "data",
+   "value": 0.17872004339971004,
+   "source": "derived (plan cost / draft cost - 1) from analysis_summary.json:plan_summary[scenario_code=PEAK].cost ; analysis_summary.json:draft_summary[scenario_code=PEAK].cost",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 321,
+   "text": "+12.3%",
+   "kind": "data",
+   "value": 0.12342467338327223,
+   "source": "derived (plan cost / draft cost - 1) from analysis_summary.json:plan_summary[scenario_code=DISRUPT].cost ; analysis_summary.json:draft_summary[scenario_code=DISRUPT].cost",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 322,
+   "text": "10,344.0",
+   "kind": "data",
+   "value": 10344,
+   "source": "analysis_summary.json:draft_summary[scenario_code=BASE].hours",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 323,
+   "text": "10,344.0",
+   "kind": "data",
+   "value": 10344,
+   "source": "analysis_summary.json:draft_summary[scenario_code=PEAK].hours",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 324,
+   "text": "10,206.5",
+   "kind": "data",
+   "value": 10206.5,
+   "source": "analysis_summary.json:draft_summary[scenario_code=DISRUPT].hours",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 325,
+   "text": "11,657.5",
+   "kind": "data",
+   "value": 11657.5,
+   "source": "analysis_summary.json:plan_summary[scenario_code=BASE].hours",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 326,
+   "text": "11,923.0",
+   "kind": "data",
+   "value": 11923,
+   "source": "analysis_summary.json:plan_summary[scenario_code=PEAK].hours",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 327,
+   "text": "11,288.0",
+   "kind": "data",
+   "value": 11288,
+   "source": "analysis_summary.json:plan_summary[scenario_code=DISRUPT].hours",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 328,
+   "text": "974.5",
+   "kind": "data",
+   "value": 974.5,
+   "source": "analysis_summary.json:plan_summary[scenario_code=BASE].overtime_hours",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 329,
+   "text": "1,224.0",
+   "kind": "data",
+   "value": 1224,
+   "source": "analysis_summary.json:plan_summary[scenario_code=PEAK].overtime_hours",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 330,
+   "text": "1,014.0",
+   "kind": "data",
+   "value": 1014,
+   "source": "analysis_summary.json:plan_summary[scenario_code=DISRUPT].overtime_hours",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 331,
+   "text": "68.5%",
+   "kind": "data",
+   "value": 0.685,
+   "source": "analysis_summary.json:draft_summary[scenario_code=BASE].expected_met",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 332,
+   "text": "58.3%",
+   "kind": "data",
+   "value": 0.583,
+   "source": "analysis_summary.json:draft_summary[scenario_code=PEAK].expected_met",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 333,
+   "text": "66.6%",
+   "kind": "data",
+   "value": 0.666,
+   "source": "analysis_summary.json:draft_summary[scenario_code=DISRUPT].expected_met",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 334,
+   "text": "95.6%",
+   "kind": "data",
+   "value": 0.956,
+   "source": "analysis_summary.json:plan_summary[scenario_code=BASE].expected_met",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 335,
+   "text": "87.0%",
+   "kind": "data",
+   "value": 0.87,
+   "source": "analysis_summary.json:plan_summary[scenario_code=PEAK].expected_met",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 336,
+   "text": "89.5%",
+   "kind": "data",
+   "value": 0.895,
+   "source": "analysis_summary.json:plan_summary[scenario_code=DISRUPT].expected_met",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 337,
+   "text": "0",
+   "kind": "data",
+   "value": 0,
+   "source": "analysis_summary.json:draft_summary[scenario_code=BASE].over_capacity",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 338,
+   "text": "0",
+   "kind": "data",
+   "value": 0,
+   "source": "analysis_summary.json:draft_summary[scenario_code=PEAK].over_capacity",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 339,
+   "text": "12",
+   "kind": "data",
+   "value": 12,
+   "source": "analysis_summary.json:draft_summary[scenario_code=DISRUPT].over_capacity",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 340,
+   "text": "0",
+   "kind": "data",
+   "value": 0,
+   "source": "analysis_summary.json:plan_summary[scenario_code=BASE].over_capacity",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 341,
+   "text": "0",
+   "kind": "data",
+   "value": 0,
+   "source": "analysis_summary.json:plan_summary[scenario_code=PEAK].over_capacity",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 342,
+   "text": "0",
+   "kind": "data",
+   "value": 0,
+   "source": "analysis_summary.json:plan_summary[scenario_code=DISRUPT].over_capacity",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 343,
+   "text": "25",
+   "kind": "data",
+   "value": 25,
+   "source": "analysis_summary.json:plan_summary[scenario_code=BASE].below_goal",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 344,
+   "text": "45",
+   "kind": "data",
+   "value": 45,
+   "source": "analysis_summary.json:plan_summary[scenario_code=PEAK].below_goal",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 345,
+   "text": "39",
+   "kind": "data",
+   "value": 39,
+   "source": "analysis_summary.json:plan_summary[scenario_code=DISRUPT].below_goal",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 346,
+   "text": "1,314",
+   "kind": "data",
+   "value": 1313.5,
+   "source": "derived (plan hours - draft hours) from analysis_summary.json:plan_summary[scenario_code=BASE].hours ; analysis_summary.json:draft_summary[scenario_code=BASE].hours",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 347,
+   "text": "27.1 points",
+   "kind": "data",
+   "value": 0.2709999999999999,
+   "source": "derived (plan - draft expected service) from analysis_summary.json:plan_summary[scenario_code=BASE].expected_met ; analysis_summary.json:draft_summary[scenario_code=BASE].expected_met",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 348,
+   "text": "266",
+   "kind": "data",
+   "value": 265.5,
+   "source": "derived (plan hours - BASE plan hours) from analysis_summary.json:plan_summary[scenario_code=PEAK].hours ; analysis_summary.json:plan_summary[scenario_code=BASE].hours",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 349,
+   "text": "87.0%",
+   "kind": "data",
+   "value": 0.87,
+   "source": "analysis_summary.json:plan_summary[scenario_code=PEAK].expected_met",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 350,
+   "text": "58.3%",
+   "kind": "data",
+   "value": 0.583,
+   "source": "analysis_summary.json:draft_summary[scenario_code=PEAK].expected_met",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 351,
+   "text": "370",
+   "kind": "data",
+   "value": 369.5,
+   "source": "derived (BASE plan hours - DISRUPT plan hours) from analysis_summary.json:plan_summary[scenario_code=BASE].hours ; analysis_summary.json:plan_summary[scenario_code=DISRUPT].hours",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 352,
+   "text": "12",
+   "kind": "data",
+   "value": 12,
+   "source": "analysis_summary.json:draft_summary[scenario_code=DISRUPT].over_capacity",
+   "where": "6 Results > Each scenario against the draft"
+  },
+  {
+   "id": 353,
+   "text": "4,729",
+   "kind": "data",
+   "value": 4728.5,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=38].hours_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 354,
+   "text": "5,410",
+   "kind": "data",
+   "value": 5410,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=38].hours",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 355,
+   "text": "$139,230",
+   "kind": "data",
+   "value": 139229.925,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=38].cost_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 356,
+   "text": "$163,346",
+   "kind": "data",
+   "value": 163346.18,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=38].cost",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 357,
+   "text": "61.9%",
+   "kind": "data",
+   "value": 0.619,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=38].expected_met_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 358,
+   "text": "95.2%",
+   "kind": "data",
+   "value": 0.952,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=38].expected_met",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 359,
+   "text": "4,846",
+   "kind": "data",
+   "value": 4846,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=92].hours_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 360,
+   "text": "5,404",
+   "kind": "data",
+   "value": 5403.5,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=92].hours",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 361,
+   "text": "$149,673",
+   "kind": "data",
+   "value": 149672.745,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=92].cost_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 362,
+   "text": "$169,456",
+   "kind": "data",
+   "value": 169455.76,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=92].cost",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 363,
+   "text": "58.5%",
+   "kind": "data",
+   "value": 0.585,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=92].expected_met_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 364,
+   "text": "95.0%",
+   "kind": "data",
+   "value": 0.95,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=92].expected_met",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 365,
+   "text": "770",
+   "kind": "data",
+   "value": 769.5,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=95].hours_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 366,
+   "text": "844",
+   "kind": "data",
+   "value": 844,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=95].hours",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 367,
+   "text": "$40,206",
+   "kind": "data",
+   "value": 40205.52,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=95].cost_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 368,
+   "text": "$44,703",
+   "kind": "data",
+   "value": 44702.54,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=95].cost",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 369,
+   "text": "87.7%",
+   "kind": "data",
+   "value": 0.877,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=95].expected_met_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 370,
+   "text": "96.6%",
+   "kind": "data",
+   "value": 0.966,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=BASE,dept_id=95].expected_met",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 371,
+   "text": "4,729",
+   "kind": "data",
+   "value": 4728.5,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=38].hours_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 372,
+   "text": "5,494",
+   "kind": "data",
+   "value": 5493.5,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=38].hours",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 373,
+   "text": "$139,230",
+   "kind": "data",
+   "value": 139229.925,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=38].cost_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 374,
+   "text": "$166,841",
+   "kind": "data",
+   "value": 166841.185,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=38].cost",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 375,
+   "text": "49.1%",
+   "kind": "data",
+   "value": 0.491,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=38].expected_met_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 376,
+   "text": "79.4%",
+   "kind": "data",
+   "value": 0.794,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=38].expected_met",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 377,
+   "text": "4,846",
+   "kind": "data",
+   "value": 4846,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=92].hours_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 378,
+   "text": "5,586",
+   "kind": "data",
+   "value": 5585.5,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=92].hours",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 379,
+   "text": "$149,673",
+   "kind": "data",
+   "value": 149672.745,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=92].cost_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 380,
+   "text": "$176,383",
+   "kind": "data",
+   "value": 176382.695,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=92].cost",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 381,
+   "text": "43.8%",
+   "kind": "data",
+   "value": 0.438,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=92].expected_met_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 382,
+   "text": "86.7%",
+   "kind": "data",
+   "value": 0.867,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=92].expected_met",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 383,
+   "text": "770",
+   "kind": "data",
+   "value": 769.5,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=95].hours_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 384,
+   "text": "844",
+   "kind": "data",
+   "value": 844,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=95].hours",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 385,
+   "text": "$40,206",
+   "kind": "data",
+   "value": 40205.52,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=95].cost_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 386,
+   "text": "$44,703",
+   "kind": "data",
+   "value": 44702.54,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=95].cost",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 387,
+   "text": "86.0%",
+   "kind": "data",
+   "value": 0.86,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=95].expected_met_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 388,
+   "text": "96.1%",
+   "kind": "data",
+   "value": 0.961,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=95].expected_met",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 389,
+   "text": "4,623",
+   "kind": "data",
+   "value": 4622.5,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=38].hours_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 390,
+   "text": "5,065",
+   "kind": "data",
+   "value": 5065,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=38].hours",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 391,
+   "text": "$137,027",
+   "kind": "data",
+   "value": 137027.095,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=38].cost_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 392,
+   "text": "$152,676",
+   "kind": "data",
+   "value": 152675.83,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=38].cost",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 393,
+   "text": "58.5%",
+   "kind": "data",
+   "value": 0.585,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=38].expected_met_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 394,
+   "text": "80.2%",
+   "kind": "data",
+   "value": 0.802,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=38].expected_met",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 395,
+   "text": "4,834",
+   "kind": "data",
+   "value": 4834,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=92].hours_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 396,
+   "text": "5,392",
+   "kind": "data",
+   "value": 5391.5,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=92].hours",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 397,
+   "text": "$150,024",
+   "kind": "data",
+   "value": 150023.825,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=92].cost_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 398,
+   "text": "$169,729",
+   "kind": "data",
+   "value": 169729.28,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=92].cost",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 399,
+   "text": "58.3%",
+   "kind": "data",
+   "value": 0.583,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=92].expected_met_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 400,
+   "text": "94.5%",
+   "kind": "data",
+   "value": 0.945,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=92].expected_met",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 401,
+   "text": "750",
+   "kind": "data",
+   "value": 750,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=95].hours_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 402,
+   "text": "832",
+   "kind": "data",
+   "value": 831.5,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=95].hours",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 403,
+   "text": "$39,316",
+   "kind": "data",
+   "value": 39316.32,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=95].cost_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 404,
+   "text": "$44,244",
+   "kind": "data",
+   "value": 44243.9,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=95].cost",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 405,
+   "text": "85.6%",
+   "kind": "data",
+   "value": 0.856,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=95].expected_met_draft",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 406,
+   "text": "94.5%",
+   "kind": "data",
+   "value": 0.945,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=95].expected_met",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 407,
+   "text": "79.4%",
+   "kind": "data",
+   "value": 0.794,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=PEAK,dept_id=38].expected_met",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 408,
+   "text": "80.2%",
+   "kind": "data",
+   "value": 0.802,
+   "source": "analysis_summary.json:plan_by_dept[scenario_code=DISRUPT,dept_id=38].expected_met",
+   "where": "6 Results > By department, in every scenario"
+  },
+  {
+   "id": 409,
+   "text": "98%",
+   "kind": "data",
+   "value": 0.9816582914572864,
+   "source": "derived (Feb 14 plan hours / capacity hours) from outputs/charts/figure_data.json:hours_by_day.2026-02-14.plan_hours ; outputs/charts/figure_data.json:hours_by_day.2026-02-14.capacity_hours",
+   "where": "6 Results > By day"
+  },
+  {
+   "id": 410,
+   "text": "65%",
+   "kind": "data",
+   "value": 0.6482683982683982,
+   "source": "derived (Feb 12 plan hours / capacity hours) from outputs/charts/figure_data.json:hours_by_day.2026-02-12.plan_hours ; outputs/charts/figure_data.json:hours_by_day.2026-02-12.capacity_hours",
+   "where": "6 Results > By day"
+  },
+  {
+   "id": 411,
+   "text": "4",
+   "kind": "data",
+   "value": 4,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=BASE,day_date=2026-02-13].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 412,
+   "text": "42",
+   "kind": "data",
+   "value": 42,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=PEAK,day_date=2026-02-13].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 413,
+   "text": "44",
+   "kind": "data",
+   "value": 44,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=DISRUPT,day_date=2026-02-13].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 414,
+   "text": "25",
+   "kind": "data",
+   "value": 25,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=BASE,day_date=2026-02-14].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 415,
+   "text": "113",
+   "kind": "data",
+   "value": 113,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=PEAK,day_date=2026-02-14].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 416,
+   "text": "79",
+   "kind": "data",
+   "value": 79,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=DISRUPT,day_date=2026-02-14].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 417,
+   "text": "9",
+   "kind": "data",
+   "value": 9,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=BASE,day_date=2026-02-15].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 418,
+   "text": "30",
+   "kind": "data",
+   "value": 30,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=PEAK,day_date=2026-02-15].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 419,
+   "text": "56",
+   "kind": "data",
+   "value": 56,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=DISRUPT,day_date=2026-02-15].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 420,
+   "text": "1",
+   "kind": "data",
+   "value": 1,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=BASE,day_date=2026-02-16].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 421,
+   "text": "1",
+   "kind": "data",
+   "value": 1,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=PEAK,day_date=2026-02-16].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 422,
+   "text": "17",
+   "kind": "data",
+   "value": 17,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=DISRUPT,day_date=2026-02-16].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 423,
+   "text": "4",
+   "kind": "data",
+   "value": 4,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=BASE,day_date=2026-02-17].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 424,
+   "text": "4",
+   "kind": "data",
+   "value": 4,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=PEAK,day_date=2026-02-17].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 425,
+   "text": "4",
+   "kind": "data",
+   "value": 4,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=DISRUPT,day_date=2026-02-17].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 426,
+   "text": "43",
+   "kind": "data",
+   "value": 43,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=BASE].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 427,
+   "text": "190",
+   "kind": "data",
+   "value": 190,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=PEAK].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 428,
+   "text": "200",
+   "kind": "data",
+   "value": 200,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=DISRUPT].gap_people (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 429,
+   "text": "25",
+   "kind": "data",
+   "value": 25,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=BASE].blocks_short (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 430,
+   "text": "45",
+   "kind": "data",
+   "value": 45,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=PEAK].blocks_short (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 431,
+   "text": "39",
+   "kind": "data",
+   "value": 39,
+   "source": "analysis_summary.json:capacity_gaps[scenario_code=DISRUPT].blocks_short (sum)",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 432,
+   "text": "25",
+   "kind": "data",
+   "value": 25,
+   "source": "analysis_summary.json:base_shortfall.blocks",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 433,
+   "text": "83%",
+   "kind": "data",
+   "value": 0.8288902099624293,
+   "source": "analysis_summary.json:base_shortfall.average_chance",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 434,
+   "text": "11",
+   "kind": "data",
+   "value": 11,
+   "source": "analysis_summary.json:base_shortfall.near_goal_blocks",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 435,
+   "text": "90%",
+   "kind": "fixed",
+   "value": null,
+   "source": "src/pipeline.py: base_shortfall near-goal band",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 436,
+   "text": "22",
+   "kind": "data",
+   "value": 22,
+   "source": "analysis_summary.json:base_shortfall.holiday_blocks",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 437,
+   "text": "11",
+   "kind": "data",
+   "value": 11,
+   "source": "analysis_summary.json:below_goal_by_day[scenario_code=BASE,day_date=2026-02-14].blocks",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 438,
+   "text": "11",
+   "kind": "data",
+   "value": 11,
+   "source": "analysis_summary.json:base_shortfall.feb14_front_merch_at_capacity",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 439,
+   "text": "18",
+   "kind": "data",
+   "value": 18,
+   "source": "analysis_summary.json:base_shortfall.feb14_front_merch_blocks",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 440,
+   "text": "3",
+   "kind": "data",
+   "value": 3,
+   "source": "analysis_summary.json:base_shortfall.feb17_pharmacy_short",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 441,
+   "text": "11%",
+   "kind": "data",
+   "value": 0.1098,
+   "source": "analysis_summary.json:callout_rates[dept_id=95,context=day_after_holiday].rate",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 442,
+   "text": "2.9%",
+   "kind": "data",
+   "value": 0.02902902902902903,
+   "source": "analysis_summary.json:base_shortfall.feb17_weekday_rate",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 443,
+   "text": "1",
+   "kind": "data",
+   "value": 1,
+   "source": "analysis_summary.json:base_shortfall.feb17_pharmacy_short_at_weekday_rate",
+   "where": "6 Results > Where capacity runs out"
+  },
+  {
+   "id": 444,
+   "text": "132",
+   "kind": "data",
+   "value": 132,
+   "source": "outputs/plan_vs_draft.csv[BASE open blocks with plan > draft] (count)",
+   "where": "6 Results > Where the plan adds and where it cuts"
+  },
+  {
+   "id": 445,
+   "text": "12",
+   "kind": "data",
+   "value": 12,
+   "source": "outputs/plan_vs_draft.csv[BASE open blocks with plan < draft] (count)",
+   "where": "6 Results > Where the plan adds and where it cuts"
+  },
+  {
+   "id": 446,
+   "text": "36",
+   "kind": "data",
+   "value": 36,
+   "source": "outputs/plan_vs_draft.csv[BASE open blocks with plan = draft] (count)",
+   "where": "6 Results > Where the plan adds and where it cuts"
+  },
+  {
+   "id": 447,
+   "text": "Add 15: 32 in the draft to 47 in the plan",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:explanation_examples.added.headline",
+   "where": "6 Results > Where the plan adds and where it cuts"
+  },
+  {
+   "id": 448,
+   "text": "The draft's 32 people would run at 108% utilization, with a 0% chance of meeting target. Adding 15 brings it to 73% utilization and a 97% chance.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:explanation_examples.added.why",
+   "where": "6 Results > Where the plan adds and where it cuts"
+  },
+  {
+   "id": 449,
+   "text": "The weekend before Presidents' Day: 12% more Front End demand than a normal day, going by the MLK weekend.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:explanation_examples.added.demand_driver",
+   "where": "6 Results > Where the plan adds and where it cuts"
+  },
+  {
+   "id": 450,
+   "text": "Before a miss becomes the likelier outcome, this block can lose 7 people, or take 18% more demand.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:explanation_examples.added.cushion_text",
+   "where": "6 Results > Where the plan adds and where it cuts"
+  },
+  {
+   "id": 451,
+   "text": "Cut 3: 21 in the draft to 18 in the plan",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:explanation_examples.cut.headline",
+   "where": "6 Results > Where the plan adds and where it cuts"
+  },
+  {
+   "id": 452,
+   "text": "The draft's 21 people would run at 64% utilization, with a 100% chance of meeting target. That is more than this block needs. With 18, it runs at 75% utilization and still has a 98% chance.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:explanation_examples.cut.why",
+   "where": "6 Results > Where the plan adds and where it cuts"
+  },
+  {
+   "id": 453,
+   "text": "A normal Wednesday for Merchandising.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:explanation_examples.cut.demand_driver",
+   "where": "6 Results > Where the plan adds and where it cuts"
+  },
+  {
+   "id": 454,
+   "text": "Before a miss becomes the likelier outcome, this block can lose 2 people, or take 17% more demand.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:explanation_examples.cut.cushion_text",
+   "where": "6 Results > Where the plan adds and where it cuts"
+  },
+  {
+   "id": 455,
+   "text": "Add 5: 29 in the draft to 34 in the plan",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:explanation_examples.short.headline",
+   "where": "6 Results > Where the plan adds and where it cuts"
+  },
+  {
+   "id": 456,
+   "text": "This block can't reach the goal. It needs 39 people for a 95% chance of meeting target, but the plan can only field 34, using all of its own regular staff and overtime. The draft's 29 people would run at 96% utilization, with a 5% chance of meeting target. The plan's chance is 57%.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:explanation_examples.short.why",
+   "where": "6 Results > Where the plan adds and where it cuts"
+  },
+  {
+   "id": 457,
+   "text": "The weekend before Presidents' Day: 12% more Front End demand than a normal day, going by the MLK weekend. Valentine's Day adds 3%, as a judgment call.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:explanation_examples.short.demand_driver",
+   "where": "6 Results > Where the plan adds and where it cuts"
+  },
+  {
+   "id": 458,
+   "text": "4",
+   "kind": "data",
+   "value": -4.166666666666666,
+   "source": "analysis_summary.json:kpi.pto_fe_satsun",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 459,
+   "text": "0",
+   "kind": "data",
+   "value": 0,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=0].people_kept",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 460,
+   "text": "25",
+   "kind": "data",
+   "value": 25,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=0].blocks_below_goal",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 461,
+   "text": "95.6%",
+   "kind": "data",
+   "value": 0.956,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=0].expected_met",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 462,
+   "text": "$377,504",
+   "kind": "data",
+   "value": 377504.48,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=0].cost",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 463,
+   "text": "974.5",
+   "kind": "data",
+   "value": 974.5,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=0].overtime_hours",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 464,
+   "text": "1",
+   "kind": "data",
+   "value": 1,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=1].kept_per_block",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 465,
+   "text": "62",
+   "kind": "data",
+   "value": 62,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=1].people_kept",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 466,
+   "text": "16",
+   "kind": "data",
+   "value": 16,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=1].blocks_below_goal",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 467,
+   "text": "96.7%",
+   "kind": "data",
+   "value": 0.967,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=1].expected_met",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 468,
+   "text": "$376,337",
+   "kind": "data",
+   "value": 376336.62,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=1].cost",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 469,
+   "text": "788.0",
+   "kind": "data",
+   "value": 788,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=1].overtime_hours",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 470,
+   "text": "2",
+   "kind": "data",
+   "value": 2,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=2].kept_per_block",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 471,
+   "text": "115",
+   "kind": "data",
+   "value": 115,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=2].people_kept",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 472,
+   "text": "10",
+   "kind": "data",
+   "value": 10,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=2].blocks_below_goal",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 473,
+   "text": "97.1%",
+   "kind": "data",
+   "value": 0.971,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=2].expected_met",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 474,
+   "text": "$375,613",
+   "kind": "data",
+   "value": 375613.195,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=2].cost",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 475,
+   "text": "646.5",
+   "kind": "data",
+   "value": 646.5,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=2].overtime_hours",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 476,
+   "text": "3",
+   "kind": "data",
+   "value": 3,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=3].kept_per_block",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 477,
+   "text": "150",
+   "kind": "data",
+   "value": 150,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=3].people_kept",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 478,
+   "text": "7",
+   "kind": "data",
+   "value": 7,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=3].blocks_below_goal",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 479,
+   "text": "97.2%",
+   "kind": "data",
+   "value": 0.972,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=3].expected_met",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 480,
+   "text": "$374,056",
+   "kind": "data",
+   "value": 374056.29,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=3].cost",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 481,
+   "text": "527.5",
+   "kind": "data",
+   "value": 527.5,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=3].overtime_hours",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 482,
+   "text": "4",
+   "kind": "data",
+   "value": 4,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=4].kept_per_block",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 483,
+   "text": "171",
+   "kind": "data",
+   "value": 171,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=4].people_kept",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 484,
+   "text": "7",
+   "kind": "data",
+   "value": 7,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=4].blocks_below_goal",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 485,
+   "text": "97.2%",
+   "kind": "data",
+   "value": 0.972,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=4].expected_met",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 486,
+   "text": "$373,495",
+   "kind": "data",
+   "value": 373494.88,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=4].cost",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 487,
+   "text": "466.0",
+   "kind": "data",
+   "value": 466,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=4].overtime_hours",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 488,
+   "text": "5",
+   "kind": "data",
+   "value": 5,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=5].kept_per_block",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 489,
+   "text": "179",
+   "kind": "data",
+   "value": 179,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=5].people_kept",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 490,
+   "text": "6",
+   "kind": "data",
+   "value": 6,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=5].blocks_below_goal",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 491,
+   "text": "97.2%",
+   "kind": "data",
+   "value": 0.972,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=5].expected_met",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 492,
+   "text": "$373,123",
+   "kind": "data",
+   "value": 373122.99,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=5].cost",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 493,
+   "text": "437.0",
+   "kind": "data",
+   "value": 437,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=5].overtime_hours",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 494,
+   "text": "25",
+   "kind": "data",
+   "value": 25,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=0].blocks_below_goal",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 495,
+   "text": "6",
+   "kind": "data",
+   "value": 6,
+   "source": "analysis_summary.json:pto_what_if[kept_per_block=5].blocks_below_goal",
+   "where": "7 What a warehouse leader should do > Before the week: limit holiday PTO"
+  },
+  {
+   "id": 496,
+   "text": "No promotion surge or illness has been confirmed. This is the default.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.scenarios.BASE.trigger",
+   "where": "7 What a warehouse leader should do > Which plan to run"
+  },
+  {
+   "id": 497,
+   "text": "Schedule the BASE plan: 11,658 hours, at a cost of $377,504.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.scenarios.BASE.actions[0]",
+   "where": "7 What a warehouse leader should do > Which plan to run"
+  },
+  {
+   "id": 498,
+   "text": "Approve 975 hours of overtime ahead of time, mostly for the holiday weekend, so it isn't arranged at the last minute.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.scenarios.BASE.actions[1]",
+   "where": "7 What a warehouse leader should do > Which plan to run"
+  },
+  {
+   "id": 499,
+   "text": "Deal with the 43-person gap across 25 blocks before the week starts. The largest is Warehouse 2 Front End on Sat Feb 14, at 6 people across its shifts. Limiting holiday PTO is the most direct fix.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.scenarios.BASE.actions[2]",
+   "where": "7 What a warehouse leader should do > Which plan to run"
+  },
+  {
+   "id": 500,
+   "text": "The Feb 13 member promotion is confirmed, or a winter-storm advisory covers Feb 13-14.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.scenarios.PEAK.trigger",
+   "where": "7 What a warehouse leader should do > Which plan to run"
+  },
+  {
+   "id": 501,
+   "text": "Switch to the PEAK plan: +265 hours against BASE, at a cost of $387,926.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.scenarios.PEAK.actions[0]",
+   "where": "7 What a warehouse leader should do > Which plan to run"
+  },
+  {
+   "id": 502,
+   "text": "Put extra staff first into Warehouse 4 Merchandising, which gains the most (12 more employee shifts across the week).",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.scenarios.PEAK.actions[1]",
+   "where": "7 What a warehouse leader should do > Which plan to run"
+  },
+  {
+   "id": 503,
+   "text": "Approve 1,224 hours of overtime, against 975 in BASE.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.scenarios.PEAK.actions[2]",
+   "where": "7 What a warehouse leader should do > Which plan to run"
+  },
+  {
+   "id": 504,
+   "text": "Expect waits even with this plan. It is 190 people short across 45 blocks, led by Warehouse 4 Front End on Sat Feb 14 (26 people across its shifts). Arrange outside cover, or tell members and staff what to expect.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.scenarios.PEAK.actions[3]",
+   "where": "7 What a warehouse leader should do > Which plan to run"
+  },
+  {
+   "id": 505,
+   "text": "Warehouse 2 reports the illness cluster for Feb 13-16 (about 30% of Front End unavailable, one Pharmacy team member out per block), or Warehouse 4's opening stocking crew is about 35% short on Feb 12-13.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.scenarios.DISRUPT.trigger",
+   "where": "7 What a warehouse leader should do > Which plan to run"
+  },
+  {
+   "id": 506,
+   "text": "Switch to the DISRUPT plan: -370 hours against BASE, because fewer people are available, at a cost of $366,649.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.scenarios.DISRUPT.actions[0]",
+   "where": "7 What a warehouse leader should do > Which plan to run"
+  },
+  {
+   "id": 507,
+   "text": "Don't use the current draft here: it schedules 36 more people than can be fielded, across 12 blocks.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.scenarios.DISRUPT.actions[1]",
+   "where": "7 What a warehouse leader should do > Which plan to run"
+  },
+  {
+   "id": 508,
+   "text": "Warehouse 2 Front End loses the most (100 fewer employee shifts across the week). Move every available cross-trained person there once Merchandising's own need is met.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.scenarios.DISRUPT.actions[2]",
+   "where": "7 What a warehouse leader should do > Which plan to run"
+  },
+  {
+   "id": 509,
+   "text": "Escalate early. The plan is 200 people short across 39 blocks, led by Warehouse 2 Front End on Sat Feb 14 (57 people across its shifts), and no schedule can close that gap.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.scenarios.DISRUPT.actions[3]",
+   "where": "7 What a warehouse leader should do > Which plan to run"
+  },
+  {
+   "id": 510,
+   "text": "Callouts in a block pass its cushion. The typical cushion in people is: Front End 3, Merchandising 2, Pharmacy 1.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.on_the_day[0].trigger",
+   "where": "7 What a warehouse leader should do > On the day"
+  },
+  {
+   "id": 511,
+   "text": "Replace them in this order: cross-trained staff if the partner department has people to spare, since they cost the regular rate, then overtime if the block has room. Each block's own cushion shows when you open that block in the planner.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.on_the_day[0].action",
+   "where": "7 What a warehouse leader should do > On the day"
+  },
+  {
+   "id": 512,
+   "text": "Traffic runs above forecast by more than the cushion. The typical cushion is: Front End 20%, Merchandising 19%, Pharmacy 42%.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.on_the_day[1].trigger",
+   "where": "7 What a warehouse leader should do > On the day"
+  },
+  {
+   "id": 513,
+   "text": "Treat the rest of the day as PEAK: bring in the extra staff for later shifts, starting with the blocks closest to their limit.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.on_the_day[1].action",
+   "where": "7 What a warehouse leader should do > On the day"
+  },
+  {
+   "id": 514,
+   "text": "Waits pass target: 5 minutes at checkout, 60 minutes for replenishment, or 20 minutes in Pharmacy.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.on_the_day[2].trigger",
+   "where": "7 What a warehouse leader should do > On the day"
+  },
+  {
+   "id": 515,
+   "text": "Don't wait for the next shift. Service falls off a cliff near 85-90% utilization, so one late person can make a block miss. Pull in help now.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.on_the_day[2].action",
+   "where": "7 What a warehouse leader should do > On the day"
+  },
+  {
+   "id": 516,
+   "text": "Traffic runs well below forecast, with no callouts.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.on_the_day[3].trigger",
+   "where": "7 What a warehouse leader should do > On the day"
+  },
+  {
+   "id": 517,
+   "text": "Offer voluntary time off in overtime blocks first, because overtime costs about 32% more per hour. Don't cut below minimum staff.",
+   "kind": "engine text",
+   "value": null,
+   "source": "analysis_summary.json:playbook.on_the_day[3].action",
+   "where": "7 What a warehouse leader should do > On the day"
+  },
+  {
+   "id": 518,
+   "text": "Python 3.13",
+   "kind": "fixed",
+   "value": null,
+   "source": "README.md, Run the app",
+   "where": "8 The Workforce Planner tool > How to start it"
+  },
+  {
+   "id": 519,
+   "text": "15-20 seconds",
+   "kind": "fixed",
+   "value": null,
+   "source": "README.md, Run the app",
+   "where": "8 The Workforce Planner tool > How to start it"
+  },
+  {
+   "id": 520,
+   "text": "121",
+   "kind": "data",
+   "value": 121,
+   "source": "server/views.py count_tests(): test cases in tests/, as the app's Methods page shows them",
+   "where": "9 How we checked it > Automated tests"
+  },
+  {
+   "id": 521,
+   "text": "10",
+   "kind": "data",
+   "value": 10,
+   "source": "server/views.py count_tests(): test cases in tests/, as the app's Methods page shows them",
+   "where": "9 How we checked it > Automated tests"
+  },
+  {
+   "id": 522,
+   "text": "567",
+   "kind": "data",
+   "value": 567,
+   "source": "analysis_summary.json:kpi.plan_blocks",
+   "where": "9 How we checked it > Independent recomputation"
+  },
+  {
+   "id": 523,
+   "text": "154",
+   "kind": "data",
+   "value": 154,
+   "source": "outputs/plan_vs_draft.csv[open blocks with plan = capacity] (count)",
+   "where": "9 How we checked it > Independent recomputation"
+  },
+  {
+   "id": 524,
+   "text": "0.024",
+   "kind": "data",
+   "value": 0.023892090602458636,
+   "source": "analysis_summary.json:service_brier.model",
+   "where": "9 How we checked it > Backtests"
+  },
+  {
+   "id": 525,
+   "text": "0.177",
+   "kind": "data",
+   "value": 0.1772952989439962,
+   "source": "analysis_summary.json:service_brier.base_rate",
+   "where": "9 How we checked it > Backtests"
+  },
+  {
+   "id": 526,
+   "text": "90%",
+   "kind": "fixed",
+   "value": null,
+   "source": "an illustrative level, not a result",
+   "where": "9 How we checked it > Calibration: do predicted chances come true?"
+  },
+  {
+   "id": 527,
+   "text": "95-99%",
+   "kind": "fixed",
+   "value": null,
+   "source": "service_calibration bin label",
+   "where": "9 How we checked it > Calibration: do predicted chances come true?"
+  },
+  {
+   "id": 528,
+   "text": "95.7%",
+   "kind": "data",
+   "value": 0.957,
+   "source": "analysis_summary.json:service_calibration[bin=95-99%].observed",
+   "where": "9 How we checked it > Calibration: do predicted chances come true?"
+  },
+  {
+   "id": 529,
+   "text": "97.4%",
+   "kind": "data",
+   "value": 0.974,
+   "source": "analysis_summary.json:service_calibration[bin=95-99%].predicted",
+   "where": "9 How we checked it > Calibration: do predicted chances come true?"
+  },
+  {
+   "id": 530,
+   "text": "70-90%",
+   "kind": "fixed",
+   "value": null,
+   "source": "service_calibration bin label",
+   "where": "9 How we checked it > Calibration: do predicted chances come true?"
+  },
+  {
+   "id": 531,
+   "text": "81.8%",
+   "kind": "data",
+   "value": 0.818,
+   "source": "analysis_summary.json:service_calibration[bin=70-90%].observed",
+   "where": "9 How we checked it > Calibration: do predicted chances come true?"
+  },
+  {
+   "id": 532,
+   "text": "80.5%",
+   "kind": "data",
+   "value": 0.805,
+   "source": "analysis_summary.json:service_calibration[bin=70-90%].predicted",
+   "where": "9 How we checked it > Calibration: do predicted chances come true?"
+  },
+  {
+   "id": 533,
+   "text": "5.2%",
+   "kind": "data",
+   "value": 0.0517130849775625,
+   "source": "analysis_summary.json:kpi.callout_rate_all",
+   "where": "10 Assumptions and limits > Assumptions we added"
+  },
+  {
+   "id": 534,
+   "text": "49%",
+   "kind": "data",
+   "value": 0.49173553719008267,
+   "source": "analysis_summary.json:kpi.backfill_share",
+   "where": "10 Assumptions and limits > Assumptions we added"
+  },
+  {
+   "id": 535,
+   "text": "85%",
+   "kind": "fixed",
+   "value": null,
+   "source": "A-04 and the starter queries' target (F-17)",
+   "where": "10 Assumptions and limits > Assumptions we added"
+  },
+  {
+   "id": 536,
+   "text": "3%",
+   "kind": "data",
+   "value": 0.03,
+   "source": "analysis_summary.json:valentine_uplift.Front End",
+   "where": "10 Assumptions and limits > Assumptions we added"
+  },
+  {
+   "id": 537,
+   "text": "2%",
+   "kind": "fixed",
+   "value": null,
+   "source": "assumption A-11 (planning/ASSUMPTIONS.md)",
+   "where": "10 Assumptions and limits > Assumptions we added"
+  },
+  {
+   "id": 538,
+   "text": "5%",
+   "kind": "fixed",
+   "value": null,
+   "source": "assumption A-11 (planning/ASSUMPTIONS.md)",
+   "where": "10 Assumptions and limits > Assumptions we added"
+  },
+  {
+   "id": 539,
+   "text": "12.3%",
+   "kind": "data",
+   "value": 0.1232,
+   "source": "analysis_summary.json:callout_rates[dept_id=38,context=flu_cluster].rate",
+   "where": "10 Assumptions and limits > Assumptions we added"
+  },
+  {
+   "id": 540,
+   "text": "10.7%",
+   "kind": "data",
+   "value": 0.1071,
+   "source": "analysis_summary.json:callout_rates[dept_id=95,context=flu_cluster].rate",
+   "where": "10 Assumptions and limits > Assumptions we added"
+  },
+  {
+   "id": 541,
+   "text": "95%",
+   "kind": "data",
+   "value": 0.95,
+   "source": "analysis_summary.json:service_goal",
+   "where": "10 Assumptions and limits > Assumptions we added"
+  },
+  {
+   "id": 542,
+   "text": "4",
+   "kind": "data",
+   "value": 4,
+   "source": "analysis_summary.json:level_weeks",
+   "where": "10 Assumptions and limits > Assumptions we added"
+  },
+  {
+   "id": 543,
+   "text": "567",
+   "kind": "data",
+   "value": 567,
+   "source": "analysis_summary.json:kpi.plan_blocks",
+   "where": "B The submission format and its validation"
+  },
+  {
+   "id": 544,
+   "text": "0",
+   "kind": "fixed",
+   "value": null,
+   "source": "data pack README: enter 0 for closed blocks",
+   "where": "B The submission format and its validation"
+  },
+  {
+   "id": 545,
+   "text": "27",
+   "kind": "data",
+   "value": 27,
+   "source": "outputs/plan_vs_draft.csv[is_open=0] (count)",
+   "where": "B The submission format and its validation"
+  },
+  {
+   "id": 546,
+   "text": "0",
+   "kind": "data",
+   "value": 0,
+   "source": "analysis_summary.json:validator_problems (count)",
+   "where": "B The submission format and its validation"
+  },
+  {
+   "id": 547,
+   "text": "85-90%",
+   "kind": "fixed",
+   "value": null,
+   "source": "F-03: the service cliff (src/diagnosis.py utilization bands)",
+   "where": "D Glossary"
+  }
+ ]
+}
