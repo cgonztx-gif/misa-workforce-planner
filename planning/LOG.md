@@ -8,6 +8,7 @@ Newest first. Add an entry at the end of every work session.
 
 - **Found (screenshots in `evidence/draft4/sweep/before`):** the Service and Below goal boards looked identical; on People and Labor cost the red below-goal fills hid the lens on the holiday days and the grey steps were too close in dark; legend labels were underlined like links, with a stray "lowest"; in All, People / Cost colours used the per-warehouse mean while the cell showed the sum (a "+3" on the "+1" swatch); the staff bar's greys had no key; the Previous key chip's ⇧ rendered as "9".
 - **Fixed:** each lens shows its own figure beside the headcount (Below goal `short N`, People `+N`, Labor cost `+$N`), healthy cells fade on Below goal, People / Cost keep their fill and mark below goal with a red outline, a wider grey ramp, a legend heading per lens, All tiers on the shown sum (the known totals changed to match), and a keyed staff bar. Numbers are unchanged. Details: `DRAFT4.md`, "Clarity sweep".
+- **Then, at the user's request:** the By day chart is taller (plot min height 220 → 380px; 460 at ≥ 160rem, 260 on phones), so the day-to-day changes read more clearly on the same 0-based axis. Harness 351 of 351.
 
 **Draft 4, overnight (D-32).** The user asked for a new draft from scratch in UI and layout: only the Overview page, with the schedule in it, the same calculations, and the color scheme and style of the dashboard-design skill's showcase images.
 

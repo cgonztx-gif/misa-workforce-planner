@@ -1,7 +1,7 @@
 {
  "about": "drive_draft4.py: the rendered draft 4 page against planning/evidence/draft4_known_totals.output.json and outputs/*.csv. Simulated data, not Costco data.",
- "run_at": "2026-11-05 22:02:59",
- "seconds": 96.3,
+ "run_at": "2026-11-05 22:07:25",
+ "seconds": 104.3,
  "viewport": "1440x900",
  "passed": 351,
  "failed": 0,
@@ -11,14 +11,14 @@
    "check": "server --draft4 ready",
    "ok": true,
    "measured": {
-    "ready_s": 10.9,
+    "ready_s": 16.9,
     "health": {
      "ready": true,
-     "seconds": 9.208834,
+     "seconds": 14.95774,
      "error": null,
      "status": "ready",
      "step": "Ready",
-     "elapsed": 9.208834
+     "elapsed": 14.95774
     }
    },
    "expected": null
@@ -2968,7 +2968,7 @@
    "check": "No request leaves 127.0.0.1",
    "ok": true,
    "measured": {
-    "requests": 28,
+    "requests": 29,
     "hosts": [
      "127.0.0.1"
     ],

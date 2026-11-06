@@ -82,7 +82,7 @@ export function DayChart({ T, meta, lens, focusDay, onDay }: { T: GroupTotals; m
           </span>
         </div>
       </div>
-      <div className="mt-3 min-h-[220px] flex-1 touch-pan-y min-[160rem]:min-h-[260px]" role="group" aria-label={aria} data-plot>
+      <div className="mt-3 min-h-[380px] flex-1 touch-pan-y max-sm:min-h-[260px] min-[160rem]:min-h-[460px]" role="group" aria-label={aria} data-plot>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             data={rows}
