@@ -44,8 +44,8 @@ export function chanceText(c: number | null | undefined, belowGoal = false, goal
   return `${v.toFixed(1)}%`;
 }
 
-/** The goal as a whole percent: 95%. */
-export const goalText = (goal: number) => `${Math.round(goal * 100)}%`;
+/** The goal as a percent: 95%, and 92.5% / 97.5% for the what-if goals (never rounded to 93% or 98%). */
+export const goalText = (goal: number) => `${+(goal * 100).toFixed(1)}%`;
 
 /** Signed whole number: +5, −1, ±0. */
 export const signed = (n: number) => {

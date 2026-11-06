@@ -3,6 +3,7 @@ import { causeChip, shortOf, STORES, type Cell } from "../lib/board";
 import { chanceText, goalText, int, signed } from "../lib/format";
 import type { Block, Meta } from "../lib/types";
 import { chip, StepActions, TopRow } from "./BlockDetail";
+import { useBase } from "../lib/base";
 
 /**
  * An All cell: the 3 warehouses side by side, then each one's chance against the goal (so the story, 57.0% and
@@ -32,6 +33,10 @@ export function AllCellDetail({ cell, meta, goal, back, strip, onBack, onClose, 
   );
   const pct = (v: number) => `${Math.max(0, Math.min(100, v * 100))}%`;
   const g = goalText(goal);
+  // In a what-if the columns read Submitted / What-if, which need more room than Draft / Plan.
+  const B = useBase();
+  const baseW = B.whatIf ? "w-[4.5rem]" : "w-11";
+  const planW = B.whatIf ? "w-14" : "w-11";
 
   return (
     <div className="flex h-full min-h-0 flex-col fade-in" data-detail="all" data-key={cell.id}>
@@ -59,8 +64,8 @@ export function AllCellDetail({ cell, meta, goal, back, strip, onBack, onClose, 
 
       <div className="mt-4 flex px-3 text-[12px] text-muted compact:mt-3">
         <span className="flex-1">Warehouse</span>
-        <span className="w-11 text-right">Draft</span>
-        <span className="w-11 text-right">Plan</span>
+        <span className={`${baseW} text-right`}>{B.Word}</span>
+        <span className={`${planW} text-right`}>{B.Plan}</span>
         <span className="w-10 text-right">±</span>
         <span className="w-16 text-right">Chance</span>
       </div>
@@ -84,8 +89,8 @@ export function AllCellDetail({ cell, meta, goal, back, strip, onBack, onClose, 
             </span>
             {b.is_open ? (
               <>
-                <span className="relative w-11 text-right text-ink-2 tnum">{int(b.draft)}</span>
-                <span className="relative w-11 text-right font-semibold tnum">{int(b.plan)}</span>
+                <span className={`relative ${baseW} text-right text-ink-2 tnum`}>{int(b.draft)}</span>
+                <span className={`relative ${planW} text-right font-semibold tnum`}>{int(b.plan)}</span>
                 <span className="relative w-10 text-right text-[13px] text-muted tnum">{signed(b.change)}</span>
                 <span className="relative w-16 text-right tnum">{chanceText(b.chance, b.below_goal, goal)}</span>
               </>
@@ -96,8 +101,8 @@ export function AllCellDetail({ cell, meta, goal, back, strip, onBack, onClose, 
         ))}
         <div className="flex h-10 items-center border-t border-line px-3 text-[14px]">
           <span className="flex-1 pl-3.5 text-muted">All</span>
-          <span className="w-11 text-right text-ink-2 tnum">{int(cell.draft)}</span>
-          <span className="w-11 text-right font-semibold tnum">{int(cell.plan)}</span>
+          <span className={`${baseW} text-right text-ink-2 tnum`}>{int(cell.draft)}</span>
+          <span className={`${planW} text-right font-semibold tnum`}>{int(cell.plan)}</span>
           <span className="w-10 text-right text-[13px] text-muted tnum">{signed(cell.change)}</span>
           <span className="w-16" />
         </div>

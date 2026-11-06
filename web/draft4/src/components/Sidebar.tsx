@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { CalendarDays, ChartColumn, LayoutDashboard, LayoutGrid, Monitor, Moon, Sun, TrendingUp, UserMinus } from "lucide-react";
 import type { Page } from "../lib/url";
 import { chanceText, int } from "../lib/format";
@@ -40,7 +41,7 @@ export function scenarioTip(code: ScenarioCode, meta?: Meta, compare?: CompareRe
 export const ThemeIcon = ({ theme, size = 16 }: { theme: Theme; size?: number }) =>
   theme === "light" ? <Sun size={size} strokeWidth={1.75} /> : theme === "dark" ? <Moon size={size} strokeWidth={1.75} /> : <Monitor size={size} strokeWidth={1.75} />;
 
-export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, theme, onTheme, page, onPage }: {
+export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, theme, onTheme, page, onPage, adjust }: {
   meta?: Meta;
   scenario: ScenarioCode;
   loading: ScenarioCode | null;
@@ -51,11 +52,13 @@ export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, them
   onTheme: () => void;
   page: Page;
   onPage: (p: Page) => void;
+  /** The what-if adjustments (Overview only), under the scenario switch. */
+  adjust?: ReactNode;
 }) {
   const week = weekText(meta);
   return (
     <aside className="hidden w-[216px] shrink-0 border-r border-line bg-side min-[80rem]:block min-[90rem]:w-[232px] min-[112.5rem]:w-[248px]">
-      <div className="sticky top-0 flex h-dvh flex-col p-3">
+      <div className="sticky top-0 flex h-dvh flex-col overflow-y-auto p-3">
       <div className="flex items-center gap-2.5 px-2 pt-1.5" data-tip={weekTip(meta)}>
         <span className="grid size-6 shrink-0 place-items-center rounded-lg bg-card text-ink-2 shadow-[var(--shadow-pill)]">
           <LayoutGrid size={14} strokeWidth={2} />
@@ -66,7 +69,7 @@ export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, them
         </div>
       </div>
 
-      <div className="mt-6 px-2 text-[12px] text-muted">Pages</div>
+      <div className="mt-6 px-2 text-[12px] text-muted compact:mt-3">Pages</div>
       <nav className="mt-1.5 flex flex-col gap-0.5" aria-label="Pages">
         {PAGE_NAV.map(({ page: pg, label, Icon }) => {
           const on = pg === page;
@@ -77,7 +80,7 @@ export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, them
               aria-current={on ? "page" : undefined}
               data-page={pg}
               onClick={() => onPage(pg)}
-              className={`flex h-10 items-center gap-2.5 rounded-[10px] px-3 text-left text-[14px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent ${
+              className={`flex h-10 items-center gap-2.5 rounded-[10px] px-3 text-left text-[14px] compact:h-8 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent ${
                 on ? "bg-card font-medium text-ink shadow-[var(--shadow-pill)]" : "text-ink-2 hover:bg-card/60"
               }`}
             >
@@ -90,7 +93,7 @@ export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, them
         })}
       </nav>
 
-      <div className="mt-6 px-2 text-[12px] text-muted">Scenario</div>
+      <div className="mt-6 px-2 text-[12px] text-muted compact:mt-3">Scenario</div>
       <nav className="mt-1.5 flex flex-col gap-0.5" aria-label="Scenario">
         {SCEN.map(({ code, label, key, Icon }) => {
           const on = code === scenario;
@@ -101,7 +104,7 @@ export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, them
               aria-pressed={on}
               onClick={() => onScenario(code)}
               data-tip={scenarioTip(code, meta, compare, wk)}
-              className={`flex h-10 items-center gap-2.5 rounded-[10px] px-3 text-left text-[14px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent ${
+              className={`flex h-10 items-center gap-2.5 rounded-[10px] px-3 text-left text-[14px] compact:h-8 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent ${
                 on ? "bg-card font-medium text-ink shadow-[var(--shadow-pill)]" : "text-ink-2 hover:bg-card/60"
               }`}
             >
@@ -115,7 +118,9 @@ export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, them
         })}
       </nav>
 
-      <div className="mt-auto flex items-center gap-2 px-2 pb-1">
+      {adjust && <div className="mt-6 border-t border-line pt-4 compact:mt-3 compact:pt-2">{adjust}</div>}
+
+      <div className="mt-auto flex items-center gap-2 px-2 pt-4 pb-1 compact:pt-2">
         <div className="min-w-0 flex-1" data-tip={meta?.notice}>
           <div className="text-[13px] leading-tight text-ink-2">Simulated data</div>
           <div className="text-[12px] text-muted">Not Costco data</div>

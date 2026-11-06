@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { causeChip, shortOf } from "../lib/board";
 import { chanceText, int, signed, signedUsd, usd } from "../lib/format";
 import type { Block } from "../lib/types";
+import { useBase } from "../lib/base";
 import { Bullet } from "./Bullet";
 import { StaffBar } from "./StaffBar";
 
@@ -99,7 +100,9 @@ export function BlockDetail({ b, goal, compare, back, ptoHeadline, strip, onBack
   const open = b.is_open;
   const unfilled = open ? b.draft_sources.unfilled : 0;
   // A P3 block: the draft lists people it can't field, so "−6" is not a cut; the chip's tooltip says what happened.
-  const changeTip = unfilled > 0 ? `The draft lists ${int(b.draft)}, but only ${int(b.draft - unfilled)} can be fielded · the plan schedules ${int(b.plan)}` : e.headline;
+  const B = useBase();
+  const vsText = ch > 0 ? `${int(ch)} more than submitted` : ch < 0 ? `${int(-ch)} fewer than submitted` : "Same as submitted";
+  const changeTip = B.whatIf ? `${vsText} · re-planned for these conditions` : unfilled > 0 ? `The draft lists ${int(b.draft)}, but only ${int(b.draft - unfilled)} can be fielded · the plan schedules ${int(b.plan)}` : e.headline;
 
   return (
     <div className="flex h-full min-h-0 flex-col fade-in" data-detail="block" data-key={b.key}>
@@ -138,17 +141,17 @@ export function BlockDetail({ b, goal, compare, back, ptoHeadline, strip, onBack
       {/* Draft → Plan */}
       <div className="mt-5 flex items-end gap-3 compact:mt-3">
         <div>
-          <div className="text-[12px] text-muted">Draft</div>
+          <div className="text-[12px] text-muted">{B.Word}</div>
           <div className={`text-[26px] leading-[1.1] font-semibold tracking-[-.02em] tnum ${open ? "text-ink-2" : "text-muted"}`}>{open ? int(b.draft) : "—"}</div>
         </div>
         <div className="pb-1 text-[18px] text-muted">→</div>
         <div>
-          <div className="text-[12px] text-muted">Plan</div>
+          <div className="text-[12px] text-muted">{B.Plan}</div>
           <div className={`text-[32px] leading-[1.1] font-semibold tracking-[-.03em] tnum ${open ? "text-ink" : "text-muted"}`}>{open ? int(b.plan) : "—"}</div>
         </div>
         {open && (
           <span
-            aria-label={unfilled > 0 ? changeTip : b.action}
+            aria-label={B.whatIf || unfilled > 0 ? changeTip : b.action}
             data-tip={changeTip}
             className={`${chip} mb-1.5 ml-1 font-medium tnum ${ch > 0 ? "bg-ink/[.07] text-ink" : ch < 0 ? "bg-soft text-ink-2" : "bg-soft text-muted"}`}
           >
@@ -172,10 +175,10 @@ export function BlockDetail({ b, goal, compare, back, ptoHeadline, strip, onBack
             </span>
           )}
           <span className="flex-1" />
-          {compare && open && <span className="text-[12px] text-muted tnum">draft {chanceText(b.chance_draft, b.below_goal_draft, goal)}</span>}
+          {compare && open && <span className="text-[12px] text-muted tnum">{B.word} {chanceText(b.chance_draft, b.below_goal_draft, goal)}</span>}
           <span className={`text-[15px] font-semibold tnum ${open ? "" : "text-muted"}`}>{open ? chanceText(b.chance, b.below_goal, goal) : "—"}</span>
         </div>
-        {open ? <Bullet chance={b.chance} below={b.below_goal} goal={goal} draft={compare ? b.chance_draft : null} label="Chance" /> : <div className="h-6 rounded-[5px] border border-dashed border-line-strong" />}
+        {open ? <Bullet chance={b.chance} below={b.below_goal} goal={goal} draft={compare ? b.chance_draft : null} label="Chance" baseWord={B.word} /> : <div className="h-6 rounded-[5px] border border-dashed border-line-strong" />}
       </div>
 
       {/* Staff */}
@@ -202,7 +205,7 @@ export function BlockDetail({ b, goal, compare, back, ptoHeadline, strip, onBack
         <Stat
           label="Utilization"
           value={open && b.utilization != null ? `${Math.round(b.utilization * 100)}%` : "—"}
-          below={compare && open && b.utilization_draft != null ? `draft ${Math.round(b.utilization_draft * 100)}%` : undefined}
+          below={compare && open && b.utilization_draft != null ? `${B.word} ${Math.round(b.utilization_draft * 100)}%` : undefined}
           tip={open ? "Service falls off near 85–90%" : null}
           cls={open ? "" : "text-muted"}
         />

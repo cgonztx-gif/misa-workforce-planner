@@ -1,9 +1,9 @@
-import { Download, Info } from "lucide-react";
+import { Download, FlaskConical, Info, RotateCcw } from "lucide-react";
 import type { MouseEvent, ReactNode } from "react";
 import type { Meta, ScenarioCode } from "../lib/types";
 import { Segmented } from "./Segmented";
 import { SCEN, scenarioTip } from "./Sidebar";
-import { StatusPill, type Status } from "./StatusPill";
+import { Spinner, StatusPill, type Status } from "./StatusPill";
 
 export const pillCls =
   "inline-flex h-8 shrink-0 items-center gap-2 rounded-full border border-line bg-card px-3 text-[13px] text-ink-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-accent";
@@ -42,13 +42,13 @@ export async function downloadCsv(onFail: (offline: boolean) => void) {
   }
 }
 
-export function CsvPill({ onFail }: { onFail: (offline: boolean) => void }) {
+export function CsvPill({ onFail, whatIf = false }: { onFail: (offline: boolean) => void; whatIf?: boolean }) {
   const onClick = (e: MouseEvent) => {
     e.preventDefault();
     void downloadCsv(onFail);
   };
   return (
-    <a href={CSV_URL} download onClick={onClick} className={`${pillCls} hover:bg-soft`} data-tip="Submission file · 567 rows · 3 scenarios">
+    <a href={CSV_URL} download onClick={onClick} className={`${pillCls} hover:bg-soft`} data-tip={whatIf ? "The submitted file, not this what-if · 567 rows · 3 scenarios" : "Submission file · 567 rows · 3 scenarios"}>
       <Download size={14} strokeWidth={1.75} />
       CSV
     </a>
@@ -60,7 +60,41 @@ export function CsvPill({ onFail }: { onFail: (offline: boolean) => void }) {
  * Below 64rem the pill group folds onto its own row, so the scenario's name is never cut. A failed fetch puts its
  * slim note in place of the name, so it never pushes the board down.
  */
-export function HeaderBar({ meta, scenario, onScenario, status, note, onCsvFail, title = "Overview" }: {
+export interface WhatIfHeader {
+  chips: { key: string; text: string }[];
+  busy: boolean;
+  /** The submitted plan's numbers are what the board shows until the first re-plan lands. */
+  showing: boolean;
+  onReset: () => void;
+}
+
+/**
+ * In a what-if, the green "Submitted plan" pill gives way to a dashed What-if pill (never mistaken for the hand-in),
+ * with Reset beside it; the changed settings sit next to the scenario's name, so a screenshot says what was changed.
+ */
+function WhatIfPills({ w }: { w: WhatIfHeader }) {
+  return (
+    <>
+      <span
+        className="inline-flex h-8 shrink-0 items-center gap-2 rounded-full border border-dashed border-accent/60 bg-accent/[.07] px-3 text-[13px] font-medium whitespace-nowrap text-ink"
+        data-status="whatif"
+        tabIndex={0}
+        data-tip={`Not the submitted plan · ${w.chips.map((c) => c.text).join(" · ")}
+Re-planned by the same engine under these conditions · the CSV stays the submitted file`}
+        aria-live="polite"
+      >
+        {w.busy ? <Spinner /> : <FlaskConical size={14} strokeWidth={1.9} className="text-accent" />}
+        {w.busy ? "Re-planning" : "What-if"}
+      </span>
+      <button type="button" onClick={w.onReset} className={`${pillCls} hover:bg-soft`} data-tip="Back to the submitted plan" data-header-reset>
+        <RotateCcw size={13} strokeWidth={1.9} />
+        Reset
+      </button>
+    </>
+  );
+}
+
+export function HeaderBar({ meta, scenario, onScenario, status, note, onCsvFail, title = "Overview", whatIf }: {
   meta?: Meta;
   scenario: ScenarioCode;
   onScenario: (s: ScenarioCode) => void;
@@ -68,6 +102,7 @@ export function HeaderBar({ meta, scenario, onScenario, status, note, onCsvFail,
   note?: ReactNode;
   onCsvFail: (offline: boolean) => void;
   title?: string;
+  whatIf?: WhatIfHeader | null;
 }) {
   const name = meta?.scenarios.find((s) => s.code === scenario)?.name;
   return (
@@ -77,8 +112,19 @@ export function HeaderBar({ meta, scenario, onScenario, status, note, onCsvFail,
         {note ? (
           <div className="min-w-0 flex-1 self-center">{note}</div>
         ) : (
-          <span className="truncate text-[14px] text-muted" data-scenario-name>
-            {name ?? ""}
+          <span className="flex min-w-0 items-baseline gap-2">
+            <span className="truncate text-[14px] text-muted" data-scenario-name>
+              {name ?? ""}
+            </span>
+            {whatIf && (
+              <span className="flex min-w-0 shrink items-center gap-1.5 self-center overflow-hidden" data-whatif-chips>
+                {whatIf.chips.map((c) => (
+                  <span key={c.key} className="inline-flex h-6 shrink-0 items-center rounded-full bg-accent/[.09] px-2.5 text-[12px] font-medium whitespace-nowrap text-ink tnum">
+                    {c.text}
+                  </span>
+                ))}
+              </span>
+            )}
           </span>
         )}
       </div>
@@ -91,9 +137,9 @@ export function HeaderBar({ meta, scenario, onScenario, status, note, onCsvFail,
             items={SCEN.map((s) => ({ value: s.code, label: s.label, title: s.label, tip: scenarioTip(s.code, meta) }))}
           />
         </div>
-        <StatusPill status={status} />
+        {whatIf && status.kind === "ready" ? <WhatIfPills w={whatIf} /> : <StatusPill status={status} />}
         <SimPill meta={meta} />
-        <CsvPill onFail={onCsvFail} />
+        <CsvPill onFail={onCsvFail} whatIf={!!whatIf} />
       </div>
     </header>
   );

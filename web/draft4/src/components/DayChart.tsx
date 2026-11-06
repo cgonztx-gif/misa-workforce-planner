@@ -1,5 +1,6 @@
 import { Area, Bar, CartesianGrid, ComposedChart, ReferenceArea, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { chanceText, int, intCompact, pts, signed, signedUsd, usd, usdCompact } from "../lib/format";
+import { useBase } from "../lib/base";
+import { chanceText, goalText, int, intCompact, pts, signed, signedUsd, usd, usdCompact } from "../lib/format";
 import { niceTicks } from "../lib/ticks";
 import type { GroupTotals, Meta, Summary } from "../lib/types";
 import type { Lens } from "../lib/url";
@@ -20,6 +21,7 @@ function deltaText(lens: Lens, plan: number, draft: number) {
 }
 
 function ChartTip({ active, payload, lens, compare }: { active?: boolean; payload?: { payload: Row }[]; lens: Lens; compare: boolean }) {
+  const B = useBase();
   if (!active || !payload?.length) return null;
   const r = payload[0].payload;
   const s = SPEC[lens];
@@ -30,7 +32,7 @@ function ChartTip({ active, payload, lens, compare }: { active?: boolean; payloa
       <div className="tip-muted">{r.long}</div>
       {compare && (
         <div className="tip-muted">
-          Draft {exact(r.draft)} · {deltaText(lens, r.plan, r.draft)}
+          {B.Word} {exact(r.draft)} · {deltaText(lens, r.plan, r.draft)}
         </div>
       )}
     </div>
@@ -40,7 +42,8 @@ function ChartTip({ active, payload, lens, compare }: { active?: boolean; payloa
 /** By day (components.md main chart): the selected tile's metric over the board's 7 days; the title is the takeaway. The draft is
  * always drawn as the grey "period before" line (as the tiles always show their Draft sub-line), so the gain reads on
  * the honest 0-100% axis; Compare with draft adds the draft to the board and the detail. */
-export function DayChart({ T, meta, lens, focusDay, onDay }: { T: GroupTotals; meta: Meta; lens: Lens; compare?: boolean; focusDay: string | null; onDay: (date: string) => void }) {
+export function DayChart({ T, meta, lens, focusDay, onDay, goal = 0.95 }: { T: GroupTotals; meta: Meta; lens: Lens; compare?: boolean; focusDay: string | null; onDay: (date: string) => void; goal?: number }) {
+  const B = useBase();
   const s = SPEC[lens];
   const rows: Row[] = T.by_day.map((d) => {
     return {
@@ -74,11 +77,11 @@ export function DayChart({ T, meta, lens, focusDay, onDay }: { T: GroupTotals; m
         <div className="flex shrink-0 items-center gap-3 pt-1 text-[12px] text-muted">
           <span className="inline-flex items-center gap-1.5">
             <span aria-hidden className="h-[2px] w-3 rounded-full" style={{ background: s.color }} />
-            Plan
+            {B.Plan}
           </span>
           <span className="inline-flex items-center gap-1.5">
             <span aria-hidden className="h-[2px] w-3 rounded-full bg-series-grey" />
-            Draft
+            {B.Word}
           </span>
         </div>
       </div>
@@ -121,7 +124,7 @@ export function DayChart({ T, meta, lens, focusDay, onDay }: { T: GroupTotals; m
               tick={{ fontSize: 11.5, fill: "var(--color-muted)" }}
             />
             {lens === "service" && (
-              <ReferenceLine y={0.95} stroke="var(--color-ink)" strokeOpacity={0.4} strokeDasharray="3 3" label={{ value: "Goal 95%", position: "insideTopLeft", fontSize: 11, fill: "var(--color-muted)", dy: 2, dx: 2 }} />
+              <ReferenceLine y={goal} stroke="var(--color-ink)" strokeOpacity={0.4} strokeDasharray="3 3" label={{ value: `Goal ${goalText(goal)}`, position: "insideTopLeft", fontSize: 11, fill: "var(--color-muted)", dy: 2, dx: 2 }} />
             )}
             {focusDay && <ReferenceLine x={rows.find((r) => r.date === focusDay)?.label} stroke="var(--color-accent)" strokeOpacity={0.5} />}
             <Tooltip

@@ -8,12 +8,12 @@ const FAR = 0.8;
  * The ranges are light (ink 10 / 6 / 3) so the value bar is always the heaviest mark. Below goal, the missing part
  * from the chance to the goal is outlined in red, so a 0% block still reads as a long red gap, never as a grey bar.
  */
-export function Bullet({ chance, below, goal, draft, label }: { chance: number | null; below: boolean; goal: number; draft?: number | null; label: string }) {
+export function Bullet({ chance, below, goal, draft, label, baseWord = "draft" }: { chance: number | null; below: boolean; goal: number; draft?: number | null; label: string; baseWord?: string }) {
   const pct = (v: number) => `${Math.max(0, Math.min(100, v * 100))}%`;
   const c = chance ?? 0;
   return (
     <div className="relative">
-      <div className="relative isolate h-6 overflow-hidden rounded-[5px]" role="img" aria-label={`${label}: ${chanceText(chance, below, goal)}, goal ${goalText(goal)}${draft != null ? `, draft ${chanceText(draft)}` : ""}`}>
+      <div className="relative isolate h-6 overflow-hidden rounded-[5px]" role="img" aria-label={`${label}: ${chanceText(chance, below, goal)}, goal ${goalText(goal)}${draft != null ? `, ${baseWord} ${chanceText(draft)}` : ""}`}>
         <span className="absolute inset-y-0 left-0 bg-ink/[.10]" style={{ width: pct(FAR) }} />
         <span className="absolute inset-y-0 bg-ink/[.06]" style={{ left: pct(FAR), width: `calc(${pct(goal)} - ${pct(FAR)})` }} />
         <span className="absolute inset-y-0 right-0 bg-ink/[.03]" style={{ left: pct(goal) }} />

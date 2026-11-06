@@ -220,3 +220,12 @@
 - **Same calculations:** it reads the same API (`/api/plan`, `/api/meta`, `/api/compare`, `/api/playbook`) and never re-plans. The browser only picks, filters, sums and sorts. An independent script, `planning/evidence/draft4_known_totals.py`, rebuilds the expected answers from `outputs/` alone, and a browser harness, `planning/evidence/drive_draft4.py`, checks the rendered page against them.
 - **Where it lives:** a second Vite root, `web/draft4/`, built by `npm run build:draft4` into `web/dist-draft4/`, and served by `python -m server --draft4` or `start_app_draft4.bat`. Drafts 2 and 3 are untouched.
 - **Departs from D-26 (one look everywhere):** draft 4 uses the showcase palette, not `design/tokens.json`, because the user asked for it. The deck and report keep the draft 2 and 3 look.
+
+## D-33: Draft 4's Overview runs what-ifs live, in place of a Scenario lab page
+
+- **Status:** Accepted, 2026-11-05. The user asked: "would it be possible to have the adjustments located in scenario lab in the main page? that updates automatically", then "yes, build it on the overview next."
+- **Choice:** the Scenario lab's four adjustments (service goal, callouts, demand, regular staff) and its four presets sit in draft 4's sidebar under the scenario switch (a popover from the plan card below 80rem). Any change re-plans by itself through `/api/what-if`: sliders after 450 ms at rest, presets, the goal and Reset at once. The board, tiles, list, detail and By day all show the what-if, re-based on the submitted plan: "Draft" reads "Submitted" and "Plan" reads "What-if" everywhere.
+- **Replaces D-32's rule** "never call `/api/what-if`". The rule's purpose stays: the default view is exactly the submitted plan (no what-if request is made until a setting changes, and the harness checks it), a what-if is never mistaken for it (a dashed What-if pill with Reset replaces the green Submitted plan pill, and the changed settings show as chips in the header), and the CSV is always the submitted file.
+- **Placement:** in the sidebar, not in a row of the plan card as first proposed, because that row would push the board's last rows below the fold at 1440 x 900 whenever a what-if is on.
+- **Cost of a change:** 2-6 s for new settings, about 20 ms for the server's cached ones (it keeps the last 48 and warms "Busier week" for every scenario at startup). The old numbers stay on screen, dimmed, while a re-plan runs.
+- **Scenario lab:** no separate page in draft 4. The remaining pages to build are Cost and service, Playbook and Methods (T-99).

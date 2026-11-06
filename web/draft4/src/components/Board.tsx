@@ -4,6 +4,7 @@ import { int, plural } from "../lib/format";
 import type { GroupTotals, Meta } from "../lib/types";
 import type { Lens } from "../lib/url";
 import { BoardCell } from "./BoardCell";
+import { LensCaption } from "./Legend";
 
 // Label column 36 px on phones and tablets (O / M / E), 124 px from 64rem (so "Merchandising" fits on one line),
 // 140 from 160rem. Literal class strings: Tailwind must see them whole.
@@ -91,6 +92,10 @@ export function Board({ model, T, meta, goal, lens, compare, selCellId, focusDay
     <div className="min-w-0 select-none">
       {/* Column header: the holiday band (range-calendar style), weekday, date, named-holiday dot. */}
       <div className={`${BOARD_COLS} mb-[5px] grid-rows-[14px_auto] compact:mb-1 compact:grid-rows-[12px_auto]`} aria-hidden>
+        {/* The caption: what the colours measure (the corner above the row labels is otherwise empty). */}
+        <div className="hidden min-w-0 min-[64rem]:block" style={{ gridColumn: "1 / 2", gridRow: "1 / 3" }}>
+          <LensCaption lens={lens} all={model.wk === "all"} goal={goal} />
+        </div>
         {hw.length > 0 && (
           <>
             <div className="rounded-[10px] bg-soft" style={{ gridColumn: `${hwStart} / ${hwEnd}`, gridRow: "1 / 3" }} />

@@ -1,9 +1,9 @@
 {
  "about": "drive_draft4.py: the rendered draft 4 page against planning/evidence/draft4_known_totals.output.json and outputs/*.csv. Simulated data, not Costco data.",
- "run_at": "2026-11-05 22:25:17",
- "seconds": 93.0,
+ "run_at": "2026-11-05 23:05:13",
+ "seconds": 120.3,
  "viewport": "1440x900",
- "passed": 351,
+ "passed": 359,
  "failed": 0,
  "failures": [],
  "results": [
@@ -11,14 +11,14 @@
    "check": "server --draft4 ready",
    "ok": true,
    "measured": {
-    "ready_s": 12.3,
+    "ready_s": 17.9,
     "health": {
      "ready": true,
-     "seconds": 10.239901,
+     "seconds": 15.89071,
      "error": null,
      "status": "ready",
      "step": "Ready",
-     "elapsed": 10.239901
+     "elapsed": 15.89071
     }
    },
    "expected": null
@@ -2928,6 +2928,85 @@
    "expected": null
   },
   {
+   "check": "What-if: the default view and the views checked so far never call /api/what-if",
+   "ok": true,
+   "measured": "none",
+   "expected": null
+  },
+  {
+   "check": "What-if preset 'Busier week': the hash carries co=1.5 and dm=0.1",
+   "ok": true,
+   "measured": "#s=BASE&w=all&l=service&c=0&co=1.5&dm=0.1",
+   "expected": null
+  },
+  {
+   "check": "What-if Busier week (BASE, All): tiles, baselines, 'without re-planning' tips, board sum and header agree with /api/what-if",
+   "ok": true,
+   "measured": {
+    "service": "84.1%",
+    "below": "64",
+    "people": "2,913",
+    "cost": "$410.9k"
+   },
+   "expected": null
+  },
+  {
+   "check": "What-if, Compare on: the switch reads 'Compare with submitted' and each cell shows its change against the submitted plan",
+   "ok": true,
+   "measured": {
+    "switch": "Compare with submitted",
+    "cells": 63
+   },
+   "expected": null
+  },
+  {
+   "check": "What-if slider: one ArrowRight on Callouts re-plans by itself (hash co=1.75)",
+   "ok": true,
+   "measured": "#s=BASE&w=all&l=service&c=0&co=1.75&dm=0.1",
+   "expected": null
+  },
+  {
+   "check": "What-if Callouts 1.75× (BASE, All): tiles, baselines, 'without re-planning' tips, board sum and header agree with /api/what-if",
+   "ok": true,
+   "measured": {
+    "service": "82.4%",
+    "below": "68",
+    "people": "2,939",
+    "cost": "$415k"
+   },
+   "expected": null
+  },
+  {
+   "check": "What-if goal 97.5%: the legend reads 90–97.5% and the Service tip names the 97.5% goal",
+   "ok": true,
+   "measured": {
+    "legend": [
+     "Meets goal",
+     "90–97.5%",
+     "80–90%",
+     "Under 80%",
+     "Closed"
+    ],
+    "tip": "Submitted 95.56% · Goal 97.5% per block"
+   },
+   "expected": null
+  },
+  {
+   "check": "What-if Reset: the known totals, Draft baselines, the Submitted plan pill and a clean hash return",
+   "ok": true,
+   "measured": {
+    "tiles": {
+     "service": "95.6%",
+     "below": "25",
+     "people": "2,710",
+     "cost": "$377.5k"
+    },
+    "sub": "Draft 2,390",
+    "hash": "#s=BASE&w=all&l=service&c=0"
+   },
+   "expected": null
+  },
+  {
    "check": "Fixture W2: 0 warm cells and the list reads 'Closest to goal'",
    "ok": true,
    "measured": {
@@ -2968,7 +3047,7 @@
    "check": "No request leaves 127.0.0.1",
    "ok": true,
    "measured": {
-    "requests": 29,
+    "requests": 35,
     "hosts": [
      "127.0.0.1"
     ],

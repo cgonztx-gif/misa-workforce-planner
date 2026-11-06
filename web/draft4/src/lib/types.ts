@@ -89,6 +89,8 @@ export interface Alert {
 }
 
 export interface GroupTotals extends Comparison {
+  /** What-if only: the submitted headcounts scored under the what-if's conditions (no re-planning). */
+  rescored?: Summary;
   verdict: string;
   by_day: (Comparison & { date: string; day: string; day_short: string; holiday: string | null })[];
   by_department: (Comparison & { dept_id: number; department: string })[];
@@ -250,4 +252,24 @@ export interface ForecastResponse {
   backtest: { daily: ErrorRow[]; block: ErrorRow[]; by_day_group: ErrorRow[] };
   drivers_tested: { driver: string; tested: string; found: string; use: string }[];
   notes: { units: string; benchmark: string; steps: string };
+}
+
+/** GET /api/what-if (server/API.md): the plan's shape, re-planned under new conditions, plus how it differs from the submitted plan. */
+export interface WhatIfSettings {
+  goal: number;
+  callouts: number;
+  demand: number;
+  availability: number;
+}
+
+export interface WhatIfResponse extends PlanResponse {
+  what_if: true;
+  is_submitted_plan: false;
+  label: string;
+  settings: WhatIfSettings & { scenario: ScenarioCode };
+  defaults: WhatIfSettings;
+  seconds: number;
+  changes: { key: string; submitted: number; what_if: number; change: number }[];
+  changes_summary: { blocks: number; people_added: number; people_cut: number; net: number };
+  vs_submitted: Record<WarehouseKey, { submitted: Summary; what_if: Summary; change: SummaryChange; submitted_rescored: Summary }>;
 }

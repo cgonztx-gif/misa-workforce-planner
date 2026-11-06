@@ -1,11 +1,13 @@
 import { int } from "../lib/format";
 import type { Block } from "../lib/types";
+import { useBase } from "../lib/base";
 
 /**
  * The staffing against capacity as a segmented share bar (regular / cross-trained / overtime) on a track of
  * max(capacity, need, draft), with a need tick. "It's full, and need sits past it" in one glance.
  */
 export function StaffBar({ b, compare }: { b: Block; compare: boolean }) {
+  const B = useBase();
   const cap = b.availability.capacity;
   const need = b.need ?? 0;
   const max = Math.max(cap, need, b.draft, b.plan, 1);
@@ -62,7 +64,7 @@ export function StaffBar({ b, compare }: { b: Block; compare: boolean }) {
       {compare && (
         <div className="mt-2.5" data-draft-staff>
           {/* The draft as a grey bar on the same track; what it can't field runs past capacity, dashed red. */}
-          <div className="relative h-1.5" role="img" aria-label={`Draft ${int(b.draft)}: ${dParts.filter((p) => p.v > 0).map((p) => `${p.label} ${p.v}`).join(", ")}${d.unfilled > 0 ? `, ${d.unfilled} unfilled` : ""}`}>
+          <div className="relative h-1.5" role="img" aria-label={`${B.Word} ${int(b.draft)}: ${dParts.filter((p) => p.v > 0).map((p) => `${p.label} ${p.v}`).join(", ")}${d.unfilled > 0 ? `, ${d.unfilled} unfilled` : ""}`}>
             <span className="absolute inset-y-0 left-0 rounded-full bg-series-grey" style={{ width: pct(b.draft - d.unfilled) }} />
             {d.unfilled > 0 && (
               <span
@@ -71,9 +73,9 @@ export function StaffBar({ b, compare }: { b: Block; compare: boolean }) {
               />
             )}
           </div>
-          <div className="mt-1.5 min-h-4 text-[11px] leading-4 text-muted tnum" data-tip={`Draft ${int(b.draft)}${d.unfilled > 0 ? ` · ${int(d.unfilled)} of them can't be fielded` : ""}`}>
+          <div className="mt-1.5 min-h-4 text-[11px] leading-4 text-muted tnum" data-tip={`${B.Word} ${int(b.draft)}${d.unfilled > 0 ? ` · ${int(d.unfilled)} of them can't be fielded` : ""}`}>
             <span>
-              Draft · {dParts.filter((p) => p.v > 0).map((p) => `${p.label} ${int(p.v)}`).join(" · ") || "0"}
+              {B.Word} · {dParts.filter((p) => p.v > 0).map((p) => `${p.label} ${int(p.v)}`).join(" · ") || "0"}
             </span>
           </div>
         </div>

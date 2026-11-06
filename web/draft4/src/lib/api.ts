@@ -3,7 +3,8 @@
 
 import { keepPreviousData, useQuery, useQueryClient, type QueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import type { CompareResponse, ForecastResponse, Health, Meta, PlanResponse, PlaybookResponse, ScenarioCode } from "./types";
+import type { CompareResponse, ForecastResponse, Health, Meta, PlanResponse, PlaybookResponse, ScenarioCode, WhatIfResponse, WhatIfSettings } from "./types";
+import { whatIfUrl } from "./whatif";
 
 export class ApiError extends Error {
   status: number;
@@ -79,6 +80,21 @@ const planQuery = (scenario: ScenarioCode) => ({
 
 export function usePlan(scenario: ScenarioCode, enabled: boolean) {
   return useQuery({ ...planQuery(scenario), enabled, placeholderData: keepPreviousData });
+}
+
+/**
+ * A what-if plan (D-33). Only ever called with settings that differ from the submitted plan's; the previous result stays
+ * on screen (dimmed) while a new one computes. The server caches the last 48, so going back to a setting is instant.
+ */
+export function useWhatIf(scenario: ScenarioCode, s: WhatIfSettings, enabled: boolean) {
+  return useQuery({
+    queryKey: ["whatif", scenario, s.goal, s.callouts, s.demand, s.availability] as const,
+    queryFn: () => getJson<WhatIfResponse>(whatIfUrl(scenario, s)),
+    enabled,
+    retry,
+    retryDelay,
+    placeholderData: keepPreviousData,
+  });
 }
 
 const forecastQuery = { queryKey: ["forecast"] as const, queryFn: () => getJson<ForecastResponse>("/api/forecast"), retry, retryDelay };

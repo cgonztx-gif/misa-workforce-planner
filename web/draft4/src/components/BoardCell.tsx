@@ -3,6 +3,7 @@ import { alertOf, shortOfCell, tierOf, STORES, type Cell, type Tier } from "../l
 import { chanceText, goalText, int, signed, signedUsd, signedUsdCompact, usd } from "../lib/format";
 import type { Block, Meta } from "../lib/types";
 import type { Lens } from "../lib/url";
+import { useBase, type Base } from "../lib/base";
 
 // Fills per tier (DRAFT4.md 4 and 5.6), all tier tokens. Literal strings. Service: no fill when the block meets the goal;
 // below goal: one red, stronger the further below (90-95%, 80-90%, under 80%) in every lens; People / Labor cost: an ink magnitude scale, never green or
@@ -65,7 +66,7 @@ const wName = (meta: Meta, store: number | string) => meta.warehouses.find((w) =
 const deptName = (meta: Meta, id: number) => meta.departments.find((d) => d.id === id)?.name ?? String(id);
 const shiftName = (meta: Meta, code: string) => meta.shifts.find((s) => s.code === code)?.name ?? code;
 
-function tipFor(c: Cell, lens: Lens, compare: boolean, meta: Meta, goal: number, dayLabel: string): { title: string; lines: string[] } {
+function tipFor(c: Cell, lens: Lens, compare: boolean, meta: Meta, goal: number, dayLabel: string, B: Base): { title: string; lines: string[] } {
   const where = `${dayLabel} · ${deptName(meta, c.dept)} · ${shiftName(meta, c.shift)}`;
   const g = goalText(goal);
   if (!c.isOpen) return { title: "Closed", lines: [`${where} · ${c.isAll ? "All warehouses" : wName(meta, c.blocks[0]?.store_id ?? "")}`] };
@@ -74,7 +75,7 @@ function tipFor(c: Cell, lens: Lens, compare: boolean, meta: Meta, goal: number,
     const b = c.blocks[0];
     const lines = [`${where} · ${wName(meta, b.store_id)} · ${b.start ?? ""}–${b.end ?? ""}`, `Chance ${chanceText(b.chance, b.below_goal, goal)} · goal ${g}`];
     if (b.below_goal) lines.push(`Need ${int(b.need ?? 0)} · can field ${int(b.availability.capacity)} · short ${int(Math.max(0, (b.need ?? 0) - b.plan))}`);
-    if (compare) lines.push(`Draft ${int(b.draft)} · chance ${chanceText(b.chance_draft, b.below_goal_draft, goal)}${b.draft_sources.unfilled > 0 ? ` · ${int(b.draft_sources.unfilled)} unfilled` : ""}`);
+    if (compare) lines.push(`${B.Word} ${int(b.draft)} · chance ${chanceText(b.chance_draft, b.below_goal_draft, goal)}${b.draft_sources.unfilled > 0 ? ` · ${int(b.draft_sources.unfilled)} unfilled` : ""}`);
     if (lens === "cost") lines.push(`Cost ${usd(b.cost)} · ${signedUsd(b.cost_change)}`);
     return { title: `${int(b.plan)} people`, lines: [...lines, ...worstLine] };
   }
@@ -83,18 +84,18 @@ function tipFor(c: Cell, lens: Lens, compare: boolean, meta: Meta, goal: number,
     .map((b) =>
       !b.is_open
         ? `W${b.store_id} closed`
-        : `W${b.store_id} ${int(b.plan)} · ${chanceText(b.chance, b.below_goal, goal)}${b.below_goal ? " · below" : ""}${compare ? ` · draft ${int(b.draft)}${b.draft_sources.unfilled > 0 ? ` · ${int(b.draft_sources.unfilled)} unfilled` : ""}` : ""}`,
+        : `W${b.store_id} ${int(b.plan)} · ${chanceText(b.chance, b.below_goal, goal)}${b.below_goal ? " · below" : ""}${compare ? ` · ${B.word} ${int(b.draft)}${b.draft_sources.unfilled > 0 ? ` · ${int(b.draft_sources.unfilled)} unfilled` : ""}` : ""}`,
     );
   const lines = [`${where} · All warehouses`, ...per, "Lowest chance shown"];
   if (lens === "cost") lines.push(`Cost ${usd(c.blocks.reduce((s, b) => s + b.cost, 0))} · ${signedUsd(c.costChange)}`);
   return { title: `${int(c.plan)} people`, lines: [...lines, ...worstLine] };
 }
 
-function ariaFor(c: Cell, meta: Meta, goal: number, dayLong: string) {
+function ariaFor(c: Cell, meta: Meta, goal: number, dayLong: string, B: Base) {
   const where = `${c.isAll ? "All warehouses" : wName(meta, c.blocks[0]?.store_id ?? "")}, ${dayLong}, ${deptName(meta, c.dept)}, ${shiftName(meta, c.shift)}`;
   if (!c.isOpen) return `${where}: closed`;
   const ch = c.change;
-  const vs = ch > 0 ? `${int(ch)} more than the draft` : ch < 0 ? `${int(-ch)} fewer than the draft` : "same as the draft";
+  const vs = ch > 0 ? `${int(ch)} more than the ${B.word}` : ch < 0 ? `${int(-ch)} fewer than the ${B.word}` : `same as the ${B.word}`;
   if (!c.isAll) {
     const b = c.blocks[0];
     const tail = b.below_goal ? `, below goal, ${int(Math.max(0, (b.need ?? 0) - b.plan))} short` : "";
@@ -110,7 +111,8 @@ export const BoardCell = memo(function BoardCell({ cell: c, lens, compare, selec
   const alert0 = alertOf(c, lens);
   const fill = (ringed || alert0) && HAS_RING[tier] ? "" : (ringed || alert0) && RINGED_FILL[tier] ? RINGED_FILL[tier] : FILL[tier];
   const ring = selected ? SELECTED_RING : c.worst ? WORST_RING : alert0 ? ALERT_RING : "";
-  const tip = tipFor(c, lens, compare, meta, goal, dayLabel);
+  const B = useBase();
+  const tip = tipFor(c, lens, compare, meta, goal, dayLabel, B);
   const delta = c.change;
   const pips = c.isAll ? c.below.length : 0;
   const second = c.isOpen ? chanceText(c.minChance, c.below.length > 0, goal) : "";
@@ -146,7 +148,7 @@ export const BoardCell = memo(function BoardCell({ cell: c, lens, compare, selec
       role="gridcell"
       tabIndex={focusable ? 0 : -1}
       aria-selected={selected}
-      aria-label={ariaFor(c, meta, goal, dayLong)}
+      aria-label={ariaFor(c, meta, goal, dayLong, B)}
       data-key={c.isAll ? c.id : c.blocks[0]?.key}
       data-cell={c.id}
       data-plan={c.plan}

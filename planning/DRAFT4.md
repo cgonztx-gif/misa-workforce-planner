@@ -56,7 +56,7 @@ planning/evidence/
 
 ### Numbers rules
 
-- **Sources.** Every number comes from `/api/plan`, `/api/meta`, `/api/compare` or `/api/playbook`. **Never call `/api/what-if`.**
+- **Sources.** Every number comes from `/api/plan`, `/api/meta`, `/api/compare` or `/api/playbook` (and `/api/forecast` on the Demand page). **`/api/what-if` is called only when the user changes an adjustment (D-33, section 14);** the default view never calls it.
 - **What the browser may do:**
   - pick `totals[wk]`, with `wk` one of `"all"`, `"1"`, `"2"`, `"4"`;
   - filter `blocks` by `store_id`;
@@ -950,3 +950,49 @@ the hash as `p=demand&dd=<dept>&dy=<date>`, and the Overview's hash is unchanged
 
 Units differ by department, so nothing sums across departments. The page never computes a forecast: it picks a series,
 sums one department's week, divides demand by benchmark and sorts. Evidence: `planning/evidence/draft4/demand/`.
+
+
+---
+
+## 14. What-if on the Overview (D-33, 2026-11-05)
+
+The user asked for the Scenario lab's adjustments on the main page, updating automatically. Draft 4 has no Scenario lab
+page; the Overview is the what-if tool.
+
+**Controls (sidebar, under Scenario; below 80rem, a popover from the plan card's Adjust button).** `AdjustPanel.tsx`:
+
+| Control | Values | Applies |
+|---|---|---|
+| Presets | Busier week (demand +10%, callouts 1.5×; warmed by the server at startup), Illness wave (callouts 2×, staff −20%), Quieter week (demand −5%), Higher goal (97.5%) | at once; a second click on the active one resets |
+| Service goal | 90 · 92.5 · 95 · 97.5% | at once |
+| Callouts | 0-2× by 0.25 | 450 ms after the slider rests (one re-plan per gesture) |
+| Demand | −10% to +15% by 1% | same |
+| Regular staff | −30% to 0 by 5% | same |
+| Reset | back to the submitted plan | at once (also in the header) |
+
+Each slider marks the submitted value with a tick and fills from it to the current value in the control blue; a value
+that differs from submitted turns ink and bold. The settings live in the hash (`g`, `co`, `dm`, `av`, only when not
+default), so a link reproduces a what-if.
+
+**What changes on the page.**
+
+- **Header:** the changed settings as chips beside the scenario name ("Demand +10%", "Callouts 1.5×"); the green
+  "Submitted plan" pill gives way to a dashed **What-if** pill (a spinner and "Re-planning" while it runs) and **Reset**.
+  The CSV pill's tooltip says it stays the submitted file.
+- **Baseline:** every "Draft" becomes "Submitted" and "Plan" becomes "What-if" (one context, `lib/base.tsx`): tile
+  sub-lines, Compare with submitted, the board's ± and tooltips, the legend, the block and All-cell details, By day.
+  The baseline is the submitted plan exactly as the default view shows it (`lib/whatif.ts` `rebase`); totals' changes
+  are the server's `vs_submitted`, block changes equal its `changes` list (F-77).
+- **Without re-planning:** the Service, Below goal and Labor cost tooltips add the submitted headcounts scored under
+  the new conditions (`submitted_rescored`).
+- **Goal:** a 92.5% or 97.5% goal prints as such (never rounded); the legend's first red step reads 90–goal and
+  disappears at a 90% goal; By day's goal line moves.
+- **While re-planning** (2-6 s new, ~20 ms cached): the previous numbers stay, dimmed to 55%, and stay usable.
+- **Legend caption:** the lens heading moved from the toolbar into the board's empty top-left corner ("People / vs
+  submitted"), because at 1366 the toolbar had no room for it in a what-if.
+
+**Checks** (`drive_draft4.py`, "What-if"): the default view never calls `/api/what-if`; Busier week and Callouts
+1.75× (by keyboard) agree with independent fetches of `/api/what-if` on every tile, baseline, "without re-planning"
+line, the board sum and the header; Compare with submitted shows each cell's change from the API's `changes`; goal
+97.5% moves the legend; Reset returns the known totals, Draft baselines and a clean hash. 359 of 359 pass.
+Screenshots: `planning/evidence/draft4/whatif/`.

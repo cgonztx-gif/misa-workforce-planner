@@ -1092,6 +1092,9 @@ def main() -> int:
                 page.screenshot(path=str(SHOTS / f"base-all-{vw}x{vh}.png"))
             page.set_viewport_size({"width": 1440, "height": 900})
 
+            # ---- what-if on the Overview (D-33) ----
+            check_whatif(page, server.url, run, kt, requests)
+
             # ---- fixture: empty list, P3 mark, P2 tie-break (DRAFT4.md 1.1) ----
             check_fixture(ctx, server.url, run)
 
@@ -1104,6 +1107,119 @@ def main() -> int:
     finally:
         server.stop()
     return finish(0, t_start)
+
+
+def api_json(url: str, path: str, timeout: float = 90):
+    with urllib.request.urlopen(url + path, timeout=timeout) as r:
+        return json.loads(r.read())
+
+
+def check_whatif(page, url, run, kt, requests):
+    """What-if on the Overview (D-33, DRAFT4.md 14). The page against independent fetches of /api/what-if and /api/plan.
+
+    These figures come from the live engine, not from outputs/, so this is a consistency check: what the page shows in a
+    what-if is exactly what the API returns, re-based on the submitted plan; Reset returns the known totals exactly."""
+    wi_reqs = [u for u in requests if "/api/what-if" in u]
+    check("What-if: the default view and the views checked so far never call /api/what-if", not wi_reqs, wi_reqs[:3] or "none")
+
+    kv = kt["scenarios"]["BASE"]["views"]["all"]
+    page.goto(url + "#s=BASE&w=all&l=service&c=0")
+    run.wait_board()
+    page.wait_for_timeout(500)
+    ready = '[data-card=plan][data-whatif="1"]:not([data-busy])'
+
+    def tiles_vs(tag, api, settings_text):
+        vs = api["vs_submitted"]["all"]
+        w, s, r = vs["what_if"], vs["submitted"], vs["submitted_rescored"]
+        t = run.tiles()
+        bad = []
+        if t["people"]["value"] != int_text(w["employees"]) or t["people"]["sub"] != f"Submitted {int_text(s['employees'])}":
+            bad.append(f"People {t['people']['value']!r} / {t['people']['sub']!r} vs {w['employees']} / submitted {s['employees']}")
+        if t["below"]["value"] != int_text(w["below_goal"]) or t["below"]["sub"] != f"Submitted {int_text(s['below_goal'])}":
+            bad.append(f"Below goal {t['below']['value']!r} / {t['below']['sub']!r} vs {w['below_goal']} / submitted {s['below_goal']}")
+        if t["service"]["value"] != chance_text(w["expected_met"]) or t["service"]["sub"] != f"Submitted {chance_text(s['expected_met'])}":
+            bad.append(f"Service {t['service']['value']!r} / {t['service']['sub']!r} vs {w['expected_met']} / submitted {s['expected_met']}")
+        if t["cost"]["tipTitle"] != usd(w["cost"]):
+            bad.append(f"Labor cost tip title {t['cost']['tipTitle']!r} vs {usd(w['cost'])}")
+        if f"Without re-planning {chance_text(r['expected_met'])}" not in (t["service"]["tip"] or ""):
+            bad.append(f"Service tip lacks 'Without re-planning {chance_text(r['expected_met'])}': {t['service']['tip']!r}")
+        if f"Without re-planning {int_text(r['below_goal'])}" not in (t["below"]["tip"] or ""):
+            bad.append(f"Below goal tip lacks 'Without re-planning {int_text(r['below_goal'])}'")
+        # the submitted side of every tile is the known total of the default view
+        for k in ("service", "below", "people"):
+            if t[k]["sub"] != f"Submitted {kv['tiles'][k]['value_text']}":
+                bad.append(f"{k} baseline {t[k]['sub']!r} vs known total {kv['tiles'][k]['value_text']}")
+        board = run.cells()
+        total = sum(int(c["text"].replace(",", "")) for c in board["cells"] if c["text"].replace(",", "").isdigit())
+        if total != w["employees"]:
+            bad.append(f"board sums to {total:,}, what-if {w['employees']:,}")
+        hdr = page.inner_text("header")
+        for chip in settings_text:
+            if chip not in hdr:
+                bad.append(f"header lacks the chip {chip!r}")
+        if not page.query_selector('header [data-status="whatif"]') or page.query_selector('header [data-status="ready"]'):
+            bad.append("header: What-if pill missing or Submitted plan pill still shown")
+        check(f"What-if {tag}: tiles, baselines, 'without re-planning' tips, board sum and header agree with /api/what-if",
+              not bad, bad or {k: t[k]["value"] for k in t})
+
+    # 1. A preset (the one the server warms at startup)
+    page.click('[data-adjust="adjust"] [data-preset="busier"]')
+    page.wait_for_selector(ready, timeout=120000)
+    page.wait_for_timeout(400)
+    h = page.evaluate("location.hash")
+    check("What-if preset 'Busier week': the hash carries co=1.5 and dm=0.1", "co=1.5" in h and "dm=0.1" in h, h)
+    api = api_json(url, "api/what-if?scenario=BASE&goal=0.95&callouts=1.5&demand=0.1&availability=0")
+    tiles_vs("Busier week (BASE, All)", api, ["Demand +10%", "Callouts 1.5×"])
+    page.screenshot(path=str(SHOTS / "whatif-busier-1440x900.png"))
+
+    # 2. Compare with submitted: every open cell's secondary = what-if minus submitted, summed over its warehouses
+    run.compare(True)
+    by_cell = defaultdict(int)
+    for c in api["changes"]:
+        by_cell[f"all|{c['dept_id']}|{c['date']}|{c['shift_code']}"] += c["change"]
+    board = run.cells()
+    bad = []
+    for c in board["cells"]:
+        if not c["text"].replace(",", "").isdigit():
+            continue
+        want = signed(by_cell[c["key"]]) if by_cell.get(c["key"]) else ""
+        if c["sec"] != want:
+            bad.append(f"{c['key']}: shows {c['sec']!r}, expected {want!r}")
+    label = page.inner_text("[data-card=plan] [role=switch]")
+    check("What-if, Compare on: the switch reads 'Compare with submitted' and each cell shows its change against the submitted plan",
+          not bad and label.strip() == "Compare with submitted", bad[:6] or {"switch": label, "cells": len(board["cells"])})
+    run.compare(False)
+
+    # 3. A slider, by keyboard: one step, applied by itself after it rests
+    page.focus('[data-adjust="adjust"] [data-thumb="callouts"]')
+    page.keyboard.press("ArrowRight")
+    page.wait_for_selector("[data-card=plan][data-busy]", timeout=5000)
+    page.wait_for_selector(ready, timeout=120000)
+    page.wait_for_timeout(400)
+    h = page.evaluate("location.hash")
+    api2 = api_json(url, "api/what-if?scenario=BASE&goal=0.95&callouts=1.75&demand=0.1&availability=0")
+    check("What-if slider: one ArrowRight on Callouts re-plans by itself (hash co=1.75)", "co=1.75" in h, h)
+    tiles_vs("Callouts 1.75× (BASE, All)", api2, ["Demand +10%", "Callouts 1.75×"])
+
+    # 4. The goal: the legend's first red step follows it
+    page.click('[data-adjust="adjust"] [data-goal="0.975"]')
+    page.wait_for_selector(ready, timeout=120000)
+    page.wait_for_timeout(400)
+    legend = page.evaluate(JS_LEGEND)
+    tip = run.tiles()["service"]["tip"] or ""
+    check("What-if goal 97.5%: the legend reads 90–97.5% and the Service tip names the 97.5% goal",
+          "90–97.5%" in legend and "Goal 97.5% per block" in tip, {"legend": list(legend), "tip": tip.split("\n")[1] if "\n" in tip else tip})
+
+    # 5. Reset: the submitted plan again, exactly
+    page.click("[data-header-reset]")
+    page.wait_for_timeout(600)
+    t = run.tiles()
+    h = page.evaluate("location.hash")
+    ok = (all(t[k]["value"] == kv["tiles"][k]["value_text"] for k in ("service", "below", "people"))
+          and t["people"]["sub"].startswith("Draft ") and page.query_selector('header [data-status="ready"]') is not None
+          and not any(x in h for x in ("co=", "dm=", "g=", "av=")) and page.query_selector("[data-card=plan][data-whatif]") is None)
+    check("What-if Reset: the known totals, Draft baselines, the Submitted plan pill and a clean hash return", ok,
+          {"tiles": {k: t[k]["value"] for k in t}, "sub": t["people"]["sub"], "hash": h})
 
 
 def check_fixture(ctx, url, run):

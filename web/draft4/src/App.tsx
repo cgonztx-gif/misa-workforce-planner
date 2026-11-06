@@ -28,9 +28,11 @@
  *     colour, as its board lens does: Service green, Below goal red bars, People and Labor cost ink (magnitudes), so a
  *     cost rise is never drawn in the good colour beside its red delta. Red delta text is bad-strong (4.5:1 on the tint).
  * D11. The People and Labor cost board lenses encode magnitude, not good or bad, so they use an ink (grey) intensity
- *     scale; Cut is a faint fill with an ink outline. The red below-goal tiers override every lens.
- * D7. The sidebar holds the scenario switch, not pages (it's a one-page app). The phone menu grid likewise holds
- *     scenarios, warehouses, CSV and Theme.
+ *     scale; Cut is a faint fill with an ink outline. Since the clarity sweep a below-goal cell keeps that fill there
+ *     and gets a red outline; only Service and Below goal fill below-goal cells red.
+ * D7. The sidebar holds the pages (Overview, Demand), the scenario switch and, on the Overview, the what-if
+ *     adjustments (D-33). The phone menu grid holds scenarios, warehouses, CSV and Theme; below 80rem the
+ *     adjustments open from the plan card.
  * D8. There's no date-range picker and no "today" column, because the planning week is fixed and in the future.
  *     The range-calendar band marks the holiday window instead, and the dot marks named holidays.
  * D9. By day draws bars for Below goal and lines for the other metrics, because zero days would zigzag as a line.
@@ -70,13 +72,21 @@
  * B15. With Compare on and draft-unfilled (P3) blocks in view, the legend adds "Unfilled" (the dashed red underline),
  *     so "21 −6" reads as "the draft scheduled people it couldn't field", not as a cut. Its legend gaps tighten below
  *     90rem so it stays on one line at 1366; the toolbar grows rather than overlapping the board if it ever wraps.
+ * D12. What-if (D-33): any adjustment re-plans through /api/what-if and the page shows that plan, re-based on the
+ *     submitted one, with "Draft" read as "Submitted" everywhere (lib/base.tsx). The default view never calls it; a
+ *     dashed What-if pill and Reset replace the green Submitted plan pill; the CSV stays the submitted file.
  */
 
+import * as Popover from "@radix-ui/react-popover";
 import { useQueryClient } from "@tanstack/react-query";
-import { Maximize2 } from "lucide-react";
+import { Maximize2, SlidersHorizontal } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { allIdOf, blockId, buildBoard, isP3, stepSel, storeOf, type Cell } from "./lib/board";
-import { ApiError, backToPreparing, useCompare, useForecast, useHealth, useMeta, usePlan, usePlaybook, usePrefetch } from "./lib/api";
+import { ApiError, backToPreparing, useCompare, useForecast, useHealth, useMeta, usePlan, usePlaybook, usePrefetch, useWhatIf } from "./lib/api";
+import { BaseContext, DRAFT_BASE, SUBMITTED_BASE } from "./lib/base";
+import { changedChips, isDefault, rebase, WI_DEFAULTS } from "./lib/whatif";
+import type { WhatIfSettings } from "./lib/types";
+import { AdjustPanel } from "./components/AdjustPanel";
 import { nextTheme, readTheme, saveTheme, type Theme } from "./lib/theme";
 import type { Block, PlanResponse, ScenarioCode, WarehouseKey } from "./lib/types";
 import { readHash, writeHash, type DeptId, type Lens, type Page, type ViewState } from "./lib/url";
@@ -150,7 +160,18 @@ export function App() {
   // The last plan that landed stays on screen when a later fetch fails (react-query drops the placeholder on error).
   const lastGood = useRef<PlanResponse | undefined>(undefined);
   if (planQ.data && !planQ.isPlaceholderData) lastGood.current = planQ.data;
-  const plan = planQ.data ?? lastGood.current;
+  const submitted = planQ.data ?? lastGood.current;
+
+  // What-if (D-33): with any adjustment, the server re-plans and the page shows that plan, re-based on the submitted
+  // one. Until the first result lands the submitted plan stays on screen, dimmed; later changes keep the previous
+  // what-if on screen, dimmed, until the new one arrives.
+  const wiOn = !isDefault(view.wi);
+  const wiQ = useWhatIf(view.scenario, view.wi, ready && wiOn);
+  const wiSub = wiQ.data ? (wiQ.data.scenario === submitted?.scenario ? submitted : qc.getQueryData<PlanResponse>(["plan", wiQ.data.scenario])) : undefined;
+  const wiPlan = useMemo(() => (wiOn && wiQ.data && wiSub ? rebase(wiQ.data, wiSub) : null), [wiOn, wiQ.data, wiSub]);
+  const showWi = !!wiPlan;
+  const wiBusy = wiOn && !wiQ.isError && (wiQ.isFetching || !wiPlan);
+  const plan = wiPlan ?? submitted;
   const stale = !!plan && plan.scenario !== view.scenario;
   const goal = plan?.goal ?? meta.data?.defaults.goal ?? 0.95;
 
@@ -181,6 +202,8 @@ export function App() {
   const setPage = useCallback((page: Page) => setView((v) => ({ ...v, page })), []);
   const setDept = useCallback((dept: DeptId) => setView((v) => ({ ...v, dept })), []);
   const setDay = useCallback((day: string) => setView((v) => ({ ...v, day })), []);
+  const setWi = useCallback((wi: WhatIfSettings) => setView((v) => ({ ...v, wi })), []);
+  const resetWi = useCallback(() => setWi(WI_DEFAULTS), [setWi]);
   const clear = useCallback(() => select(null), [select]);
   const onCell = useCallback((c: Cell) => setView((v) => {
     const id = c.isAll ? c.id : c.blocks[0] ? blockId(c.blocks[0]) : null;
@@ -278,9 +301,20 @@ export function App() {
   else if (planQ.isError && plan && stale) bar = `Couldn't load ${SCEN_LABEL[view.scenario]} · showing ${SCEN_LABEL[plan.scenario]}`;
   else if (offline && plan) bar = "Can't reach the planner · showing the last numbers";
   else if (csvFail === "error") bar = "Couldn't download the CSV";
+  else if (view.page === "overview" && wiOn && wiQ.isError) bar = `Couldn't run this what-if · showing ${showWi ? "the last what-if" : "the submitted plan"}`;
 
   const loaded = !!(model && T && meta.data && plan);
-  const dim = stale ? "pointer-events-none opacity-40" : "";
+  // A scenario still loading greys the page out; a what-if re-planning only dims it, so the old numbers stay readable.
+  const staleDim = stale ? "pointer-events-none opacity-40" : "";
+  const dim = stale ? staleDim : wiBusy ? "opacity-55" : "";
+  const retryAll = () => {
+    retry();
+    if (wiOn) void wiQ.refetch();
+  };
+  const base = showWi ? SUBMITTED_BASE : DRAFT_BASE;
+  const adjust = (
+    <AdjustPanel value={view.wi} onChange={setWi} busy={wiBusy} />
+  );
   const selCellId = model && view.sel ? (view.wk === "all" && !view.sel.startsWith("all|") ? allIdOf(view.sel) : view.sel) : null;
   const scenName = SCEN.find((s) => s.code === view.scenario)?.label ?? "";
   const { cell: selCell, block: selBlock } = model ? resolveSel(model, view.sel) : { cell: undefined, block: undefined };
@@ -317,8 +351,21 @@ export function App() {
     : null;
 
   return (
+    <BaseContext.Provider value={base}>
     <div className="flex min-h-dvh">
-      <Sidebar meta={meta.data} scenario={view.scenario} loading={stale && planQ.isFetching ? view.scenario : null} onScenario={setScenario} compare={compareQ.data} wk={view.wk} theme={theme} onTheme={cycleTheme} page={view.page} onPage={setPage} />
+      <Sidebar
+        meta={meta.data}
+        scenario={view.scenario}
+        loading={stale && planQ.isFetching ? view.scenario : null}
+        onScenario={setScenario}
+        compare={compareQ.data}
+        wk={view.wk}
+        theme={theme}
+        onTheme={cycleTheme}
+        page={view.page}
+        onPage={setPage}
+        adjust={view.page === "overview" ? adjust : undefined}
+      />
 
       <main className="min-w-0 flex-1 px-4 pt-3 pb-10 sm:px-6 sm:pt-5 compact:pt-3 min-[112.5rem]:px-8">
         <div className="mx-auto max-w-[2560px]">
@@ -328,15 +375,16 @@ export function App() {
             scenario={view.scenario}
             onScenario={setScenario}
             status={status}
-            note={bar ? <NoteBar text={bar} onRetry={retry} inline /> : null}
+            note={bar ? <NoteBar text={bar} onRetry={retryAll} inline /> : null}
             onCsvFail={onCsvFail}
             title={view.page === "demand" ? "Demand" : "Overview"}
+            whatIf={view.page === "overview" && wiOn ? { chips: changedChips(view.wi), busy: wiBusy, showing: showWi, onReset: resetWi } : null}
           />
           <div className="mt-4 compact:mt-3">
             {note}
             {bar && (
               <div className="sm:hidden">
-                <NoteBar text={bar} onRetry={retry} />
+                <NoteBar text={bar} onRetry={retryAll} />
               </div>
             )}
             {view.page === "demand" ? (
@@ -349,7 +397,7 @@ export function App() {
                 wkSeg={wkSeg}
                 dept={view.dept}
                 day={view.day}
-                dim={dim}
+                dim={staleDim}
                 onWk={setWk}
                 onDept={setDept}
                 onDay={setDay}
@@ -357,11 +405,37 @@ export function App() {
             ) : (
             <div className="grid grid-cols-1 gap-4 compact:gap-3 md:grid-cols-2 min-[80rem]:grid-cols-12 min-[112.5rem]:gap-4">
               {/* The plan card: warehouse control, KPI strip, board toolbar, the schedule board. */}
-              <section data-card="plan" aria-label="Plan" className={`${CARD} min-w-0 md:col-span-2 min-[80rem]:col-span-8 min-[112.5rem]:col-span-6`}>
+              <section
+                data-card="plan"
+                aria-label="Plan"
+                aria-busy={wiBusy || undefined}
+                data-whatif={showWi ? "1" : undefined}
+                data-busy={wiBusy ? "1" : undefined}
+                className={`${CARD} min-w-0 md:col-span-2 min-[80rem]:col-span-8 min-[112.5rem]:col-span-6`}
+              >
                 <div className={`transition-opacity duration-150 ${dim}`}>
                   <div className="@container flex h-[52px] items-center gap-3 border-b border-line px-5 compact:h-11 max-sm:px-3">
                     <Segmented label="Warehouse" value={view.wk} onChange={setWk} items={wkSeg} className="min-w-0" />
                     <span className="flex-1" />
+                    {/* No sidebar below 80rem: the same adjustments open from here. */}
+                    <Popover.Root>
+                      <Popover.Trigger asChild>
+                        <button
+                          type="button"
+                          aria-label="Adjust"
+                          data-tip="Adjust · what-if"
+                          className={`relative grid size-8 shrink-0 place-items-center rounded-full hover:bg-soft hover:text-ink focus-visible:outline-2 focus-visible:outline-accent min-[80rem]:hidden ${wiOn ? "text-accent" : "text-muted"}`}
+                        >
+                          <SlidersHorizontal size={15} strokeWidth={1.75} />
+                          {wiOn && <span aria-hidden className="absolute top-1 right-1 size-1.5 rounded-full bg-accent" />}
+                        </button>
+                      </Popover.Trigger>
+                      <Popover.Portal>
+                        <Popover.Content align="end" sideOffset={6} className="z-50 w-[17rem] rounded-[16px] border border-line bg-side p-3 shadow-[var(--shadow-pop)]">
+                          <AdjustPanel value={view.wi} onChange={setWi} busy={wiBusy} id="popover" />
+                        </Popover.Content>
+                      </Popover.Portal>
+                    </Popover.Root>
                     <button
                       type="button"
                       onClick={() => setExpand("board")}
@@ -376,7 +450,7 @@ export function App() {
                   {loaded ? <KpiStrip T={T!} goal={goal} lens={view.lens} onLens={setLens} /> : <TilesSkeleton />}
                   <div className="flex min-h-11 items-center justify-between gap-4 px-5 compact:min-h-9 max-sm:px-3">
                     <CompareSwitch on={view.compare} onChange={setCompare} />
-                    <Legend lens={view.lens} all={view.wk === "all"} unfilled={unfilledInView} />
+                    <Legend lens={view.lens} all={view.wk === "all"} unfilled={unfilledInView} goal={goal} />
                   </div>
                   <div className="px-5 pb-5 compact:pb-3 max-sm:px-3 max-sm:pb-3">
                     {loaded ? (
@@ -411,7 +485,7 @@ export function App() {
               <div className="contents min-[112.5rem]:col-span-3 min-[112.5rem]:flex min-[112.5rem]:min-w-0 min-[112.5rem]:flex-col min-[112.5rem]:gap-4">
                 <section data-card="byday" aria-label="By day" className={`${CARD} min-w-0 p-5 md:col-span-2 min-[80rem]:col-span-12 min-[112.5rem]:flex-1 max-sm:p-3`}>
                   <div className={`h-full transition-opacity duration-150 ${dim}`}>
-                    {loaded ? <DayChart T={T!} meta={meta.data!} lens={view.lens} compare={view.compare} focusDay={focusDay} onDay={(d) => setFocusDay((f) => (f === d ? null : d))} /> : <ChartSkeleton />}
+                    {loaded ? <DayChart T={T!} meta={meta.data!} lens={view.lens} compare={view.compare} goal={goal} focusDay={focusDay} onDay={(d) => setFocusDay((f) => (f === d ? null : d))} /> : <ChartSkeleton />}
                   </div>
                 </section>
               </div>
@@ -446,13 +520,13 @@ export function App() {
           <ExpandDialog
             open={expand === "board"}
             onClose={() => setExpand(null)}
-            title={`Schedule · ${scenName} · ${view.wk === "all" ? "All warehouses" : `Warehouse ${view.wk}`}`}
+            title={`Schedule · ${scenName} · ${view.wk === "all" ? "All warehouses" : `Warehouse ${view.wk}`}${showWi ? " · What-if" : ""}`}
             wide
             aside={<CompareSwitch on={view.compare} onChange={setCompare} />}
           >
             <div className="px-2 pt-1">
               <div className="mb-3 flex justify-end">
-                <Legend lens={view.lens} all={view.wk === "all"} unfilled={unfilledInView} />
+                <Legend lens={view.lens} all={view.wk === "all"} unfilled={unfilledInView} goal={goal} />
               </div>
               <div className="[&_[role=gridcell]]:h-11 [&_[role=gridcell]]:text-[15px]">
                 <Board
@@ -474,5 +548,6 @@ export function App() {
         </>
       )}
     </div>
+    </BaseContext.Provider>
   );
 }
