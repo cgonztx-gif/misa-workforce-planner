@@ -212,3 +212,11 @@
   - **Cost rising is a gray delta, not red.** It's the deliberate trade for service, and the tooltip says so.
   - **Some words stay.** These are the block drawer's reason (the case asks why each recommendation was made, R-14), the Methods page's assumptions (the case asks for the assumptions, with ours clearly marked, R-06), and the simulated-data notice.
 - **Numbers:** unchanged (D-28). Only how they're shown changed.
+
+## D-32: Draft 4, a one-page Overview with the schedule, in the skill showcase's style
+
+- **Status:** Accepted, 2026-11-05. The user said: "look at the color scheme of the screenshots for the skill repo. Begin a new draft of the web app, from complete scratch in terms of UI and layout. Follow the same calculations. just make the overview page. It should contain schedule in it. Use the color scheme and formatting style from the repo image showcase. use the skill extensively."
+- **Choice:** one page whose hero is the weekly schedule board, in the same card as a 4-tile KPI strip, with a slot beside it for the below-goal list and the block detail. The style follows the showcase: a warm light-gray page and sidebar, white soft cards, pill controls, accent blue for people and service, money green for cost, and warm color only on blocks below the goal. Light and dark themes. The contract is `planning/DRAFT4.md`, chosen by a design panel of three independent specs and a judge.
+- **Same calculations:** it reads the same API (`/api/plan`, `/api/meta`, `/api/compare`, `/api/playbook`) and never re-plans. The browser only picks, filters, sums and sorts. An independent script, `planning/evidence/draft4_known_totals.py`, rebuilds the expected answers from `outputs/` alone, and a browser harness, `planning/evidence/drive_draft4.py`, checks the rendered page against them.
+- **Where it lives:** a second Vite root, `web/draft4/`, built by `npm run build:draft4` into `web/dist-draft4/`, and served by `python -m server --draft4` or `start_app_draft4.bat`. Drafts 2 and 3 are untouched.
+- **Departs from D-26 (one look everywhere):** draft 4 uses the showcase palette, not `design/tokens.json`, because the user asked for it. The deck and report keep the draft 2 and 3 look.

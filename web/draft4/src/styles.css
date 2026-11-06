@@ -1,0 +1,229 @@
+@import "tailwindcss" source("../");
+
+/* Draft 4 tokens (planning/DRAFT4.md section 4). Every colour is a token with a light and a dark value;
+   tints are token + alpha (bg-accent/15), so they follow the theme by themselves. */
+
+@custom-variant compact (@media (max-height: 48rem));
+/* Tall wide screens (1920 x 1080 and up): the board grows into the height instead of leaving a band below. */
+@custom-variant tall (@media (min-height: 58rem));
+@custom-variant xtall (@media (min-height: 66rem));
+@custom-variant huge (@media (min-height: 85rem));
+
+@theme {
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-page: #f8f8f6;
+  --color-card: #ffffff;
+  --color-soft: #f1f1ef;
+  --color-side: #f3f3f1;
+  --color-ink: #17171a;
+  --color-ink-2: #48484d;
+  --color-muted: #66666d;
+  --color-line: rgb(0 0 0 / 0.075);
+  --color-line-strong: rgb(0 0 0 / 0.14);
+  --color-accent: #3e63dd;
+  --color-on-accent: #ffffff;
+  --color-money: #0f7f57;
+  --color-up: #0f7f57;
+  --color-down: #d23f45;
+  --color-warn: #c98a00;
+  /* Thin warm data marks (3 px bars, bullet bar, caps): darker in light so they reach 3:1 (WCAG 1.4.11). */
+  --color-warn-mark: #a87300;
+  --color-tip: #1f2530;
+  --color-live: #12a150;
+  --color-series-grey: #8a8a92;
+
+  --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
+}
+
+:root {
+  color-scheme: light;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 1px 1px rgb(0 0 0 / 0.02);
+  --shadow-pill: 0 1px 2px rgb(0 0 0 / 0.06), 0 0 0 1px rgb(0 0 0 / 0.04);
+  --shadow-pop: 0 12px 32px -8px rgb(0 0 0 / 0.18), 0 0 0 1px rgb(0 0 0 / 0.06);
+}
+
+/* Dark follows the system unless the app pins a theme with data-theme on <html>. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --color-page: #0b0b0d;
+    --color-card: #141417;
+    --color-soft: #1c1c20;
+    --color-side: #101013;
+    --color-ink: #f3f3f5;
+    --color-ink-2: #c4c4ca;
+    --color-muted: #8c8c95;
+    --color-line: rgb(255 255 255 / 0.08);
+    --color-line-strong: rgb(255 255 255 / 0.16);
+    --color-accent: #7b96ff;
+    --color-on-accent: #0b0b0d;
+    --color-money: #34c48b;
+    --color-up: #34c48b;
+    --color-down: #ff6b70;
+    --color-warn: #f6b100;
+    --color-warn-mark: #f6b100;
+    --color-tip: #2a3548;
+    --color-live: #34c48b;
+    --color-series-grey: #75757f;
+    --shadow-card: none;
+    --shadow-pill: 0 0 0 1px rgb(255 255 255 / 0.08);
+    --shadow-pop: 0 12px 32px -8px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(255 255 255 / 0.08);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-page: #0b0b0d;
+  --color-card: #141417;
+  --color-soft: #1c1c20;
+  --color-side: #101013;
+  --color-ink: #f3f3f5;
+  --color-ink-2: #c4c4ca;
+  --color-muted: #8c8c95;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.16);
+  --color-accent: #7b96ff;
+  --color-on-accent: #0b0b0d;
+  --color-money: #34c48b;
+  --color-up: #34c48b;
+  --color-down: #ff6b70;
+  --color-warn: #f6b100;
+  --color-warn-mark: #f6b100;
+  --color-tip: #2a3548;
+  --color-live: #34c48b;
+  --color-series-grey: #75757f;
+  --shadow-card: none;
+  --shadow-pill: 0 0 0 1px rgb(255 255 255 / 0.08);
+  --shadow-pop: 0 12px 32px -8px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(255 255 255 / 0.08);
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: default;
+}
+
+/* The one tooltip (components.md: dark surface, white text, one big value). */
+#tip {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  max-width: 320px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--color-tip);
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.45;
+  box-shadow: var(--shadow-pop);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+  font-variant-numeric: tabular-nums;
+}
+#tip.show {
+  opacity: 1;
+}
+.tip-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+.tip-muted {
+  color: rgb(255 255 255 / 0.68);
+}
+
+/* Skeletons pulse even under reduced motion (DRAFT4.md section 6), but slowly. */
+@keyframes d4-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+.skel {
+  background: var(--color-soft);
+  animation: d4-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes d4-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: d4-spin 0.8s linear infinite;
+}
+
+@keyframes d4-fade {
+  from {
+    opacity: 0;
+  }
+}
+.fade-in {
+  animation: d4-fade 150ms ease-out;
+}
+
+@keyframes d4-sheet-up {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+}
+@keyframes d4-drop {
+  from {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+}
+.sheet-up {
+  animation: d4-sheet-up 180ms ease-out;
+}
+.drop-in {
+  animation: d4-drop 150ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .sheet-up,
+  .drop-in {
+    animation: none;
+  }
+}
+
+/* Recharts: a mouse click leaves no outline box on the plot; keyboard focus gets the app's accent ring. */
+.recharts-wrapper :focus,
+.recharts-wrapper:focus {
+  outline: none;
+}
+.recharts-wrapper :focus-visible,
+.recharts-wrapper:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 8px;
+}

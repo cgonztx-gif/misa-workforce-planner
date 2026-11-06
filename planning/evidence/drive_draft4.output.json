@@ -1,0 +1,3071 @@
+{
+ "about": "drive_draft4.py: the rendered draft 4 page against planning/evidence/draft4_known_totals.output.json and outputs/*.csv. Simulated data, not Costco data.",
+ "run_at": "2026-11-05 20:39:59",
+ "seconds": 122.5,
+ "viewport": "1440x900",
+ "passed": 363,
+ "failed": 0,
+ "failures": [],
+ "results": [
+  {
+   "check": "server --draft4 ready",
+   "ok": true,
+   "measured": {
+    "ready_s": 19.4,
+    "health": {
+     "ready": true,
+     "seconds": 17.839925,
+     "error": null,
+     "status": "ready",
+     "step": "Ready",
+     "elapsed": 17.839925
+    }
+   },
+   "expected": null
+  },
+  {
+   "check": "Default view (no hash): Base, All, Service lens, Compare off, nothing selected",
+   "ok": true,
+   "measured": {
+    "hash": "#s=BASE&w=all&l=service&c=0",
+    "scenario": [
+     "Base"
+    ],
+    "warehouse": [
+     "All"
+    ],
+    "lens": [
+     "service"
+    ],
+    "compare": "false",
+    "detail_open": false,
+    "status": [
+     "Overview",
+     "Baseline planning week",
+     "Submitted plan",
+     "Simulated data",
+     "CSV",
+     "All"
+    ]
+   },
+   "expected": null
+  },
+  {
+   "check": "Default view: 'Submitted plan' pill shown",
+   "ok": true,
+   "measured": true,
+   "expected": null
+  },
+  {
+   "check": "Default view: every All cell = Σ submitted_employees in the CSV (joined on keys)",
+   "ok": true,
+   "measured": "63 cells, sum 2,710; CSV BASE sum 2,710",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: four tiles (value, draft line, delta, delta colour)",
+   "ok": true,
+   "measured": {
+    "service": "95.6% | Draft 68.5% | +27.1 pts",
+    "below": "25 | Draft 135 | −110",
+    "people": "2,710 | Draft 2,390 | +13%",
+    "cost": "$377.5k | Draft $329.1k | +15%"
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: tile tooltips carry the exact values",
+   "ok": true,
+   "measured": "service, below, people, cost tips agree",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: board has 63 cells",
+   "ok": true,
+   "measured": 63,
+   "expected": 63
+  },
+  {
+   "check": "BASE All warehouses: every cell's number (rendered text)",
+   "ok": true,
+   "measured": "63 of 63 agree; open cells sum 2,710",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: board numbers sum to the People tile and the known total",
+   "ok": true,
+   "measured": "board 2,710, People tile 2,710",
+   "expected": "2,710"
+  },
+  {
+   "check": "BASE All warehouses: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
+   "ok": true,
+   "measured": {
+    "97%+": 14,
+    "95%+": 28,
+    "Below goal": 10,
+    "Under 80%": 7,
+    "Closed": 3,
+    "99%+": 1
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: warm cells",
+   "ok": true,
+   "measured": 17,
+   "expected": 17
+  },
+  {
+   "check": "BASE All warehouses: pips (warehouses below goal per cell)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: every cell's aria-label and tooltip (context, people, change, chance, short)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: every cell sits under its day and in its department/shift row",
+   "ok": true,
+   "measured": "all 63 placed",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: closed cells are dashed '—'",
+   "ok": true,
+   "measured": [
+    "all|95|2026-02-14|EVE",
+    "all|95|2026-02-15|EVE",
+    "all|95|2026-02-15|OPEN"
+   ],
+   "expected": [
+    "all|95|2026-02-14|EVE",
+    "all|95|2026-02-15|EVE",
+    "all|95|2026-02-15|OPEN"
+   ]
+  },
+  {
+   "check": "BASE All warehouses: the single red-ringed cell is the worst block",
+   "ok": true,
+   "measured": [
+    "all|38|2026-02-14|MID"
+   ],
+   "expected": [
+    "all|38|2026-02-14|MID"
+   ]
+  },
+  {
+   "check": "BASE All warehouses: worst cell says so in its aria-label and tooltip",
+   "ok": true,
+   "measured": {
+    "aria": "All warehouses, Saturday February 14, Front End, Midday: 127 people, 28 more than the draft, lowest chance 57.0%, 2 warehouses below goal, holds the worst block in view",
+    "tip_has_rule": true
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: grid aria-label agrees with the tiles",
+   "ok": true,
+   "measured": "Schedule, Base, all warehouses: 2,710 people, 25 blocks below goal, most on Sat 14",
+   "expected": "2,710 people, 25 blocks below goal, most on Sat 14"
+  },
+  {
+   "check": "BASE All warehouses: column header tooltips (people, below goal) agree with the column",
+   "ok": true,
+   "measured": "7 of 7 agree",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "ok": true,
+   "measured": "13 rows shown, footnote '13 of 25', top Sat 14 · FE · Mid 57.0%",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: expanded Below goal list = the full ranked list (count = tile, total short)",
+   "ok": true,
+   "measured": "25 rows, total short 43",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: By day title for each lens (and the service chart's aria-label)",
+   "ok": true,
+   "measured": "service, below, people, cost agree",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: every colour on the board under People / Cost / Below goal has a swatch in the legend shown",
+   "ok": true,
+   "measured": "all listed",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "ok": true,
+   "measured": "all cells agree",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "ok": true,
+   "measured": "all tabs agree",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses: sidebar scenario tooltip agrees with the tiles",
+   "ok": true,
+   "measured": "Service 95.6% · Below goal 25",
+   "expected": "Service 95.6% · Below goal 25"
+  },
+  {
+   "check": "BASE All warehouses: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
+   "ok": true,
+   "measured": "none",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses Compare on: every cell's draft difference (+N / −N, ±0 only on a draft-unfilled cell, none when equal) and the number unchanged",
+   "ok": true,
+   "measured": "all open cells agree",
+   "expected": null
+  },
+  {
+   "check": "BASE All warehouses Compare on: dashed warm underline on exactly the draft-unfilled (P3) cells",
+   "ok": true,
+   "measured": {
+    "marked": 0,
+    "p3_in_view": 0,
+    "p3_without_a_visible_mark": []
+   },
+   "expected": {
+    "marked": 0
+   }
+  },
+  {
+   "check": "BASE All warehouses Compare on: chart legend adds Draft, tiles unchanged",
+   "ok": true,
+   "measured": {
+    "chart_head": [
+     "Lowest day",
+     "Sat 14 · 87.6%",
+     "Plan",
+     "Draft"
+    ],
+    "tiles_unchanged": true
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: every cell = submitted_employees (CSV joined on keys; closed = 0)",
+   "ok": true,
+   "measured": "63 of 63",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: four tiles (value, draft line, delta, delta colour)",
+   "ok": true,
+   "measured": {
+    "service": "94.6% | Draft 72.6% | +21.9 pts",
+    "below": "9 | Draft 42 | −33",
+    "people": "781 | Draft 701 | +11%",
+    "cost": "$107.3k | Draft $93.6k | +15%"
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: tile tooltips carry the exact values",
+   "ok": true,
+   "measured": "service, below, people, cost tips agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: board has 63 cells",
+   "ok": true,
+   "measured": 63,
+   "expected": 63
+  },
+  {
+   "check": "BASE Warehouse 1: every cell's number (rendered text)",
+   "ok": true,
+   "measured": "63 of 63 agree; open cells sum 781",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: board numbers sum to the People tile and the known total",
+   "ok": true,
+   "measured": "board 781, People tile 781",
+   "expected": "781"
+  },
+  {
+   "check": "BASE Warehouse 1: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
+   "ok": true,
+   "measured": {
+    "97%+": 28,
+    "95%+": 14,
+    "Below goal": 4,
+    "Under 80%": 5,
+    "99%+": 9,
+    "Closed": 3
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: warm cells",
+   "ok": true,
+   "measured": 9,
+   "expected": 9
+  },
+  {
+   "check": "BASE Warehouse 1: every cell's aria-label and tooltip (context, people, change, chance, short)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: every cell sits under its day and in its department/shift row",
+   "ok": true,
+   "measured": "all 63 placed",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: closed cells are dashed '—'",
+   "ok": true,
+   "measured": [
+    "BASE|1|95|2026-02-14|EVE",
+    "BASE|1|95|2026-02-15|EVE",
+    "BASE|1|95|2026-02-15|OPEN"
+   ],
+   "expected": [
+    "BASE|1|95|2026-02-14|EVE",
+    "BASE|1|95|2026-02-15|EVE",
+    "BASE|1|95|2026-02-15|OPEN"
+   ]
+  },
+  {
+   "check": "BASE Warehouse 1: the single red-ringed cell is the worst block",
+   "ok": true,
+   "measured": [
+    "BASE|1|38|2026-02-14|MID"
+   ],
+   "expected": [
+    "BASE|1|38|2026-02-14|MID"
+   ]
+  },
+  {
+   "check": "BASE Warehouse 1: worst cell says so in its aria-label and tooltip",
+   "ok": true,
+   "measured": {
+    "aria": "Warehouse 1, Saturday February 14, Front End, Midday: 34 people, 5 more than the draft, 57.0% chance, below goal, 5 short, worst block in view",
+    "tip_has_rule": true
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: grid aria-label agrees with the tiles",
+   "ok": true,
+   "measured": "Schedule, Base, Warehouse 1: 781 people, 9 blocks below goal, most on Sat 14",
+   "expected": "781 people, 9 blocks below goal, most on Sat 14"
+  },
+  {
+   "check": "BASE Warehouse 1: column header tooltips (people, below goal) agree with the column",
+   "ok": true,
+   "measured": "7 of 7 agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "ok": true,
+   "measured": "9 rows shown, footnote '9 of 9', top Sat 14 · FE · Mid 57.0%",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: expanded Below goal list = the full ranked list (count = tile, total short)",
+   "ok": true,
+   "measured": "9 rows, total short 18",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: By day title for each lens (and the service chart's aria-label)",
+   "ok": true,
+   "measured": "service, below, people, cost agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: every colour on the board under People / Cost / Below goal has a swatch in the legend shown",
+   "ok": true,
+   "measured": "all listed",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "ok": true,
+   "measured": "all cells agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "ok": true,
+   "measured": "all tabs agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1: sidebar scenario tooltip agrees with the tiles",
+   "ok": true,
+   "measured": "Service 94.6% · Below goal 9",
+   "expected": "Service 94.6% · Below goal 9"
+  },
+  {
+   "check": "BASE Warehouse 1: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
+   "ok": true,
+   "measured": "none",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1 Compare on: every cell's draft difference (+N / −N, ±0 only on a draft-unfilled cell, none when equal) and the number unchanged",
+   "ok": true,
+   "measured": "all open cells agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 1 Compare on: dashed warm underline on exactly the draft-unfilled (P3) cells",
+   "ok": true,
+   "measured": {
+    "marked": 0,
+    "p3_in_view": 0,
+    "p3_without_a_visible_mark": []
+   },
+   "expected": {
+    "marked": 0
+   }
+  },
+  {
+   "check": "BASE Warehouse 1 Compare on: chart legend adds Draft, tiles unchanged",
+   "ok": true,
+   "measured": {
+    "chart_head": [
+     "Lowest day",
+     "Sat 14 · 83.9%",
+     "Plan",
+     "Draft"
+    ],
+    "tiles_unchanged": true
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: every cell = submitted_employees (CSV joined on keys; closed = 0)",
+   "ok": true,
+   "measured": "63 of 63",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: four tiles (value, draft line, delta, delta colour)",
+   "ok": true,
+   "measured": {
+    "service": "96.3% | Draft 70.4% | +25.9 pts",
+    "below": "8 | Draft 42 | −34",
+    "people": "957 | Draft 829 | +15%",
+    "cost": "$135.6k | Draft $117.8k | +15%"
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: tile tooltips carry the exact values",
+   "ok": true,
+   "measured": "service, below, people, cost tips agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: board has 63 cells",
+   "ok": true,
+   "measured": 63,
+   "expected": 63
+  },
+  {
+   "check": "BASE Warehouse 2: every cell's number (rendered text)",
+   "ok": true,
+   "measured": "63 of 63 agree; open cells sum 957",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: board numbers sum to the People tile and the known total",
+   "ok": true,
+   "measured": "board 957, People tile 957",
+   "expected": "957"
+  },
+  {
+   "check": "BASE Warehouse 2: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
+   "ok": true,
+   "measured": {
+    "99%+": 14,
+    "97%+": 24,
+    "95%+": 14,
+    "Below goal": 6,
+    "Under 80%": 2,
+    "Closed": 3
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: warm cells",
+   "ok": true,
+   "measured": 8,
+   "expected": 8
+  },
+  {
+   "check": "BASE Warehouse 2: every cell's aria-label and tooltip (context, people, change, chance, short)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: every cell sits under its day and in its department/shift row",
+   "ok": true,
+   "measured": "all 63 placed",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: closed cells are dashed '—'",
+   "ok": true,
+   "measured": [
+    "BASE|2|95|2026-02-14|EVE",
+    "BASE|2|95|2026-02-15|EVE",
+    "BASE|2|95|2026-02-15|OPEN"
+   ],
+   "expected": [
+    "BASE|2|95|2026-02-14|EVE",
+    "BASE|2|95|2026-02-15|EVE",
+    "BASE|2|95|2026-02-15|OPEN"
+   ]
+  },
+  {
+   "check": "BASE Warehouse 2: the single red-ringed cell is the worst block",
+   "ok": true,
+   "measured": [
+    "BASE|2|92|2026-02-14|OPEN"
+   ],
+   "expected": [
+    "BASE|2|92|2026-02-14|OPEN"
+   ]
+  },
+  {
+   "check": "BASE Warehouse 2: worst cell says so in its aria-label and tooltip",
+   "ok": true,
+   "measured": {
+    "aria": "Warehouse 2, Saturday February 14, Merchandising, Opening: 25 people, 3 more than the draft, 76.4% chance, below goal, 2 short, worst block in view",
+    "tip_has_rule": true
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: grid aria-label agrees with the tiles",
+   "ok": true,
+   "measured": "Schedule, Base, Warehouse 2: 957 people, 8 blocks below goal, most on Sat 14",
+   "expected": "957 people, 8 blocks below goal, most on Sat 14"
+  },
+  {
+   "check": "BASE Warehouse 2: column header tooltips (people, below goal) agree with the column",
+   "ok": true,
+   "measured": "7 of 7 agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "ok": true,
+   "measured": "8 rows shown, footnote '8 of 8', top Sat 14 · Merch · Open 76.4%",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: expanded Below goal list = the full ranked list (count = tile, total short)",
+   "ok": true,
+   "measured": "8 rows, total short 14",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: By day title for each lens (and the service chart's aria-label)",
+   "ok": true,
+   "measured": "service, below, people, cost agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: every colour on the board under People / Cost / Below goal has a swatch in the legend shown",
+   "ok": true,
+   "measured": "all listed",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "ok": true,
+   "measured": "all cells agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "ok": true,
+   "measured": "all tabs agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2: sidebar scenario tooltip agrees with the tiles",
+   "ok": true,
+   "measured": "Service 96.3% · Below goal 8",
+   "expected": "Service 96.3% · Below goal 8"
+  },
+  {
+   "check": "BASE Warehouse 2: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
+   "ok": true,
+   "measured": "none",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2 Compare on: every cell's draft difference (+N / −N, ±0 only on a draft-unfilled cell, none when equal) and the number unchanged",
+   "ok": true,
+   "measured": "all open cells agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 2 Compare on: dashed warm underline on exactly the draft-unfilled (P3) cells",
+   "ok": true,
+   "measured": {
+    "marked": 0,
+    "p3_in_view": 0,
+    "p3_without_a_visible_mark": []
+   },
+   "expected": {
+    "marked": 0
+   }
+  },
+  {
+   "check": "BASE Warehouse 2 Compare on: chart legend adds Draft, tiles unchanged",
+   "ok": true,
+   "measured": {
+    "chart_head": [
+     "Lowest day",
+     "Sat 14 · 89.4%",
+     "Plan",
+     "Draft"
+    ],
+    "tiles_unchanged": true
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: every cell = submitted_employees (CSV joined on keys; closed = 0)",
+   "ok": true,
+   "measured": "63 of 63",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: four tiles (value, draft line, delta, delta colour)",
+   "ok": true,
+   "measured": {
+    "service": "95.8% | Draft 62.4% | +33.4 pts",
+    "below": "8 | Draft 51 | −43",
+    "people": "972 | Draft 860 | +13%",
+    "cost": "$134.5k | Draft $117.7k | +14%"
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: tile tooltips carry the exact values",
+   "ok": true,
+   "measured": "service, below, people, cost tips agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: board has 63 cells",
+   "ok": true,
+   "measured": 63,
+   "expected": 63
+  },
+  {
+   "check": "BASE Warehouse 4: every cell's number (rendered text)",
+   "ok": true,
+   "measured": "63 of 63 agree; open cells sum 972",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: board numbers sum to the People tile and the known total",
+   "ok": true,
+   "measured": "board 972, People tile 972",
+   "expected": "972"
+  },
+  {
+   "check": "BASE Warehouse 4: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
+   "ok": true,
+   "measured": {
+    "97%+": 26,
+    "95%+": 22,
+    "Below goal": 7,
+    "Under 80%": 1,
+    "Closed": 3,
+    "99%+": 4
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: warm cells",
+   "ok": true,
+   "measured": 8,
+   "expected": 8
+  },
+  {
+   "check": "BASE Warehouse 4: every cell's aria-label and tooltip (context, people, change, chance, short)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: every cell sits under its day and in its department/shift row",
+   "ok": true,
+   "measured": "all 63 placed",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: closed cells are dashed '—'",
+   "ok": true,
+   "measured": [
+    "BASE|4|95|2026-02-14|EVE",
+    "BASE|4|95|2026-02-15|EVE",
+    "BASE|4|95|2026-02-15|OPEN"
+   ],
+   "expected": [
+    "BASE|4|95|2026-02-14|EVE",
+    "BASE|4|95|2026-02-15|EVE",
+    "BASE|4|95|2026-02-15|OPEN"
+   ]
+  },
+  {
+   "check": "BASE Warehouse 4: the single red-ringed cell is the worst block",
+   "ok": true,
+   "measured": [
+    "BASE|4|95|2026-02-14|OPEN"
+   ],
+   "expected": [
+    "BASE|4|95|2026-02-14|OPEN"
+   ]
+  },
+  {
+   "check": "BASE Warehouse 4: worst cell says so in its aria-label and tooltip",
+   "ok": true,
+   "measured": {
+    "aria": "Warehouse 4, Saturday February 14, Pharmacy, Opening: 3 people, same as the draft, 74.9% chance, below goal, 1 short, worst block in view",
+    "tip_has_rule": true
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: grid aria-label agrees with the tiles",
+   "ok": true,
+   "measured": "Schedule, Base, Warehouse 4: 972 people, 8 blocks below goal, most on Sat 14",
+   "expected": "972 people, 8 blocks below goal, most on Sat 14"
+  },
+  {
+   "check": "BASE Warehouse 4: column header tooltips (people, below goal) agree with the column",
+   "ok": true,
+   "measured": "7 of 7 agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "ok": true,
+   "measured": "8 rows shown, footnote '8 of 8', top Sat 14 · Pharm · Open 74.9%",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: expanded Below goal list = the full ranked list (count = tile, total short)",
+   "ok": true,
+   "measured": "8 rows, total short 11",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: By day title for each lens (and the service chart's aria-label)",
+   "ok": true,
+   "measured": "service, below, people, cost agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: every colour on the board under People / Cost / Below goal has a swatch in the legend shown",
+   "ok": true,
+   "measured": "all listed",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "ok": true,
+   "measured": "all cells agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "ok": true,
+   "measured": "all tabs agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4: sidebar scenario tooltip agrees with the tiles",
+   "ok": true,
+   "measured": "Service 95.8% · Below goal 8",
+   "expected": "Service 95.8% · Below goal 8"
+  },
+  {
+   "check": "BASE Warehouse 4: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
+   "ok": true,
+   "measured": "none",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4 Compare on: every cell's draft difference (+N / −N, ±0 only on a draft-unfilled cell, none when equal) and the number unchanged",
+   "ok": true,
+   "measured": "all open cells agree",
+   "expected": null
+  },
+  {
+   "check": "BASE Warehouse 4 Compare on: dashed warm underline on exactly the draft-unfilled (P3) cells",
+   "ok": true,
+   "measured": {
+    "marked": 0,
+    "p3_in_view": 0,
+    "p3_without_a_visible_mark": []
+   },
+   "expected": {
+    "marked": 0
+   }
+  },
+  {
+   "check": "BASE Warehouse 4 Compare on: chart legend adds Draft, tiles unchanged",
+   "ok": true,
+   "measured": {
+    "chart_head": [
+     "Lowest day",
+     "Sat 14 · 89.6%",
+     "Plan",
+     "Draft"
+    ],
+    "tiles_unchanged": true
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE: detail of BASE|1|38|2026-02-14|MID (worst block)",
+   "ok": true,
+   "measured": "Warehouse 1 · 12:30–16:00 · 3.5 h | Below goal | At capacity | Holiday PTO | Draft | 29 | → | Plan | 34 | +5 | Chance | Short 5 | 57.0% | 0 | 80% | 95% | Staff | 34 of 34 | Regular 27 · Overtime 7 | need 39 | Cost | $3,647 | +$696 | Cushion | 2 | Utilization | 82% | Chance by day",
+   "expected": null
+  },
+  {
+   "check": "BASE: detail of BASE|1|92|2026-02-14|EVE (second in the list)",
+   "ok": true,
+   "measured": "Warehouse 1 · 14:00–18:30 · 4.5 h | Below goal | At capacity | Holiday PTO | Draft | 10 | → | Plan | 11 | +1 | Chance | Short 2 | 62.3% | 0 | 80% | 95% | Staff | 11 of 11 | Regular 8 · Overtime 3 | need 13 | Cost | $1,615 | +$178 | Cushion | 0 | Utilization | 81% | Chance by day",
+   "expected": null
+  },
+  {
+   "check": "BASE: detail of BASE|2|38|2026-02-12|OPEN (a healthy block)",
+   "ok": true,
+   "measured": "Warehouse 2 · 09:00–13:00 · 4 h | Meets goal | Draft | 12 | → | Plan | 14 | +2 | Chance | 99.2% | 0 | 80% | 95% | Staff | 14 of 22 | Regular 14 | need 14 | Cost | $1,674 | +$239 | Cushion | 2 | Utilization | 69% | Chance by day | Goal 95% | Thu | 99.2%",
+   "expected": null
+  },
+  {
+   "check": "BASE: detail of BASE|1|38|2026-02-14|MID (worst block, Compare on)",
+   "ok": true,
+   "measured": "Warehouse 1 · 12:30–16:00 · 3.5 h | Below goal | At capacity | Holiday PTO | Draft | 29 | → | Plan | 34 | +5 | Chance | Short 5 | draft 4.8% | 57.0% | 0 | 80% | 95% | Staff | 34 of 34 | Regular 27 · Overtime 7 | need 39 | Draft · Regular 27 · Cross-trained 1 · Overtime 1 | Cost | $3,647 | +$696 | Cushion | 2 | Utilization",
+   "expected": null
+  },
+  {
+   "check": "BASE: All-cell detail of all|38|2026-02-14|MID (the worst block's cell)",
+   "ok": true,
+   "measured": {
+    "rows": [
+     [
+      "Warehouse 1",
+      "29",
+      "34",
+      "+5",
+      "57.0%"
+     ],
+     [
+      "Warehouse 2",
+      "31",
+      "45",
+      "+14",
+      "81.8%"
+     ],
+     [
+      "Warehouse 4",
+      "39",
+      "48",
+      "+9",
+      "96.2%"
+     ]
+    ],
+    "sum": [
+     "All",
+     "99",
+     "127",
+     "+28"
+    ]
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE: All-cell detail of all|92|2026-02-14|OPEN (Merchandising Sat 14 Open)",
+   "ok": true,
+   "measured": {
+    "rows": [
+     [
+      "Warehouse 1",
+      "17",
+      "20",
+      "+3",
+      "65.8%"
+     ],
+     [
+      "Warehouse 2",
+      "22",
+      "25",
+      "+3",
+      "76.4%"
+     ],
+     [
+      "Warehouse 4",
+      "27",
+      "26",
+      "−1",
+      "95.9%"
+     ]
+    ],
+    "sum": [
+     "All",
+     "66",
+     "71",
+     "+5"
+    ]
+   },
+   "expected": null
+  },
+  {
+   "check": "BASE: All-cell detail of all|38|2026-02-12|OPEN (a healthy cell)",
+   "ok": true,
+   "measured": {
+    "rows": [
+     [
+      "Warehouse 1",
+      "11",
+      "11",
+      "±0",
+      "98.2%"
+     ],
+     [
+      "Warehouse 2",
+      "12",
+      "14",
+      "+2",
+      "99.2%"
+     ],
+     [
+      "Warehouse 4",
+      "13",
+      "14",
+      "+1",
+      "98.1%"
+     ]
+    ],
+    "sum": [
+     "All",
+     "36",
+     "39",
+     "+3"
+    ]
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: four tiles (value, draft line, delta, delta colour)",
+   "ok": true,
+   "measured": {
+    "service": "87.0% | Draft 58.3% | +28.7 pts",
+    "below": "45 | Draft 139 | −94",
+    "people": "2,766 | Draft 2,390 | +16%",
+    "cost": "$387.9k | Draft $329.1k | +18%"
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: tile tooltips carry the exact values",
+   "ok": true,
+   "measured": "service, below, people, cost tips agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: board has 63 cells",
+   "ok": true,
+   "measured": 63,
+   "expected": 63
+  },
+  {
+   "check": "PEAK All warehouses: every cell's number (rendered text)",
+   "ok": true,
+   "measured": "63 of 63 agree; open cells sum 2,766",
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: board numbers sum to the People tile and the known total",
+   "ok": true,
+   "measured": "board 2,766, People tile 2,766",
+   "expected": "2,766"
+  },
+  {
+   "check": "PEAK All warehouses: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
+   "ok": true,
+   "measured": {
+    "97%+": 13,
+    "Below goal": 7,
+    "Under 80%": 14,
+    "95%+": 26,
+    "Closed": 3
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: warm cells",
+   "ok": true,
+   "measured": 21,
+   "expected": 21
+  },
+  {
+   "check": "PEAK All warehouses: pips (warehouses below goal per cell)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: every cell's aria-label and tooltip (context, people, change, chance, short)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: every cell sits under its day and in its department/shift row",
+   "ok": true,
+   "measured": "all 63 placed",
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: closed cells are dashed '—'",
+   "ok": true,
+   "measured": [
+    "all|95|2026-02-14|EVE",
+    "all|95|2026-02-15|EVE",
+    "all|95|2026-02-15|OPEN"
+   ],
+   "expected": [
+    "all|95|2026-02-14|EVE",
+    "all|95|2026-02-15|EVE",
+    "all|95|2026-02-15|OPEN"
+   ]
+  },
+  {
+   "check": "PEAK All warehouses: the single red-ringed cell is the worst block",
+   "ok": true,
+   "measured": [
+    "all|92|2026-02-14|OPEN"
+   ],
+   "expected": [
+    "all|92|2026-02-14|OPEN"
+   ]
+  },
+  {
+   "check": "PEAK All warehouses: worst cell says so in its aria-label and tooltip",
+   "ok": true,
+   "measured": {
+    "aria": "All warehouses, Saturday February 14, Merchandising, Opening: 72 people, 6 more than the draft, lowest chance 0.3%, 3 warehouses below goal, holds the worst block in view",
+    "tip_has_rule": true
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: grid aria-label agrees with the tiles",
+   "ok": true,
+   "measured": "Schedule, Peak, all warehouses: 2,766 people, 45 blocks below goal, most on Sat 14",
+   "expected": "2,766 people, 45 blocks below goal, most on Sat 14"
+  },
+  {
+   "check": "PEAK All warehouses: column header tooltips (people, below goal) agree with the column",
+   "ok": true,
+   "measured": "7 of 7 agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "ok": true,
+   "measured": "13 rows shown, footnote '13 of 45', top Sat 14 · Merch · Open 0.3%",
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: expanded Below goal list = the full ranked list (count = tile, total short)",
+   "ok": true,
+   "measured": "45 rows, total short 190",
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: By day title for each lens (and the service chart's aria-label)",
+   "ok": true,
+   "measured": "service, below, people, cost agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: every colour on the board under People / Cost / Below goal has a swatch in the legend shown",
+   "ok": true,
+   "measured": "all listed",
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "ok": true,
+   "measured": "all cells agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "ok": true,
+   "measured": "all tabs agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses: sidebar scenario tooltip agrees with the tiles",
+   "ok": true,
+   "measured": "Service 87.0% · Below goal 45",
+   "expected": "Service 87.0% · Below goal 45"
+  },
+  {
+   "check": "PEAK All warehouses: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
+   "ok": true,
+   "measured": "none",
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses Compare on: every cell's draft difference (+N / −N, ±0 only on a draft-unfilled cell, none when equal) and the number unchanged",
+   "ok": true,
+   "measured": "all open cells agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK All warehouses Compare on: dashed warm underline on exactly the draft-unfilled (P3) cells",
+   "ok": true,
+   "measured": {
+    "marked": 0,
+    "p3_in_view": 0,
+    "p3_without_a_visible_mark": []
+   },
+   "expected": {
+    "marked": 0
+   }
+  },
+  {
+   "check": "PEAK All warehouses Compare on: chart legend adds Draft, tiles unchanged",
+   "ok": true,
+   "measured": {
+    "chart_head": [
+     "Lowest day",
+     "Sat 14 · 46.7%",
+     "Plan",
+     "Draft"
+    ],
+    "tiles_unchanged": true
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: every cell = submitted_employees (CSV joined on keys; closed = 0)",
+   "ok": true,
+   "measured": "63 of 63",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: four tiles (value, draft line, delta, delta colour)",
+   "ok": true,
+   "measured": {
+    "service": "87.7% | Draft 61.8% | +25.9 pts",
+    "below": "14 | Draft 43 | −29",
+    "people": "798 | Draft 701 | +14%",
+    "cost": "$110.3k | Draft $93.6k | +18%"
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: tile tooltips carry the exact values",
+   "ok": true,
+   "measured": "service, below, people, cost tips agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: board has 63 cells",
+   "ok": true,
+   "measured": 63,
+   "expected": 63
+  },
+  {
+   "check": "PEAK Warehouse 1: every cell's number (rendered text)",
+   "ok": true,
+   "measured": "63 of 63 agree; open cells sum 798",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: board numbers sum to the People tile and the known total",
+   "ok": true,
+   "measured": "board 798, People tile 798",
+   "expected": "798"
+  },
+  {
+   "check": "PEAK Warehouse 1: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
+   "ok": true,
+   "measured": {
+    "97%+": 25,
+    "Below goal": 4,
+    "Under 80%": 10,
+    "95%+": 14,
+    "99%+": 7,
+    "Closed": 3
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: warm cells",
+   "ok": true,
+   "measured": 14,
+   "expected": 14
+  },
+  {
+   "check": "PEAK Warehouse 1: every cell's aria-label and tooltip (context, people, change, chance, short)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: every cell sits under its day and in its department/shift row",
+   "ok": true,
+   "measured": "all 63 placed",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: closed cells are dashed '—'",
+   "ok": true,
+   "measured": [
+    "PEAK|1|95|2026-02-14|EVE",
+    "PEAK|1|95|2026-02-15|EVE",
+    "PEAK|1|95|2026-02-15|OPEN"
+   ],
+   "expected": [
+    "PEAK|1|95|2026-02-14|EVE",
+    "PEAK|1|95|2026-02-15|EVE",
+    "PEAK|1|95|2026-02-15|OPEN"
+   ]
+  },
+  {
+   "check": "PEAK Warehouse 1: the single red-ringed cell is the worst block",
+   "ok": true,
+   "measured": [
+    "PEAK|1|92|2026-02-14|OPEN"
+   ],
+   "expected": [
+    "PEAK|1|92|2026-02-14|OPEN"
+   ]
+  },
+  {
+   "check": "PEAK Warehouse 1: worst cell says so in its aria-label and tooltip",
+   "ok": true,
+   "measured": {
+    "aria": "Warehouse 1, Saturday February 14, Merchandising, Opening: 20 people, 3 more than the draft, 0.3% chance, below goal, 8 short, worst block in view",
+    "tip_has_rule": true
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: grid aria-label agrees with the tiles",
+   "ok": true,
+   "measured": "Schedule, Peak, Warehouse 1: 798 people, 14 blocks below goal, most on Sat 14",
+   "expected": "798 people, 14 blocks below goal, most on Sat 14"
+  },
+  {
+   "check": "PEAK Warehouse 1: column header tooltips (people, below goal) agree with the column",
+   "ok": true,
+   "measured": "7 of 7 agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "ok": true,
+   "measured": "13 rows shown, footnote '13 of 14', top Sat 14 · Merch · Open 0.3%",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: expanded Below goal list = the full ranked list (count = tile, total short)",
+   "ok": true,
+   "measured": "14 rows, total short 52",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: By day title for each lens (and the service chart's aria-label)",
+   "ok": true,
+   "measured": "service, below, people, cost agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: every colour on the board under People / Cost / Below goal has a swatch in the legend shown",
+   "ok": true,
+   "measured": "all listed",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "ok": true,
+   "measured": "all cells agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "ok": true,
+   "measured": "all tabs agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1: sidebar scenario tooltip agrees with the tiles",
+   "ok": true,
+   "measured": "Service 87.7% · Below goal 14",
+   "expected": "Service 87.7% · Below goal 14"
+  },
+  {
+   "check": "PEAK Warehouse 1: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
+   "ok": true,
+   "measured": "none",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1 Compare on: every cell's draft difference (+N / −N, ±0 only on a draft-unfilled cell, none when equal) and the number unchanged",
+   "ok": true,
+   "measured": "all open cells agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 1 Compare on: dashed warm underline on exactly the draft-unfilled (P3) cells",
+   "ok": true,
+   "measured": {
+    "marked": 0,
+    "p3_in_view": 0,
+    "p3_without_a_visible_mark": []
+   },
+   "expected": {
+    "marked": 0
+   }
+  },
+  {
+   "check": "PEAK Warehouse 1 Compare on: chart legend adds Draft, tiles unchanged",
+   "ok": true,
+   "measured": {
+    "chart_head": [
+     "Lowest day",
+     "Sat 14 · 53.5%",
+     "Plan",
+     "Draft"
+    ],
+    "tiles_unchanged": true
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: every cell = submitted_employees (CSV joined on keys; closed = 0)",
+   "ok": true,
+   "measured": "63 of 63",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: four tiles (value, draft line, delta, delta colour)",
+   "ok": true,
+   "measured": {
+    "service": "88.5% | Draft 61.5% | +27.0 pts",
+    "below": "14 | Draft 42 | −28",
+    "people": "975 | Draft 829 | +18%",
+    "cost": "$139.1k | Draft $117.8k | +18%"
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: tile tooltips carry the exact values",
+   "ok": true,
+   "measured": "service, below, people, cost tips agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: board has 63 cells",
+   "ok": true,
+   "measured": 63,
+   "expected": 63
+  },
+  {
+   "check": "PEAK Warehouse 2: every cell's number (rendered text)",
+   "ok": true,
+   "measured": "63 of 63 agree; open cells sum 975",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: board numbers sum to the People tile and the known total",
+   "ok": true,
+   "measured": "board 975, People tile 975",
+   "expected": "975"
+  },
+  {
+   "check": "PEAK Warehouse 2: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
+   "ok": true,
+   "measured": {
+    "99%+": 12,
+    "95%+": 10,
+    "Under 80%": 9,
+    "97%+": 24,
+    "Below goal": 5,
+    "Closed": 3
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: warm cells",
+   "ok": true,
+   "measured": 14,
+   "expected": 14
+  },
+  {
+   "check": "PEAK Warehouse 2: every cell's aria-label and tooltip (context, people, change, chance, short)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: every cell sits under its day and in its department/shift row",
+   "ok": true,
+   "measured": "all 63 placed",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: closed cells are dashed '—'",
+   "ok": true,
+   "measured": [
+    "PEAK|2|95|2026-02-14|EVE",
+    "PEAK|2|95|2026-02-15|EVE",
+    "PEAK|2|95|2026-02-15|OPEN"
+   ],
+   "expected": [
+    "PEAK|2|95|2026-02-14|EVE",
+    "PEAK|2|95|2026-02-15|EVE",
+    "PEAK|2|95|2026-02-15|OPEN"
+   ]
+  },
+  {
+   "check": "PEAK Warehouse 2: the single red-ringed cell is the worst block",
+   "ok": true,
+   "measured": [
+    "PEAK|2|92|2026-02-14|OPEN"
+   ],
+   "expected": [
+    "PEAK|2|92|2026-02-14|OPEN"
+   ]
+  },
+  {
+   "check": "PEAK Warehouse 2: worst cell says so in its aria-label and tooltip",
+   "ok": true,
+   "measured": {
+    "aria": "Warehouse 2, Saturday February 14, Merchandising, Opening: 25 people, 3 more than the draft, 0.8% chance, below goal, 9 short, worst block in view",
+    "tip_has_rule": true
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: grid aria-label agrees with the tiles",
+   "ok": true,
+   "measured": "Schedule, Peak, Warehouse 2: 975 people, 14 blocks below goal, most on Sat 14",
+   "expected": "975 people, 14 blocks below goal, most on Sat 14/Sun 15"
+  },
+  {
+   "check": "PEAK Warehouse 2: column header tooltips (people, below goal) agree with the column",
+   "ok": true,
+   "measured": "7 of 7 agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "ok": true,
+   "measured": "13 rows shown, footnote '13 of 14', top Sat 14 · Merch · Open 0.8%",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: expanded Below goal list = the full ranked list (count = tile, total short)",
+   "ok": true,
+   "measured": "14 rows, total short 62",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: By day title for each lens (and the service chart's aria-label)",
+   "ok": true,
+   "measured": "service, below, people, cost agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: every colour on the board under People / Cost / Below goal has a swatch in the legend shown",
+   "ok": true,
+   "measured": "all listed",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "ok": true,
+   "measured": "all cells agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "ok": true,
+   "measured": "all tabs agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2: sidebar scenario tooltip agrees with the tiles",
+   "ok": true,
+   "measured": "Service 88.5% · Below goal 14",
+   "expected": "Service 88.5% · Below goal 14"
+  },
+  {
+   "check": "PEAK Warehouse 2: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
+   "ok": true,
+   "measured": "none",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2 Compare on: every cell's draft difference (+N / −N, ±0 only on a draft-unfilled cell, none when equal) and the number unchanged",
+   "ok": true,
+   "measured": "all open cells agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 2 Compare on: dashed warm underline on exactly the draft-unfilled (P3) cells",
+   "ok": true,
+   "measured": {
+    "marked": 0,
+    "p3_in_view": 0,
+    "p3_without_a_visible_mark": []
+   },
+   "expected": {
+    "marked": 0
+   }
+  },
+  {
+   "check": "PEAK Warehouse 2 Compare on: chart legend adds Draft, tiles unchanged",
+   "ok": true,
+   "measured": {
+    "chart_head": [
+     "Lowest day",
+     "Sat 14 · 52.7%",
+     "Plan",
+     "Draft"
+    ],
+    "tiles_unchanged": true
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: every cell = submitted_employees (CSV joined on keys; closed = 0)",
+   "ok": true,
+   "measured": "63 of 63",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: four tiles (value, draft line, delta, delta colour)",
+   "ok": true,
+   "measured": {
+    "service": "84.8% | Draft 51.6% | +33.2 pts",
+    "below": "17 | Draft 54 | −37",
+    "people": "993 | Draft 860 | +15%",
+    "cost": "$138.5k | Draft $117.7k | +18%"
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: tile tooltips carry the exact values",
+   "ok": true,
+   "measured": "service, below, people, cost tips agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: board has 63 cells",
+   "ok": true,
+   "measured": 63,
+   "expected": 63
+  },
+  {
+   "check": "PEAK Warehouse 4: every cell's number (rendered text)",
+   "ok": true,
+   "measured": "63 of 63 agree; open cells sum 993",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: board numbers sum to the People tile and the known total",
+   "ok": true,
+   "measured": "board 993, People tile 993",
+   "expected": "993"
+  },
+  {
+   "check": "PEAK Warehouse 4: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
+   "ok": true,
+   "measured": {
+    "97%+": 25,
+    "Below goal": 7,
+    "Under 80%": 10,
+    "95%+": 16,
+    "Closed": 3,
+    "99%+": 2
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: warm cells",
+   "ok": true,
+   "measured": 17,
+   "expected": 17
+  },
+  {
+   "check": "PEAK Warehouse 4: every cell's aria-label and tooltip (context, people, change, chance, short)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: every cell sits under its day and in its department/shift row",
+   "ok": true,
+   "measured": "all 63 placed",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: closed cells are dashed '—'",
+   "ok": true,
+   "measured": [
+    "PEAK|4|95|2026-02-14|EVE",
+    "PEAK|4|95|2026-02-15|EVE",
+    "PEAK|4|95|2026-02-15|OPEN"
+   ],
+   "expected": [
+    "PEAK|4|95|2026-02-14|EVE",
+    "PEAK|4|95|2026-02-15|EVE",
+    "PEAK|4|95|2026-02-15|OPEN"
+   ]
+  },
+  {
+   "check": "PEAK Warehouse 4: the single red-ringed cell is the worst block",
+   "ok": true,
+   "measured": [
+    "PEAK|4|38|2026-02-13|MID"
+   ],
+   "expected": [
+    "PEAK|4|38|2026-02-13|MID"
+   ]
+  },
+  {
+   "check": "PEAK Warehouse 4: worst cell says so in its aria-label and tooltip",
+   "ok": true,
+   "measured": {
+    "aria": "Warehouse 4, Friday February 13, Front End, Midday: 34 people, 5 more than the draft, 0.7% chance, below goal, 12 short, worst block in view",
+    "tip_has_rule": true
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: grid aria-label agrees with the tiles",
+   "ok": true,
+   "measured": "Schedule, Peak, Warehouse 4: 993 people, 17 blocks below goal, most on Sat 14",
+   "expected": "993 people, 17 blocks below goal, most on Sat 14"
+  },
+  {
+   "check": "PEAK Warehouse 4: column header tooltips (people, below goal) agree with the column",
+   "ok": true,
+   "measured": "7 of 7 agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "ok": true,
+   "measured": "13 rows shown, footnote '13 of 17', top Fri 13 · FE · Mid 0.7%",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: expanded Below goal list = the full ranked list (count = tile, total short)",
+   "ok": true,
+   "measured": "17 rows, total short 76",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: By day title for each lens (and the service chart's aria-label)",
+   "ok": true,
+   "measured": "service, below, people, cost agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: every colour on the board under People / Cost / Below goal has a swatch in the legend shown",
+   "ok": true,
+   "measured": "all listed",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "ok": true,
+   "measured": "all cells agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "ok": true,
+   "measured": "all tabs agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4: sidebar scenario tooltip agrees with the tiles",
+   "ok": true,
+   "measured": "Service 84.8% · Below goal 17",
+   "expected": "Service 84.8% · Below goal 17"
+  },
+  {
+   "check": "PEAK Warehouse 4: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
+   "ok": true,
+   "measured": "none",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4 Compare on: every cell's draft difference (+N / −N, ±0 only on a draft-unfilled cell, none when equal) and the number unchanged",
+   "ok": true,
+   "measured": "all open cells agree",
+   "expected": null
+  },
+  {
+   "check": "PEAK Warehouse 4 Compare on: dashed warm underline on exactly the draft-unfilled (P3) cells",
+   "ok": true,
+   "measured": {
+    "marked": 0,
+    "p3_in_view": 0,
+    "p3_without_a_visible_mark": []
+   },
+   "expected": {
+    "marked": 0
+   }
+  },
+  {
+   "check": "PEAK Warehouse 4 Compare on: chart legend adds Draft, tiles unchanged",
+   "ok": true,
+   "measured": {
+    "chart_head": [
+     "Lowest day",
+     "Sat 14 · 34.0%",
+     "Plan",
+     "Draft"
+    ],
+    "tiles_unchanged": true
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK: detail of PEAK|1|92|2026-02-14|OPEN (worst block)",
+   "ok": true,
+   "measured": "Warehouse 1 · 04:00–09:30 · 5.5 h | Below goal | At capacity | Holiday PTO | Draft | 17 | → | Plan | 20 | +3 | Chance | Short 8 | 0.3% | 0 | 80% | 95% | Staff | 20 of 20 | Regular 16 · Overtime 4 | need 28 | Cost | $3,511 | +$653 | Cushion | 0 | Utilization | 101% | Chance by day",
+   "expected": null
+  },
+  {
+   "check": "PEAK: detail of PEAK|4|38|2026-02-13|MID (second in the list)",
+   "ok": true,
+   "measured": "Warehouse 4 · 13:00–17:00 · 4 h | Below goal | At capacity | PTO | Draft | 29 | → | Plan | 34 | +5 | Chance | Short 12 | 0.7% | 0 | 80% | 95% | Staff | 34 of 34 | Regular 28 · Overtime 6 | need 46 | Cost | $4,214 | +$812 | Cushion | 0 | Utilization | 99% | Chance by day",
+   "expected": null
+  },
+  {
+   "check": "PEAK: detail of PEAK|2|38|2026-02-12|OPEN (a healthy block)",
+   "ok": true,
+   "measured": "Warehouse 2 · 09:00–13:00 · 4 h | Meets goal | Draft | 12 | → | Plan | 14 | +2 | Chance | 99.2% | 0 | 80% | 95% | Staff | 14 of 22 | Regular 14 | need 14 | Cost | $1,674 | +$239 | Cushion | 2 | Utilization | 69% | Chance by day | Goal 95% | Thu | 99.2%",
+   "expected": null
+  },
+  {
+   "check": "PEAK: detail of PEAK|1|92|2026-02-14|OPEN (worst block, Compare on)",
+   "ok": true,
+   "measured": "Warehouse 1 · 04:00–09:30 · 5.5 h | Below goal | At capacity | Holiday PTO | Draft | 17 | → | Plan | 20 | +3 | Chance | Short 8 | draft 0% | 0.3% | 0 | 80% | 95% | Staff | 20 of 20 | Regular 16 · Overtime 4 | need 28 | Draft · Regular 16 · Overtime 1 | Cost | $3,511 | +$653 | Cushion | 0 | Utilization",
+   "expected": null
+  },
+  {
+   "check": "PEAK: All-cell detail of all|92|2026-02-14|OPEN (the worst block's cell)",
+   "ok": true,
+   "measured": {
+    "rows": [
+     [
+      "Warehouse 1",
+      "17",
+      "20",
+      "+3",
+      "0.3%"
+     ],
+     [
+      "Warehouse 2",
+      "22",
+      "25",
+      "+3",
+      "0.8%"
+     ],
+     [
+      "Warehouse 4",
+      "27",
+      "27",
+      "±0",
+      "5.2%"
+     ]
+    ],
+    "sum": [
+     "All",
+     "66",
+     "72",
+     "+6"
+    ]
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK: All-cell detail of all|92|2026-02-14|OPEN (Merchandising Sat 14 Open)",
+   "ok": true,
+   "measured": {
+    "rows": [
+     [
+      "Warehouse 1",
+      "17",
+      "20",
+      "+3",
+      "0.3%"
+     ],
+     [
+      "Warehouse 2",
+      "22",
+      "25",
+      "+3",
+      "0.8%"
+     ],
+     [
+      "Warehouse 4",
+      "27",
+      "27",
+      "±0",
+      "5.2%"
+     ]
+    ],
+    "sum": [
+     "All",
+     "66",
+     "72",
+     "+6"
+    ]
+   },
+   "expected": null
+  },
+  {
+   "check": "PEAK: All-cell detail of all|38|2026-02-12|OPEN (a healthy cell)",
+   "ok": true,
+   "measured": {
+    "rows": [
+     [
+      "Warehouse 1",
+      "11",
+      "11",
+      "±0",
+      "98.2%"
+     ],
+     [
+      "Warehouse 2",
+      "12",
+      "14",
+      "+2",
+      "99.2%"
+     ],
+     [
+      "Warehouse 4",
+      "13",
+      "14",
+      "+1",
+      "98.1%"
+     ]
+    ],
+    "sum": [
+     "All",
+     "36",
+     "39",
+     "+3"
+    ]
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: four tiles (value, draft line, delta, delta colour)",
+   "ok": true,
+   "measured": {
+    "service": "89.5% | Draft 66.6% | +22.9 pts",
+    "below": "39 | Draft 142 | −103",
+    "people": "2,605 | Draft 2,390 | +9%",
+    "cost": "$366.6k | Draft $326.4k | +12%"
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: tile tooltips carry the exact values",
+   "ok": true,
+   "measured": "service, below, people, cost tips agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: board has 63 cells",
+   "ok": true,
+   "measured": 63,
+   "expected": 63
+  },
+  {
+   "check": "DISRUPT All warehouses: every cell's number (rendered text)",
+   "ok": true,
+   "measured": "63 of 63 agree; open cells sum 2,605",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: board numbers sum to the People tile and the known total",
+   "ok": true,
+   "measured": "board 2,605, People tile 2,605",
+   "expected": "2,605"
+  },
+  {
+   "check": "DISRUPT All warehouses: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
+   "ok": true,
+   "measured": {
+    "97%+": 10,
+    "Under 80%": 20,
+    "95%+": 22,
+    "Below goal": 8,
+    "Closed": 3
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: warm cells",
+   "ok": true,
+   "measured": 28,
+   "expected": 28
+  },
+  {
+   "check": "DISRUPT All warehouses: pips (warehouses below goal per cell)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: every cell's aria-label and tooltip (context, people, change, chance, short)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: every cell sits under its day and in its department/shift row",
+   "ok": true,
+   "measured": "all 63 placed",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: closed cells are dashed '—'",
+   "ok": true,
+   "measured": [
+    "all|95|2026-02-14|EVE",
+    "all|95|2026-02-15|EVE",
+    "all|95|2026-02-15|OPEN"
+   ],
+   "expected": [
+    "all|95|2026-02-14|EVE",
+    "all|95|2026-02-15|EVE",
+    "all|95|2026-02-15|OPEN"
+   ]
+  },
+  {
+   "check": "DISRUPT All warehouses: the single red-ringed cell is the worst block",
+   "ok": true,
+   "measured": [
+    "all|38|2026-02-14|MID"
+   ],
+   "expected": [
+    "all|38|2026-02-14|MID"
+   ]
+  },
+  {
+   "check": "DISRUPT All warehouses: worst cell says so in its aria-label and tooltip",
+   "ok": true,
+   "measured": {
+    "aria": "All warehouses, Saturday February 14, Front End, Midday: 111 people, 12 more than the draft, lowest chance 0%, 2 warehouses below goal, holds the worst block in view",
+    "tip_has_rule": true
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: grid aria-label agrees with the tiles",
+   "ok": true,
+   "measured": "Schedule, Disrupt, all warehouses: 2,605 people, 39 blocks below goal, most on Sat 14",
+   "expected": "2,605 people, 39 blocks below goal, most on Sat 14"
+  },
+  {
+   "check": "DISRUPT All warehouses: column header tooltips (people, below goal) agree with the column",
+   "ok": true,
+   "measured": "7 of 7 agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "ok": true,
+   "measured": "13 rows shown, footnote '13 of 39', top Sat 14 · FE · Mid 0%",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: expanded Below goal list = the full ranked list (count = tile, total short)",
+   "ok": true,
+   "measured": "39 rows, total short 200",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: By day title for each lens (and the service chart's aria-label)",
+   "ok": true,
+   "measured": "service, below, people, cost agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: every colour on the board under People / Cost / Below goal has a swatch in the legend shown",
+   "ok": true,
+   "measured": "all listed",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "ok": true,
+   "measured": "all cells agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "ok": true,
+   "measured": "all tabs agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: sidebar scenario tooltip agrees with the tiles",
+   "ok": true,
+   "measured": "Service 89.5% · Below goal 39",
+   "expected": "Service 89.5% · Below goal 39"
+  },
+  {
+   "check": "DISRUPT All warehouses: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
+   "ok": true,
+   "measured": "none",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses Compare on: every cell's draft difference (+N / −N, ±0 only on a draft-unfilled cell, none when equal) and the number unchanged",
+   "ok": true,
+   "measured": "all open cells agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses Compare on: dashed warm underline on exactly the draft-unfilled (P3) cells",
+   "ok": true,
+   "measured": {
+    "marked": 12,
+    "p3_in_view": 12,
+    "p3_without_a_visible_mark": []
+   },
+   "expected": {
+    "marked": 12
+   }
+  },
+  {
+   "check": "DISRUPT All warehouses Compare on: every P3 cell carries a visible mark",
+   "ok": true,
+   "measured": "12 of 12 marked",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses Compare on: chart legend adds Draft, tiles unchanged",
+   "ok": true,
+   "measured": {
+    "chart_head": [
+     "Lowest day",
+     "Sat 14 · 75.0%",
+     "Plan",
+     "Draft"
+    ],
+    "tiles_unchanged": true
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT All warehouses: Below goal tooltip states the P3 fact",
+   "ok": true,
+   "measured": "Draft can't field 36 people in 12 blocks",
+   "expected": "Draft can't field 36 people in 12 blocks"
+  },
+  {
+   "check": "DISRUPT Warehouse 1: every cell = submitted_employees (CSV joined on keys; closed = 0)",
+   "ok": true,
+   "measured": "63 of 63",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: four tiles (value, draft line, delta, delta colour)",
+   "ok": true,
+   "measured": {
+    "service": "94.6% | Draft 72.6% | +21.9 pts",
+    "below": "9 | Draft 42 | −33",
+    "people": "781 | Draft 701 | +11%",
+    "cost": "$107.3k | Draft $93.6k | +15%"
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: tile tooltips carry the exact values",
+   "ok": true,
+   "measured": "service, below, people, cost tips agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: board has 63 cells",
+   "ok": true,
+   "measured": 63,
+   "expected": 63
+  },
+  {
+   "check": "DISRUPT Warehouse 1: every cell's number (rendered text)",
+   "ok": true,
+   "measured": "63 of 63 agree; open cells sum 781",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: board numbers sum to the People tile and the known total",
+   "ok": true,
+   "measured": "board 781, People tile 781",
+   "expected": "781"
+  },
+  {
+   "check": "DISRUPT Warehouse 1: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
+   "ok": true,
+   "measured": {
+    "97%+": 28,
+    "95%+": 14,
+    "Below goal": 4,
+    "Under 80%": 5,
+    "99%+": 9,
+    "Closed": 3
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: warm cells",
+   "ok": true,
+   "measured": 9,
+   "expected": 9
+  },
+  {
+   "check": "DISRUPT Warehouse 1: every cell's aria-label and tooltip (context, people, change, chance, short)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: every cell sits under its day and in its department/shift row",
+   "ok": true,
+   "measured": "all 63 placed",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: closed cells are dashed '—'",
+   "ok": true,
+   "measured": [
+    "DISRUPT|1|95|2026-02-14|EVE",
+    "DISRUPT|1|95|2026-02-15|EVE",
+    "DISRUPT|1|95|2026-02-15|OPEN"
+   ],
+   "expected": [
+    "DISRUPT|1|95|2026-02-14|EVE",
+    "DISRUPT|1|95|2026-02-15|EVE",
+    "DISRUPT|1|95|2026-02-15|OPEN"
+   ]
+  },
+  {
+   "check": "DISRUPT Warehouse 1: the single red-ringed cell is the worst block",
+   "ok": true,
+   "measured": [
+    "DISRUPT|1|38|2026-02-14|MID"
+   ],
+   "expected": [
+    "DISRUPT|1|38|2026-02-14|MID"
+   ]
+  },
+  {
+   "check": "DISRUPT Warehouse 1: worst cell says so in its aria-label and tooltip",
+   "ok": true,
+   "measured": {
+    "aria": "Warehouse 1, Saturday February 14, Front End, Midday: 34 people, 5 more than the draft, 57.0% chance, below goal, 5 short, worst block in view",
+    "tip_has_rule": true
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: grid aria-label agrees with the tiles",
+   "ok": true,
+   "measured": "Schedule, Disrupt, Warehouse 1: 781 people, 9 blocks below goal, most on Sat 14",
+   "expected": "781 people, 9 blocks below goal, most on Sat 14"
+  },
+  {
+   "check": "DISRUPT Warehouse 1: column header tooltips (people, below goal) agree with the column",
+   "ok": true,
+   "measured": "7 of 7 agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "ok": true,
+   "measured": "9 rows shown, footnote '9 of 9', top Sat 14 · FE · Mid 57.0%",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: expanded Below goal list = the full ranked list (count = tile, total short)",
+   "ok": true,
+   "measured": "9 rows, total short 18",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: By day title for each lens (and the service chart's aria-label)",
+   "ok": true,
+   "measured": "service, below, people, cost agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: every colour on the board under People / Cost / Below goal has a swatch in the legend shown",
+   "ok": true,
+   "measured": "all listed",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "ok": true,
+   "measured": "all cells agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "ok": true,
+   "measured": "all tabs agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1: sidebar scenario tooltip agrees with the tiles",
+   "ok": true,
+   "measured": "Service 94.6% · Below goal 9",
+   "expected": "Service 94.6% · Below goal 9"
+  },
+  {
+   "check": "DISRUPT Warehouse 1: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
+   "ok": true,
+   "measured": "none",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1 Compare on: every cell's draft difference (+N / −N, ±0 only on a draft-unfilled cell, none when equal) and the number unchanged",
+   "ok": true,
+   "measured": "all open cells agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 1 Compare on: dashed warm underline on exactly the draft-unfilled (P3) cells",
+   "ok": true,
+   "measured": {
+    "marked": 0,
+    "p3_in_view": 0,
+    "p3_without_a_visible_mark": []
+   },
+   "expected": {
+    "marked": 0
+   }
+  },
+  {
+   "check": "DISRUPT Warehouse 1 Compare on: chart legend adds Draft, tiles unchanged",
+   "ok": true,
+   "measured": {
+    "chart_head": [
+     "Lowest day",
+     "Sat 14 · 83.9%",
+     "Plan",
+     "Draft"
+    ],
+    "tiles_unchanged": true
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: every cell = submitted_employees (CSV joined on keys; closed = 0)",
+   "ok": true,
+   "measured": "63 of 63",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: four tiles (value, draft line, delta, delta colour)",
+   "ok": true,
+   "measured": {
+    "service": "78.7% | Draft 65.0% | +13.8 pts",
+    "below": "21 | Draft 48 | −27",
+    "people": "854 | Draft 829 | +3%",
+    "cost": "$124.7k | Draft $114.9k | +9%"
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: tile tooltips carry the exact values",
+   "ok": true,
+   "measured": "service, below, people, cost tips agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: board has 63 cells",
+   "ok": true,
+   "measured": 63,
+   "expected": 63
+  },
+  {
+   "check": "DISRUPT Warehouse 2: every cell's number (rendered text)",
+   "ok": true,
+   "measured": "63 of 63 agree; open cells sum 854",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: board numbers sum to the People tile and the known total",
+   "ok": true,
+   "measured": "board 854, People tile 854",
+   "expected": "854"
+  },
+  {
+   "check": "DISRUPT Warehouse 2: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
+   "ok": true,
+   "measured": {
+    "99%+": 8,
+    "Under 80%": 16,
+    "97%+": 19,
+    "95%+": 12,
+    "Below goal": 5,
+    "Closed": 3
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: warm cells",
+   "ok": true,
+   "measured": 21,
+   "expected": 21
+  },
+  {
+   "check": "DISRUPT Warehouse 2: every cell's aria-label and tooltip (context, people, change, chance, short)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: every cell sits under its day and in its department/shift row",
+   "ok": true,
+   "measured": "all 63 placed",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: closed cells are dashed '—'",
+   "ok": true,
+   "measured": [
+    "DISRUPT|2|95|2026-02-14|EVE",
+    "DISRUPT|2|95|2026-02-15|EVE",
+    "DISRUPT|2|95|2026-02-15|OPEN"
+   ],
+   "expected": [
+    "DISRUPT|2|95|2026-02-14|EVE",
+    "DISRUPT|2|95|2026-02-15|EVE",
+    "DISRUPT|2|95|2026-02-15|OPEN"
+   ]
+  },
+  {
+   "check": "DISRUPT Warehouse 2: the single red-ringed cell is the worst block",
+   "ok": true,
+   "measured": [
+    "DISRUPT|2|38|2026-02-14|MID"
+   ],
+   "expected": [
+    "DISRUPT|2|38|2026-02-14|MID"
+   ]
+  },
+  {
+   "check": "DISRUPT Warehouse 2: worst cell says so in its aria-label and tooltip",
+   "ok": true,
+   "measured": {
+    "aria": "Warehouse 2, Saturday February 14, Front End, Midday: 29 people, 2 fewer than the draft, 0% chance, below goal, 23 short, worst block in view",
+    "tip_has_rule": true
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: grid aria-label agrees with the tiles",
+   "ok": true,
+   "measured": "Schedule, Disrupt, Warehouse 2: 854 people, 21 blocks below goal, most on Sat 14",
+   "expected": "854 people, 21 blocks below goal, most on Sat 14"
+  },
+  {
+   "check": "DISRUPT Warehouse 2: column header tooltips (people, below goal) agree with the column",
+   "ok": true,
+   "measured": "7 of 7 agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "ok": true,
+   "measured": "13 rows shown, footnote '13 of 21', top Sat 14 · FE · Mid 0%",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: expanded Below goal list = the full ranked list (count = tile, total short)",
+   "ok": true,
+   "measured": "21 rows, total short 168",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: By day title for each lens (and the service chart's aria-label)",
+   "ok": true,
+   "measured": "service, below, people, cost agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: every colour on the board under People / Cost / Below goal has a swatch in the legend shown",
+   "ok": true,
+   "measured": "all listed",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "ok": true,
+   "measured": "all cells agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "ok": true,
+   "measured": "all tabs agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: sidebar scenario tooltip agrees with the tiles",
+   "ok": true,
+   "measured": "Service 78.7% · Below goal 21",
+   "expected": "Service 78.7% · Below goal 21"
+  },
+  {
+   "check": "DISRUPT Warehouse 2: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
+   "ok": true,
+   "measured": "none",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2 Compare on: every cell's draft difference (+N / −N, ±0 only on a draft-unfilled cell, none when equal) and the number unchanged",
+   "ok": true,
+   "measured": "all open cells agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2 Compare on: dashed warm underline on exactly the draft-unfilled (P3) cells",
+   "ok": true,
+   "measured": {
+    "marked": 11,
+    "p3_in_view": 11,
+    "p3_without_a_visible_mark": []
+   },
+   "expected": {
+    "marked": 11
+   }
+  },
+  {
+   "check": "DISRUPT Warehouse 2 Compare on: every P3 cell carries a visible mark",
+   "ok": true,
+   "measured": "11 of 11 marked",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2 Compare on: chart legend adds Draft, tiles unchanged",
+   "ok": true,
+   "measured": {
+    "chart_head": [
+     "Lowest day",
+     "Sat 14 · 51.7%",
+     "Plan",
+     "Draft"
+    ],
+    "tiles_unchanged": true
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 2: Below goal tooltip states the P3 fact",
+   "ok": true,
+   "measured": "Draft can't field 34 people in 11 blocks",
+   "expected": "Draft can't field 34 people in 11 blocks"
+  },
+  {
+   "check": "DISRUPT Warehouse 4: every cell = submitted_employees (CSV joined on keys; closed = 0)",
+   "ok": true,
+   "measured": "63 of 63",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: four tiles (value, draft line, delta, delta colour)",
+   "ok": true,
+   "measured": {
+    "service": "95.2% | Draft 62.1% | +33.1 pts",
+    "below": "9 | Draft 52 | −43",
+    "people": "970 | Draft 860 | +13%",
+    "cost": "$134.6k | Draft $117.9k | +14%"
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: tile tooltips carry the exact values",
+   "ok": true,
+   "measured": "service, below, people, cost tips agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: board has 63 cells",
+   "ok": true,
+   "measured": 63,
+   "expected": 63
+  },
+  {
+   "check": "DISRUPT Warehouse 4: every cell's number (rendered text)",
+   "ok": true,
+   "measured": "63 of 63 agree; open cells sum 970",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: board numbers sum to the People tile and the known total",
+   "ok": true,
+   "measured": "board 970, People tile 970",
+   "expected": "970"
+  },
+  {
+   "check": "DISRUPT Warehouse 4: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
+   "ok": true,
+   "measured": {
+    "97%+": 25,
+    "95%+": 22,
+    "Below goal": 7,
+    "Under 80%": 2,
+    "Closed": 3,
+    "99%+": 4
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: warm cells",
+   "ok": true,
+   "measured": 9,
+   "expected": 9
+  },
+  {
+   "check": "DISRUPT Warehouse 4: every cell's aria-label and tooltip (context, people, change, chance, short)",
+   "ok": true,
+   "measured": "all 63 agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: every cell sits under its day and in its department/shift row",
+   "ok": true,
+   "measured": "all 63 placed",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: closed cells are dashed '—'",
+   "ok": true,
+   "measured": [
+    "DISRUPT|4|95|2026-02-14|EVE",
+    "DISRUPT|4|95|2026-02-15|EVE",
+    "DISRUPT|4|95|2026-02-15|OPEN"
+   ],
+   "expected": [
+    "DISRUPT|4|95|2026-02-14|EVE",
+    "DISRUPT|4|95|2026-02-15|EVE",
+    "DISRUPT|4|95|2026-02-15|OPEN"
+   ]
+  },
+  {
+   "check": "DISRUPT Warehouse 4: the single red-ringed cell is the worst block",
+   "ok": true,
+   "measured": [
+    "DISRUPT|4|92|2026-02-13|OPEN"
+   ],
+   "expected": [
+    "DISRUPT|4|92|2026-02-13|OPEN"
+   ]
+  },
+  {
+   "check": "DISRUPT Warehouse 4: worst cell says so in its aria-label and tooltip",
+   "ok": true,
+   "measured": {
+    "aria": "Warehouse 4, Friday February 13, Merchandising, Opening: 19 people, 3 fewer than the draft, 63.9% chance, below goal, 3 short, worst block in view",
+    "tip_has_rule": true
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: grid aria-label agrees with the tiles",
+   "ok": true,
+   "measured": "Schedule, Disrupt, Warehouse 4: 970 people, 9 blocks below goal, most on Sat 14",
+   "expected": "970 people, 9 blocks below goal, most on Sat 14"
+  },
+  {
+   "check": "DISRUPT Warehouse 4: column header tooltips (people, below goal) agree with the column",
+   "ok": true,
+   "measured": "7 of 7 agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "ok": true,
+   "measured": "9 rows shown, footnote '9 of 9', top Fri 13 · Merch · Open 63.9%",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: expanded Below goal list = the full ranked list (count = tile, total short)",
+   "ok": true,
+   "measured": "9 rows, total short 14",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: By day title for each lens (and the service chart's aria-label)",
+   "ok": true,
+   "measured": "service, below, people, cost agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: every colour on the board under People / Cost / Below goal has a swatch in the legend shown",
+   "ok": true,
+   "measured": "all listed",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "ok": true,
+   "measured": "all cells agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "ok": true,
+   "measured": "all tabs agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: sidebar scenario tooltip agrees with the tiles",
+   "ok": true,
+   "measured": "Service 95.2% · Below goal 9",
+   "expected": "Service 95.2% · Below goal 9"
+  },
+  {
+   "check": "DISRUPT Warehouse 4: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
+   "ok": true,
+   "measured": "none",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4 Compare on: every cell's draft difference (+N / −N, ±0 only on a draft-unfilled cell, none when equal) and the number unchanged",
+   "ok": true,
+   "measured": "all open cells agree",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4 Compare on: dashed warm underline on exactly the draft-unfilled (P3) cells",
+   "ok": true,
+   "measured": {
+    "marked": 1,
+    "p3_in_view": 1,
+    "p3_without_a_visible_mark": []
+   },
+   "expected": {
+    "marked": 1
+   }
+  },
+  {
+   "check": "DISRUPT Warehouse 4 Compare on: every P3 cell carries a visible mark",
+   "ok": true,
+   "measured": "1 of 1 marked",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4 Compare on: chart legend adds Draft, tiles unchanged",
+   "ok": true,
+   "measured": {
+    "chart_head": [
+     "Lowest day",
+     "Sat 14 · 89.6%",
+     "Plan",
+     "Draft"
+    ],
+    "tiles_unchanged": true
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT Warehouse 4: Below goal tooltip states the P3 fact",
+   "ok": true,
+   "measured": "Draft can't field 2 people in 1 block",
+   "expected": "Draft can't field 2 people in 1 block"
+  },
+  {
+   "check": "DISRUPT: detail of DISRUPT|2|38|2026-02-14|MID (worst block)",
+   "ok": true,
+   "measured": "Warehouse 2 · 12:30–16:00 · 3.5 h | Below goal | At capacity | Illness | Draft | 31 | → | Plan | 29 | −2 | Unfilled 2 | Chance | Short 23 | 0% | 0 | 80% | 95% | Staff | 29 of 29 | Regular 25 · Overtime 4 | need 52 | Cost | $3,169 | ±$0 | Cushion | 0 | Utilization | 117%",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT: detail of DISRUPT|2|38|2026-02-14|EVE (second in the list)",
+   "ok": true,
+   "measured": "Warehouse 2 · 16:00–18:30 · 2.5 h | Below goal | At capacity | Illness | Draft | 24 | → | Plan | 20 | −4 | Unfilled 4 | Chance | Short 18 | 0% | 0 | 80% | 95% | Staff | 20 of 20 | Regular 17 · Overtime 3 | need 38 | Cost | $1,567 | ±$0 | Cushion | 0 | Utilization | 122%",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT: detail of DISRUPT|2|38|2026-02-12|OPEN (a healthy block)",
+   "ok": true,
+   "measured": "Warehouse 2 · 09:00–13:00 · 4 h | Meets goal | Draft | 12 | → | Plan | 14 | +2 | Chance | 99.2% | 0 | 80% | 95% | Staff | 14 of 22 | Regular 14 | need 14 | Cost | $1,674 | +$239 | Cushion | 2 | Utilization | 69% | Chance by day | Goal 95% | Thu | 99.2%",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT: detail of DISRUPT|2|38|2026-02-14|MID (worst block, Compare on)",
+   "ok": true,
+   "measured": "Warehouse 2 · 12:30–16:00 · 3.5 h | Below goal | At capacity | Illness | Draft | 31 | → | Plan | 29 | −2 | Unfilled 2 | Chance | Short 23 | draft 0% | 0% | 0 | 80% | 95% | Staff | 29 of 29 | Regular 25 · Overtime 4 | need 52 | Draft · Regular 25 · Overtime 4 | Cost | $3,169 | ±$0 | Cushion | 0",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT: detail of DISRUPT|2|38|2026-02-13|EVE (a draft-unfilled (P3) block, Compare on)",
+   "ok": true,
+   "measured": "Warehouse 2 · 17:00–21:00 · 4 h | Below goal | At capacity | Illness | Draft | 26 | → | Plan | 21 | −5 | Unfilled 4 | Chance | Short 13 | draft 0.2% | <0.1% | 0 | 80% | 95% | Staff | 21 of 21 | Regular 18 · Overtime 3 | need 34 | Draft · Regular 18 · Cross-trained 1 · Overtime 3 | Cost | $2,626 | −$120 | Cushion | 0",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT: detail of DISRUPT|4|92|2026-02-13|OPEN (a draft-unfilled (P3) block, Compare on)",
+   "ok": true,
+   "measured": "Warehouse 4 · 04:00–10:00 · 6 h | Below goal | At capacity | Crew shortage | Draft | 22 | → | Plan | 19 | −3 | Unfilled 2 | Chance | Short 3 | draft 84.7% | 63.9% | 0 | 80% | 95% | Staff | 19 of 19 | Regular 14 · Overtime 5 | need 22 | Draft · Regular 14 · Cross-trained 1 · Overtime 5 | Cost | $3,782 | −$184 | Cushion | 1",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT: All-cell detail of all|38|2026-02-14|MID (the worst block's cell)",
+   "ok": true,
+   "measured": {
+    "rows": [
+     [
+      "Warehouse 1",
+      "29",
+      "34",
+      "+5",
+      "57.0%"
+     ],
+     [
+      "Warehouse 2",
+      "31",
+      "29",
+      "−2",
+      "0%"
+     ],
+     [
+      "Warehouse 4",
+      "39",
+      "48",
+      "+9",
+      "96.2%"
+     ]
+    ],
+    "sum": [
+     "All",
+     "99",
+     "111",
+     "+12"
+    ]
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT: All-cell detail of all|92|2026-02-14|OPEN (Merchandising Sat 14 Open)",
+   "ok": true,
+   "measured": {
+    "rows": [
+     [
+      "Warehouse 1",
+      "17",
+      "20",
+      "+3",
+      "65.8%"
+     ],
+     [
+      "Warehouse 2",
+      "22",
+      "25",
+      "+3",
+      "76.4%"
+     ],
+     [
+      "Warehouse 4",
+      "27",
+      "26",
+      "−1",
+      "95.9%"
+     ]
+    ],
+    "sum": [
+     "All",
+     "66",
+     "71",
+     "+5"
+    ]
+   },
+   "expected": null
+  },
+  {
+   "check": "DISRUPT: All-cell detail of all|38|2026-02-12|OPEN (a healthy cell)",
+   "ok": true,
+   "measured": {
+    "rows": [
+     [
+      "Warehouse 1",
+      "11",
+      "11",
+      "±0",
+      "98.2%"
+     ],
+     [
+      "Warehouse 2",
+      "12",
+      "14",
+      "+2",
+      "99.2%"
+     ],
+     [
+      "Warehouse 4",
+      "13",
+      "14",
+      "+1",
+      "98.1%"
+     ]
+    ],
+    "sum": [
+     "All",
+     "36",
+     "39",
+     "+3"
+    ]
+   },
+   "expected": null
+  },
+  {
+   "check": "Edge BASE|1|38|2026-02-14|OPEN on the board: 95.0%, not below goal",
+   "ok": true,
+   "measured": {
+    "colour": "95%+",
+    "aria": "Warehouse 1, Saturday February 14, Front End, Opening: 27 people, 4 more than the draft, 95.0% chance"
+   },
+   "expected": {
+    "colour": "95%+",
+    "text": "95.0%",
+    "below": false
+   }
+  },
+  {
+   "check": "Edge BASE|1|38|2026-02-14|OPEN: not in the Below goal list",
+   "ok": true,
+   "measured": "not listed",
+   "expected": null
+  },
+  {
+   "check": "BASE: detail of BASE|1|38|2026-02-14|OPEN (edge 95.0%)",
+   "ok": true,
+   "measured": "Warehouse 1 · 08:30–12:30 · 4 h | Meets goal | At capacity | Holiday PTO | Draft | 23 | → | Plan | 27 | +4 | Chance | 95.0% | 0 | 80% | 95% | Staff | 27 of 27 | Regular 21 · Overtime 6 | need 28 | Cost | $3,326 | +$607 | Cushion | 5 | Utilization | 72% | Chance by day | Goal 95%",
+   "expected": null
+  },
+  {
+   "check": "Edge DISRUPT|1|38|2026-02-14|OPEN on the board: 95.0%, not below goal",
+   "ok": true,
+   "measured": {
+    "colour": "95%+",
+    "aria": "Warehouse 1, Saturday February 14, Front End, Opening: 27 people, 4 more than the draft, 95.0% chance"
+   },
+   "expected": {
+    "colour": "95%+",
+    "text": "95.0%",
+    "below": false
+   }
+  },
+  {
+   "check": "Edge DISRUPT|1|38|2026-02-14|OPEN: not in the Below goal list",
+   "ok": true,
+   "measured": "not listed",
+   "expected": null
+  },
+  {
+   "check": "DISRUPT: detail of DISRUPT|1|38|2026-02-14|OPEN (edge 95.0%)",
+   "ok": true,
+   "measured": "Warehouse 1 · 08:30–12:30 · 4 h | Meets goal | At capacity | Holiday PTO | Draft | 23 | → | Plan | 27 | +4 | Chance | 95.0% | 0 | 80% | 95% | Staff | 27 of 27 | Regular 21 · Overtime 6 | need 28 | Cost | $3,326 | +$607 | Cushion | 5 | Utilization | 72% | Chance by day | Goal 95%",
+   "expected": null
+  },
+  {
+   "check": "Edge PEAK|4|38|2026-02-13|OPEN on the board: 94.6%, below goal",
+   "ok": true,
+   "measured": {
+    "colour": "Below goal",
+    "aria": "Warehouse 4, Friday February 13, Front End, Opening: 21 people, 5 more than the draft, 94.6% chance, below goal, 1 short"
+   },
+   "expected": {
+    "colour": "Below goal",
+    "text": "94.6%",
+    "below": true
+   }
+  },
+  {
+   "check": "Edge PEAK|4|38|2026-02-13|OPEN: in the Below goal list",
+   "ok": true,
+   "measured": [
+    "Fri 13 · Front End · Open",
+    "94.6%",
+    "1"
+   ],
+   "expected": null
+  },
+  {
+   "check": "PEAK: detail of PEAK|4|38|2026-02-13|OPEN (edge 94.6%)",
+   "ok": true,
+   "measured": "Warehouse 4 · 09:00–13:00 · 4 h | Below goal | At capacity | Draft | 16 | → | Plan | 21 | +5 | Chance | Short 1 | 94.6% | 0 | 80% | 95% | Staff | 21 of 21 | Regular 17 · Overtime 4 | need 22 | Cost | $2,614 | +$737 | Cushion | 3 | Utilization | 73% | Chance by day | Goal 95%",
+   "expected": null
+  },
+  {
+   "check": "Hash state restores on reload (Peak, W2, Labor cost lens, Compare on, worst block open)",
+   "ok": true,
+   "measured": {
+    "hash_before": "#s=PEAK&w=2&l=cost&c=1&b=2|92|2026-02-14|OPEN",
+    "hash": "#s=PEAK&w=2&l=cost&c=1&b=2|92|2026-02-14|OPEN",
+    "scenario": [
+     "Peak"
+    ],
+    "warehouse": [
+     "Warehouse 2"
+    ],
+    "lens": [
+     "cost"
+    ],
+    "compare": "true",
+    "detail": "PEAK|2|92|2026-02-14|OPEN",
+    "header": true,
+    "same_visible_text": true
+   },
+   "expected": null
+  },
+  {
+   "check": "CSV button downloads a file byte-identical to outputs/TEAM_SUBMISSION_TEMPLATE_filled.csv",
+   "ok": true,
+   "measured": {
+    "bytes": 40284,
+    "expected_bytes": 40284,
+    "suggested_name": "TEAM_SUBMISSION_TEMPLATE_filled.csv",
+    "rows": 567
+   },
+   "expected": null
+  },
+  {
+   "check": "1366x657: tiles, list rows and the 'N of 25' footnote agree; no list row cut off",
+   "ok": true,
+   "measured": {
+    "tiles": [
+     "95.6%",
+     "25",
+     "2,710",
+     "$377.5k"
+    ],
+    "rows": 10,
+    "footnote": "10 of 25",
+    "rows_cut_off": 0
+   },
+   "expected": null
+  },
+  {
+   "check": "1366x768: tiles, list rows and the 'N of 25' footnote agree; no list row cut off",
+   "ok": true,
+   "measured": {
+    "tiles": [
+     "95.6%",
+     "25",
+     "2,710",
+     "$377.5k"
+    ],
+    "rows": 10,
+    "footnote": "10 of 25",
+    "rows_cut_off": 0
+   },
+   "expected": null
+  },
+  {
+   "check": "Fixture W2: 0 warm cells and the list reads 'Closest to goal'",
+   "ok": true,
+   "measured": {
+    "warm": 0,
+    "title": "Closest to goal",
+    "rows": 13,
+    "tile": [
+     "Below goal",
+     "−34",
+     "0",
+     "Draft 42"
+    ]
+   },
+   "expected": null
+  },
+  {
+   "check": "Fixture W4: the P2 tie-break picks the larger-shortfall 0% block",
+   "ok": true,
+   "measured": {
+    "ringed": [
+     "BASE|4|38|2026-02-18|EVE"
+    ],
+    "list_top": "BASE|4|38|2026-02-18|EVE"
+   },
+   "expected": "BASE|4|38|2026-02-18|EVE"
+  },
+  {
+   "check": "Fixture P3: dashed underline with Compare on (when the cell has a difference) and 'Unfilled 6' in the detail",
+   "ok": true,
+   "measured": {
+    "secondary": "+3",
+    "decoration": "underline dashed",
+    "unfilled_chip": true
+   },
+   "expected": null
+  },
+  {
+   "check": "No request leaves 127.0.0.1",
+   "ok": true,
+   "measured": {
+    "requests": 31,
+    "hosts": [
+     "127.0.0.1"
+    ],
+    "outside": []
+   },
+   "expected": null
+  },
+  {
+   "check": "No console errors or warnings",
+   "ok": true,
+   "measured": "none",
+   "expected": null
+  }
+ ]
+}

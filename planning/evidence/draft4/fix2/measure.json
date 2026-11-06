@@ -1,0 +1,106 @@
+{
+ "1366x768-light": {
+  "h": 17,
+  "lines": 1,
+  "lastCellBottom": 618,
+  "vh": 768,
+  "scrollW": 1366,
+  "vw": 1366
+ },
+ "1440x900-light": {
+  "h": 17,
+  "lines": 1,
+  "lastCellBottom": 763,
+  "vh": 900,
+  "scrollW": 1440,
+  "vw": 1440
+ },
+ "1920x1080-light": {
+  "h": 17,
+  "lines": 1,
+  "lastCellBottom": 925,
+  "vh": 1080,
+  "scrollW": 1920,
+  "vw": 1920
+ },
+ "375x812-light": {
+  "h": 0,
+  "lines": 1,
+  "lastCellBottom": 904,
+  "vh": 812,
+  "scrollW": 375,
+  "vw": 375
+ },
+ "1440x900-dark": {
+  "h": 17,
+  "lines": 1,
+  "lastCellBottom": 763,
+  "vh": 900,
+  "scrollW": 1440,
+  "vw": 1440
+ },
+ "1366x657-disrupt-all-compare": {
+  "h": 17,
+  "lines": 1,
+  "lastCellBottom": 618,
+  "vh": 657,
+  "scrollW": 1366,
+  "vw": 1366
+ },
+ "1366x657-disrupt-w2-compare-worst": {
+  "h": 17,
+  "lines": 1,
+  "lastCellBottom": 618,
+  "vh": 657,
+  "scrollW": 1366,
+  "vw": 1366
+ },
+ "1366x657-disrupt-w2-list": {
+  "h": 17,
+  "lines": 1,
+  "lastCellBottom": 618,
+  "vh": 657,
+  "scrollW": 1366,
+  "vw": 1366
+ },
+ "1366x657-base-all-people": {
+  "h": 17,
+  "lines": 1,
+  "lastCellBottom": 618,
+  "vh": 657,
+  "scrollW": 1366,
+  "vw": 1366
+ },
+ "1366x657-base-all-cost": {
+  "h": 17,
+  "lines": 1,
+  "lastCellBottom": 618,
+  "vh": 657,
+  "scrollW": 1366,
+  "vw": 1366
+ },
+ "1440x900-dark-disrupt-w2-compare-worst": {
+  "h": 17,
+  "lines": 1,
+  "lastCellBottom": 763,
+  "vh": 900,
+  "scrollW": 1440,
+  "vw": 1440
+ },
+ "1440x900-dark-base-all-people": {
+  "h": 17,
+  "lines": 1,
+  "lastCellBottom": 763,
+  "vh": 900,
+  "scrollW": 1440,
+  "vw": 1440
+ },
+ "1440x900-peak-w1-worst": {
+  "h": 17,
+  "lines": 1,
+  "lastCellBottom": 763,
+  "vh": 900,
+  "scrollW": 1440,
+  "vw": 1440
+ }
+}

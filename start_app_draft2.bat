@@ -34,6 +34,6 @@ exit /b
 echo.
 echo Port %PORT% is already in use by %BUSY_NAME% (process %BUSY_PID%).
 echo It's probably an earlier Workforce Planner window or the Streamlit app. Close that window,
-echo or press Ctrl+C in it, then run start_app.bat again. If you can't find it, end process %BUSY_PID%
+echo or press Ctrl+C in it, then run start_app_draft2.bat again. If you can't find it, end process %BUSY_PID%
 echo in Task Manager (Details tab).
 exit /b

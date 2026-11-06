@@ -22,3 +22,11 @@ web/node_modules/
 
 # The hand-in folder built by scripts/package_submission.py
 submission/
+
+# Draft 4's intermediate review screenshots (about 65 MB) stay on this laptop. The final ones
+# (planning/evidence/draft4/fix2/) and the harness files (qa/) are tracked.
+planning/evidence/draft4/build/
+planning/evidence/draft4/review/
+planning/evidence/draft4/fix1/
+planning/evidence/draft4/recheck1/
+planning/evidence/draft4/recheck2/

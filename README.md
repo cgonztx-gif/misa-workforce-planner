@@ -41,7 +41,7 @@ python -m zipfile -e "MISA/Student Teams/Costco_Case_Competition_TEAMS.zip" data
 python -m server
 ```
 
-On Windows you can double-click `start_app.bat` instead. It checks that port 8501 is free, starts the server and opens the browser once it's ready. `start_app_draft2.bat` (or `python -m server --draft2`) starts draft 2 of the app instead, the fallback for draft 3 (`planning/DRAFT3.md`).
+On Windows you can double-click `start_app.bat` instead. It checks that port 8501 is free, starts the server and opens the browser once it's ready. `start_app_draft2.bat` (or `python -m server --draft2`) starts draft 2 of the app instead, the fallback for draft 3 (`planning/DRAFT3.md`). `start_app_draft4.bat` (or `python -m server --draft4`) starts draft 4, a one-page Overview with the schedule (`planning/DRAFT4.md`).
 
 The server prepares all three scenarios when it starts, which takes 15-20 seconds, with a "preparing" screen meanwhile. After that, every page and scenario switch is instant, and the demo's what-if (demand +10%, callouts 150%) is ready in advance. **Before a demo, start the app a minute early.**
 

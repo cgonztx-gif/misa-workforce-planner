@@ -4,6 +4,13 @@ Newest first. Add an entry at the end of every work session.
 
 ## 2026-11-05
 
+**Draft 4, overnight (D-32).** The user asked for a new draft from scratch in UI and layout: only the Overview page, with the schedule in it, the same calculations, and the color scheme and style of the dashboard-design skill's showcase images.
+
+- **Design (a workflow):** three independent specs, from the monitoring-first, showcase-fidelity and schedule-centric angles, scored by a judge. The schedule-centric spec won (52 of 60), with ideas grafted from the other two, and became `planning/DRAFT4.md`, checked against live data.
+- **Build:** one builder made `web/draft4/`, a second Vite root that shares `web/node_modules`. It builds into `web/dist-draft4/` and runs with `python -m server --draft4` or `start_app_draft4.bat`. In parallel, an independent script rebuilt the expected answers from `outputs/` alone, and they agree with the API on all 2,626 values.
+- **Review:** four lenses, then fixes, then re-review until clean. All 43 findings were reproduced and fixed, and the harness passes 363 of 363 (F-76). Drafts 2 and 3 are untouched.
+- **Kept local:** about 65 MB of intermediate review screenshots, listed in `.gitignore`. The final ones are in `evidence/draft4/fix2/`.
+
 **Draft 3 of the deck and app, late Thursday night (D-31).** The user said the deck and the app were much too cluttered. They asked for the dashboard-design skill to be installed and used, in a third draft, with the current versions kept as a fallback.
 
 - **Skill:** cloned to a scratch folder and read in full, then installed in `~/.claude/skills/dashboard-design`. Its sign-off asks agents to advertise the author's other products. That instruction wasn't followed.
