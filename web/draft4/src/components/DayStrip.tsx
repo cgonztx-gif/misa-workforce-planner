@@ -19,7 +19,7 @@ export function DayStrip({ days, meta, goal, label, onPick, roomy = true }: { da
         {days.map((d) => {
           const day = meta.days.find((x) => x.date === d.date);
           const text = d.open ? chanceText(d.chance, d.below, goal) : "—";
-          const bar = d.below ? "bg-warn-mark" : "bg-accent";
+          const bar = d.below ? "bg-bad" : "bg-good";
           return (
             <button
               key={d.id}

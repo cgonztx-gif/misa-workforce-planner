@@ -35,7 +35,7 @@ export function byWorst(a: Block, b: Block) {
   return a.key < b.key ? -1 : a.key > b.key ? 1 : 0;
 }
 
-export type Tier = "closed" | "w2" | "w1" | "t1" | "t2" | "t3" | "dim" | "cut" | "same" | "p1" | "p2" | "p3" | "c0" | "c1" | "c2" | "c3";
+export type Tier = "closed" | "w2" | "wm" | "w1" | "ok" | "dim" | "cut" | "same" | "p1" | "p2" | "p3" | "c0" | "c1" | "c2" | "c3";
 
 export interface Cell {
   id: string;
@@ -136,14 +136,18 @@ function sum(bs: Block[], f: (b: Block) => number) {
 /** Mean change (or cost change) per open block: the People and Labor cost lens measure. */
 const meanOpen = (c: Cell, f: (b: Block) => number) => (c.open.length ? sum(c.open, f) / c.open.length : 0);
 
-/** The cell's tier for a lens. The warm tiers override every lens. */
+/**
+ * The cell's tier for a lens. One hue only (the user, 2026-11-05): a block that meets the goal has no fill, and a block
+ * below it is red, stronger the further below (90-95%, 80-90%, under 80%, on the lowest chance in the cell). The red
+ * tiers override every lens, so the problems are the only colour on the Service board.
+ */
 export function tierOf(c: Cell, lens: Lens): Tier {
   if (!c.isOpen) return "closed";
-  if (c.below.length) return c.far ? "w2" : "w1";
-  if (lens === "service") {
+  if (c.below.length) {
     const m = c.minChance ?? 0;
-    return m >= 0.99 ? "t1" : m >= 0.97 ? "t2" : "t3";
+    return m < 0.8 ? "w2" : m < 0.9 ? "wm" : "w1";
   }
+  if (lens === "service") return "ok";
   if (lens === "below") return "dim";
   if (lens === "people") {
     const v = meanOpen(c, (b) => b.change);

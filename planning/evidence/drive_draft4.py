@@ -58,9 +58,25 @@ DAY_LONG = {d: s for d, s in zip(DAYS, ["Thursday February 12", "Friday February
 MINUS = "−"
 
 # Legend label for each known-totals tier, per lens (the user matches a cell's colour to the legend).
-SERVICE_LEGEND = {"t99": "99%+", "t97": "97%+", "t95": "95%+", "w1": "Below goal", "w2": "Under 80%", "closed": "Closed"}
-PEOPLE_LEGEND = {"cut": "Cut", "same": "Same", "+1": "+1", "+3": "+3", "+6": "+6", "w1": "Below goal", "w2": "Under 80%", "closed": "Closed"}
-COST_LEGEND = {"same": "Same", "+$1": "+$1", "+$300": "+$300", "+$800": "+$800", "w1": "Below goal", "w2": "Under 80%", "closed": "Closed"}
+# One hue on the board (the user, 2026-11-05): a block that meets the goal has no fill ("Meets goal"); a block below it is
+# red at three strengths by its (lowest) chance: 90-95%, 80-90%, under 80%. The known totals' w1 covers 80-95%, so the
+# label splits it at 90% on the cell's own chance.
+RED_LABELS = ("90–95%", "80–90%", "Under 80%")
+PEOPLE_LEGEND = {"cut": "Cut", "same": "Same", "+1": "+1", "+3": "+3", "+6": "+6"}
+COST_LEGEND = {"same": "Same", "+$1": "+$1", "+$300": "+$300", "+$800": "+$800"}
+
+
+def service_label(e: dict) -> str:
+    """The legend label a cell should read as on the Service board, from the known totals."""
+    t = e["tier_service"]
+    if t == "closed":
+        return "Closed"
+    if t == "w2":
+        return "Under 80%"
+    if t == "w1":
+        ch = e.get("lowest_chance", e.get("chance"))
+        return "90–95%" if ch is not None and ch >= 0.90 else "80–90%"
+    return "Meets goal"
 
 RESULTS: list[dict] = []
 
@@ -187,7 +203,7 @@ class Server:
 # ---- page readers (JavaScript run in the page; they return what is rendered) -------------------------------------
 JS_PROBE = """() => {
   const out = {};
-  for (const t of ['up','down','muted','warn','accent','money','ink']) {
+  for (const t of ['good','bad','bad-strong','muted','accent','ink']) {
     const d = document.createElement('div'); d.style.color = `var(--color-${t})`; document.body.appendChild(d);
     out[t] = getComputedStyle(d).color; d.remove();
   }
@@ -276,7 +292,7 @@ def legend_of(color: dict, legend: dict) -> str | None:
         if sw and sw["bg"] == color["bg"] and color["bg"] not in ("rgba(0, 0, 0, 0)",):
             return label
     if color["bg"] == "rgba(0, 0, 0, 0)":
-        return "Same" if "Same" in legend else "(no fill)"
+        return "Same" if "Same" in legend else "Meets goal" if "Meets goal" in legend else "(no fill)"
     return None
 
 
@@ -343,9 +359,16 @@ class Run:
                 bad.append(f"{k} draft line {t['sub']!r} != {e['draft_text']!r}")
             if t["delta"] != e["delta_text"]:
                 bad.append(f"{k} delta {t['delta']!r} != {e['delta_text']!r}")
-            want = {"up": self.colors["up"], "down": self.colors["down"], "grey": self.colors["muted"]}[e["delta_colour"]]
+            # Recolour (2026-11-05): green = good, red = bad. The known totals still mark the Labor cost delta grey (the old
+            # "deliberate trade" rule); cost is lower-is-better (components.md "Delta badge"), so on a meaningful base a rise
+            # is expected red and a fall green. Every other tile keeps the known colour.
+            want_tone = e["delta_colour"]
+            if k == "cost" and want_tone == "grey" and not e["delta_text"].startswith(("was", "±")) and e["delta"]:
+                want_tone = "down" if e["delta"] > 0 else "up"
+            # Red delta text is bad-strong (bad is under 4.5:1 on the selected tile's tint; DRAFT4.md 4).
+            want = {"up": self.colors["good"], "down": self.colors["bad-strong"], "grey": self.colors["muted"]}[want_tone]
             if t["deltaColor"] != want:
-                bad.append(f"{k} delta colour {t['deltaColor']} != {e['delta_colour']} {want}")
+                bad.append(f"{k} delta colour {t['deltaColor']} != {want_tone} {want}")
         check(f"{tag}: four tiles (value, draft line, delta, delta colour)", not bad, bad or measured)
 
         # Tile tooltips: exact values agree with the tiles
@@ -379,9 +402,9 @@ class Run:
         self.check_board(tag, s, wk, kv, board, tiles)
         # Below goal list
         self.check_list(tag, s, wk, kv)
-        # By day titles (all lenses) and the ranked card
+        # By day titles (all lenses). The ranked breakdown card was removed (the user, 2026-11-05).
         self.check_byday_and_lenses(tag, s, wk, kv)
-        self.check_ranked(tag, s, wk, kv, tiles)
+        check(f"{tag}: the breakdown card is gone", self.page.locator("[data-card=ranked]").count() == 0, "no [data-card=ranked]")
         # Number hygiene
         txt = self.body_text()
         tips = " ".join(self.page.evaluate("() => [...document.querySelectorAll('[data-tip],[data-tip-title],[aria-label]')].map(e => (e.getAttribute('data-tip')||'')+' '+(e.getAttribute('data-tip-title')||'')+' '+(e.getAttribute('aria-label')||''))"))
@@ -410,7 +433,7 @@ class Run:
                 total += int(num.replace(",", "")) if num.replace(",", "").isdigit() else 0
             # colour, matched to the legend the user sees
             tier = e["tier_service"]
-            want = SERVICE_LEGEND[tier]
+            want = service_label(e)
             got = legend_of(c, self.legend)
             counts[got] += 1
             if got != want:
@@ -476,7 +499,7 @@ class Run:
         check(f"{tag}: board numbers sum to the People tile and the known total", total == kv["board_sum"] and tiles["people"]["value"] == f"{total:,}",
               f"board {total:,}, People tile {tiles['people']['value']}", f"{kv['board_sum']:,}")
         check(f"{tag}: every cell's colour matches its legend swatch (warm / healthy tiers / closed)", not cb, cb[:8] or dict(counts))
-        warm = counts.get("Below goal", 0) + counts.get("Under 80%", 0)
+        warm = sum(counts.get(x, 0) for x in RED_LABELS)
         check(f"{tag}: warm cells", warm == kv["warm_cells"], warm, kv["warm_cells"])
         if wk == "all":
             check(f"{tag}: pips (warehouses below goal per cell)", not pb, pb[:8] or "all 63 agree")
@@ -486,12 +509,12 @@ class Run:
         closed = sorted(c["key"] for c in cells if c["text"] == "—" and c["border"] == "dashed")
         exp_closed = sorted(kv["closed_cells"]) if wk == "all" else sorted(k for k, e in exp.items() if not e["is_open"])
         check(f"{tag}: closed cells are dashed '—'", closed == exp_closed, closed, exp_closed)
-        # worst block: the only red ring
-        down = self.colors["down"]
+        # worst block: the only dark-red (bad-strong) ring
+        down = self.colors["bad-strong"]
         ringed = [c["key"] for c in cells if down in (c["shadow"] or "")]
         wb = kv["worst_block"]
         want = wb["all_cell_key"] if wk == "all" else wb["key"]
-        check(f"{tag}: the single red-ringed cell is the worst block", ringed == [want], ringed, [want])
+        check(f"{tag}: the single dark-red-ringed cell is the worst block", ringed == [want], ringed, [want])
         wc = by_key.get(want)
         if wc:
             phrase = "holds the worst block in view" if wk == "all" else "worst block in view"
@@ -517,7 +540,7 @@ class Run:
             if wk == "all":
                 shown = sum(c["pips"] for c in col)
             else:
-                shown = sum(1 for c in col if legend_of(c, self.legend) in ("Below goal", "Under 80%"))
+                shown = sum(1 for c in col if legend_of(c, self.legend) in RED_LABELS)
             phrase = f"{nbelow} block{'s' if nbelow != 1 else ''} below goal"
             if phrase not in tip or shown != nbelow:
                 hb.append(f"{d}: tooltip {tip!r}, marks on the column {shown}, known {nbelow}")
@@ -539,9 +562,9 @@ class Run:
                 continue
             if name != e["name"] or r["chance"] != e["chance_text"] or r["short"] != str(e["short"]):
                 bad.append(f"row {i + 1}: {name} {r['chance']} {r['short']} vs {e['name']} {e['chance_text']} {e['short']}")
-            want_sq = self.colors["down"] if e["is_worst"] else self.colors["warn"]
+            want_sq = self.colors["bad-strong"] if e["is_worst"] else self.colors["bad"]
             if r["square"] != want_sq or r["bar"] != want_sq:
-                bad.append(f"row {i + 1}: square {r['square']} bar {r['bar']} vs {'down' if e['is_worst'] else 'warn'}")
+                bad.append(f"row {i + 1}: square {r['square']} bar {r['bar']} vs {'bad-strong' if e['is_worst'] else 'bad'}")
             # fix round 2 (vis-1): the bar is the gap to the goal, from the chance to the 95% tick, so the worst row is longest
             gap = max(0.0, 95.0 - e["chance"] * 100)
             if r["barPct"] is not None and (abs(r["barPct"] - max(0.9, gap)) > 1.5 or abs(r["barRight"] - 95.0) > 1.0):
@@ -553,7 +576,7 @@ class Run:
         tip = self.page.get_attribute("[data-card=plan] [data-tile=service]", "data-tip") or ""
         if f"Lowest block {rows[0]['chance']}" not in tip:
             bad.append(f"top row {rows[0]['chance']} vs Service tooltip {tip.splitlines()[-1]!r}")
-        check(f"{tag}: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')", not bad,
+        check(f"{tag}: Below goal list (order, name, chance, short, dark red only on the worst, red on the rest, bar = gap to goal, footnote; top = 'Lowest block')", not bad,
               bad[:6] or f"{len(rows)} rows shown, footnote {foot_txt!r}, top {rows[0]['name']} {rows[0]['chance']}")
         # expanded list = the full ranked list
         self.page.click('[data-card=slot] button[aria-label="All below-goal blocks"]')
@@ -608,9 +631,9 @@ class Run:
                     got = legend_of(c, legend)
                     ts = e["tier_service"]
                     if ts in ("w1", "w2", "closed"):
-                        want_l = SERVICE_LEGEND[ts]
+                        want_l = service_label(e)
                     elif lens == "below":
-                        if got in ("Same", "(no fill)"):
+                        if got in ("Same", "(no fill)", "Meets goal"):
                             continue
                         want_l = "(no fill)"
                     else:
@@ -974,7 +997,7 @@ def main() -> int:
                 run.clear()
                 c = next(x for x in run.cells()["cells"] if x["key"] == edge["key"])
                 got = legend_of(c, run.legend)
-                want_leg = SERVICE_LEGEND[edge["tier_service"]]
+                want_leg = service_label(edge)
                 aria = c["aria"] or ""
                 ok = got == want_leg and f"{edge['expected_text']} chance" in aria and (("below goal" in aria) == edge["expected_below"])
                 check(f"Edge {edge['key']} on the board: {edge['expected_text']}, {'below goal' if edge['expected_below'] else 'not below goal'}", ok,
@@ -1105,7 +1128,7 @@ def check_fixture(ctx, url, run):
     run2 = Run(page, url, run.kt, run.csv, run.pvd)
     run2.colors, run2.legend = run.colors, run.legend
     cells = run2.cells()["cells"]
-    warm = [c["key"] for c in cells if legend_of(c, run.legend) in ("Below goal", "Under 80%")]
+    warm = [c["key"] for c in cells if legend_of(c, run.legend) in RED_LABELS]
     lst = page.evaluate(JS_LIST, "[data-card=slot]")
     check("Fixture W2: 0 warm cells and the list reads 'Closest to goal'", not warm and lst["title"] == "Closest to goal",
           {"warm": len(warm), "title": lst["title"], "rows": len(lst["rows"]), "tile": page.inner_text("[data-tile=below]").split("\n")})
@@ -1113,7 +1136,7 @@ def check_fixture(ctx, url, run):
     page.click('[aria-label=Warehouse] [role=radio][aria-label="Warehouse 4"]')
     page.wait_for_timeout(300)
     cells = run2.cells()["cells"]
-    ringed = [c["key"] for c in cells if run.colors["down"] in (c["shadow"] or "")]
+    ringed = [c["key"] for c in cells if run.colors["bad-strong"] in (c["shadow"] or "")]
     lst = page.evaluate(JS_LIST, "[data-card=slot]")
     check("Fixture W4: the P2 tie-break picks the larger-shortfall 0% block", ringed == [z["key"]] and lst["rows"][0]["key"] == z["key"],
           {"ringed": ringed, "list_top": lst["rows"][0]["key"]}, z["key"])

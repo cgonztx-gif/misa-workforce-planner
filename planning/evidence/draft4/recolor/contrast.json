@@ -1,0 +1,451 @@
+{
+ "about": "Measured on the rendered draft 4 page (port 8700), WCAG 2 contrast; simulated data.",
+ "light": [
+  {
+   "what": "l=service cell t2: number on fill",
+   "ratio": 15.94,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=service cell t3: number on fill",
+   "ratio": 15.12,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=service cell w1: number on fill",
+   "ratio": 12.31,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=service cell w2: number on fill",
+   "ratio": 9.59,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=service cell closed: number on fill",
+   "ratio": 5.7,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=service cell t1: number on fill",
+   "ratio": 16.67,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "delta service text on card",
+   "ratio": 5.01,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "delta below text on card",
+   "ratio": 5.01,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "delta people text on card",
+   "ratio": 5.7,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "delta cost text on card",
+   "ratio": 4.63,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "Below goal list bar 1 on its track",
+   "ratio": 6.53,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "Below goal list bar 2 on its track",
+   "ratio": 4.13,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "Below goal list bar 3 on its track",
+   "ratio": 4.13,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "ranked share bar (opacity 75) on card",
+   "ratio": 3.19,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "mark good on card",
+   "ratio": 5.01,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "mark bad on card",
+   "ratio": 4.63,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "mark bad-strong on card",
+   "ratio": 7.31,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "mark series-grey on card",
+   "ratio": 3.82,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "l=people cell p1: number on fill",
+   "ratio": 15.98,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=people cell p3: number on fill",
+   "ratio": 13.05,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=people cell w1: number on fill",
+   "ratio": 12.31,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=people cell w2: number on fill",
+   "ratio": 9.59,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=people cell p2: number on fill",
+   "ratio": 14.48,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=people cell same: number on fill",
+   "ratio": 17.89,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=people cell closed: number on fill",
+   "ratio": 5.7,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=people cell cut: number on fill",
+   "ratio": 16.7,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=cost cell c1: number on fill",
+   "ratio": 15.98,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=cost cell c3: number on fill",
+   "ratio": 13.05,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=cost cell w1: number on fill",
+   "ratio": 12.31,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=cost cell w2: number on fill",
+   "ratio": 9.59,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=cost cell c2: number on fill",
+   "ratio": 14.48,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=cost cell c0: number on fill",
+   "ratio": 17.89,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=cost cell closed: number on fill",
+   "ratio": 5.7,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "chip 'Below goal' text on its tint",
+   "ratio": 15.14,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "chip 'Unfilled 2' text on its tint",
+   "ratio": 15.14,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "chip 'Short 23' text on its tint",
+   "ratio": 15.14,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "chip 'Meets goal' text on its tint",
+   "ratio": 15.62,
+   "min": 4.5,
+   "ok": true
+  }
+ ],
+ "dark": [
+  {
+   "what": "l=service cell t2: number on fill",
+   "ratio": 14.57,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=service cell t3: number on fill",
+   "ratio": 13.49,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=service cell w1: number on fill",
+   "ratio": 10.78,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=service cell w2: number on fill",
+   "ratio": 7.93,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=service cell closed: number on fill",
+   "ratio": 5.52,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=service cell t1: number on fill",
+   "ratio": 15.44,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "delta service text on card",
+   "ratio": 8.24,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "delta below text on card",
+   "ratio": 8.24,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "delta people text on card",
+   "ratio": 5.52,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "delta cost text on card",
+   "ratio": 4.7,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "Below goal list bar 1 on its track",
+   "ratio": 6.43,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "Below goal list bar 2 on its track",
+   "ratio": 4.11,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "Below goal list bar 3 on its track",
+   "ratio": 4.11,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "ranked share bar (opacity 75) on card",
+   "ratio": 5.1,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "mark good on card",
+   "ratio": 8.24,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "mark bad on card",
+   "ratio": 4.7,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "mark bad-strong on card",
+   "ratio": 7.35,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "mark series-grey on card",
+   "ratio": 4.03,
+   "min": 3,
+   "ok": true
+  },
+  {
+   "what": "l=people cell p1: number on fill",
+   "ratio": 13.72,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=people cell p3: number on fill",
+   "ratio": 9.6,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=people cell w1: number on fill",
+   "ratio": 10.78,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=people cell w2: number on fill",
+   "ratio": 7.93,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=people cell p2: number on fill",
+   "ratio": 11.78,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=people cell same: number on fill",
+   "ratio": 16.59,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=people cell closed: number on fill",
+   "ratio": 5.52,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=people cell cut: number on fill",
+   "ratio": 14.84,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=cost cell c1: number on fill",
+   "ratio": 13.72,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=cost cell c3: number on fill",
+   "ratio": 9.6,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=cost cell w1: number on fill",
+   "ratio": 10.78,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=cost cell w2: number on fill",
+   "ratio": 7.93,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=cost cell c2: number on fill",
+   "ratio": 11.78,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=cost cell c0: number on fill",
+   "ratio": 16.59,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "l=cost cell closed: number on fill",
+   "ratio": 5.52,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "chip 'Below goal' text on its tint",
+   "ratio": 14.75,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "chip 'Unfilled 2' text on its tint",
+   "ratio": 14.75,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "chip 'Short 23' text on its tint",
+   "ratio": 14.75,
+   "min": 4.5,
+   "ok": true
+  },
+  {
+   "what": "chip 'Meets goal' text on its tint",
+   "ratio": 14.18,
+   "min": 4.5,
+   "ok": true
+  }
+ ]
+}

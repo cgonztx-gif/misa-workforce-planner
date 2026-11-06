@@ -11,25 +11,23 @@ export interface TileData {
   value: string;
   raw: number | null;
   delta: string;
-  tone: "up" | "down" | "grey";
+  tone: "good" | "bad" | "grey";
   sub: string;
   spark: number[];
   tipTitle: string;
   tip: string;
 }
 
-// Selected fills (DRAFT4.md 4): literal strings.
-const SELECTED: Record<TileKind, string> = {
-  service: "bg-accent/[.06] ring-1 ring-inset ring-accent/20",
-  people: "bg-accent/[.06] ring-1 ring-inset ring-accent/20",
-  cost: "bg-money/[.07] ring-1 ring-inset ring-money/25",
-  below: "bg-warn/[.08] ring-1 ring-inset ring-warn/25",
-};
+// The selected tile (DRAFT4.md 4, components.md "Selected"): the showcase image's pale green fill and faint green ring,
+// whichever tile it is, as the user asked (App.tsx D10). The sparkline takes the metric's colour,
+// as its board lens and By day do: Service green (good), Below goal red micro-bars (it counts problems), People and
+// Labor cost ink (magnitudes, never green or red). Unselected tiles draw their sparkline in grey.
+const SELECTED = "bg-good/[.07] ring-1 ring-inset ring-good/25";
 const LINE: Record<TileKind, string> = {
-  service: "var(--color-accent)",
-  people: "var(--color-accent)",
-  cost: "var(--color-money)",
-  below: "var(--color-warn)",
+  service: "var(--color-good)",
+  people: "var(--color-ink)",
+  cost: "var(--color-ink)",
+  below: "var(--color-bad)",
 };
 
 /** components.md KPI strip: label + delta, big value, a numeric baseline, a sparkline. The explanation is the tooltip. */
@@ -48,7 +46,7 @@ export function KpiTile({ t, selected, onSelect }: { t: TileData; selected: bool
     >
       <div
         className={`h-full rounded-xl px-4 py-3 transition-colors group-focus-visible:ring-2 group-focus-visible:ring-accent compact:py-2.5 max-sm:px-3 ${
-          selected ? `${SELECTED[t.kind]} forced-colors:outline-2 forced-colors:outline-[Highlight]` : "group-hover:bg-soft/70"
+          selected ? `${SELECTED} forced-colors:outline-2 forced-colors:outline-[Highlight]` : "group-hover:bg-soft/70"
         }`}
       >
         <div className={`flex h-5 items-center justify-between gap-2 text-[14px] ${selected ? "font-medium text-ink" : "text-ink-2"}`}>
@@ -67,7 +65,7 @@ export function KpiTile({ t, selected, onSelect }: { t: TileData; selected: bool
             bars={t.kind === "below"}
             color={selected ? LINE[t.kind] : "var(--color-series-grey)"}
             fill={selected ? LINE[t.kind] : "var(--color-soft)"}
-            from={selected ? 0.15 : 1}
+            from={selected ? (t.kind === "people" || t.kind === "cost" ? 0.08 : 0.15) : 1}
             to={selected ? 0 : 1}
             quiet={!selected}
           />

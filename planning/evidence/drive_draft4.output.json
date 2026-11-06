@@ -1,9 +1,9 @@
 {
  "about": "drive_draft4.py: the rendered draft 4 page against planning/evidence/draft4_known_totals.output.json and outputs/*.csv. Simulated data, not Costco data.",
- "run_at": "2026-11-05 20:39:59",
- "seconds": 122.5,
+ "run_at": "2026-11-05 21:49:21",
+ "seconds": 99.4,
  "viewport": "1440x900",
- "passed": 363,
+ "passed": 351,
  "failed": 0,
  "failures": [],
  "results": [
@@ -11,14 +11,14 @@
    "check": "server --draft4 ready",
    "ok": true,
    "measured": {
-    "ready_s": 19.4,
+    "ready_s": 15.3,
     "health": {
      "ready": true,
-     "seconds": 17.839925,
+     "seconds": 13.5478,
      "error": null,
      "status": "ready",
      "step": "Ready",
-     "elapsed": 17.839925
+     "elapsed": 13.5478
     }
    },
    "expected": null
@@ -101,12 +101,11 @@
    "check": "BASE All warehouses: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
    "ok": true,
    "measured": {
-    "97%+": 14,
-    "95%+": 28,
-    "Below goal": 10,
+    "Meets goal": 43,
+    "80–90%": 4,
     "Under 80%": 7,
-    "Closed": 3,
-    "99%+": 1
+    "90–95%": 6,
+    "Closed": 3
    },
    "expected": null
   },
@@ -149,7 +148,7 @@
    ]
   },
   {
-   "check": "BASE All warehouses: the single red-ringed cell is the worst block",
+   "check": "BASE All warehouses: the single dark-red-ringed cell is the worst block",
    "ok": true,
    "measured": [
     "all|38|2026-02-14|MID"
@@ -180,7 +179,7 @@
    "expected": null
   },
   {
-   "check": "BASE All warehouses: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "check": "BASE All warehouses: Below goal list (order, name, chance, short, dark red only on the worst, red on the rest, bar = gap to goal, footnote; top = 'Lowest block')",
    "ok": true,
    "measured": "13 rows shown, footnote '13 of 25', top Sat 14 · FE · Mid 57.0%",
    "expected": null
@@ -210,16 +209,10 @@
    "expected": null
   },
   {
-   "check": "BASE All warehouses: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "check": "BASE All warehouses: the breakdown card is gone",
    "ok": true,
-   "measured": "all tabs agree",
+   "measured": "no [data-card=ranked]",
    "expected": null
-  },
-  {
-   "check": "BASE All warehouses: sidebar scenario tooltip agrees with the tiles",
-   "ok": true,
-   "measured": "Service 95.6% · Below goal 25",
-   "expected": "Service 95.6% · Below goal 25"
   },
   {
    "check": "BASE All warehouses: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
@@ -304,11 +297,9 @@
    "check": "BASE Warehouse 1: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
    "ok": true,
    "measured": {
-    "97%+": 28,
-    "95%+": 14,
-    "Below goal": 4,
+    "Meets goal": 51,
+    "90–95%": 4,
     "Under 80%": 5,
-    "99%+": 9,
     "Closed": 3
    },
    "expected": null
@@ -346,7 +337,7 @@
    ]
   },
   {
-   "check": "BASE Warehouse 1: the single red-ringed cell is the worst block",
+   "check": "BASE Warehouse 1: the single dark-red-ringed cell is the worst block",
    "ok": true,
    "measured": [
     "BASE|1|38|2026-02-14|MID"
@@ -377,7 +368,7 @@
    "expected": null
   },
   {
-   "check": "BASE Warehouse 1: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "check": "BASE Warehouse 1: Below goal list (order, name, chance, short, dark red only on the worst, red on the rest, bar = gap to goal, footnote; top = 'Lowest block')",
    "ok": true,
    "measured": "9 rows shown, footnote '9 of 9', top Sat 14 · FE · Mid 57.0%",
    "expected": null
@@ -407,16 +398,10 @@
    "expected": null
   },
   {
-   "check": "BASE Warehouse 1: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "check": "BASE Warehouse 1: the breakdown card is gone",
    "ok": true,
-   "measured": "all tabs agree",
+   "measured": "no [data-card=ranked]",
    "expected": null
-  },
-  {
-   "check": "BASE Warehouse 1: sidebar scenario tooltip agrees with the tiles",
-   "ok": true,
-   "measured": "Service 94.6% · Below goal 9",
-   "expected": "Service 94.6% · Below goal 9"
   },
   {
    "check": "BASE Warehouse 1: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
@@ -501,10 +486,9 @@
    "check": "BASE Warehouse 2: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
    "ok": true,
    "measured": {
-    "99%+": 14,
-    "97%+": 24,
-    "95%+": 14,
-    "Below goal": 6,
+    "Meets goal": 52,
+    "80–90%": 2,
+    "90–95%": 4,
     "Under 80%": 2,
     "Closed": 3
    },
@@ -543,7 +527,7 @@
    ]
   },
   {
-   "check": "BASE Warehouse 2: the single red-ringed cell is the worst block",
+   "check": "BASE Warehouse 2: the single dark-red-ringed cell is the worst block",
    "ok": true,
    "measured": [
     "BASE|2|92|2026-02-14|OPEN"
@@ -574,7 +558,7 @@
    "expected": null
   },
   {
-   "check": "BASE Warehouse 2: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "check": "BASE Warehouse 2: Below goal list (order, name, chance, short, dark red only on the worst, red on the rest, bar = gap to goal, footnote; top = 'Lowest block')",
    "ok": true,
    "measured": "8 rows shown, footnote '8 of 8', top Sat 14 · Merch · Open 76.4%",
    "expected": null
@@ -604,16 +588,10 @@
    "expected": null
   },
   {
-   "check": "BASE Warehouse 2: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "check": "BASE Warehouse 2: the breakdown card is gone",
    "ok": true,
-   "measured": "all tabs agree",
+   "measured": "no [data-card=ranked]",
    "expected": null
-  },
-  {
-   "check": "BASE Warehouse 2: sidebar scenario tooltip agrees with the tiles",
-   "ok": true,
-   "measured": "Service 96.3% · Below goal 8",
-   "expected": "Service 96.3% · Below goal 8"
   },
   {
    "check": "BASE Warehouse 2: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
@@ -698,12 +676,11 @@
    "check": "BASE Warehouse 4: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
    "ok": true,
    "measured": {
-    "97%+": 26,
-    "95%+": 22,
-    "Below goal": 7,
+    "Meets goal": 52,
+    "80–90%": 4,
+    "90–95%": 3,
     "Under 80%": 1,
-    "Closed": 3,
-    "99%+": 4
+    "Closed": 3
    },
    "expected": null
   },
@@ -740,7 +717,7 @@
    ]
   },
   {
-   "check": "BASE Warehouse 4: the single red-ringed cell is the worst block",
+   "check": "BASE Warehouse 4: the single dark-red-ringed cell is the worst block",
    "ok": true,
    "measured": [
     "BASE|4|95|2026-02-14|OPEN"
@@ -771,7 +748,7 @@
    "expected": null
   },
   {
-   "check": "BASE Warehouse 4: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "check": "BASE Warehouse 4: Below goal list (order, name, chance, short, dark red only on the worst, red on the rest, bar = gap to goal, footnote; top = 'Lowest block')",
    "ok": true,
    "measured": "8 rows shown, footnote '8 of 8', top Sat 14 · Pharm · Open 74.9%",
    "expected": null
@@ -801,16 +778,10 @@
    "expected": null
   },
   {
-   "check": "BASE Warehouse 4: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "check": "BASE Warehouse 4: the breakdown card is gone",
    "ok": true,
-   "measured": "all tabs agree",
+   "measured": "no [data-card=ranked]",
    "expected": null
-  },
-  {
-   "check": "BASE Warehouse 4: sidebar scenario tooltip agrees with the tiles",
-   "ok": true,
-   "measured": "Service 95.8% · Below goal 8",
-   "expected": "Service 95.8% · Below goal 8"
   },
   {
    "check": "BASE Warehouse 4: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
@@ -1021,10 +992,10 @@
    "check": "PEAK All warehouses: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
    "ok": true,
    "measured": {
-    "97%+": 13,
-    "Below goal": 7,
+    "Meets goal": 39,
+    "80–90%": 4,
     "Under 80%": 14,
-    "95%+": 26,
+    "90–95%": 3,
     "Closed": 3
    },
    "expected": null
@@ -1068,7 +1039,7 @@
    ]
   },
   {
-   "check": "PEAK All warehouses: the single red-ringed cell is the worst block",
+   "check": "PEAK All warehouses: the single dark-red-ringed cell is the worst block",
    "ok": true,
    "measured": [
     "all|92|2026-02-14|OPEN"
@@ -1099,7 +1070,7 @@
    "expected": null
   },
   {
-   "check": "PEAK All warehouses: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "check": "PEAK All warehouses: Below goal list (order, name, chance, short, dark red only on the worst, red on the rest, bar = gap to goal, footnote; top = 'Lowest block')",
    "ok": true,
    "measured": "13 rows shown, footnote '13 of 45', top Sat 14 · Merch · Open 0.3%",
    "expected": null
@@ -1129,16 +1100,10 @@
    "expected": null
   },
   {
-   "check": "PEAK All warehouses: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "check": "PEAK All warehouses: the breakdown card is gone",
    "ok": true,
-   "measured": "all tabs agree",
+   "measured": "no [data-card=ranked]",
    "expected": null
-  },
-  {
-   "check": "PEAK All warehouses: sidebar scenario tooltip agrees with the tiles",
-   "ok": true,
-   "measured": "Service 87.0% · Below goal 45",
-   "expected": "Service 87.0% · Below goal 45"
   },
   {
    "check": "PEAK All warehouses: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
@@ -1223,11 +1188,10 @@
    "check": "PEAK Warehouse 1: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
    "ok": true,
    "measured": {
-    "97%+": 25,
-    "Below goal": 4,
+    "Meets goal": 46,
+    "80–90%": 1,
     "Under 80%": 10,
-    "95%+": 14,
-    "99%+": 7,
+    "90–95%": 3,
     "Closed": 3
    },
    "expected": null
@@ -1265,7 +1229,7 @@
    ]
   },
   {
-   "check": "PEAK Warehouse 1: the single red-ringed cell is the worst block",
+   "check": "PEAK Warehouse 1: the single dark-red-ringed cell is the worst block",
    "ok": true,
    "measured": [
     "PEAK|1|92|2026-02-14|OPEN"
@@ -1296,7 +1260,7 @@
    "expected": null
   },
   {
-   "check": "PEAK Warehouse 1: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "check": "PEAK Warehouse 1: Below goal list (order, name, chance, short, dark red only on the worst, red on the rest, bar = gap to goal, footnote; top = 'Lowest block')",
    "ok": true,
    "measured": "13 rows shown, footnote '13 of 14', top Sat 14 · Merch · Open 0.3%",
    "expected": null
@@ -1326,16 +1290,10 @@
    "expected": null
   },
   {
-   "check": "PEAK Warehouse 1: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "check": "PEAK Warehouse 1: the breakdown card is gone",
    "ok": true,
-   "measured": "all tabs agree",
+   "measured": "no [data-card=ranked]",
    "expected": null
-  },
-  {
-   "check": "PEAK Warehouse 1: sidebar scenario tooltip agrees with the tiles",
-   "ok": true,
-   "measured": "Service 87.7% · Below goal 14",
-   "expected": "Service 87.7% · Below goal 14"
   },
   {
    "check": "PEAK Warehouse 1: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
@@ -1420,11 +1378,10 @@
    "check": "PEAK Warehouse 2: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
    "ok": true,
    "measured": {
-    "99%+": 12,
-    "95%+": 10,
+    "Meets goal": 46,
     "Under 80%": 9,
-    "97%+": 24,
-    "Below goal": 5,
+    "90–95%": 3,
+    "80–90%": 2,
     "Closed": 3
    },
    "expected": null
@@ -1462,7 +1419,7 @@
    ]
   },
   {
-   "check": "PEAK Warehouse 2: the single red-ringed cell is the worst block",
+   "check": "PEAK Warehouse 2: the single dark-red-ringed cell is the worst block",
    "ok": true,
    "measured": [
     "PEAK|2|92|2026-02-14|OPEN"
@@ -1493,7 +1450,7 @@
    "expected": null
   },
   {
-   "check": "PEAK Warehouse 2: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "check": "PEAK Warehouse 2: Below goal list (order, name, chance, short, dark red only on the worst, red on the rest, bar = gap to goal, footnote; top = 'Lowest block')",
    "ok": true,
    "measured": "13 rows shown, footnote '13 of 14', top Sat 14 · Merch · Open 0.8%",
    "expected": null
@@ -1523,16 +1480,10 @@
    "expected": null
   },
   {
-   "check": "PEAK Warehouse 2: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "check": "PEAK Warehouse 2: the breakdown card is gone",
    "ok": true,
-   "measured": "all tabs agree",
+   "measured": "no [data-card=ranked]",
    "expected": null
-  },
-  {
-   "check": "PEAK Warehouse 2: sidebar scenario tooltip agrees with the tiles",
-   "ok": true,
-   "measured": "Service 88.5% · Below goal 14",
-   "expected": "Service 88.5% · Below goal 14"
   },
   {
    "check": "PEAK Warehouse 2: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
@@ -1617,12 +1568,11 @@
    "check": "PEAK Warehouse 4: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
    "ok": true,
    "measured": {
-    "97%+": 25,
-    "Below goal": 7,
+    "Meets goal": 43,
+    "90–95%": 2,
     "Under 80%": 10,
-    "95%+": 16,
-    "Closed": 3,
-    "99%+": 2
+    "80–90%": 5,
+    "Closed": 3
    },
    "expected": null
   },
@@ -1659,7 +1609,7 @@
    ]
   },
   {
-   "check": "PEAK Warehouse 4: the single red-ringed cell is the worst block",
+   "check": "PEAK Warehouse 4: the single dark-red-ringed cell is the worst block",
    "ok": true,
    "measured": [
     "PEAK|4|38|2026-02-13|MID"
@@ -1690,7 +1640,7 @@
    "expected": null
   },
   {
-   "check": "PEAK Warehouse 4: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "check": "PEAK Warehouse 4: Below goal list (order, name, chance, short, dark red only on the worst, red on the rest, bar = gap to goal, footnote; top = 'Lowest block')",
    "ok": true,
    "measured": "13 rows shown, footnote '13 of 17', top Fri 13 · FE · Mid 0.7%",
    "expected": null
@@ -1720,16 +1670,10 @@
    "expected": null
   },
   {
-   "check": "PEAK Warehouse 4: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "check": "PEAK Warehouse 4: the breakdown card is gone",
    "ok": true,
-   "measured": "all tabs agree",
+   "measured": "no [data-card=ranked]",
    "expected": null
-  },
-  {
-   "check": "PEAK Warehouse 4: sidebar scenario tooltip agrees with the tiles",
-   "ok": true,
-   "measured": "Service 84.8% · Below goal 17",
-   "expected": "Service 84.8% · Below goal 17"
   },
   {
    "check": "PEAK Warehouse 4: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
@@ -1940,10 +1884,10 @@
    "check": "DISRUPT All warehouses: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
    "ok": true,
    "measured": {
-    "97%+": 10,
+    "Meets goal": 32,
     "Under 80%": 20,
-    "95%+": 22,
-    "Below goal": 8,
+    "80–90%": 2,
+    "90–95%": 6,
     "Closed": 3
    },
    "expected": null
@@ -1987,7 +1931,7 @@
    ]
   },
   {
-   "check": "DISRUPT All warehouses: the single red-ringed cell is the worst block",
+   "check": "DISRUPT All warehouses: the single dark-red-ringed cell is the worst block",
    "ok": true,
    "measured": [
     "all|38|2026-02-14|MID"
@@ -2018,7 +1962,7 @@
    "expected": null
   },
   {
-   "check": "DISRUPT All warehouses: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "check": "DISRUPT All warehouses: Below goal list (order, name, chance, short, dark red only on the worst, red on the rest, bar = gap to goal, footnote; top = 'Lowest block')",
    "ok": true,
    "measured": "13 rows shown, footnote '13 of 39', top Sat 14 · FE · Mid 0%",
    "expected": null
@@ -2048,16 +1992,10 @@
    "expected": null
   },
   {
-   "check": "DISRUPT All warehouses: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "check": "DISRUPT All warehouses: the breakdown card is gone",
    "ok": true,
-   "measured": "all tabs agree",
+   "measured": "no [data-card=ranked]",
    "expected": null
-  },
-  {
-   "check": "DISRUPT All warehouses: sidebar scenario tooltip agrees with the tiles",
-   "ok": true,
-   "measured": "Service 89.5% · Below goal 39",
-   "expected": "Service 89.5% · Below goal 39"
   },
   {
    "check": "DISRUPT All warehouses: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
@@ -2154,11 +2092,9 @@
    "check": "DISRUPT Warehouse 1: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
    "ok": true,
    "measured": {
-    "97%+": 28,
-    "95%+": 14,
-    "Below goal": 4,
+    "Meets goal": 51,
+    "90–95%": 4,
     "Under 80%": 5,
-    "99%+": 9,
     "Closed": 3
    },
    "expected": null
@@ -2196,7 +2132,7 @@
    ]
   },
   {
-   "check": "DISRUPT Warehouse 1: the single red-ringed cell is the worst block",
+   "check": "DISRUPT Warehouse 1: the single dark-red-ringed cell is the worst block",
    "ok": true,
    "measured": [
     "DISRUPT|1|38|2026-02-14|MID"
@@ -2227,7 +2163,7 @@
    "expected": null
   },
   {
-   "check": "DISRUPT Warehouse 1: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "check": "DISRUPT Warehouse 1: Below goal list (order, name, chance, short, dark red only on the worst, red on the rest, bar = gap to goal, footnote; top = 'Lowest block')",
    "ok": true,
    "measured": "9 rows shown, footnote '9 of 9', top Sat 14 · FE · Mid 57.0%",
    "expected": null
@@ -2257,16 +2193,10 @@
    "expected": null
   },
   {
-   "check": "DISRUPT Warehouse 1: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "check": "DISRUPT Warehouse 1: the breakdown card is gone",
    "ok": true,
-   "measured": "all tabs agree",
+   "measured": "no [data-card=ranked]",
    "expected": null
-  },
-  {
-   "check": "DISRUPT Warehouse 1: sidebar scenario tooltip agrees with the tiles",
-   "ok": true,
-   "measured": "Service 94.6% · Below goal 9",
-   "expected": "Service 94.6% · Below goal 9"
   },
   {
    "check": "DISRUPT Warehouse 1: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
@@ -2351,11 +2281,9 @@
    "check": "DISRUPT Warehouse 2: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
    "ok": true,
    "measured": {
-    "99%+": 8,
+    "Meets goal": 39,
     "Under 80%": 16,
-    "97%+": 19,
-    "95%+": 12,
-    "Below goal": 5,
+    "90–95%": 5,
     "Closed": 3
    },
    "expected": null
@@ -2393,7 +2321,7 @@
    ]
   },
   {
-   "check": "DISRUPT Warehouse 2: the single red-ringed cell is the worst block",
+   "check": "DISRUPT Warehouse 2: the single dark-red-ringed cell is the worst block",
    "ok": true,
    "measured": [
     "DISRUPT|2|38|2026-02-14|MID"
@@ -2424,7 +2352,7 @@
    "expected": null
   },
   {
-   "check": "DISRUPT Warehouse 2: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "check": "DISRUPT Warehouse 2: Below goal list (order, name, chance, short, dark red only on the worst, red on the rest, bar = gap to goal, footnote; top = 'Lowest block')",
    "ok": true,
    "measured": "13 rows shown, footnote '13 of 21', top Sat 14 · FE · Mid 0%",
    "expected": null
@@ -2454,16 +2382,10 @@
    "expected": null
   },
   {
-   "check": "DISRUPT Warehouse 2: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "check": "DISRUPT Warehouse 2: the breakdown card is gone",
    "ok": true,
-   "measured": "all tabs agree",
+   "measured": "no [data-card=ranked]",
    "expected": null
-  },
-  {
-   "check": "DISRUPT Warehouse 2: sidebar scenario tooltip agrees with the tiles",
-   "ok": true,
-   "measured": "Service 78.7% · Below goal 21",
-   "expected": "Service 78.7% · Below goal 21"
   },
   {
    "check": "DISRUPT Warehouse 2: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
@@ -2560,12 +2482,11 @@
    "check": "DISRUPT Warehouse 4: every cell's colour matches its legend swatch (warm / healthy tiers / closed)",
    "ok": true,
    "measured": {
-    "97%+": 25,
-    "95%+": 22,
-    "Below goal": 7,
+    "Meets goal": 51,
+    "80–90%": 4,
+    "90–95%": 3,
     "Under 80%": 2,
-    "Closed": 3,
-    "99%+": 4
+    "Closed": 3
    },
    "expected": null
   },
@@ -2602,7 +2523,7 @@
    ]
   },
   {
-   "check": "DISRUPT Warehouse 4: the single red-ringed cell is the worst block",
+   "check": "DISRUPT Warehouse 4: the single dark-red-ringed cell is the worst block",
    "ok": true,
    "measured": [
     "DISRUPT|4|92|2026-02-13|OPEN"
@@ -2633,7 +2554,7 @@
    "expected": null
   },
   {
-   "check": "DISRUPT Warehouse 4: Below goal list (order, name, chance, short, red only on the worst, bar = gap to goal, footnote; top = 'Lowest block')",
+   "check": "DISRUPT Warehouse 4: Below goal list (order, name, chance, short, dark red only on the worst, red on the rest, bar = gap to goal, footnote; top = 'Lowest block')",
    "ok": true,
    "measured": "9 rows shown, footnote '9 of 9', top Fri 13 · Merch · Open 63.9%",
    "expected": null
@@ -2663,16 +2584,10 @@
    "expected": null
   },
   {
-   "check": "DISRUPT Warehouse 4: ranked card rows (Changes, Departments, Warehouses, Scenarios) and their sums",
+   "check": "DISRUPT Warehouse 4: the breakdown card is gone",
    "ok": true,
-   "measured": "all tabs agree",
+   "measured": "no [data-card=ranked]",
    "expected": null
-  },
-  {
-   "check": "DISRUPT Warehouse 4: sidebar scenario tooltip agrees with the tiles",
-   "ok": true,
-   "measured": "Service 95.2% · Below goal 9",
-   "expected": "Service 95.2% · Below goal 9"
   },
   {
    "check": "DISRUPT Warehouse 4: no NaN / Infinity / −0 / 0.0% / $-0 / '1 blocks' / undefined in text, tips or labels",
@@ -2872,11 +2787,11 @@
    "check": "Edge BASE|1|38|2026-02-14|OPEN on the board: 95.0%, not below goal",
    "ok": true,
    "measured": {
-    "colour": "95%+",
+    "colour": "Meets goal",
     "aria": "Warehouse 1, Saturday February 14, Front End, Opening: 27 people, 4 more than the draft, 95.0% chance"
    },
    "expected": {
-    "colour": "95%+",
+    "colour": "Meets goal",
     "text": "95.0%",
     "below": false
    }
@@ -2897,11 +2812,11 @@
    "check": "Edge DISRUPT|1|38|2026-02-14|OPEN on the board: 95.0%, not below goal",
    "ok": true,
    "measured": {
-    "colour": "95%+",
+    "colour": "Meets goal",
     "aria": "Warehouse 1, Saturday February 14, Front End, Opening: 27 people, 4 more than the draft, 95.0% chance"
    },
    "expected": {
-    "colour": "95%+",
+    "colour": "Meets goal",
     "text": "95.0%",
     "below": false
    }
@@ -2922,11 +2837,11 @@
    "check": "Edge PEAK|4|38|2026-02-13|OPEN on the board: 94.6%, below goal",
    "ok": true,
    "measured": {
-    "colour": "Below goal",
+    "colour": "90–95%",
     "aria": "Warehouse 4, Friday February 13, Front End, Opening: 21 people, 5 more than the draft, 94.6% chance, below goal, 1 short"
    },
    "expected": {
-    "colour": "Below goal",
+    "colour": "90–95%",
     "text": "94.6%",
     "below": true
    }
@@ -3053,7 +2968,7 @@
    "check": "No request leaves 127.0.0.1",
    "ok": true,
    "measured": {
-    "requests": 31,
+    "requests": 28,
     "hosts": [
      "127.0.0.1"
     ],

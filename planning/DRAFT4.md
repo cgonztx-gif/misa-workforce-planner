@@ -238,46 +238,68 @@ Defined once in `web/draft4/src/styles.css`:
 - dark values under `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { … } }`, and **again** under `:root[data-theme="dark"] { … }`;
 - `body { background: var(--color-page); color: var(--color-ink); }`.
 
-Tints are always token + alpha (`bg-accent/15`), so they adapt to the theme.
+Tints are always token + alpha (`bg-bad/12`), or a tier token, so they adapt to the theme.
 
-| Token | Light | Dark | Our entity / use |
+**Colour rules (the user, 2026-11-05, from the showcase image):** green = good, red = bad, grey = comparison and
+neutral, blue = controls only. No amber anywhere. Red and green never carry meaning alone: signs, underline / bold,
+the worst block's corner flag, position in the list and labels carry it too. The showcase has one data hue, a teal-green,
+so the Service series and the ranked card's share bars are green; the people / money entity hues are gone. Magnitudes
+(People, Labor cost, headcount bars) are ink or grey, never green or red, and the selected tile is a control state (blue).
+
+| Token | Light | Dark | Use |
 |---|---|---|---|
 | `page` | `#f8f8f6` | `#0b0b0d` | page background (warm light grey) |
 | `card` | `#ffffff` | `#141417` | cards, selected segment pill, slot |
 | `soft` | `#f1f1ef` | `#1c1c20` | segmented track, hover, holiday band, skeletons |
 | `side` | `#f3f3f1` | `#101013` | sidebar, phone menu sheet |
-| `ink` | `#17171a` | `#f3f3f5` | primary text, **every cell number** |
+| `ink` | `#17171a` | `#f3f3f5` | primary text, **every cell number**; base of the People / Labor cost magnitude tiers |
 | `ink-2` | `#48484d` | `#c4c4ca` | unselected tile values, row labels, draft values |
-| `muted` | `#66666d` | `#8c8c95` | labels, axes, sub-lines, legend (≥ 4.5:1 on card, soft, side and page in both themes) |
+| `muted` | `#66666d` | `#8c8c95` | labels, axes, sub-lines, legend, neutral deltas (≥ 4.5:1 on card, soft, side and page in both themes) |
 | `line` | `rgb(0 0 0 / .075)` | `rgb(255 255 255 / .08)` | hairlines, tile dividers, 3px bar tracks |
 | `line-strong` | `rgb(0 0 0 / .14)` | `rgb(255 255 255 / .16)` | closed-cell dashes, switch-off track |
-| `accent` | `#3e63dd` | `#7b96ff` | **people, headcount, hours, service** (the "traffic" entity): healthy tiers, plan line, selection, focus, switch on |
+| `accent` | `#3e63dd` | `#7b96ff` | **controls only**: Compare switch on, focus rings, selected cell ring, selected tile / row / day fill, Next button, active sidebar icon |
 | `on-accent` | `#ffffff` | `#0b0b0d` | text on solid accent (the Next button) |
-| `money` | `#0f7f57` | `#34c48b` | **labor cost**: cost tile selection, cost lens tiers, cost line, cost in the detail |
-| `up` | `#0f7f57` | `#34c48b` | good change: service ▲, below goal ▼ |
-| `down` | `#d23f45` | `#ff6b70` | **only** the single worst block (ring, list square and bar), plus the `Offline` status dot |
-| `warn` | `#c98a00` | `#f6b100` | **problems**: below-goal tiers, the Below goal tile selection, Short chip, draft-unfilled underline, need tick |
+| `good` | `#0f7f57` | `#34c48b` | **good**: Service tiers that meet the goal, improving deltas (Service ▲, Below goal ▼, a cost fall), the Service plan series in By day (line + soft gradient), the selected Service tile's sparkline, the ranked card's share bars (every row, whatever the sign), chance bars that meet the goal, Meets goal chip |
+| `bad` | `#d23f45` | `#e5484d` | **bad**: below-goal tiers, worsening deltas (a cost rise), Below goal list squares and bars, Short / Below goal / Unfilled chips, the bullet bar and gap below goal, the need tick past capacity, the dashed unfilled underline, Below goal bars in By day, the Offline dot |
+| `bad-strong` | `#a3262c` | `#ff7b80` | the single worst block: its 3px ring, corner flag, list square and bar (darker in light, brighter in dark, so it is the most salient red in both); and red **text** (worsening deltas), because `bad` is under 4.5:1 on the selected tile's tint |
 | `tip` | `#1f2530` | `#2a3548` | the one tooltip surface (text `#fff`, muted lines `rgb(255 255 255 / .68)`) |
-| `live` | `#12a150` | `#34c48b` | the `● Submitted plan` dot |
-| `series-grey` | `#a3a3aa` | `#5c5c66` | draft line and bars, unselected sparklines (the showcase "period before") |
+| `live` | `#0f7f57` | `#34c48b` | the `● Submitted plan` dot (the good green) |
+| `series-grey` | `#828289` | `#75757f` | **comparison and neutral**: draft line and fill, draft bars, draft dot, unselected sparklines, the All-cell warehouses' plan bars (≥ 3:1 on the card and the bullet's darkest range) |
 
-### Derived fills (token + alpha over the card; text in every cell is ink)
+### Board tier tokens (colour-mix of a base token; text in every cell is ink)
+
+| Tier token | Light | Dark | Cells |
+|---|---|---|---|
+| `tier-ok1` | `good` 5% | `good` 5% | Service 99%+ (healthiest, palest) |
+| `tier-ok2` | `good` 8.5% | `good` 8.5% | Service 97%+ |
+| `tier-ok3` | `good` 12.5% | `good` 12.5% | Service 95%+ (nearest the goal) |
+| `tier-low` | `bad` 26% | `bad` 34% | below goal (chance ≥ 80%), every lens; number underlined |
+| `tier-far` | `bad` 42% | `bad` 52% | below goal, chance < 80%, every lens; number **bold** + underlined |
+| `tier-cut` | `ink` 3.5% + `ring-ink/30` | `ink` 5% + `ring-ink/30` | People: fewer than the draft (outlined) |
+| `tier-m1` / `m2` / `m3` | `ink` 5.5 / 10 / 15% | `ink` 8 / 13 / 19% | People +1 / +3 / +6, Labor cost +$1 / +$300 / +$800 (magnitude, never green or red) |
+
+In greyscale (light) every red tier is darker than every green or grey tier (`tier-low` relative luminance 0.67 against `tier-ok3` 0.84
+and `tier-m3` 0.72), so intensity grows toward the problem.
+
+### Derived fills (token + alpha over the card)
 
 | Use | Value |
 |---|---|
-| Selected tile: people/service | `bg-accent/[.06] ring-1 ring-inset ring-accent/20` |
-| Selected tile: cost | `bg-money/[.07] ring-1 ring-inset ring-money/25` |
-| Selected tile: below goal | `bg-warn/[.08] ring-1 ring-inset ring-warn/25` |
-| Healthy tiers | `accent/7` (healthiest), `accent/15`, `accent/26` (nearing the goal) |
-| Cost tiers | `money/7`, `money/15`, `money/26` |
-| Cut (people lens) | `ink/6` |
-| Warm W1 (below goal, chance ≥ 80%) | `warn/30`, number semibold + `underline decoration-2 underline-offset-2` |
-| Warm W2 (below goal, chance < 80%) | `warn/52`, number **bold** + underline |
-| Worst block (P2) | W2 fill + `ring-2 ring-down ring-offset-1 ring-offset-card` |
+| Selected tile (every tile) | `bg-accent/[.06] ring-1 ring-inset ring-accent/20` (as a selected row); sparkline in the metric colour: Service `good`, Below goal `bad` micro-bars, People / Labor cost `ink` |
+| Unselected tile sparkline | `series-grey` line on a `soft` fill |
+| Worst block (P2) | its tier fill + `ring-[3px] ring-bad-strong ring-offset-2 ring-offset-card` + a `bad-strong` corner flag |
 | Selected cell | `ring-2 ring-accent ring-offset-2 ring-offset-card` (it wins over the red ring; the red returns on deselect) |
+| Selected row / day | `bg-accent/[.06] ring-1 ring-accent/20 ring-inset` (selection is a control state) |
+| Chips | Below goal, Short N, Unfilled N, the ranked card's count: `bg-bad/12 text-ink`; Meets goal: `bg-good/10 text-ink`; neutral (Closed, At capacity, cause, a change): `bg-ink/[.05]`–`[.07]` |
+| Deltas | `text-good` improving, `text-bad-strong` worsening (Labor cost is lower-is-better), `text-muted` People and tiny bases |
+| By day | plan: Service `good` 2px line over a `good` 20% → 2% gradient; People / Labor cost `ink` 2px line over an `ink` 10% → 2% gradient (Below goal: `bad` 22% bars with a solid `bad` cap); draft: `series-grey` 1.5px line over a 14% → 2% grey gradient (bars at 45%) |
+| Share bars | ranked card: 3px `good` at 75% opacity on `line/70`, one colour on every row (Changes: length = share of the largest \|change\|, the sign is in the number); All-cell warehouses: `series-grey` (plan headcount, beside the red below-goal dots) |
+| Staff bar (block detail) | headcount by source, a magnitude: Regular `ink/80`, Cross-trained `ink/62`, Overtime `ink/48` (each ≥ 3:1 on the card); the need tick past capacity and the draft's dashed unfilled part stay `bad` |
 | Holiday band | `bg-soft` (header), `soft/60` (chart `ReferenceArea`) |
 | Bar track / hover | `bg-line/70` / `hover:bg-soft/60` |
-| Chart fill | entity hue 15% → 0% gradient |
+
+Measured on the rendered page (`planning/evidence/draft4/recolor/contrast.json`): every cell number, delta and chip ≥ 4.5:1
+and every mark ≥ 3:1, light and dark.
 
 ### Radius, shadow, type, spacing (read from the images)
 

@@ -18,14 +18,14 @@ export function GoalRow({ b, worst, showW, goal, onClick, selected, closest = fa
   wide?: boolean;
 }) {
   // The bar is the gap between the chance and the goal, drawn from the chance to the goal tick, so the worst row has
-  // the longest warm bar (intensity grows toward the problem). In "Closest to goal" the grey bar is the margin above it.
+  // the longest red bar, in the darker red (intensity grows toward the problem). In "Closest to goal" the grey bar is the margin above it.
   const c = Math.max(0, Math.min(1, b.chance ?? 0));
   const lo = Math.min(c, goal);
   const gap = Math.abs(goal - c);
   const dayLong = `${b.weekday} ${new Date(`${b.date}T12:00:00`).toLocaleDateString("en", { month: "long", day: "numeric" })}`;
   const aria = `${b.warehouse}, ${dayLong}, ${b.department}, ${b.shift}: ${chanceText(b.chance, b.below_goal, goal)} chance${b.below_goal ? `, ${int(shortOf(b))} short` : ""}${worst ? ", worst block in view" : ""}`;
-  const sq = closest ? "bg-ink/25" : worst ? "bg-down" : "bg-warn";
-  const bar = closest ? "bg-ink/25" : worst ? "bg-down" : "bg-warn";
+  const sq = closest ? "bg-ink/25" : worst ? "bg-bad-strong" : "bg-bad";
+  const bar = closest ? "bg-ink/25" : worst ? "bg-bad-strong" : "bg-bad";
   const short = shortOf(b);
   return (
     <button

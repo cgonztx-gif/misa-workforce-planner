@@ -1,4 +1,4 @@
-import { Area, Bar, CartesianGrid, ComposedChart, Line, ReferenceArea, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Area, Bar, CartesianGrid, ComposedChart, ReferenceArea, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { chanceText, int, intCompact, pts, signed, signedUsd, usd, usdCompact } from "../lib/format";
 import { niceTicks } from "../lib/ticks";
 import type { GroupTotals, Meta, Summary } from "../lib/types";
@@ -6,11 +6,11 @@ import type { Lens } from "../lib/url";
 
 type Row = { label: string; date: string; long: string; plan: number; draft: number };
 
-const SPEC: Record<Lens, { title: string; pick: (s: Summary) => number; low: boolean; fmt: (n: number) => string; axis: (n: number) => string; color: string; name: string }> = {
-  service: { title: "Lowest day", pick: (s) => s.expected_met ?? 0, low: true, fmt: (n) => chanceText(n), axis: (n) => `${Math.round(n * 100)}%`, color: "var(--color-accent)", name: "Expected service" },
-  below: { title: "Worst day", pick: (s) => s.below_goal, low: false, fmt: int, axis: intCompact, color: "var(--color-warn)", name: "Blocks below goal" },
-  people: { title: "Busiest day", pick: (s) => s.employees, low: false, fmt: int, axis: intCompact, color: "var(--color-accent)", name: "People" },
-  cost: { title: "Costliest day", pick: (s) => s.cost, low: false, fmt: usdCompact, axis: usdCompact, color: "var(--color-money)", name: "Labor cost" },
+const SPEC: Record<Lens, { title: string; pick: (s: Summary) => number; low: boolean; fmt: (n: number) => string; axis: (n: number) => string; color: string; fill: number; name: string }> = {
+  service: { title: "Lowest day", pick: (s) => s.expected_met ?? 0, low: true, fmt: (n) => chanceText(n), axis: (n) => `${Math.round(n * 100)}%`, color: "var(--color-good)", fill: 0.2, name: "Expected service" },
+  below: { title: "Worst day", pick: (s) => s.below_goal, low: false, fmt: int, axis: intCompact, color: "var(--color-bad)", fill: 0.22, name: "Blocks below goal" },
+  people: { title: "Busiest day", pick: (s) => s.employees, low: false, fmt: int, axis: intCompact, color: "var(--color-ink)", fill: 0.1, name: "People" },
+  cost: { title: "Costliest day", pick: (s) => s.cost, low: false, fmt: usdCompact, axis: usdCompact, color: "var(--color-ink)", fill: 0.1, name: "Labor cost" },
 };
 
 function deltaText(lens: Lens, plan: number, draft: number) {
@@ -95,9 +95,15 @@ export function DayChart({ T, meta, lens, focusDay, onDay }: { T: GroupTotals; m
             barCategoryGap="28%"
           >
             <defs>
+              {/* The showcase's fills: a soft gradient under the plan (green for Service; ink for People and Labor cost,
+                  which are magnitudes, not good or bad), a fainter grey one under the draft. */}
               <linearGradient id={gid} x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor={s.color} stopOpacity={0.15} />
-                <stop offset="100%" stopColor={s.color} stopOpacity={0} />
+                <stop offset="0%" stopColor={s.color} stopOpacity={s.fill} />
+                <stop offset="100%" stopColor={s.color} stopOpacity={0.02} />
+              </linearGradient>
+              <linearGradient id={`${gid}-draft`} x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stopColor="var(--color-series-grey)" stopOpacity={0.14} />
+                <stop offset="100%" stopColor="var(--color-series-grey)" stopOpacity={0.02} />
               </linearGradient>
             </defs>
             <CartesianGrid vertical={false} stroke="var(--color-line)" />
@@ -127,11 +133,11 @@ export function DayChart({ T, meta, lens, focusDay, onDay }: { T: GroupTotals; m
             {lens === "below" ? (
               <>
                 <Bar dataKey="draft" fill="var(--color-series-grey)" fillOpacity={0.45} radius={[4, 4, 0, 0]} isAnimationActive={false} />
-                <Bar dataKey="plan" fill="var(--color-warn)" fillOpacity={0.25} radius={[6, 6, 0, 0]} isAnimationActive={false} shape={CapBar} />
+                <Bar dataKey="plan" fill="var(--color-bad)" fillOpacity={0.22} radius={[6, 6, 0, 0]} isAnimationActive={false} shape={CapBar} />
               </>
             ) : (
               <>
-                <Line type="monotoneX" dataKey="draft" stroke="var(--color-series-grey)" strokeWidth={1.5} dot={false} activeDot={{ r: 3, fill: "var(--color-series-grey)", strokeWidth: 0 }} isAnimationActive={false} />
+                <Area type="monotoneX" dataKey="draft" stroke="var(--color-series-grey)" strokeWidth={1.5} fill={`url(#${gid}-draft)`} dot={false} activeDot={{ r: 3, fill: "var(--color-series-grey)", strokeWidth: 0 }} isAnimationActive={false} />
                 <Area type="monotoneX" dataKey="plan" stroke={s.color} strokeWidth={2} fill={`url(#${gid})`} dot={false} activeDot={{ r: 4, fill: s.color, stroke: "var(--color-card)", strokeWidth: 2 }} isAnimationActive={false} />
               </>
             )}
@@ -161,8 +167,8 @@ function CapBar(props: unknown) {
   const cap = Math.min(6, height);
   return (
     <g>
-      <rect x={x} y={y} width={width} height={height} rx={6} fill="var(--color-warn)" fillOpacity={0.25} />
-      <rect x={x} y={y} width={width} height={cap} rx={3} fill="var(--color-warn-mark)" />
+      <rect x={x} y={y} width={width} height={height} rx={6} fill="var(--color-bad)" fillOpacity={0.22} />
+      <rect x={x} y={y} width={width} height={cap} rx={3} fill="var(--color-bad)" />
     </g>
   );
 }

@@ -1,0 +1,548 @@
+{
+ "light lens=service tile=service SELECTED delta +27.1 pts": {
+  "fg": [
+   15,
+   127,
+   87
+  ],
+  "bg": [
+   244,
+   246,
+   253
+  ],
+  "ratio": 4.64
+ },
+ "light lens=service tile=below delta \u2212110": {
+  "fg": [
+   15,
+   127,
+   87
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 5.01
+ },
+ "light lens=service tile=people delta +13%": {
+  "fg": [
+   102,
+   102,
+   109
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 5.7
+ },
+ "light lens=service tile=cost delta +15%": {
+  "fg": [
+   163,
+   38,
+   44
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 7.31
+ },
+ "light lens=below tile=service delta +27.1 pts": {
+  "fg": [
+   15,
+   127,
+   87
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 5.01
+ },
+ "light lens=below tile=below SELECTED delta \u2212110": {
+  "fg": [
+   15,
+   127,
+   87
+  ],
+  "bg": [
+   244,
+   246,
+   253
+  ],
+  "ratio": 4.64
+ },
+ "light lens=below tile=people delta +13%": {
+  "fg": [
+   102,
+   102,
+   109
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 5.7
+ },
+ "light lens=below tile=cost delta +15%": {
+  "fg": [
+   163,
+   38,
+   44
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 7.31
+ },
+ "light lens=people tile=service delta +27.1 pts": {
+  "fg": [
+   15,
+   127,
+   87
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 5.01
+ },
+ "light lens=people tile=below delta \u2212110": {
+  "fg": [
+   15,
+   127,
+   87
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 5.01
+ },
+ "light lens=people tile=people SELECTED delta +13%": {
+  "fg": [
+   102,
+   102,
+   109
+  ],
+  "bg": [
+   244,
+   246,
+   253
+  ],
+  "ratio": 5.28
+ },
+ "light lens=people tile=cost delta +15%": {
+  "fg": [
+   163,
+   38,
+   44
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 7.31
+ },
+ "light lens=cost tile=service delta +27.1 pts": {
+  "fg": [
+   15,
+   127,
+   87
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 5.01
+ },
+ "light lens=cost tile=below delta \u2212110": {
+  "fg": [
+   15,
+   127,
+   87
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 5.01
+ },
+ "light lens=cost tile=people delta +13%": {
+  "fg": [
+   102,
+   102,
+   109
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 5.7
+ },
+ "light lens=cost tile=cost SELECTED delta +15%": {
+  "fg": [
+   163,
+   38,
+   44
+  ],
+  "bg": [
+   244,
+   246,
+   253
+  ],
+  "ratio": 6.77
+ },
+ "light staff Regular 25": {
+  "fg": [
+   69,
+   69,
+   72
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 9.55
+ },
+ "light staff Overtime 4": {
+  "fg": [
+   144,
+   144,
+   145
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 3.19
+ },
+ "light all-cell bar Warehouse 1": {
+  "fg": [
+   130,
+   130,
+   137
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 3.82
+ },
+ "light all-cell bar Warehouse 2": {
+  "fg": [
+   130,
+   130,
+   137
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 3.82
+ },
+ "light all-cell bar Warehouse 4": {
+  "fg": [
+   130,
+   130,
+   137
+  ],
+  "bg": [
+   255,
+   255,
+   255
+  ],
+  "ratio": 3.82
+ },
+ "dark lens=service tile=service SELECTED delta +27.1 pts": {
+  "fg": [
+   52,
+   196,
+   139
+  ],
+  "bg": [
+   25,
+   27,
+   36
+  ],
+  "ratio": 7.69
+ },
+ "dark lens=service tile=below delta \u2212110": {
+  "fg": [
+   52,
+   196,
+   139
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 8.24
+ },
+ "dark lens=service tile=people delta +13%": {
+  "fg": [
+   140,
+   140,
+   149
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 5.52
+ },
+ "dark lens=service tile=cost delta +15%": {
+  "fg": [
+   255,
+   123,
+   128
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 7.35
+ },
+ "dark lens=below tile=service delta +27.1 pts": {
+  "fg": [
+   52,
+   196,
+   139
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 8.24
+ },
+ "dark lens=below tile=below SELECTED delta \u2212110": {
+  "fg": [
+   52,
+   196,
+   139
+  ],
+  "bg": [
+   25,
+   27,
+   36
+  ],
+  "ratio": 7.69
+ },
+ "dark lens=below tile=people delta +13%": {
+  "fg": [
+   140,
+   140,
+   149
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 5.52
+ },
+ "dark lens=below tile=cost delta +15%": {
+  "fg": [
+   255,
+   123,
+   128
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 7.35
+ },
+ "dark lens=people tile=service delta +27.1 pts": {
+  "fg": [
+   52,
+   196,
+   139
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 8.24
+ },
+ "dark lens=people tile=below delta \u2212110": {
+  "fg": [
+   52,
+   196,
+   139
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 8.24
+ },
+ "dark lens=people tile=people SELECTED delta +13%": {
+  "fg": [
+   140,
+   140,
+   149
+  ],
+  "bg": [
+   25,
+   27,
+   36
+  ],
+  "ratio": 5.15
+ },
+ "dark lens=people tile=cost delta +15%": {
+  "fg": [
+   255,
+   123,
+   128
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 7.35
+ },
+ "dark lens=cost tile=service delta +27.1 pts": {
+  "fg": [
+   52,
+   196,
+   139
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 8.24
+ },
+ "dark lens=cost tile=below delta \u2212110": {
+  "fg": [
+   52,
+   196,
+   139
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 8.24
+ },
+ "dark lens=cost tile=people delta +13%": {
+  "fg": [
+   140,
+   140,
+   149
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 5.52
+ },
+ "dark lens=cost tile=cost SELECTED delta +15%": {
+  "fg": [
+   255,
+   123,
+   128
+  ],
+  "bg": [
+   25,
+   27,
+   36
+  ],
+  "ratio": 6.86
+ },
+ "dark staff Regular 25": {
+  "fg": [
+   198,
+   198,
+   200
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 10.78
+ },
+ "dark staff Overtime 4": {
+  "fg": [
+   126,
+   126,
+   129
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 4.54
+ },
+ "dark all-cell bar Warehouse 1": {
+  "fg": [
+   117,
+   117,
+   127
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 4.03
+ },
+ "dark all-cell bar Warehouse 2": {
+  "fg": [
+   117,
+   117,
+   127
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 4.03
+ },
+ "dark all-cell bar Warehouse 4": {
+  "fg": [
+   117,
+   117,
+   127
+  ],
+  "bg": [
+   20,
+   20,
+   23
+  ],
+  "ratio": 4.03
+ }
+}

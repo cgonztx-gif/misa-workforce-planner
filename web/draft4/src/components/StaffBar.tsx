@@ -10,9 +10,11 @@ export function StaffBar({ b, compare }: { b: Block; compare: boolean }) {
   const need = b.need ?? 0;
   const max = Math.max(cap, need, b.draft, b.plan, 1);
   const parts = [
-    { label: "Regular", v: b.sources.regular, cls: "bg-accent" },
-    { label: "Cross-trained", v: b.sources.flex, cls: "bg-accent/55" },
-    { label: "Overtime", v: b.sources.overtime, cls: "bg-accent/30" },
+    // Headcount by source is a magnitude, so ink (as the People lens), never green: a short block's bar must not say
+    // "fine". Each step stays >= 3:1 on the card; the red need tick and dashed unfilled part carry the meaning.
+    { label: "Regular", v: b.sources.regular, cls: "bg-ink/80" },
+    { label: "Cross-trained", v: b.sources.flex, cls: "bg-ink/[.62]" },
+    { label: "Overtime", v: b.sources.overtime, cls: "bg-ink/[.48]" },
   ].filter((p) => p.v > 0);
   const d = b.draft_sources;
   const dParts = [
@@ -34,7 +36,7 @@ export function StaffBar({ b, compare }: { b: Block; compare: boolean }) {
         {cap > b.plan && <span className="absolute inset-y-0 rounded-full border border-dashed border-line-strong" style={{ left: `calc(${pct(b.plan)} + 3px)`, right: `calc(${100 - (cap / max) * 100}% )` }} data-tip={`Can field ${int(cap)}`} />}
         {need > 0 && (
           <span
-            className={`absolute -top-1 -bottom-1 w-[2px] -translate-x-1/2 rounded-full ${needWarn ? "bg-warn-mark" : "bg-ink/60"}`}
+            className={`absolute -top-1 -bottom-1 w-[2px] -translate-x-1/2 rounded-full ${needWarn ? "bg-bad" : "bg-ink/60"}`}
             style={{ left: `min(calc(100% - 1px), ${pct(need)})` }}
             data-tip={`Need ${int(need)} for a 95% chance`}
           />
@@ -48,12 +50,12 @@ export function StaffBar({ b, compare }: { b: Block; compare: boolean }) {
       </div>
       {compare && (
         <div className="mt-2.5" data-draft-staff>
-          {/* The draft as a grey bar on the same track; what it can't field runs past capacity, dashed warm. */}
+          {/* The draft as a grey bar on the same track; what it can't field runs past capacity, dashed red. */}
           <div className="relative h-1.5" role="img" aria-label={`Draft ${int(b.draft)}: ${dParts.filter((p) => p.v > 0).map((p) => `${p.label} ${p.v}`).join(", ")}${d.unfilled > 0 ? `, ${d.unfilled} unfilled` : ""}`}>
             <span className="absolute inset-y-0 left-0 rounded-full bg-series-grey" style={{ width: pct(b.draft - d.unfilled) }} />
             {d.unfilled > 0 && (
               <span
-                className="absolute inset-y-0 rounded-full border border-dashed border-warn-mark bg-warn/15"
+                className="absolute inset-y-0 rounded-full border border-dashed border-bad bg-bad/12"
                 style={{ left: `calc(${pct(b.draft - d.unfilled)} + 3px)`, width: `calc(${pct(d.unfilled)} - 3px)` }}
               />
             )}

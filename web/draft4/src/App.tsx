@@ -1,6 +1,10 @@
 /*
  * Draft 4: the Overview with the schedule (planning/DRAFT4.md). Built with the dashboard-design skill.
  *
+ * Colour (the user's request, 2026-11-05, after the showcase image): green = good, red = bad, grey = comparison and
+ * neutral, blue = controls only, no amber. The user's stated taste wins over the skill's house style (one accent blue
+ * plus a money green), so the plan's one data hue is the showcase's teal-green and the people / money entity hues are gone.
+ *
  * Deviations from the skill (DRAFT4.md section 11):
  * D1. The KPI tiles drive the board's colour lens (the main view) and the below-fold By day chart, not only a
  *     trend chart. The board is the monitoring view, so the strip and the problem grid share one card above the
@@ -11,12 +15,20 @@
  * D3. There are 63 numbered cells in every view, just over the ~60 guideline. The numbers are the deliverable.
  *     Cells are at least 30px tall, with ink text at 4.5:1 or better. All folds the warehouses into sums rather
  *     than showing 189 cells.
- * D4. The selected cell uses an outer accent ring, not a tinted fill, because the fill already encodes the tier.
- * D5. There are two warm intensities (below goal; under 80%), because the real below-goal chances run from 0% to
- *     94.9%. Red is used on the single worst block only (its ring, list square and bar), with the tie-break rule
- *     in its tooltip.
- * D6. The People and Labor cost deltas are grey. People is volume. Cost rising is the deliberate trade for
- *     service, and its tooltip says so.
+ * D4. The selected cell uses an outer blue (control) ring, not a tinted fill, because the fill already encodes the tier.
+ *     Row and day selections keep the soft blue fill: selection is a control state, and a green fill on a below-goal
+ *     row would read as "good".
+ * D5. There are two red intensities (below goal; under 80%), because the real below-goal chances run from 0% to
+ *     94.9%. The single worst block takes the darker red (bad-strong) on its ring, corner flag, list square and bar,
+ *     with the tie-break rule in its tooltip; every other below-goal mark uses the one red (bad).
+ * D6. The People delta is grey (volume). The Labor cost delta follows the skill now: cost is lower-is-better, so a
+ *     rise is red (components.md "Delta badge"); its tooltip says lower is better and what the extra cost buys.
+ * D10. The selected tile is the showcase image's pale green fill and faint green ring, whichever tile it is, as the
+ *     user asked ("change the color scheme to follow this"). The sparkline and the By day plan series take the metric's
+ *     colour, as its board lens does: Service green, Below goal red bars, People and Labor cost ink (magnitudes), so a
+ *     cost rise is never drawn in the good colour beside its red delta. Red delta text is bad-strong (4.5:1 on the tint).
+ * D11. The People and Labor cost board lenses encode magnitude, not good or bad, so they use an ink (grey) intensity
+ *     scale; Cut is a faint fill with an ink outline. The red below-goal tiers override every lens.
  * D7. The sidebar holds the scenario switch, not pages (it's a one-page app). The phone menu grid likewise holds
  *     scenarios, warehouses, CSV and Theme.
  * D8. There's no date-range picker and no "today" column, because the planning week is fixed and in the future.
@@ -30,11 +42,10 @@
  *     the tall plan card has no empty lower half (layout.md "no holes"). The footnote still reads "N of 25".
  * B3. The board's label column is 124 px from 64rem (not 104 / 112), so "Merchandising" sits on one line; 140 at 160rem.
  * B4. lib/theme.ts holds the theme helpers shared by the sidebar, the phone menu and main.tsx.
- * B5. Tier fills are lighter than section 4 says (Service ladder accent 6, 11, 18; below goal warn/38; under 80%
- *     warn/52), so in greyscale every warm tier is darker than every healthy one (perception.md: intensity grows toward
- *     the problem). The People and Labor cost ladders are a step stronger (Cut ink/10; +1 / +3 / +6 accent 10, 17, 24;
- *     cost money 10, 17, 24), because at 6 / 11 / 18 Cut, Same and +1 all read as white on a projector; +6 at 24 is
- *     still lighter than warn/38 in greyscale. The People and Labor cost legends list both warm tiers, as the cells use both.
+ * B5. Tier fills are the tier tokens of section 4 (Service green 6, 11, 17; below goal red 26; under 80% red 42; dark
+ *     lifts the red to 34 / 52), so in greyscale every red tier is darker than every healthy one (perception.md:
+ *     intensity grows toward the problem). People and Labor cost use ink 5.5, 10, 15 (+ Cut ink 3.5 with an ink/30
+ *     outline); +6 at 15 is still lighter than red 26 in greyscale. Both legends list both red tiers, as the cells use both.
  * B6. The People lens in All places a fractional mean on the legend's own words: (0, 2] +1, (2, 5] +3, > 5 +6.
  * B7. By day always draws the draft as the grey "period before" line (the tiles always show their Draft sub-line);
  *     Compare with draft adds the draft to the board and the detail. No chart animation.
@@ -44,19 +55,19 @@
  * B9. The detail ends in the selection's week (its chance on each of the 7 days), and the All-cell detail adds each
  *     warehouse's chance against the goal, so the slot beside the tall board has no blank band. Next / Previous also
  *     work from an All cell (Next opens its lowest below-goal block).
- * B10. The worst block's red ring is 3 px with a red corner flag, so it survives the blur test on a warm mass.
+ * B10. The worst block's dark-red ring is 3 px with a dark-red corner flag, so it survives the blur test on a red mass.
  * B11. A failed fetch with numbers on screen puts its slim note in the header row, in place of the scenario name, so
  *     it never pushes the board below the fold. Health keeps a 10 s heartbeat after ready; the CSV downloads through
  *     fetch, so a stopped server shows Offline and the note instead of failing silently. A startup error reads Error.
  * B12. The board grows its rows on tall wide screens (48 / 54 / 64 px at 58 / 66 / 85rem of height).
  * B13. The Below goal list's 3 px bar is the gap to the goal (from the chance to the 95% tick), not the chance from 0
  *     (section 5.7). With bar = chance the worst rows (0%) had empty bars and the rows nearest the goal the longest
- *     warm ones; now the worst row has the longest bar (red), as the skill's "intensity grows toward the problem" asks.
+ *     red ones; now the worst row has the longest bar (darkest red), as the skill's "intensity grows toward the problem" asks.
  *     The bar's left end still sits at the chance on the same 0–100% track. "Closest to goal" draws the margin above it.
  * B14. The detail's bullet graph uses lighter ranges (ink 10 / 6 / 3, not Few's 40 / 25 / 10) and labels 80%, and below
- *     goal it outlines the missing part from the chance to the goal with a dashed warm box, so a 0% block reads as a long
- *     warm gap rather than a long grey bar. The value bar keeps a 5 px warm stub at 0%.
- * B15. With Compare on and draft-unfilled (P3) blocks in view, the legend adds "Unfilled" (the dashed warm underline),
+ *     goal it outlines the missing part from the chance to the goal with a dashed red box, so a 0% block reads as a long
+ *     red gap rather than a long grey bar. The value bar keeps a 5 px red stub at 0% (green when the block meets the goal).
+ * B15. With Compare on and draft-unfilled (P3) blocks in view, the legend adds "Unfilled" (the dashed red underline),
  *     so "21 −6" reads as "the draft scheduled people it couldn't field", not as a cut. Its legend gaps tighten below
  *     90rem so it stays on one line at 1366; the toolbar grows rather than overlapping the board if it ever wraps.
  */
@@ -80,7 +91,6 @@ import { Legend } from "./components/Legend";
 import { NoteBar, PageNote } from "./components/PageNote";
 import { PhoneBar } from "./components/PhoneBar";
 import { PhoneMenu } from "./components/PhoneMenu";
-import { RankedCard, rankRows, RankRowView, type RankTab } from "./components/RankedCard";
 import { Segmented } from "./components/Segmented";
 import { Sheet } from "./components/Sheet";
 import { Sidebar, SCEN } from "./components/Sidebar";
@@ -110,7 +120,7 @@ export function App() {
   const [theme, setTheme] = useState<Theme>(readTheme);
   const [focusDay, setFocusDay] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [expand, setExpand] = useState<null | "list" | "board" | RankTab>(null);
+  const [expand, setExpand] = useState<null | "list" | "board">(null);
   const [csvFail, setCsvFail] = useState<null | "offline" | "error">(null);
   const phone = useMedia("(max-width: 39.99rem)");
 
@@ -144,7 +154,7 @@ export function App() {
 
   const model = useMemo(() => (plan && meta.data ? buildBoard(plan, view.wk, meta.data) : null), [plan, meta.data, view.wk]);
   const T = plan?.totals[view.wk];
-  // With Compare on, the legend names the dashed warm mark when the view has draft-unfilled (P3) blocks.
+  // With Compare on, the legend names the dashed red mark when the view has draft-unfilled (P3) blocks.
   const unfilledInView = view.compare && !!model?.blocks.some(isP3);
 
   // ---- state changes -------------------------------------------------------------------------------------
@@ -301,10 +311,6 @@ export function App() {
       }
     : null;
 
-  const rankCtx = model && plan && T && meta.data
-    ? { T, plan, wk: view.wk, meta: meta.data, compare: compareQ.data, scenario: view.scenario, selId: view.sel, onBlock, onWk: setWk, onScenario: setScenario }
-    : null;
-
   return (
     <div className="flex min-h-dvh">
       <Sidebar meta={meta.data} scenario={view.scenario} loading={stale && planQ.isFetching ? view.scenario : null} onScenario={setScenario} compare={compareQ.data} wk={view.wk} theme={theme} onTheme={cycleTheme} />
@@ -379,16 +385,11 @@ export function App() {
                 </div>
               </section>
 
-              {/* Breakdowns: below the fold up to 1800 px, a third column from 112.5rem. */}
+              {/* By day: full width below the fold up to 1800 px, the third column from 112.5rem. The breakdown card was removed (the user, 2026-11-05). */}
               <div className="contents min-[112.5rem]:col-span-3 min-[112.5rem]:flex min-[112.5rem]:min-w-0 min-[112.5rem]:flex-col min-[112.5rem]:gap-4">
-                <section data-card="byday" aria-label="By day" className={`${CARD} min-w-0 p-5 md:col-span-1 min-[80rem]:col-span-8 min-[112.5rem]:flex-1 max-sm:p-3`}>
+                <section data-card="byday" aria-label="By day" className={`${CARD} min-w-0 p-5 md:col-span-2 min-[80rem]:col-span-12 min-[112.5rem]:flex-1 max-sm:p-3`}>
                   <div className={`h-full transition-opacity duration-150 ${dim}`}>
                     {loaded ? <DayChart T={T!} meta={meta.data!} lens={view.lens} compare={view.compare} focusDay={focusDay} onDay={(d) => setFocusDay((f) => (f === d ? null : d))} /> : <ChartSkeleton />}
-                  </div>
-                </section>
-                <section data-card="ranked" aria-label="Breakdown" className={`${CARD} min-w-0 p-5 md:col-span-2 min-[80rem]:col-span-4 max-sm:p-3`}>
-                  <div className={`h-full transition-opacity duration-150 ${dim}`}>
-                    {rankCtx ? <RankedCard {...rankCtx} onExpand={(t) => setExpand(t)} /> : <ChartSkeleton rows />}
                   </div>
                 </section>
               </div>
@@ -447,16 +448,6 @@ export function App() {
               </div>
             </div>
           </ExpandDialog>
-          {rankCtx && (expand === "changes" || expand === "depts" || expand === "warehouses" || expand === "scenarios") && (
-            <ExpandDialog open onClose={() => setExpand(null)} title={{ changes: "Changes", depts: "Departments", warehouses: "Warehouses", scenarios: "Scenarios" }[expand]}>
-              <div className="flex flex-col">
-                {rankRows(expand, { ...rankCtx, wide: true }).rows.map((r) => (
-                  <RankRowView key={r.id} r={{ ...r, onClick: r.onClick ? () => (r.onClick!(), setExpand(null)) : undefined }} />
-                ))}
-              </div>
-              <div className="px-3 pt-2 text-[12px] text-muted">{rankRows(expand, rankCtx).foot}</div>
-            </ExpandDialog>
-          )}
         </>
       )}
     </div>

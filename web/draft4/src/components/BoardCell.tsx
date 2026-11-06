@@ -4,39 +4,43 @@ import { chanceText, goalText, int, signed, signedUsd, usd } from "../lib/format
 import type { Block, Meta } from "../lib/types";
 import type { Lens } from "../lib/url";
 
-// Fills per tier (DRAFT4.md 4 and 5.6). Literal strings. The ringed variants drop the hairline ring so the
+// Fills per tier (DRAFT4.md 4 and 5.6), all tier tokens. Literal strings. Service: no fill when the block meets the goal;
+// below goal: one red, stronger the further below (90-95%, 80-90%, under 80%) in every lens; People / Labor cost: an ink magnitude scale, never green or
+// red, because more people or cost is not good or bad by itself. The ringed variants drop the hairline ring so the
 // selection / worst ring is the only ring.
 const FILL: Record<Tier, string> = {
   closed: "border-[1.5px] border-dashed border-line-strong",
-  w2: "bg-warn/52",
-  w1: "bg-warn/38",
-  t1: "bg-accent/6",
-  t2: "bg-accent/11",
-  t3: "bg-accent/18",
+  w2: "bg-tier-far",
+  wm: "bg-tier-mid",
+  w1: "bg-tier-low",
+  ok: "ring-1 ring-inset ring-line",
   dim: "ring-1 ring-inset ring-line",
-  cut: "bg-ink/10",
+  cut: "bg-tier-cut ring-1 ring-inset ring-ink/30",
   same: "ring-1 ring-inset ring-line",
-  p1: "bg-accent/10",
-  p2: "bg-accent/17",
-  p3: "bg-accent/24",
+  p1: "bg-tier-m1",
+  p2: "bg-tier-m2",
+  p3: "bg-tier-m3",
   c0: "ring-1 ring-inset ring-line",
-  c1: "bg-money/10",
-  c2: "bg-money/17",
-  c3: "bg-money/24",
+  c1: "bg-tier-m1",
+  c2: "bg-tier-m2",
+  c3: "bg-tier-m3",
 };
-const HAS_RING: Partial<Record<Tier, true>> = { dim: true, same: true, c0: true };
+const HAS_RING: Partial<Record<Tier, true>> = { ok: true, dim: true, same: true, c0: true };
+// Cut keeps its fill but drops its ink ring when ringed.
+const RINGED_FILL: Partial<Record<Tier, string>> = { cut: "bg-tier-cut" };
 const NUM: Partial<Record<Tier, string>> = {
   closed: "font-normal text-muted",
   w2: "font-bold underline decoration-2 underline-offset-2",
+  wm: "underline decoration-2 underline-offset-2",
   w1: "underline decoration-2 underline-offset-2",
   dim: "text-ink-2",
 };
 
 // Forced colours (Windows high contrast) drop box-shadow rings, so each ring also has an outline there.
 const SELECTED_RING = "ring-2 ring-accent ring-offset-2 ring-offset-card forced-colors:outline-2 forced-colors:outline-offset-2 forced-colors:outline-[Highlight]";
-// The single worst block: a heavier red ring than the selection, plus a red corner flag, so it survives the blur test.
-const WORST_RING = "ring-[3px] ring-down ring-offset-2 ring-offset-card forced-colors:outline-[3px] forced-colors:outline-offset-2 forced-colors:outline-[CanvasText]";
-const WARM: Partial<Record<Tier, true>> = { w1: true, w2: true };
+// The single worst block: a heavier, darker red ring than the selection, plus a red corner flag, so it survives the blur test.
+const WORST_RING = "ring-[3px] ring-bad-strong ring-offset-2 ring-offset-card forced-colors:outline-[3px] forced-colors:outline-offset-2 forced-colors:outline-[CanvasText]";
+const RED: Partial<Record<Tier, true>> = { w1: true, wm: true, w2: true };
 const UNFILLED: Partial<Record<Tier, true>> = { dim: true, same: true, c0: true, closed: true };
 
 export interface CellProps {
@@ -99,16 +103,16 @@ function ariaFor(c: Cell, meta: Meta, goal: number, dayLong: string) {
 export const BoardCell = memo(function BoardCell({ cell: c, lens, compare, selected, focusable, dayLabel, dayLong, meta, goal, onClick, onFocusCell }: CellProps) {
   const tier = tierOf(c, lens);
   const ringed = selected || c.worst;
-  const fill = ringed && HAS_RING[tier] ? "" : FILL[tier];
+  const fill = ringed && HAS_RING[tier] ? "" : ringed && RINGED_FILL[tier] ? RINGED_FILL[tier] : FILL[tier];
   const ring = selected ? SELECTED_RING : c.worst ? WORST_RING : "";
   const tip = tipFor(c, lens, compare, meta, goal, dayLabel);
   const delta = c.change;
   const pips = c.isAll ? c.below.length : 0;
   const second = c.isOpen ? chanceText(c.minChance, c.below.length > 0, goal) : "";
   const numCls = NUM[tier] ?? "";
-  // Secondary text reaches 4.5:1 on every fill: ink on the warm tiers, ink-2 on the blue / green tiers, muted on no fill.
-  const secInk = WARM[tier] ? "text-ink" : UNFILLED[tier] ? "text-muted" : "text-ink-2";
-  const p3Mark = c.p3 ? "underline decoration-dashed decoration-warn decoration-[1.5px] underline-offset-[3px]" : "";
+  // Secondary text reaches 4.5:1 on every fill: ink on the red tiers, ink-2 on the green / grey tiers, muted on no fill.
+  const secInk = RED[tier] ? "text-ink" : UNFILLED[tier] ? "text-muted" : "text-ink-2";
+  const p3Mark = c.p3 ? "underline decoration-dashed decoration-bad decoration-[1.5px] underline-offset-[3px]" : "";
   const sec = `text-[11px] font-medium ${secInk} ${p3Mark}`;
   // A draft-unfilled (P3) cell with no net change still shows ±0, so its dashed mark has something to sit on.
   const showDelta = delta !== 0 || c.p3;
@@ -158,7 +162,7 @@ export const BoardCell = memo(function BoardCell({ cell: c, lens, compare, selec
           ))}
         </span>
       )}
-      {c.worst && <span aria-hidden data-flag="worst" className="absolute top-1 left-1 size-[6px] rounded-full bg-down forced-colors:bg-[CanvasText]" />}
+      {c.worst && <span aria-hidden data-flag="worst" className="absolute top-1 left-1 size-[6px] rounded-full bg-bad-strong forced-colors:bg-[CanvasText]" />}
     </button>
   );
 });

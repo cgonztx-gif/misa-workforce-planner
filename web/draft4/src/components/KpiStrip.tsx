@@ -18,6 +18,9 @@ export function tilesFor(T: GroupTotals, goal: number): TileData[] {
   const belowTiny = d.below_goal < 5;
   // Spoken deltas: "up 27.1 points", "down 110", "up 13%"; context first, then the value, then the baseline.
   const said = (d: string, unit = "") => (d.startsWith("was ") ? d : d.startsWith("±") ? "no change" : `${d.startsWith("+") ? "up" : "down"} ${d.slice(1)}${unit}`);
+  const costDelta = d.cost < 5 ? wasN(d.cost, usd) : pctChange(c.cost ?? 0, d.cost);
+  const dCost = c.cost ?? 0;
+  const costTone: TileData["tone"] = d.cost < 5 || dCost === 0 || costDelta.startsWith("±") ? "grey" : dCost > 0 ? "bad" : "good";
   const unfilledLine = d.unfilled > 0 ? `\nDraft can't field ${plural(d.unfilled, "person").replace("persons", "people")} in ${plural(d.over_capacity, "block")}` : "";
 
   return [
@@ -28,7 +31,7 @@ export function tilesFor(T: GroupTotals, goal: number): TileData[] {
       value: pct(p.expected_met),
       raw: p.expected_met,
       delta: pts(dService),
-      tone: dService > 0 ? "up" : dService < 0 ? "down" : "grey",
+      tone: dService > 0 ? "good" : dService < 0 ? "bad" : "grey",
       sub: `Draft ${pct(d.expected_met)}`,
       spark: days.map((x) => x.plan.expected_met ?? 0),
       tipTitle: exact(p.expected_met),
@@ -41,7 +44,7 @@ export function tilesFor(T: GroupTotals, goal: number): TileData[] {
       value: int(p.below_goal),
       raw: p.below_goal,
       delta: belowTiny ? wasN(d.below_goal) : signed(dBelow),
-      tone: belowTiny || dBelow === 0 ? "grey" : dBelow < 0 ? "up" : "down",
+      tone: belowTiny || dBelow === 0 ? "grey" : dBelow < 0 ? "good" : "bad",
       sub: `Draft ${int(d.below_goal)}`,
       spark: days.map((x) => x.plan.below_goal),
       tipTitle: `${int(p.below_goal)} of ${int(p.blocks)}`,
@@ -66,12 +69,13 @@ export function tilesFor(T: GroupTotals, goal: number): TileData[] {
       label: "Labor cost",
       value: usdCompact(p.cost),
       raw: p.cost,
-      delta: d.cost < 5 ? wasN(d.cost, usd) : pctChange(c.cost ?? 0, d.cost),
-      tone: "grey",
+      delta: costDelta,
+      // Labor cost is lower-is-better (components.md "Delta badge"): a rise is red, a fall green, a tiny base grey.
+      tone: costTone,
       sub: `Draft ${usdCompact(d.cost)}`,
       spark: days.map((x) => x.plan.cost),
       tipTitle: usd(p.cost),
-      tip: `Draft ${usd(d.cost)} · ${signedUsd(c.cost ?? 0)}\nThe extra cost buys ${Math.abs(Math.round(dService * 1000) / 10).toFixed(1)} points of expected service`,
+      tip: `Draft ${usd(d.cost)} · ${signedUsd(c.cost ?? 0)}\nLower is better, so a rise shows red and a fall green\nThe extra cost buys ${Math.abs(Math.round(dService * 1000) / 10).toFixed(1)} points of expected service`,
     },
   ];
 }

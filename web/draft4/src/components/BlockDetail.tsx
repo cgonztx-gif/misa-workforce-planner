@@ -113,11 +113,11 @@ export function BlockDetail({ b, goal, compare, back, ptoHeadline, strip, onBack
             Closed
           </span>
         ) : b.below_goal ? (
-          <span className={`${chip} bg-warn/15 text-ink`} data-tip={`Under a ${Math.round(goal * 100)}% chance of meeting the wait target`}>
+          <span className={`${chip} bg-bad/12 text-ink`} data-tip={`Under a ${Math.round(goal * 100)}% chance of meeting the wait target`}>
             Below goal
           </span>
         ) : (
-          <span className={`${chip} bg-accent/10 text-ink`} data-tip={`At or over a ${Math.round(goal * 100)}% chance`}>
+          <span className={`${chip} bg-good/10 text-ink`} data-tip={`At or over a ${Math.round(goal * 100)}% chance`}>
             Meets goal
           </span>
         )}
@@ -148,13 +148,13 @@ export function BlockDetail({ b, goal, compare, back, ptoHeadline, strip, onBack
           <span
             aria-label={unfilled > 0 ? changeTip : b.action}
             data-tip={changeTip}
-            className={`${chip} mb-1.5 ml-1 font-medium tnum ${ch > 0 ? "bg-accent/10 text-ink" : ch < 0 ? "bg-soft text-ink-2" : "bg-soft text-muted"}`}
+            className={`${chip} mb-1.5 ml-1 font-medium tnum ${ch > 0 ? "bg-ink/[.07] text-ink" : ch < 0 ? "bg-soft text-ink-2" : "bg-soft text-muted"}`}
           >
             {ch === 0 ? "Same" : signed(ch)}
           </span>
         )}
         {unfilled > 0 && (
-          <span className={`${chip} mb-1.5 bg-warn/15 font-medium text-ink tnum`} data-tip={`The draft schedules ${int(unfilled)} more than this block can field`}>
+          <span className={`${chip} mb-1.5 bg-bad/12 font-medium text-ink tnum`} data-tip={`The draft schedules ${int(unfilled)} more than this block can field`}>
             Unfilled {int(unfilled)}
           </span>
         )}
@@ -165,7 +165,7 @@ export function BlockDetail({ b, goal, compare, back, ptoHeadline, strip, onBack
         <div className="mb-1.5 flex items-center gap-2">
           <span className="text-[12px] text-muted">Chance</span>
           {open && b.below_goal && (
-            <span className={`${chip} h-5 bg-warn/15 px-2 text-[11.5px] font-medium text-ink tnum`} data-tip={`Need ${int(b.need ?? 0)} · can field ${int(b.availability.capacity)}`}>
+            <span className={`${chip} h-5 bg-bad/12 px-2 text-[11.5px] font-medium text-ink tnum`} data-tip={`Need ${int(b.need ?? 0)} · can field ${int(b.availability.capacity)}`}>
               Short {int(short)}
             </span>
           )}
@@ -195,7 +195,7 @@ export function BlockDetail({ b, goal, compare, back, ptoHeadline, strip, onBack
 
       {/* Stats */}
       <div className="mt-5 grid shrink-0 grid-cols-3 gap-3 border-t border-line pt-4 compact:mt-3 compact:pt-3">
-        <Stat label="Cost" value={open ? usd(b.cost) : "—"} sub={open ? signedUsd(b.cost_change) : undefined} tip={open ? e.cost_effect : null} cls={open ? "text-money" : "text-muted"} />
+        <Stat label="Cost" value={open ? usd(b.cost) : "—"} sub={open ? signedUsd(b.cost_change) : undefined} tip={open ? e.cost_effect : null} cls={open ? "" : "text-muted"} />
         <Stat label="Cushion" value={open && b.cushion_people != null ? int(b.cushion_people) : "—"} tip={open ? e.cushion : null} cls={open ? "" : "text-muted"} />
         <Stat
           label="Utilization"

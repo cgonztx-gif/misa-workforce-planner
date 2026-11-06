@@ -15,7 +15,7 @@ export function PageNote({ title, detail, code, onRetry }: { title: string; deta
   };
   return (
     <div role="alert" data-note="page" className="mb-4 flex items-start gap-4 rounded-[18px] border border-line bg-card p-5 shadow-[var(--shadow-card)]">
-      <span className="grid size-9 shrink-0 place-items-center rounded-full bg-down/10 text-down">
+      <span className="grid size-9 shrink-0 place-items-center rounded-full bg-bad/10 text-bad">
         <PlugZap size={18} strokeWidth={1.75} />
       </span>
       <div className="min-w-0 flex-1">
@@ -50,7 +50,7 @@ export function NoteBar({ text, onRetry, inline = false }: { text: string; onRet
       data-note="bar"
       className={`flex items-center gap-3 rounded-full border border-line bg-card pr-1 pl-3.5 text-[13px] text-ink-2 shadow-[var(--shadow-card)] ${inline ? "h-8 max-w-[34rem]" : "mb-3 h-10 pr-1.5 pl-4"}`}
     >
-      <span aria-hidden className="size-1.5 rounded-full bg-down" />
+      <span aria-hidden className="size-1.5 rounded-full bg-bad" />
       <span className="min-w-0 flex-1 truncate">{text}</span>
       <button type="button" onClick={onRetry} className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border border-line px-3 text-[12.5px] hover:bg-soft focus-visible:outline-2 focus-visible:outline-accent ${inline ? "h-6" : "h-7"}`}>
         <RotateCw size={13} strokeWidth={1.75} />

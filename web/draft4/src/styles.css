@@ -1,7 +1,8 @@
 @import "tailwindcss" source("../");
 
 /* Draft 4 tokens (planning/DRAFT4.md section 4). Every colour is a token with a light and a dark value;
-   tints are token + alpha (bg-accent/15), so they follow the theme by themselves. */
+   tints are token + alpha (bg-bad/12), so they follow the theme by themselves. Colour rules (the user, 2026-11-05):
+   green = good, red = bad, grey = comparison and neutral, blue = controls only. No amber. */
 
 @custom-variant compact (@media (max-height: 48rem));
 /* Tall wide screens (1920 x 1080 and up): the board grows into the height instead of leaving a band below. */
@@ -23,17 +24,28 @@
   --color-muted: #66666d;
   --color-line: rgb(0 0 0 / 0.075);
   --color-line-strong: rgb(0 0 0 / 0.14);
+  /* Blue is for controls only: the Compare switch, focus rings, selection, the Next button. */
   --color-accent: #3e63dd;
   --color-on-accent: #ffffff;
-  --color-money: #0f7f57;
-  --color-up: #0f7f57;
-  --color-down: #d23f45;
-  --color-warn: #c98a00;
-  /* Thin warm data marks (3 px bars, bullet bar, caps): darker in light so they reach 3:1 (WCAG 1.4.11). */
-  --color-warn-mark: #a87300;
+  /* Green = good, the plan's one data hue (the showcase's teal-green): goal met, improvements, the plan series. */
+  --color-good: #0f7f57;
+  /* Red = bad, one family: below goal, worsening deltas, Short chips; bad-strong only on the single worst block. */
+  --color-bad: #d23f45;
+  --color-bad-strong: #a3262c;
   --color-tip: #1f2530;
-  --color-live: #12a150;
-  --color-series-grey: #8a8a92;
+  --color-live: #0f7f57;
+  /* Grey = comparison and neutral: the draft, unselected sparklines (3:1 on the bullet's darkest range). */
+  --color-series-grey: #828289;
+
+  /* Board tiers (DRAFT4.md 4): no fill when a block meets the goal, below goal in one red at three strengths, People / Labor cost in an
+     ink (grey) magnitude scale. Token + alpha per theme, so dark can lift the red without touching the classes. */
+  --color-tier-low: color-mix(in srgb, var(--color-bad) 13%, transparent);
+  --color-tier-mid: color-mix(in srgb, var(--color-bad) 26%, transparent);
+  --color-tier-far: color-mix(in srgb, var(--color-bad) 42%, transparent);
+  --color-tier-cut: color-mix(in srgb, var(--color-ink) 3.5%, transparent);
+  --color-tier-m1: color-mix(in srgb, var(--color-ink) 5.5%, transparent);
+  --color-tier-m2: color-mix(in srgb, var(--color-ink) 10%, transparent);
+  --color-tier-m3: color-mix(in srgb, var(--color-ink) 15%, transparent);
 
   --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
@@ -61,14 +73,19 @@
     --color-line-strong: rgb(255 255 255 / 0.16);
     --color-accent: #7b96ff;
     --color-on-accent: #0b0b0d;
-    --color-money: #34c48b;
-    --color-up: #34c48b;
-    --color-down: #ff6b70;
-    --color-warn: #f6b100;
-    --color-warn-mark: #f6b100;
+    --color-good: #34c48b;
+    --color-bad: #e5484d;
+    --color-bad-strong: #ff7b80;
     --color-tip: #2a3548;
     --color-live: #34c48b;
     --color-series-grey: #75757f;
+    --color-tier-low: color-mix(in srgb, var(--color-bad) 20%, transparent);
+    --color-tier-mid: color-mix(in srgb, var(--color-bad) 34%, transparent);
+    --color-tier-far: color-mix(in srgb, var(--color-bad) 52%, transparent);
+    --color-tier-cut: color-mix(in srgb, var(--color-ink) 5%, transparent);
+    --color-tier-m1: color-mix(in srgb, var(--color-ink) 8%, transparent);
+    --color-tier-m2: color-mix(in srgb, var(--color-ink) 13%, transparent);
+    --color-tier-m3: color-mix(in srgb, var(--color-ink) 19%, transparent);
     --shadow-card: none;
     --shadow-pill: 0 0 0 1px rgb(255 255 255 / 0.08);
     --shadow-pop: 0 12px 32px -8px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(255 255 255 / 0.08);
@@ -88,14 +105,19 @@
   --color-line-strong: rgb(255 255 255 / 0.16);
   --color-accent: #7b96ff;
   --color-on-accent: #0b0b0d;
-  --color-money: #34c48b;
-  --color-up: #34c48b;
-  --color-down: #ff6b70;
-  --color-warn: #f6b100;
-  --color-warn-mark: #f6b100;
+  --color-good: #34c48b;
+  --color-bad: #e5484d;
+  --color-bad-strong: #ff7b80;
   --color-tip: #2a3548;
   --color-live: #34c48b;
   --color-series-grey: #75757f;
+  --color-tier-low: color-mix(in srgb, var(--color-bad) 20%, transparent);
+  --color-tier-mid: color-mix(in srgb, var(--color-bad) 34%, transparent);
+  --color-tier-far: color-mix(in srgb, var(--color-bad) 52%, transparent);
+  --color-tier-cut: color-mix(in srgb, var(--color-ink) 5%, transparent);
+  --color-tier-m1: color-mix(in srgb, var(--color-ink) 8%, transparent);
+  --color-tier-m2: color-mix(in srgb, var(--color-ink) 13%, transparent);
+  --color-tier-m3: color-mix(in srgb, var(--color-ink) 19%, transparent);
   --shadow-card: none;
   --shadow-pill: 0 0 0 1px rgb(255 255 255 / 0.08);
   --shadow-pop: 0 12px 32px -8px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(255 255 255 / 0.08);

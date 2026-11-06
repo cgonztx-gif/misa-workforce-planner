@@ -45,7 +45,7 @@ export function AllCellDetail({ cell, meta, goal, back, strip, onBack, onClose, 
         <div className="mt-3 flex flex-wrap gap-1.5">
           {!cell.isOpen && <span className={`${chip} bg-ink/[.05] text-ink-2`}>Closed</span>}
           {cell.below.length > 0 && (
-            <span className={`${chip} bg-warn/15 text-ink`} data-tip={`${int(cell.below.length)} of ${int(cell.open.length)} warehouses under a ${g} chance`}>
+            <span className={`${chip} bg-bad/12 text-ink`} data-tip={`${int(cell.below.length)} of ${int(cell.open.length)} warehouses under a ${g} chance`}>
               Below goal
             </span>
           )}
@@ -76,10 +76,10 @@ export function AllCellDetail({ cell, meta, goal, back, strip, onBack, onClose, 
             className="group relative flex h-11 w-full items-center rounded-[10px] px-3 pb-1.5 text-left text-[14px] hover:bg-soft/60 disabled:hover:bg-transparent focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent"
           >
             <span aria-hidden className="absolute inset-x-3 bottom-[5px] h-[3px] overflow-hidden rounded-full bg-line/70">
-              <span className="absolute inset-y-0 left-0 rounded-full bg-accent" style={{ width: `${(100 * b.plan) / maxPlan}%` }} />
+              <span className="absolute inset-y-0 left-0 rounded-full bg-series-grey" style={{ width: `${(100 * b.plan) / maxPlan}%` }} />
             </span>
             <span className="relative flex flex-1 items-center gap-2">
-              {b.is_open && b.below_goal ? <span aria-hidden className="size-1.5 rounded-[2px] bg-warn" /> : <span className="size-1.5" />}
+              {b.is_open && b.below_goal ? <span aria-hidden className="size-1.5 rounded-[2px] bg-bad" /> : <span className="size-1.5" />}
               {b.warehouse}
             </span>
             {b.is_open ? (
@@ -119,14 +119,14 @@ export function AllCellDetail({ cell, meta, goal, back, strip, onBack, onClose, 
                   <span className="absolute inset-y-0 bg-ink/[.09]" style={{ left: "80%", width: `calc(${pct(goal)} - 80%)` }} />
                   <span className="absolute inset-y-0 right-0 bg-ink/[.04]" style={{ left: pct(goal) }} />
                   {b.is_open && (
-                    <span className={`absolute top-1/3 left-0 h-1/3 rounded-r-[2px] ${b.below_goal ? "bg-warn-mark" : "bg-accent"}`} style={{ width: b.chance == null ? 0 : `max(2px, ${pct(b.chance)})` }} />
+                    <span className={`absolute top-1/3 left-0 h-1/3 rounded-r-[2px] ${b.below_goal ? "bg-bad" : "bg-good"}`} style={{ width: b.chance == null ? 0 : `max(2px, ${pct(b.chance)})` }} />
                   )}
                   <span className="absolute inset-y-0.5 w-[2px] -translate-x-1/2 bg-ink" style={{ left: pct(goal) }} />
                 </span>
                 <span className="w-12 shrink-0 text-right font-medium tnum">{b.is_open ? chanceText(b.chance, b.below_goal, goal) : "—"}</span>
                 <span className="w-16 shrink-0">
                   {b.is_open && b.below_goal && (
-                    <span className={`${chip} h-5 bg-warn/15 px-2 text-[11.5px] font-medium text-ink tnum`} data-tip={`Need ${int(b.need ?? 0)} · can field ${int(b.availability.capacity)}`}>
+                    <span className={`${chip} h-5 bg-bad/12 px-2 text-[11.5px] font-medium text-ink tnum`} data-tip={`Need ${int(b.need ?? 0)} · can field ${int(b.availability.capacity)}`}>
                       Short {int(shortOf(b))}
                     </span>
                   )}

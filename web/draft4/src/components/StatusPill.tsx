@@ -13,14 +13,14 @@ export function StatusPill({ status }: { status: Status }) {
   if (status.kind === "error")
     return (
       <span className={pill} data-status="error" tabIndex={0} data-tip="The planner answered with an error · see the note">
-        <span aria-hidden className="size-1.5 rounded-full bg-down" />
+        <span aria-hidden className="size-1.5 rounded-full bg-bad" />
         Error
       </span>
     );
   if (status.kind === "offline")
     return (
       <span className={pill} data-status="offline" tabIndex={0} data-tip="The planner isn't answering · start_app_draft4.bat starts it">
-        <span aria-hidden className="size-1.5 rounded-full bg-down" />
+        <span aria-hidden className="size-1.5 rounded-full bg-bad" />
         Offline
       </span>
     );
