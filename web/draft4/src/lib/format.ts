@@ -89,3 +89,15 @@ export const signedUsdCompact = (n: number) => {
   const r = Math.round(n);
   return r === 0 ? "±$0" : `${r > 0 ? "+" : MINUS}${usdCompact(Math.abs(r))}`;
 };
+
+/** A rate with one decimal: 0.0242 → 2.4%. */
+export const pct1 = (x: number) => `${(Math.round(clean(x) * 1000) / 10).toFixed(1)}%`;
+
+/** A signed rate with one decimal: 0.1177 → +11.8%, ±0.0% when it rounds to zero. */
+export const signedPct1 = (x: number) => {
+  const v = Math.round(clean(x) * 1000) / 10;
+  return v > 0 ? `+${v.toFixed(1)}%` : v < 0 ? `${MINUS}${(-v).toFixed(1)}%` : "±0.0%";
+};
+
+/** Demand units: workload units, not people, so one decimal. */
+export const units1 = (n: number) => clean(n).toLocaleString("en", { minimumFractionDigits: 1, maximumFractionDigits: 1 });

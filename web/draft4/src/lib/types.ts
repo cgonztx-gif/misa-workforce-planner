@@ -196,3 +196,58 @@ export interface PlaybookResponse {
   pto: { intro?: string; headline: string; assumption?: string };
   [key: string]: unknown;
 }
+
+/** GET /api/forecast (server/API.md), the fields the Demand page reads. Demand units differ by department. */
+export interface ScenarioDemand {
+  demand: number;
+  multiplier: number;
+  effect: number;
+  reason: string | null;
+  driver: string | null;
+}
+
+export interface ForecastDay {
+  date: string;
+  day: string;
+  day_short: string;
+  holiday: string | null;
+  window: string;
+  window_label: string | null;
+  normal_day: number;
+  holiday_factor: number;
+  holiday_effect: number;
+  model_forecast: number;
+  valentine_uplift: number;
+  valentine_effect: number;
+  forecast: number;
+  benchmark: number;
+  vs_benchmark: number;
+  driver: string | null;
+  scenarios: Record<ScenarioCode, ScenarioDemand>;
+}
+
+export interface ForecastSeries {
+  store_id: number | null;
+  warehouse: string | null;
+  dept_id: number;
+  department: string;
+  unit: string;
+  days: ForecastDay[];
+}
+
+export interface ErrorRow {
+  group: string | number;
+  rows: number;
+  model: number;
+  benchmark: number;
+  department?: string;
+}
+
+export interface ForecastResponse {
+  series: ForecastSeries[];
+  shift_note: string;
+  accuracy: { daily_model: number; daily_benchmark: number; block_model: number; block_benchmark: number; text: string; limit: string };
+  backtest: { daily: ErrorRow[]; block: ErrorRow[]; by_day_group: ErrorRow[] };
+  drivers_tested: { driver: string; tested: string; found: string; use: string }[];
+  notes: { units: string; benchmark: string; steps: string };
+}

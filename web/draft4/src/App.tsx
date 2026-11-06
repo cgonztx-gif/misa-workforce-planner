@@ -76,10 +76,11 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Maximize2 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { allIdOf, blockId, buildBoard, isP3, stepSel, storeOf, type Cell } from "./lib/board";
-import { ApiError, backToPreparing, useCompare, useHealth, useMeta, usePlan, usePlaybook, usePrefetch } from "./lib/api";
+import { ApiError, backToPreparing, useCompare, useForecast, useHealth, useMeta, usePlan, usePlaybook, usePrefetch } from "./lib/api";
 import { nextTheme, readTheme, saveTheme, type Theme } from "./lib/theme";
 import type { Block, PlanResponse, ScenarioCode, WarehouseKey } from "./lib/types";
-import { readHash, writeHash, type Lens, type ViewState } from "./lib/url";
+import { readHash, writeHash, type DeptId, type Lens, type Page, type ViewState } from "./lib/url";
+import { DemandPage } from "./components/demand/DemandPage";
 import { GoalRow } from "./components/BelowGoalList";
 import { Board } from "./components/Board";
 import { CompareSwitch } from "./components/CompareSwitch";
@@ -137,6 +138,7 @@ export function App() {
   const planQ = usePlan(view.scenario, ready);
   const compareQ = useCompare(ready);
   const playbookQ = usePlaybook(ready);
+  const forecastQ = useForecast(ready);
   usePrefetch(ready && !!planQ.data && !planQ.isPlaceholderData);
 
   // A 503 mid-session means the server restarted: back to polling health. The data on screen stays.
@@ -176,6 +178,9 @@ export function App() {
     [],
   );
   const select = useCallback((sel: string | null) => setView((v) => ({ ...v, sel })), []);
+  const setPage = useCallback((page: Page) => setView((v) => ({ ...v, page })), []);
+  const setDept = useCallback((dept: DeptId) => setView((v) => ({ ...v, dept })), []);
+  const setDay = useCallback((day: string) => setView((v) => ({ ...v, day })), []);
   const clear = useCallback(() => select(null), [select]);
   const onCell = useCallback((c: Cell) => setView((v) => {
     const id = c.isAll ? c.id : c.blocks[0] ? blockId(c.blocks[0]) : null;
@@ -313,7 +318,7 @@ export function App() {
 
   return (
     <div className="flex min-h-dvh">
-      <Sidebar meta={meta.data} scenario={view.scenario} loading={stale && planQ.isFetching ? view.scenario : null} onScenario={setScenario} compare={compareQ.data} wk={view.wk} theme={theme} onTheme={cycleTheme} />
+      <Sidebar meta={meta.data} scenario={view.scenario} loading={stale && planQ.isFetching ? view.scenario : null} onScenario={setScenario} compare={compareQ.data} wk={view.wk} theme={theme} onTheme={cycleTheme} page={view.page} onPage={setPage} />
 
       <main className="min-w-0 flex-1 px-4 pt-3 pb-10 sm:px-6 sm:pt-5 compact:pt-3 min-[112.5rem]:px-8">
         <div className="mx-auto max-w-[2560px]">
@@ -325,6 +330,7 @@ export function App() {
             status={status}
             note={bar ? <NoteBar text={bar} onRetry={retry} inline /> : null}
             onCsvFail={onCsvFail}
+            title={view.page === "demand" ? "Demand" : "Overview"}
           />
           <div className="mt-4 compact:mt-3">
             {note}
@@ -333,6 +339,22 @@ export function App() {
                 <NoteBar text={bar} onRetry={retry} />
               </div>
             )}
+            {view.page === "demand" ? (
+              <DemandPage
+                data={forecastQ.data}
+                meta={meta.data}
+                scenario={view.scenario}
+                scenarioName={scenName}
+                wk={view.wk}
+                wkSeg={wkSeg}
+                dept={view.dept}
+                day={view.day}
+                dim={dim}
+                onWk={setWk}
+                onDept={setDept}
+                onDay={setDay}
+              />
+            ) : (
             <div className="grid grid-cols-1 gap-4 compact:gap-3 md:grid-cols-2 min-[80rem]:grid-cols-12 min-[112.5rem]:gap-4">
               {/* The plan card: warehouse control, KPI strip, board toolbar, the schedule board. */}
               <section data-card="plan" aria-label="Plan" className={`${CARD} min-w-0 md:col-span-2 min-[80rem]:col-span-8 min-[112.5rem]:col-span-6`}>
@@ -394,6 +416,7 @@ export function App() {
                 </section>
               </div>
             </div>
+            )}
           </div>
         </div>
       </main>

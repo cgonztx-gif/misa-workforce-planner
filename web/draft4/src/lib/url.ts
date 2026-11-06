@@ -5,6 +5,9 @@
 import type { ScenarioCode, WarehouseKey } from "./types";
 
 export type Lens = "service" | "below" | "people" | "cost";
+export type Page = "overview" | "demand";
+export const PAGES: Page[] = ["overview", "demand"];
+export type DeptId = 38 | 92 | 95;
 
 export interface ViewState {
   scenario: ScenarioCode;
@@ -12,9 +15,14 @@ export interface ViewState {
   lens: Lens;
   compare: boolean;
   sel: string | null;
+  /** The page (p=). Overview is the default and is left out of the hash, so its links stay as they were. */
+  page: Page;
+  /** Demand: the department (dd=) and the day whose build is open (dy=). */
+  dept: DeptId;
+  day: string;
 }
 
-export const DEFAULT_VIEW: ViewState = { scenario: "BASE", wk: "all", lens: "service", compare: false, sel: null };
+export const DEFAULT_VIEW: ViewState = { scenario: "BASE", wk: "all", lens: "service", compare: false, sel: null, page: "overview", dept: 38, day: "2026-02-14" };
 
 const SCEN: ScenarioCode[] = ["BASE", "PEAK", "DISRUPT"];
 const WKS: WarehouseKey[] = ["all", "1", "2", "4"];
@@ -38,6 +46,9 @@ export function readHash(): ViewState {
     lens: LENSES.includes(l) ? l : DEFAULT_VIEW.lens,
     compare: p.get("c") === "1",
     sel: b && SEL.test(b) ? b : null,
+    page: PAGES.includes(p.get("p") as Page) ? (p.get("p") as Page) : "overview",
+    dept: ([38, 92, 95] as number[]).includes(Number(p.get("dd"))) ? (Number(p.get("dd")) as DeptId) : DEFAULT_VIEW.dept,
+    day: /^2026-02-1[2-8]$/.test(p.get("dy") ?? "") ? (p.get("dy") as string) : DEFAULT_VIEW.day,
   };
 }
 
@@ -48,6 +59,11 @@ export function writeHash(v: ViewState) {
   p.set("l", v.lens);
   p.set("c", v.compare ? "1" : "0");
   if (v.sel) p.set("b", v.sel);
+  if (v.page !== "overview") {
+    p.set("p", v.page);
+    p.set("dd", String(v.dept));
+    p.set("dy", v.day);
+  }
   const hash = `#${p.toString().replace(/%7C/gi, "|")}`;
   if (hash !== window.location.hash) {
     try {

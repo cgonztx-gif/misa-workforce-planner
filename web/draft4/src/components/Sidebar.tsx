@@ -1,8 +1,14 @@
-import { CalendarDays, LayoutGrid, Monitor, Moon, Sun, TrendingUp, UserMinus } from "lucide-react";
+import { CalendarDays, ChartColumn, LayoutDashboard, LayoutGrid, Monitor, Moon, Sun, TrendingUp, UserMinus } from "lucide-react";
+import type { Page } from "../lib/url";
 import { chanceText, int } from "../lib/format";
 import { themeName, type Theme } from "../lib/theme";
 import type { CompareResponse, Meta, ScenarioCode, WarehouseKey } from "../lib/types";
 import { Spinner } from "./StatusPill";
+
+export const PAGE_NAV: { page: Page; label: string; Icon: typeof CalendarDays }[] = [
+  { page: "overview", label: "Overview", Icon: LayoutDashboard },
+  { page: "demand", label: "Demand", Icon: ChartColumn },
+];
 
 export const SCEN: { code: ScenarioCode; label: string; key: string; Icon: typeof CalendarDays }[] = [
   { code: "BASE", label: "Base", key: "B", Icon: CalendarDays },
@@ -34,7 +40,7 @@ export function scenarioTip(code: ScenarioCode, meta?: Meta, compare?: CompareRe
 export const ThemeIcon = ({ theme, size = 16 }: { theme: Theme; size?: number }) =>
   theme === "light" ? <Sun size={size} strokeWidth={1.75} /> : theme === "dark" ? <Moon size={size} strokeWidth={1.75} /> : <Monitor size={size} strokeWidth={1.75} />;
 
-export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, theme, onTheme }: {
+export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, theme, onTheme, page, onPage }: {
   meta?: Meta;
   scenario: ScenarioCode;
   loading: ScenarioCode | null;
@@ -43,6 +49,8 @@ export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, them
   wk: WarehouseKey;
   theme: Theme;
   onTheme: () => void;
+  page: Page;
+  onPage: (p: Page) => void;
 }) {
   const week = weekText(meta);
   return (
@@ -57,6 +65,30 @@ export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, them
           <div className="h-4 text-[12.5px] leading-4 text-muted tnum">{week || <span className="skel inline-block h-3 w-24 rounded" />}</div>
         </div>
       </div>
+
+      <div className="mt-6 px-2 text-[12px] text-muted">Pages</div>
+      <nav className="mt-1.5 flex flex-col gap-0.5" aria-label="Pages">
+        {PAGE_NAV.map(({ page: pg, label, Icon }) => {
+          const on = pg === page;
+          return (
+            <button
+              key={pg}
+              type="button"
+              aria-current={on ? "page" : undefined}
+              data-page={pg}
+              onClick={() => onPage(pg)}
+              className={`flex h-10 items-center gap-2.5 rounded-[10px] px-3 text-left text-[14px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent ${
+                on ? "bg-card font-medium text-ink shadow-[var(--shadow-pill)]" : "text-ink-2 hover:bg-card/60"
+              }`}
+            >
+              <span className={on ? "text-accent" : "text-muted"}>
+                <Icon size={16} strokeWidth={1.75} />
+              </span>
+              <span className="flex-1">{label}</span>
+            </button>
+          );
+        })}
+      </nav>
 
       <div className="mt-6 px-2 text-[12px] text-muted">Scenario</div>
       <nav className="mt-1.5 flex flex-col gap-0.5" aria-label="Scenario">

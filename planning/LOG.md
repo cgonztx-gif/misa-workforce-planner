@@ -4,6 +4,8 @@ Newest first. Add an entry at the end of every work session.
 
 ## 2026-11-05
 
+**Draft 4, Demand page (T-99).** The user asked for draft 4's other sections, one at a time for their review, using draft 3's pages as the baseline and the UI skills, with readability and clarity first. Demand is built (`web/draft4/src/components/demand/`, `DRAFT4.md` section 13): a Pages group in the sidebar, 4 tiles, a forecast vs benchmark column chart by day with the gap over each day, the day's build as a waterfall, the backtest error and the drivers tested. Checked in dark and light at 1440 x 900 and at 1366 x 657, no console errors; the Overview harness still passes 351 of 351. Awaiting the user's review before Cost and service.
+
 **Draft 4, UI clarity sweep (D-32, dark mode as the reference).** The user asked for a sweep of colour, the legends between the tile filters, and the block detail, using the dashboard-design skill.
 
 - **Found (screenshots in `evidence/draft4/sweep/before`):** the Service and Below goal boards looked identical; on People and Labor cost the red below-goal fills hid the lens on the holiday days and the grey steps were too close in dark; legend labels were underlined like links, with a stray "lowest"; in All, People / Cost colours used the per-warehouse mean while the cell showed the sum (a "+3" on the "+1" swatch); the staff bar's greys had no key; the Previous key chip's ⇧ rendered as "9".

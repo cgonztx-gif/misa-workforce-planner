@@ -139,6 +139,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Demand: the scenario surge, striped so it reads as "added on top" without a second colour. */
+.stripes {
+  background-image: repeating-linear-gradient(135deg, transparent 0 3px, color-mix(in srgb, var(--color-card) 55%, transparent) 3px 6px);
+}
+
 .tnum {
   font-variant-numeric: tabular-nums;
 }

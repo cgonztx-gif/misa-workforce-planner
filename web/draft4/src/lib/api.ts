@@ -3,7 +3,7 @@
 
 import { keepPreviousData, useQuery, useQueryClient, type QueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import type { CompareResponse, Health, Meta, PlanResponse, PlaybookResponse, ScenarioCode } from "./types";
+import type { CompareResponse, ForecastResponse, Health, Meta, PlanResponse, PlaybookResponse, ScenarioCode } from "./types";
 
 export class ApiError extends Error {
   status: number;
@@ -81,6 +81,12 @@ export function usePlan(scenario: ScenarioCode, enabled: boolean) {
   return useQuery({ ...planQuery(scenario), enabled, placeholderData: keepPreviousData });
 }
 
+const forecastQuery = { queryKey: ["forecast"] as const, queryFn: () => getJson<ForecastResponse>("/api/forecast"), retry, retryDelay };
+
+export function useForecast(enabled: boolean) {
+  return useQuery({ ...forecastQuery, enabled });
+}
+
 const compareQuery = { queryKey: ["compare"] as const, queryFn: () => getJson<CompareResponse>("/api/compare"), retry, retryDelay };
 const playbookQuery = { queryKey: ["playbook"] as const, queryFn: () => getJson<PlaybookResponse>("/api/playbook"), retry, retryDelay };
 
@@ -100,6 +106,7 @@ export function usePrefetch(ready: boolean) {
     for (const s of ["PEAK", "DISRUPT", "BASE"] as ScenarioCode[]) void qc.prefetchQuery(planQuery(s));
     void qc.prefetchQuery(compareQuery);
     void qc.prefetchQuery(playbookQuery);
+    void qc.prefetchQuery(forecastQuery);
   }, [ready, qc]);
 }
 

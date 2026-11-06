@@ -927,3 +927,26 @@ The skill's "Sign-off" section is intentionally not used anywhere.
 - **3440.** Pills about 160px wide may read as stretched bars. If they do, keep the 2560 cap and add the chance second line, as specified. Don't narrow the content.
 - **The CSV** shows `team_id` `TEAM_NAME` until T-62. Don't open it during the demo before then.
 - **Uncommitted work.** The `--draft4` flag and `start_app_draft4.bat` are uncommitted work already in the tree. Build on them, and don't overwrite them.
+
+
+---
+
+## 13. Demand page (T-99, 2026-11-05)
+
+The user asked for draft 4's other sections, one at a time for review, from draft 3's pages, with readability and
+clarity first. Demand is first. The sidebar gets a **Pages** group (Overview, Demand) above Scenario; the page lives in
+the hash as `p=demand&dd=<dept>&dy=<date>`, and the Overview's hash is unchanged (no `p`), so its links still work.
+
+**The one question:** when does demand rise this week, and what does the benchmark miss?
+
+| Part | Form | Source (`/api/forecast`) |
+|---|---|---|
+| Toolbar | warehouse and department segmented controls | `series[]` by `store_id` (null = All) and `dept_id` |
+| Tiles (4, not selectable) | Week demand (Σ scenario demand, % vs benchmark, grey); Peak day; Benchmark miss (largest \|gap\|, red when the benchmark is ≥ 2% low); Forecast error (backtest daily, the department's, pts vs benchmark, green when lower) | `days[].scenarios[s].demand`, `benchmark`; `backtest.daily` |
+| Main chart | paired columns per day on a 0-based axis: forecast solid ink, the scenario surge striped on top (Peak), benchmark dashed grey; the gap over each day, red when ≥ +2% (the benchmark would staff too few); holiday window shaded and named; each day a button | `demand`, `effect`, `benchmark` |
+| Slot: Day build | the day's waterfall on one scale: normal day → holiday factor → Valentine's → scenario surge → forecast, then the benchmark; ‹ › step days; ⓘ = the driver text; the same day in each department (click to switch) | `normal_day`, `holiday_effect`, `valentine_effect`, `scenarios[s].effect` |
+| Forecast error | paired slim bars, forecast ink vs benchmark dashed, by department (selected highlighted) and by days of the week; lower is better | `backtest.daily`, `backtest.by_day_group` |
+| Drivers tested | list with a chip each: In the model / Judgment / Left out; the tested, found and use text in the tooltip | `drivers_tested` |
+
+Units differ by department, so nothing sums across departments. The page never computes a forecast: it picks a series,
+sums one department's week, divides demand by benchmark and sorts. Evidence: `planning/evidence/draft4/demand/`.

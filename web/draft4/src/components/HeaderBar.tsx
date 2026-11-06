@@ -60,19 +60,20 @@ export function CsvPill({ onFail }: { onFail: (offline: boolean) => void }) {
  * Below 64rem the pill group folds onto its own row, so the scenario's name is never cut. A failed fetch puts its
  * slim note in place of the name, so it never pushes the board down.
  */
-export function HeaderBar({ meta, scenario, onScenario, status, note, onCsvFail }: {
+export function HeaderBar({ meta, scenario, onScenario, status, note, onCsvFail, title = "Overview" }: {
   meta?: Meta;
   scenario: ScenarioCode;
   onScenario: (s: ScenarioCode) => void;
   status: Status;
   note?: ReactNode;
   onCsvFail: (offline: boolean) => void;
+  title?: string;
 }) {
   const name = meta?.scenarios.find((s) => s.code === scenario)?.name;
   return (
     <header className="hidden flex-wrap items-center gap-x-4 gap-y-2 sm:flex min-[64rem]:h-10 min-[64rem]:flex-nowrap compact:min-[64rem]:h-9">
       <div className="flex min-w-0 basis-full items-baseline gap-3 min-[64rem]:flex-1 min-[64rem]:basis-auto">
-        <h1 className="shrink-0 text-[20px] font-semibold tracking-[-.015em]">Overview</h1>
+        <h1 className="shrink-0 text-[20px] font-semibold tracking-[-.015em]">{title}</h1>
         {note ? (
           <div className="min-w-0 flex-1 self-center">{note}</div>
         ) : (
