@@ -1,6 +1,6 @@
 import { memo } from "react";
-import { tierOf, STORES, type Cell, type Tier } from "../lib/board";
-import { chanceText, goalText, int, signed, signedUsd, usd } from "../lib/format";
+import { alertOf, shortOfCell, tierOf, STORES, type Cell, type Tier } from "../lib/board";
+import { chanceText, goalText, int, signed, signedUsd, signedUsdCompact, usd } from "../lib/format";
 import type { Block, Meta } from "../lib/types";
 import type { Lens } from "../lib/url";
 
@@ -33,8 +33,12 @@ const NUM: Partial<Record<Tier, string>> = {
   w2: "font-bold underline decoration-2 underline-offset-2",
   wm: "underline decoration-2 underline-offset-2",
   w1: "underline decoration-2 underline-offset-2",
-  dim: "text-ink-2",
+  // Below goal lens: the healthy cells step back so only the red ones (and their shortfall) read.
+  dim: "font-medium text-muted",
 };
+// People / Labor cost lens, below goal: a red outline and the red tiers' underline on its magnitude fill.
+const ALERT_RING = "ring-[1.5px] ring-inset ring-bad forced-colors:outline-1 forced-colors:outline-[CanvasText]";
+const ALERT_NUM = "underline decoration-bad decoration-2 underline-offset-2";
 
 // Forced colours (Windows high contrast) drop box-shadow rings, so each ring also has an outline there.
 const SELECTED_RING = "ring-2 ring-accent ring-offset-2 ring-offset-card forced-colors:outline-2 forced-colors:outline-offset-2 forced-colors:outline-[Highlight]";
@@ -103,19 +107,38 @@ function ariaFor(c: Cell, meta: Meta, goal: number, dayLong: string) {
 export const BoardCell = memo(function BoardCell({ cell: c, lens, compare, selected, focusable, dayLabel, dayLong, meta, goal, onClick, onFocusCell }: CellProps) {
   const tier = tierOf(c, lens);
   const ringed = selected || c.worst;
-  const fill = ringed && HAS_RING[tier] ? "" : ringed && RINGED_FILL[tier] ? RINGED_FILL[tier] : FILL[tier];
-  const ring = selected ? SELECTED_RING : c.worst ? WORST_RING : "";
+  const alert0 = alertOf(c, lens);
+  const fill = (ringed || alert0) && HAS_RING[tier] ? "" : (ringed || alert0) && RINGED_FILL[tier] ? RINGED_FILL[tier] : FILL[tier];
+  const ring = selected ? SELECTED_RING : c.worst ? WORST_RING : alert0 ? ALERT_RING : "";
   const tip = tipFor(c, lens, compare, meta, goal, dayLabel);
   const delta = c.change;
   const pips = c.isAll ? c.below.length : 0;
   const second = c.isOpen ? chanceText(c.minChance, c.below.length > 0, goal) : "";
-  const numCls = NUM[tier] ?? "";
+  const numCls = alert0 ? ALERT_NUM : NUM[tier] ?? "";
   // Secondary text reaches 4.5:1 on every fill: ink on the red tiers, ink-2 on the green / grey tiers, muted on no fill.
   const secInk = RED[tier] ? "text-ink" : UNFILLED[tier] ? "text-muted" : "text-ink-2";
-  const p3Mark = c.p3 ? "underline decoration-dashed decoration-bad decoration-[1.5px] underline-offset-[3px]" : "";
+  const p3Mark = c.p3 && compare ? "underline decoration-dashed decoration-bad decoration-[1.5px] underline-offset-[3px]" : "";
   const sec = `text-[11px] font-medium ${secInk} ${p3Mark}`;
   // A draft-unfilled (P3) cell with no net change still shows ±0, so its dashed mark has something to sit on.
   const showDelta = delta !== 0 || c.p3;
+  // Each lens shows its own measure beside the headcount, so switching tiles changes what the board says, not only
+  // its colour: Below goal the shortfall, People the change in people, Labor cost the change in cost. Service keeps
+  // the headcount alone, with the draft change when Compare is on.
+  const shortN = lens === "below" ? shortOfCell(c) : 0;
+  const lensSec =
+    lens === "below"
+      ? shortN > 0
+        ? { text: `short ${int(shortN)}`, cls: "text-[11px] font-semibold text-ink" }
+        : null
+      : lens === "people"
+        ? showDelta
+          ? { text: signed(delta), cls: sec }
+          : null
+        : lens === "cost"
+          ? Math.round(c.costChange) !== 0
+            ? { text: signedUsdCompact(c.costChange), cls: `text-[11px] font-medium ${secInk}` }
+            : null
+          : undefined;
 
   return (
     <button
@@ -129,6 +152,7 @@ export const BoardCell = memo(function BoardCell({ cell: c, lens, compare, selec
       data-plan={c.plan}
       data-below={c.below.length}
       data-tier={tier}
+      data-alert={alert0 ? "1" : undefined}
       data-worst={c.worst ? "1" : undefined}
       data-p3={c.p3 ? "1" : undefined}
       data-tip-title={tip.title}
@@ -139,6 +163,11 @@ export const BoardCell = memo(function BoardCell({ cell: c, lens, compare, selec
     >
       {!c.isOpen ? (
         <span className="font-normal text-muted">—</span>
+      ) : lensSec !== undefined ? (
+        <span className="inline-flex items-baseline gap-1">
+          <span className={numCls}>{int(c.plan)}</span>
+          {lensSec && <span className={`hidden whitespace-nowrap sm:inline-block ${lensSec.cls}`}>{lensSec.text}</span>}
+        </span>
       ) : compare ? (
         <>
           <span className="inline-flex items-baseline gap-1 min-[160rem]:hidden">

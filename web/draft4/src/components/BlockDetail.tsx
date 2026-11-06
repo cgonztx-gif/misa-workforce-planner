@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Info, X } from "lucide-react";
+import { ArrowBigUp, ChevronLeft, ChevronRight, Info, X } from "lucide-react";
 import type { ReactNode } from "react";
 import { causeChip, shortOf } from "../lib/board";
 import { chanceText, int, signed, signedUsd, usd } from "../lib/format";
@@ -56,7 +56,9 @@ export function StepActions({ onPrev, onNext, canPrev, canNext }: { onPrev: () =
       >
         <ChevronLeft size={15} strokeWidth={1.75} />
         Previous
-        <span className={`${kbd} pointer-coarse:hidden`}>⇧N</span>
+        <span className={`${kbd} inline-flex items-center gap-px pointer-coarse:hidden`} aria-hidden>
+          <ArrowBigUp size={11} strokeWidth={1.75} />N
+        </span>
       </button>
       <button
         type="button"
@@ -163,7 +165,7 @@ export function BlockDetail({ b, goal, compare, back, ptoHeadline, strip, onBack
       {/* Chance */}
       <div className="mt-5 compact:mt-3">
         <div className="mb-1.5 flex items-center gap-2">
-          <span className="text-[12px] text-muted">Chance</span>
+          <span className="text-[12px] font-medium text-ink-2">Chance</span>
           {open && b.below_goal && (
             <span className={`${chip} h-5 bg-bad/12 px-2 text-[11.5px] font-medium text-ink tnum`} data-tip={`Need ${int(b.need ?? 0)} · can field ${int(b.availability.capacity)}`}>
               Short {int(short)}
@@ -179,7 +181,7 @@ export function BlockDetail({ b, goal, compare, back, ptoHeadline, strip, onBack
       {/* Staff */}
       <div className="mt-4 compact:mt-2">
         <div className="mb-1.5 flex items-center justify-between">
-          <span className="text-[12px] text-muted">Staff</span>
+          <span className="text-[12px] font-medium text-ink-2">Staff</span>
           <span className="text-[13px] text-ink-2 tnum" data-tip={open ? `Plan ${int(b.plan)} of the ${int(b.availability.capacity)} this block can field` : undefined}>
             {open ? (
               <>

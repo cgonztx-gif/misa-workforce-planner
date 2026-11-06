@@ -399,8 +399,10 @@ def board_grid(rows: pd.DataFrame, goal: float, aggregate: bool) -> list[dict]:
                     "lowest_chance_text": chance_text(lowest, bool(len(below)), goal) if open_ else "—",
                     "below_count_pips": int(len(below)), "warm": bool(len(below)), "tier_service": tier,
                     "mean_change": mean_change, "mean_cost_change": mean_cost_change,
-                    "tier_people": None if not open_ else (tier if tier in ("w1", "w2") else people_tier_mean(mean_change)),
-                    "tier_cost": None if not open_ else (tier if tier in ("w1", "w2") else cost_tier(mean_cost_change)),
+                    # Sweep (2026-11-05): an All cell's People / Labor cost colour follows the figure it shows, the
+                    # 3 warehouses' sum, on the same steps as one block; below goal is a red outline, not a fill.
+                    "tier_people": None if not open_ else people_tier(int(part["change"].sum())),
+                    "tier_cost": None if not open_ else cost_tier(float(part["cost_change"].sum())),
                     "p3_draft_unfilled": int(o["draft_unfilled"].sum()),
                     "warehouses": [
                         {"store_id": int(r.store_id), "plan": int(r.recommended), "draft": int(r.draft_scheduled_employees),

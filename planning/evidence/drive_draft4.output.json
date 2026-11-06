@@ -1,7 +1,7 @@
 {
  "about": "drive_draft4.py: the rendered draft 4 page against planning/evidence/draft4_known_totals.output.json and outputs/*.csv. Simulated data, not Costco data.",
- "run_at": "2026-11-05 21:49:21",
- "seconds": 99.4,
+ "run_at": "2026-11-05 22:02:59",
+ "seconds": 96.3,
  "viewport": "1440x900",
  "passed": 351,
  "failed": 0,
@@ -11,14 +11,14 @@
    "check": "server --draft4 ready",
    "ok": true,
    "measured": {
-    "ready_s": 15.3,
+    "ready_s": 10.9,
     "health": {
      "ready": true,
-     "seconds": 13.5478,
+     "seconds": 9.208834,
      "error": null,
      "status": "ready",
      "step": "Ready",
-     "elapsed": 13.5478
+     "elapsed": 9.208834
     }
    },
    "expected": null
@@ -203,7 +203,7 @@
    "expected": null
   },
   {
-   "check": "BASE All warehouses: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "check": "BASE All warehouses: People / Cost / Below goal lens colours match the known tier (red fill on Below goal, red outline on People / Cost)",
    "ok": true,
    "measured": "all cells agree",
    "expected": null
@@ -392,7 +392,7 @@
    "expected": null
   },
   {
-   "check": "BASE Warehouse 1: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "check": "BASE Warehouse 1: People / Cost / Below goal lens colours match the known tier (red fill on Below goal, red outline on People / Cost)",
    "ok": true,
    "measured": "all cells agree",
    "expected": null
@@ -582,7 +582,7 @@
    "expected": null
   },
   {
-   "check": "BASE Warehouse 2: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "check": "BASE Warehouse 2: People / Cost / Below goal lens colours match the known tier (red fill on Below goal, red outline on People / Cost)",
    "ok": true,
    "measured": "all cells agree",
    "expected": null
@@ -772,7 +772,7 @@
    "expected": null
   },
   {
-   "check": "BASE Warehouse 4: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "check": "BASE Warehouse 4: People / Cost / Below goal lens colours match the known tier (red fill on Below goal, red outline on People / Cost)",
    "ok": true,
    "measured": "all cells agree",
    "expected": null
@@ -824,25 +824,25 @@
   {
    "check": "BASE: detail of BASE|1|38|2026-02-14|MID (worst block)",
    "ok": true,
-   "measured": "Warehouse 1 · 12:30–16:00 · 3.5 h | Below goal | At capacity | Holiday PTO | Draft | 29 | → | Plan | 34 | +5 | Chance | Short 5 | 57.0% | 0 | 80% | 95% | Staff | 34 of 34 | Regular 27 · Overtime 7 | need 39 | Cost | $3,647 | +$696 | Cushion | 2 | Utilization | 82% | Chance by day",
+   "measured": "Warehouse 1 · 12:30–16:00 · 3.5 h | Below goal | At capacity | Holiday PTO | Draft | 29 | → | Plan | 34 | +5 | Chance | Short 5 | 57.0% | 0 | 80% | 95% | Staff | 34 of 34 | Regular | 27 | Overtime | 7 | need 39 | Cost | $3,647 | +$696 | Cushion | 2",
    "expected": null
   },
   {
    "check": "BASE: detail of BASE|1|92|2026-02-14|EVE (second in the list)",
    "ok": true,
-   "measured": "Warehouse 1 · 14:00–18:30 · 4.5 h | Below goal | At capacity | Holiday PTO | Draft | 10 | → | Plan | 11 | +1 | Chance | Short 2 | 62.3% | 0 | 80% | 95% | Staff | 11 of 11 | Regular 8 · Overtime 3 | need 13 | Cost | $1,615 | +$178 | Cushion | 0 | Utilization | 81% | Chance by day",
+   "measured": "Warehouse 1 · 14:00–18:30 · 4.5 h | Below goal | At capacity | Holiday PTO | Draft | 10 | → | Plan | 11 | +1 | Chance | Short 2 | 62.3% | 0 | 80% | 95% | Staff | 11 of 11 | Regular | 8 | Overtime | 3 | need 13 | Cost | $1,615 | +$178 | Cushion | 0",
    "expected": null
   },
   {
    "check": "BASE: detail of BASE|2|38|2026-02-12|OPEN (a healthy block)",
    "ok": true,
-   "measured": "Warehouse 2 · 09:00–13:00 · 4 h | Meets goal | Draft | 12 | → | Plan | 14 | +2 | Chance | 99.2% | 0 | 80% | 95% | Staff | 14 of 22 | Regular 14 | need 14 | Cost | $1,674 | +$239 | Cushion | 2 | Utilization | 69% | Chance by day | Goal 95% | Thu | 99.2%",
+   "measured": "Warehouse 2 · 09:00–13:00 · 4 h | Meets goal | Draft | 12 | → | Plan | 14 | +2 | Chance | 99.2% | 0 | 80% | 95% | Staff | 14 of 22 | Regular | 14 | need 14 | Cost | $1,674 | +$239 | Cushion | 2 | Utilization | 69% | Chance by day | Goal 95% | Thu",
    "expected": null
   },
   {
    "check": "BASE: detail of BASE|1|38|2026-02-14|MID (worst block, Compare on)",
    "ok": true,
-   "measured": "Warehouse 1 · 12:30–16:00 · 3.5 h | Below goal | At capacity | Holiday PTO | Draft | 29 | → | Plan | 34 | +5 | Chance | Short 5 | draft 4.8% | 57.0% | 0 | 80% | 95% | Staff | 34 of 34 | Regular 27 · Overtime 7 | need 39 | Draft · Regular 27 · Cross-trained 1 · Overtime 1 | Cost | $3,647 | +$696 | Cushion | 2 | Utilization",
+   "measured": "Warehouse 1 · 12:30–16:00 · 3.5 h | Below goal | At capacity | Holiday PTO | Draft | 29 | → | Plan | 34 | +5 | Chance | Short 5 | draft 4.8% | 57.0% | 0 | 80% | 95% | Staff | 34 of 34 | Regular | 27 | Overtime | 7 | need 39 | Draft · Regular 27 · Cross-trained 1 · Overtime 1 | Cost | $3,647 | +$696",
    "expected": null
   },
   {
@@ -1094,7 +1094,7 @@
    "expected": null
   },
   {
-   "check": "PEAK All warehouses: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "check": "PEAK All warehouses: People / Cost / Below goal lens colours match the known tier (red fill on Below goal, red outline on People / Cost)",
    "ok": true,
    "measured": "all cells agree",
    "expected": null
@@ -1284,7 +1284,7 @@
    "expected": null
   },
   {
-   "check": "PEAK Warehouse 1: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "check": "PEAK Warehouse 1: People / Cost / Below goal lens colours match the known tier (red fill on Below goal, red outline on People / Cost)",
    "ok": true,
    "measured": "all cells agree",
    "expected": null
@@ -1474,7 +1474,7 @@
    "expected": null
   },
   {
-   "check": "PEAK Warehouse 2: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "check": "PEAK Warehouse 2: People / Cost / Below goal lens colours match the known tier (red fill on Below goal, red outline on People / Cost)",
    "ok": true,
    "measured": "all cells agree",
    "expected": null
@@ -1664,7 +1664,7 @@
    "expected": null
   },
   {
-   "check": "PEAK Warehouse 4: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "check": "PEAK Warehouse 4: People / Cost / Below goal lens colours match the known tier (red fill on Below goal, red outline on People / Cost)",
    "ok": true,
    "measured": "all cells agree",
    "expected": null
@@ -1716,25 +1716,25 @@
   {
    "check": "PEAK: detail of PEAK|1|92|2026-02-14|OPEN (worst block)",
    "ok": true,
-   "measured": "Warehouse 1 · 04:00–09:30 · 5.5 h | Below goal | At capacity | Holiday PTO | Draft | 17 | → | Plan | 20 | +3 | Chance | Short 8 | 0.3% | 0 | 80% | 95% | Staff | 20 of 20 | Regular 16 · Overtime 4 | need 28 | Cost | $3,511 | +$653 | Cushion | 0 | Utilization | 101% | Chance by day",
+   "measured": "Warehouse 1 · 04:00–09:30 · 5.5 h | Below goal | At capacity | Holiday PTO | Draft | 17 | → | Plan | 20 | +3 | Chance | Short 8 | 0.3% | 0 | 80% | 95% | Staff | 20 of 20 | Regular | 16 | Overtime | 4 | need 28 | Cost | $3,511 | +$653 | Cushion | 0",
    "expected": null
   },
   {
    "check": "PEAK: detail of PEAK|4|38|2026-02-13|MID (second in the list)",
    "ok": true,
-   "measured": "Warehouse 4 · 13:00–17:00 · 4 h | Below goal | At capacity | PTO | Draft | 29 | → | Plan | 34 | +5 | Chance | Short 12 | 0.7% | 0 | 80% | 95% | Staff | 34 of 34 | Regular 28 · Overtime 6 | need 46 | Cost | $4,214 | +$812 | Cushion | 0 | Utilization | 99% | Chance by day",
+   "measured": "Warehouse 4 · 13:00–17:00 · 4 h | Below goal | At capacity | PTO | Draft | 29 | → | Plan | 34 | +5 | Chance | Short 12 | 0.7% | 0 | 80% | 95% | Staff | 34 of 34 | Regular | 28 | Overtime | 6 | need 46 | Cost | $4,214 | +$812 | Cushion | 0",
    "expected": null
   },
   {
    "check": "PEAK: detail of PEAK|2|38|2026-02-12|OPEN (a healthy block)",
    "ok": true,
-   "measured": "Warehouse 2 · 09:00–13:00 · 4 h | Meets goal | Draft | 12 | → | Plan | 14 | +2 | Chance | 99.2% | 0 | 80% | 95% | Staff | 14 of 22 | Regular 14 | need 14 | Cost | $1,674 | +$239 | Cushion | 2 | Utilization | 69% | Chance by day | Goal 95% | Thu | 99.2%",
+   "measured": "Warehouse 2 · 09:00–13:00 · 4 h | Meets goal | Draft | 12 | → | Plan | 14 | +2 | Chance | 99.2% | 0 | 80% | 95% | Staff | 14 of 22 | Regular | 14 | need 14 | Cost | $1,674 | +$239 | Cushion | 2 | Utilization | 69% | Chance by day | Goal 95% | Thu",
    "expected": null
   },
   {
    "check": "PEAK: detail of PEAK|1|92|2026-02-14|OPEN (worst block, Compare on)",
    "ok": true,
-   "measured": "Warehouse 1 · 04:00–09:30 · 5.5 h | Below goal | At capacity | Holiday PTO | Draft | 17 | → | Plan | 20 | +3 | Chance | Short 8 | draft 0% | 0.3% | 0 | 80% | 95% | Staff | 20 of 20 | Regular 16 · Overtime 4 | need 28 | Draft · Regular 16 · Overtime 1 | Cost | $3,511 | +$653 | Cushion | 0 | Utilization",
+   "measured": "Warehouse 1 · 04:00–09:30 · 5.5 h | Below goal | At capacity | Holiday PTO | Draft | 17 | → | Plan | 20 | +3 | Chance | Short 8 | draft 0% | 0.3% | 0 | 80% | 95% | Staff | 20 of 20 | Regular | 16 | Overtime | 4 | need 28 | Draft · Regular 16 · Overtime 1 | Cost | $3,511 | +$653",
    "expected": null
   },
   {
@@ -1986,7 +1986,7 @@
    "expected": null
   },
   {
-   "check": "DISRUPT All warehouses: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "check": "DISRUPT All warehouses: People / Cost / Below goal lens colours match the known tier (red fill on Below goal, red outline on People / Cost)",
    "ok": true,
    "measured": "all cells agree",
    "expected": null
@@ -2187,7 +2187,7 @@
    "expected": null
   },
   {
-   "check": "DISRUPT Warehouse 1: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "check": "DISRUPT Warehouse 1: People / Cost / Below goal lens colours match the known tier (red fill on Below goal, red outline on People / Cost)",
    "ok": true,
    "measured": "all cells agree",
    "expected": null
@@ -2376,7 +2376,7 @@
    "expected": null
   },
   {
-   "check": "DISRUPT Warehouse 2: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "check": "DISRUPT Warehouse 2: People / Cost / Below goal lens colours match the known tier (red fill on Below goal, red outline on People / Cost)",
    "ok": true,
    "measured": "all cells agree",
    "expected": null
@@ -2578,7 +2578,7 @@
    "expected": null
   },
   {
-   "check": "DISRUPT Warehouse 4: People / Cost / Below goal lens colours match the known tier (warm overrides)",
+   "check": "DISRUPT Warehouse 4: People / Cost / Below goal lens colours match the known tier (red fill on Below goal, red outline on People / Cost)",
    "ok": true,
    "measured": "all cells agree",
    "expected": null
@@ -2642,37 +2642,37 @@
   {
    "check": "DISRUPT: detail of DISRUPT|2|38|2026-02-14|MID (worst block)",
    "ok": true,
-   "measured": "Warehouse 2 · 12:30–16:00 · 3.5 h | Below goal | At capacity | Illness | Draft | 31 | → | Plan | 29 | −2 | Unfilled 2 | Chance | Short 23 | 0% | 0 | 80% | 95% | Staff | 29 of 29 | Regular 25 · Overtime 4 | need 52 | Cost | $3,169 | ±$0 | Cushion | 0 | Utilization | 117%",
+   "measured": "Warehouse 2 · 12:30–16:00 · 3.5 h | Below goal | At capacity | Illness | Draft | 31 | → | Plan | 29 | −2 | Unfilled 2 | Chance | Short 23 | 0% | 0 | 80% | 95% | Staff | 29 of 29 | Regular | 25 | Overtime | 4 | need 52 | Cost | $3,169 | ±$0 | Cushion",
    "expected": null
   },
   {
    "check": "DISRUPT: detail of DISRUPT|2|38|2026-02-14|EVE (second in the list)",
    "ok": true,
-   "measured": "Warehouse 2 · 16:00–18:30 · 2.5 h | Below goal | At capacity | Illness | Draft | 24 | → | Plan | 20 | −4 | Unfilled 4 | Chance | Short 18 | 0% | 0 | 80% | 95% | Staff | 20 of 20 | Regular 17 · Overtime 3 | need 38 | Cost | $1,567 | ±$0 | Cushion | 0 | Utilization | 122%",
+   "measured": "Warehouse 2 · 16:00–18:30 · 2.5 h | Below goal | At capacity | Illness | Draft | 24 | → | Plan | 20 | −4 | Unfilled 4 | Chance | Short 18 | 0% | 0 | 80% | 95% | Staff | 20 of 20 | Regular | 17 | Overtime | 3 | need 38 | Cost | $1,567 | ±$0 | Cushion",
    "expected": null
   },
   {
    "check": "DISRUPT: detail of DISRUPT|2|38|2026-02-12|OPEN (a healthy block)",
    "ok": true,
-   "measured": "Warehouse 2 · 09:00–13:00 · 4 h | Meets goal | Draft | 12 | → | Plan | 14 | +2 | Chance | 99.2% | 0 | 80% | 95% | Staff | 14 of 22 | Regular 14 | need 14 | Cost | $1,674 | +$239 | Cushion | 2 | Utilization | 69% | Chance by day | Goal 95% | Thu | 99.2%",
+   "measured": "Warehouse 2 · 09:00–13:00 · 4 h | Meets goal | Draft | 12 | → | Plan | 14 | +2 | Chance | 99.2% | 0 | 80% | 95% | Staff | 14 of 22 | Regular | 14 | need 14 | Cost | $1,674 | +$239 | Cushion | 2 | Utilization | 69% | Chance by day | Goal 95% | Thu",
    "expected": null
   },
   {
    "check": "DISRUPT: detail of DISRUPT|2|38|2026-02-14|MID (worst block, Compare on)",
    "ok": true,
-   "measured": "Warehouse 2 · 12:30–16:00 · 3.5 h | Below goal | At capacity | Illness | Draft | 31 | → | Plan | 29 | −2 | Unfilled 2 | Chance | Short 23 | draft 0% | 0% | 0 | 80% | 95% | Staff | 29 of 29 | Regular 25 · Overtime 4 | need 52 | Draft · Regular 25 · Overtime 4 | Cost | $3,169 | ±$0 | Cushion | 0",
+   "measured": "Warehouse 2 · 12:30–16:00 · 3.5 h | Below goal | At capacity | Illness | Draft | 31 | → | Plan | 29 | −2 | Unfilled 2 | Chance | Short 23 | draft 0% | 0% | 0 | 80% | 95% | Staff | 29 of 29 | Regular | 25 | Overtime | 4 | need 52 | Draft · Regular 25 · Overtime 4 | Cost | $3,169",
    "expected": null
   },
   {
    "check": "DISRUPT: detail of DISRUPT|2|38|2026-02-13|EVE (a draft-unfilled (P3) block, Compare on)",
    "ok": true,
-   "measured": "Warehouse 2 · 17:00–21:00 · 4 h | Below goal | At capacity | Illness | Draft | 26 | → | Plan | 21 | −5 | Unfilled 4 | Chance | Short 13 | draft 0.2% | <0.1% | 0 | 80% | 95% | Staff | 21 of 21 | Regular 18 · Overtime 3 | need 34 | Draft · Regular 18 · Cross-trained 1 · Overtime 3 | Cost | $2,626 | −$120 | Cushion | 0",
+   "measured": "Warehouse 2 · 17:00–21:00 · 4 h | Below goal | At capacity | Illness | Draft | 26 | → | Plan | 21 | −5 | Unfilled 4 | Chance | Short 13 | draft 0.2% | <0.1% | 0 | 80% | 95% | Staff | 21 of 21 | Regular | 18 | Overtime | 3 | need 34 | Draft · Regular 18 · Cross-trained 1 · Overtime 3 | Cost | $2,626",
    "expected": null
   },
   {
    "check": "DISRUPT: detail of DISRUPT|4|92|2026-02-13|OPEN (a draft-unfilled (P3) block, Compare on)",
    "ok": true,
-   "measured": "Warehouse 4 · 04:00–10:00 · 6 h | Below goal | At capacity | Crew shortage | Draft | 22 | → | Plan | 19 | −3 | Unfilled 2 | Chance | Short 3 | draft 84.7% | 63.9% | 0 | 80% | 95% | Staff | 19 of 19 | Regular 14 · Overtime 5 | need 22 | Draft · Regular 14 · Cross-trained 1 · Overtime 5 | Cost | $3,782 | −$184 | Cushion | 1",
+   "measured": "Warehouse 4 · 04:00–10:00 · 6 h | Below goal | At capacity | Crew shortage | Draft | 22 | → | Plan | 19 | −3 | Unfilled 2 | Chance | Short 3 | draft 84.7% | 63.9% | 0 | 80% | 95% | Staff | 19 of 19 | Regular | 14 | Overtime | 5 | need 22 | Draft · Regular 14 · Cross-trained 1 · Overtime 5 | Cost | $3,782",
    "expected": null
   },
   {
@@ -2805,7 +2805,7 @@
   {
    "check": "BASE: detail of BASE|1|38|2026-02-14|OPEN (edge 95.0%)",
    "ok": true,
-   "measured": "Warehouse 1 · 08:30–12:30 · 4 h | Meets goal | At capacity | Holiday PTO | Draft | 23 | → | Plan | 27 | +4 | Chance | 95.0% | 0 | 80% | 95% | Staff | 27 of 27 | Regular 21 · Overtime 6 | need 28 | Cost | $3,326 | +$607 | Cushion | 5 | Utilization | 72% | Chance by day | Goal 95%",
+   "measured": "Warehouse 1 · 08:30–12:30 · 4 h | Meets goal | At capacity | Holiday PTO | Draft | 23 | → | Plan | 27 | +4 | Chance | 95.0% | 0 | 80% | 95% | Staff | 27 of 27 | Regular | 21 | Overtime | 6 | need 28 | Cost | $3,326 | +$607 | Cushion | 5 | Utilization",
    "expected": null
   },
   {
@@ -2830,7 +2830,7 @@
   {
    "check": "DISRUPT: detail of DISRUPT|1|38|2026-02-14|OPEN (edge 95.0%)",
    "ok": true,
-   "measured": "Warehouse 1 · 08:30–12:30 · 4 h | Meets goal | At capacity | Holiday PTO | Draft | 23 | → | Plan | 27 | +4 | Chance | 95.0% | 0 | 80% | 95% | Staff | 27 of 27 | Regular 21 · Overtime 6 | need 28 | Cost | $3,326 | +$607 | Cushion | 5 | Utilization | 72% | Chance by day | Goal 95%",
+   "measured": "Warehouse 1 · 08:30–12:30 · 4 h | Meets goal | At capacity | Holiday PTO | Draft | 23 | → | Plan | 27 | +4 | Chance | 95.0% | 0 | 80% | 95% | Staff | 27 of 27 | Regular | 21 | Overtime | 6 | need 28 | Cost | $3,326 | +$607 | Cushion | 5 | Utilization",
    "expected": null
   },
   {
@@ -2859,7 +2859,7 @@
   {
    "check": "PEAK: detail of PEAK|4|38|2026-02-13|OPEN (edge 94.6%)",
    "ok": true,
-   "measured": "Warehouse 4 · 09:00–13:00 · 4 h | Below goal | At capacity | Draft | 16 | → | Plan | 21 | +5 | Chance | Short 1 | 94.6% | 0 | 80% | 95% | Staff | 21 of 21 | Regular 17 · Overtime 4 | need 22 | Cost | $2,614 | +$737 | Cushion | 3 | Utilization | 73% | Chance by day | Goal 95%",
+   "measured": "Warehouse 4 · 09:00–13:00 · 4 h | Below goal | At capacity | Draft | 16 | → | Plan | 21 | +5 | Chance | Short 1 | 94.6% | 0 | 80% | 95% | Staff | 21 of 21 | Regular | 17 | Overtime | 4 | need 22 | Cost | $2,614 | +$737 | Cushion | 3 | Utilization",
    "expected": null
   },
   {

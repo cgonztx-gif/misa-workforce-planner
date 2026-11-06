@@ -62,8 +62,10 @@ MINUS = "−"
 # red at three strengths by its (lowest) chance: 90-95%, 80-90%, under 80%. The known totals' w1 covers 80-95%, so the
 # label splits it at 90% on the cell's own chance.
 RED_LABELS = ("90–95%", "80–90%", "Under 80%")
-PEOPLE_LEGEND = {"cut": "Cut", "same": "Same", "+1": "+1", "+3": "+3", "+6": "+6"}
-COST_LEGEND = {"same": "Same", "+$1": "+$1", "+$300": "+$300", "+$800": "+$800"}
+# Sweep (2026-11-05): People and Labor cost colour every open cell by their own measure; a below-goal cell there keeps
+# that colour and gets a red outline (data-alert), so the lens stays readable on the holiday days.
+PEOPLE_LEGEND = {"cut": "Fewer", "same": "Same", "+1": "+1–2", "+3": "+3–5", "+6": "+6"}
+COST_LEGEND = {"same": "Same", "+$1": "<$300", "+$300": "$300–800", "+$800": "$800+"}
 
 
 def service_label(e: dict) -> str:
@@ -239,7 +241,7 @@ JS_CELLS = """(sel) => {
       x: r.left + r.width/2, y: r.top + r.height/2,
       numDeco: ncs ? ncs.textDecorationLine : null, numWeight: ncs ? ncs.fontWeight : null,
       sec: secEl ? secEl.innerText.trim() : '', secDeco: secEl ? getComputedStyle(secEl).textDecorationLine + ' ' + getComputedStyle(secEl).textDecorationStyle : '',
-      pips: pipBox ? pipBox.children.length : 0 };
+      pips: pipBox ? pipBox.children.length : 0, alert: c.getAttribute('data-alert') === '1' };
   });
   const grid = root.querySelector('[role=grid]');
   return { heads, rowheads, cells, gridAria: grid ? grid.getAttribute('aria-label') : null };
@@ -630,7 +632,9 @@ class Run:
                         continue
                     got = legend_of(c, legend)
                     ts = e["tier_service"]
-                    if ts in ("w1", "w2", "closed"):
+                    if lens in ("people", "cost") and c["alert"] != (ts in ("w1", "w2")):
+                        legend_bad.append(f"{lens} {c['key']}: red outline {c['alert']}, below goal {ts in ('w1', 'w2')}")
+                    if ts == "closed" or (lens == "below" and ts in ("w1", "w2")):
                         want_l = service_label(e)
                     elif lens == "below":
                         if got in ("Same", "(no fill)", "Meets goal"):
@@ -647,16 +651,16 @@ class Run:
                             continue
                     if got != want_l:
                         detail = ""
-                        if wk == "all" and lens in ("people", "cost") and ts not in ("w1", "w2"):
-                            m = e["mean_change" if lens == "people" else "mean_cost_change"]
-                            detail = f" (mean per open block {m:+.2f})"
+                        if wk == "all" and lens in ("people", "cost"):
+                            m = e["change" if lens == "people" else "cost_change"]
+                            detail = f" (sum {m:+.2f})"
                         legend_bad.append(f"{lens} {c['key']}: colour reads {got!r}, expected {want_l!r}{detail}")
         self.lens("service")
         check(f"{tag}: By day title for each lens (and the service chart's aria-label)", not bad, bad or "service, below, people, cost agree")
         check(f"{tag}: every colour on the board under People / Cost / Below goal has a swatch in the legend shown", not unlisted,
               sorted(unlisted) or "all listed")
         uniq = sorted(set(x.split(": ", 1)[1].split(" (")[0] for x in legend_bad))
-        check(f"{tag}: People / Cost / Below goal lens colours match the known tier (warm overrides)", not legend_bad,
+        check(f"{tag}: People / Cost / Below goal lens colours match the known tier (red fill on Below goal, red outline on People / Cost)", not legend_bad,
               (f"{len(legend_bad)} cells; kinds: {uniq[:4]}; e.g. {legend_bad[:4]}") if legend_bad else "all cells agree")
 
     def check_ranked(self, tag, s, wk, kv, tiles):
@@ -787,8 +791,10 @@ class Run:
         if f"{int_text(e['plan'])} of {cap}" not in lines:
             bad.append(f"staff line missing '{e['plan']} of {cap}'")
         parts = [(n, int(p[f])) for n, f in (("Regular", "fill_regular"), ("Cross-trained", "fill_flex"), ("Overtime", "fill_overtime"))]
+        # Sweep: the staff key draws a swatch per part, so its text is the parts in order, one after another.
         src = " · ".join(f"{n} {v}" for n, v in parts if v > 0)
-        if src not in lines:
+        flat = " ".join(" ".join(lines).split())
+        if " ".join(f"{n} {v}" for n, v in parts if v > 0) not in flat:
             bad.append(f"sources line missing {src!r}")
         if e["below"]:
             if f"need {e['short'] + e['plan']}" not in lines:

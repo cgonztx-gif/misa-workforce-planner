@@ -12,7 +12,7 @@ export function DayStrip({ days, meta, goal, label, onPick, roomy = true }: { da
   return (
     <div className={`mt-5 flex min-h-[112px] flex-1 flex-col compact:mt-3 compact:min-h-[96px] ${roomy ? "" : "compact:hidden"}`} data-strip="days">
       <div className="mb-1.5 flex items-center justify-between text-[12px] text-muted">
-        <span>{label}</span>
+        <span className="font-medium text-ink-2">{label}</span>
         <span className="tnum">Goal {goalText(goal)}</span>
       </div>
       <div className="grid max-h-[180px] min-h-0 flex-1 grid-cols-7 gap-1">

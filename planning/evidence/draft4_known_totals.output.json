@@ -1028,8 +1028,8 @@
        "tier_service": "t97",
        "mean_change": 1.0,
        "mean_cost_change": 118.84000000000007,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1079,8 +1079,8 @@
        "tier_service": "t95",
        "mean_change": 2.0,
        "mean_cost_change": 261.1733333333334,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+6",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1181,8 +1181,8 @@
        "tier_service": "w1",
        "mean_change": 4.0,
        "mean_cost_change": 607.8666666666668,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1232,8 +1232,8 @@
        "tier_service": "t95",
        "mean_change": 1.0,
        "mean_cost_change": 118.08,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1283,8 +1283,8 @@
        "tier_service": "t95",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 157.17333333333326,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1334,8 +1334,8 @@
        "tier_service": "t97",
        "mean_change": 1.0,
        "mean_cost_change": 118.84000000000007,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1385,8 +1385,8 @@
        "tier_service": "t95",
        "mean_change": 1.0,
        "mean_cost_change": 119.61333333333339,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1436,8 +1436,8 @@
        "tier_service": "w1",
        "mean_change": 5.0,
        "mean_cost_change": 766.5066666666662,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1487,8 +1487,8 @@
        "tier_service": "w2",
        "mean_change": 9.333333333333334,
        "mean_cost_change": 1216.4716666666666,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1538,8 +1538,8 @@
        "tier_service": "w1",
        "mean_change": 10.0,
        "mean_cost_change": 1100.02,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1589,8 +1589,8 @@
        "tier_service": "t97",
        "mean_change": 3.6666666666666665,
        "mean_cost_change": 433.1999999999999,
-       "tier_people": "+3",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1640,8 +1640,8 @@
        "tier_service": "t95",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 158.70666666666648,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1691,8 +1691,8 @@
        "tier_service": "t97",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 157.94666666666672,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1793,8 +1793,8 @@
        "tier_service": "t95",
        "mean_change": 2.3333333333333335,
        "mean_cost_change": 364.0933333333331,
-       "tier_people": "+3",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1844,8 +1844,8 @@
        "tier_service": "w2",
        "mean_change": 5.333333333333333,
        "mean_cost_change": 511.325,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1895,8 +1895,8 @@
        "tier_service": "w1",
        "mean_change": 5.0,
        "mean_cost_change": 486.57500000000005,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -1997,8 +1997,8 @@
        "tier_service": "t95",
        "mean_change": 1.6666666666666667,
        "mean_cost_change": 197.05333333333314,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2048,8 +2048,8 @@
        "tier_service": "t97",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 157.94666666666657,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2150,8 +2150,8 @@
        "tier_service": "t95",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 243.5999999999999,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2201,8 +2201,8 @@
        "tier_service": "w2",
        "mean_change": 1.6666666666666667,
        "mean_cost_change": 370.24166666666633,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+3",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2252,8 +2252,8 @@
        "tier_service": "w2",
        "mean_change": 1.6666666666666667,
        "mean_cost_change": 354.2166666666667,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+3",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2303,8 +2303,8 @@
        "tier_service": "t95",
        "mean_change": 2.0,
        "mean_cost_change": 483.1000000000001,
-       "tier_people": "+1",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2456,8 +2456,8 @@
        "tier_service": "t97",
        "mean_change": 1.0,
        "mean_cost_change": 153.0,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2507,8 +2507,8 @@
        "tier_service": "t95",
        "mean_change": 2.0,
        "mean_cost_change": 307.0,
-       "tier_people": "+1",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2558,8 +2558,8 @@
        "tier_service": "w1",
        "mean_change": 2.6666666666666665,
        "mean_cost_change": 513.7199999999999,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2609,8 +2609,8 @@
        "tier_service": "w1",
        "mean_change": 3.3333333333333335,
        "mean_cost_change": 539.0400000000001,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2660,8 +2660,8 @@
        "tier_service": "t97",
        "mean_change": 2.3333333333333335,
        "mean_cost_change": 436.95,
-       "tier_people": "+3",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2711,8 +2711,8 @@
        "tier_service": "t97",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 203.0,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2762,8 +2762,8 @@
        "tier_service": "t95",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 203.0,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2813,8 +2813,8 @@
        "tier_service": "t97",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 244.80000000000018,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2864,8 +2864,8 @@
        "tier_service": "t95",
        "mean_change": 2.0,
        "mean_cost_change": 366.00000000000017,
-       "tier_people": "+1",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2915,8 +2915,8 @@
        "tier_service": "w2",
        "mean_change": 2.0,
        "mean_cost_change": 364.695,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -2966,8 +2966,8 @@
        "tier_service": "w1",
        "mean_change": 2.6666666666666665,
        "mean_cost_change": 455.595,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -3017,8 +3017,8 @@
        "tier_service": "t95",
        "mean_change": 3.0,
        "mean_cost_change": 626.7799999999999,
-       "tier_people": "+3",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -3068,8 +3068,8 @@
        "tier_service": "t97",
        "mean_change": 2.3333333333333335,
        "mean_cost_change": 428.4000000000001,
-       "tier_people": "+3",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -3119,8 +3119,8 @@
        "tier_service": "t95",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 244.80000000000004,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -3171,7 +3171,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 155.54,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -3272,8 +3272,8 @@
        "tier_service": "w2",
        "mean_change": 0.3333333333333333,
        "mean_cost_change": 88.0,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+1",
+       "tier_cost": "+$1",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -3349,8 +3349,8 @@
        "tier_service": "w1",
        "mean_change": -0.3333333333333333,
        "mean_cost_change": -80.08,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "cut",
+       "tier_cost": "same",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -3400,8 +3400,8 @@
        "tier_service": "w2",
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 139.20666666666662,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -3452,7 +3452,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 136.5,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -3605,7 +3605,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 222.19999999999996,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -3656,7 +3656,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 195.0,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -3757,8 +3757,8 @@
        "tier_service": "w1",
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 117.31999999999998,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -3809,7 +3809,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 133.32000000000002,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -3911,7 +3911,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 117.83333333333333,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -4064,8 +4064,8 @@
        "tier_service": "w1",
        "mean_change": 1.0,
        "mean_cost_change": 215.03999999999996,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11167,8 +11167,8 @@
        "tier_service": "t97",
        "mean_change": 1.0,
        "mean_cost_change": 118.84000000000007,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11218,8 +11218,8 @@
        "tier_service": "w1",
        "mean_change": 3.6666666666666665,
        "mean_cost_change": 556.7733333333334,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11269,8 +11269,8 @@
        "tier_service": "w2",
        "mean_change": 6.0,
        "mean_cost_change": 932.08,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11320,8 +11320,8 @@
        "tier_service": "w2",
        "mean_change": 5.0,
        "mean_cost_change": 760.6800000000002,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11371,8 +11371,8 @@
        "tier_service": "t95",
        "mean_change": 1.0,
        "mean_cost_change": 118.08,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11422,8 +11422,8 @@
        "tier_service": "t95",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 157.17333333333326,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11473,8 +11473,8 @@
        "tier_service": "t97",
        "mean_change": 1.0,
        "mean_cost_change": 118.84000000000007,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11524,8 +11524,8 @@
        "tier_service": "t95",
        "mean_change": 1.0,
        "mean_cost_change": 119.61333333333339,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11575,8 +11575,8 @@
        "tier_service": "w2",
        "mean_change": 4.0,
        "mean_cost_change": 649.1999999999998,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11626,8 +11626,8 @@
        "tier_service": "w2",
        "mean_change": 10.0,
        "mean_cost_change": 1306.795,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11677,8 +11677,8 @@
        "tier_service": "w2",
        "mean_change": 11.0,
        "mean_cost_change": 1218.43,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11728,8 +11728,8 @@
        "tier_service": "t97",
        "mean_change": 3.6666666666666665,
        "mean_cost_change": 433.1999999999999,
-       "tier_people": "+3",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11779,8 +11779,8 @@
        "tier_service": "t95",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 158.70666666666648,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11830,8 +11830,8 @@
        "tier_service": "t97",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 157.94666666666672,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11932,8 +11932,8 @@
        "tier_service": "w2",
        "mean_change": 5.0,
        "mean_cost_change": 789.5066666666667,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -11983,8 +11983,8 @@
        "tier_service": "w2",
        "mean_change": 5.666666666666667,
        "mean_cost_change": 542.9499999999999,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12034,8 +12034,8 @@
        "tier_service": "w2",
        "mean_change": 5.666666666666667,
        "mean_cost_change": 550.4583333333334,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12136,8 +12136,8 @@
        "tier_service": "t95",
        "mean_change": 1.6666666666666667,
        "mean_cost_change": 197.05333333333314,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12187,8 +12187,8 @@
        "tier_service": "t97",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 157.94666666666657,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12289,8 +12289,8 @@
        "tier_service": "w1",
        "mean_change": 6.333333333333333,
        "mean_cost_change": 1398.14,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12340,8 +12340,8 @@
        "tier_service": "w2",
        "mean_change": 2.0,
        "mean_cost_change": 444.2899999999998,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12391,8 +12391,8 @@
        "tier_service": "w2",
        "mean_change": 2.0,
        "mean_cost_change": 422.8499999999999,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12442,8 +12442,8 @@
        "tier_service": "t95",
        "mean_change": 2.0,
        "mean_cost_change": 483.1000000000001,
-       "tier_people": "+1",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12595,8 +12595,8 @@
        "tier_service": "t97",
        "mean_change": 1.0,
        "mean_cost_change": 153.0,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12646,8 +12646,8 @@
        "tier_service": "t95",
        "mean_change": 3.6666666666666665,
        "mean_cost_change": 578.3166666666666,
-       "tier_people": "+3",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12697,8 +12697,8 @@
        "tier_service": "w2",
        "mean_change": 3.3333333333333335,
        "mean_cost_change": 632.52,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12748,8 +12748,8 @@
        "tier_service": "w1",
        "mean_change": 3.6666666666666665,
        "mean_cost_change": 591.84,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12799,8 +12799,8 @@
        "tier_service": "t97",
        "mean_change": 2.3333333333333335,
        "mean_cost_change": 436.95,
-       "tier_people": "+3",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12850,8 +12850,8 @@
        "tier_service": "t97",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 203.0,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12901,8 +12901,8 @@
        "tier_service": "t95",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 203.0,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -12952,8 +12952,8 @@
        "tier_service": "t97",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 244.80000000000018,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13003,8 +13003,8 @@
        "tier_service": "t95",
        "mean_change": 3.6666666666666665,
        "mean_cost_change": 751.9000000000001,
-       "tier_people": "+3",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13054,8 +13054,8 @@
        "tier_service": "w2",
        "mean_change": 2.3333333333333335,
        "mean_cost_change": 426.465,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13105,8 +13105,8 @@
        "tier_service": "w1",
        "mean_change": 3.3333333333333335,
        "mean_cost_change": 576.765,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13156,8 +13156,8 @@
        "tier_service": "t95",
        "mean_change": 3.0,
        "mean_cost_change": 626.7799999999999,
-       "tier_people": "+3",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13207,8 +13207,8 @@
        "tier_service": "t97",
        "mean_change": 2.3333333333333335,
        "mean_cost_change": 428.4000000000001,
-       "tier_people": "+3",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13258,8 +13258,8 @@
        "tier_service": "t95",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 244.80000000000004,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13310,7 +13310,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 155.54,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13411,8 +13411,8 @@
        "tier_service": "w2",
        "mean_change": 0.3333333333333333,
        "mean_cost_change": 88.0,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+1",
+       "tier_cost": "+$1",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13488,8 +13488,8 @@
        "tier_service": "w1",
        "mean_change": -0.3333333333333333,
        "mean_cost_change": -80.08,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "cut",
+       "tier_cost": "same",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13539,8 +13539,8 @@
        "tier_service": "w2",
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 139.20666666666662,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13591,7 +13591,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 136.5,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13744,7 +13744,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 222.19999999999996,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13795,7 +13795,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 195.0,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13896,8 +13896,8 @@
        "tier_service": "w1",
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 117.31999999999998,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -13948,7 +13948,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 133.32000000000002,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -14050,7 +14050,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 117.83333333333333,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -14203,8 +14203,8 @@
        "tier_service": "w1",
        "mean_change": 1.0,
        "mean_cost_change": 215.03999999999996,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -21450,8 +21450,8 @@
        "tier_service": "t97",
        "mean_change": 1.0,
        "mean_cost_change": 118.84000000000007,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -21501,8 +21501,8 @@
        "tier_service": "w2",
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 101.45333333333338,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -21552,8 +21552,8 @@
        "tier_service": "w2",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 512.08,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+3",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 6,
        "warehouses": [
         {
@@ -21603,8 +21603,8 @@
        "tier_service": "w2",
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 397.35999999999996,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+1",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 6,
        "warehouses": [
         {
@@ -21654,8 +21654,8 @@
        "tier_service": "w2",
        "mean_change": 1.0,
        "mean_cost_change": 130.84000000000023,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -21705,8 +21705,8 @@
        "tier_service": "t95",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 157.17333333333326,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -21756,8 +21756,8 @@
        "tier_service": "t97",
        "mean_change": 1.0,
        "mean_cost_change": 118.84000000000007,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -21807,8 +21807,8 @@
        "tier_service": "t95",
        "mean_change": 1.0,
        "mean_cost_change": 119.61333333333339,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -21858,8 +21858,8 @@
        "tier_service": "w2",
        "mean_change": 1.0,
        "mean_cost_change": 410.8799999999998,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+3",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 5,
        "warehouses": [
         {
@@ -21909,8 +21909,8 @@
        "tier_service": "w2",
        "mean_change": 4.0,
        "mean_cost_change": 627.62,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 2,
        "warehouses": [
         {
@@ -21960,8 +21960,8 @@
        "tier_service": "w2",
        "mean_change": 5.333333333333333,
        "mean_cost_change": 624.0000000000001,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -22011,8 +22011,8 @@
        "tier_service": "w2",
        "mean_change": 2.6666666666666665,
        "mean_cost_change": 339.1199999999999,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -22062,8 +22062,8 @@
        "tier_service": "t95",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 158.70666666666648,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -22113,8 +22113,8 @@
        "tier_service": "t97",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 157.94666666666672,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -22215,8 +22215,8 @@
        "tier_service": "w2",
        "mean_change": -0.3333333333333333,
        "mean_cost_change": 166.3466666666665,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "cut",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 4,
        "warehouses": [
         {
@@ -22266,8 +22266,8 @@
        "tier_service": "w2",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 256.1666666666667,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 4,
        "warehouses": [
         {
@@ -22317,8 +22317,8 @@
        "tier_service": "w2",
        "mean_change": 1.6666666666666667,
        "mean_cost_change": 239.39166666666665,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 2,
        "warehouses": [
         {
@@ -22368,8 +22368,8 @@
        "tier_service": "w2",
        "mean_change": 1.0,
        "mean_cost_change": 144.35999999999981,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -22419,8 +22419,8 @@
        "tier_service": "t95",
        "mean_change": 1.6666666666666667,
        "mean_cost_change": 197.05333333333314,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -22470,8 +22470,8 @@
        "tier_service": "t97",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 157.94666666666657,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -22572,8 +22572,8 @@
        "tier_service": "w2",
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 243.5999999999999,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 2,
        "warehouses": [
         {
@@ -22623,8 +22623,8 @@
        "tier_service": "w2",
        "mean_change": 1.6666666666666667,
        "mean_cost_change": 370.24166666666633,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+3",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -22674,8 +22674,8 @@
        "tier_service": "w2",
        "mean_change": 1.6666666666666667,
        "mean_cost_change": 354.2166666666667,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+3",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -22725,8 +22725,8 @@
        "tier_service": "t95",
        "mean_change": 2.0,
        "mean_cost_change": 483.1000000000001,
-       "tier_people": "+1",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -22878,8 +22878,8 @@
        "tier_service": "t97",
        "mean_change": 1.0,
        "mean_cost_change": 153.0,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -22929,8 +22929,8 @@
        "tier_service": "t95",
        "mean_change": 2.0,
        "mean_cost_change": 307.0,
-       "tier_people": "+1",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -22980,8 +22980,8 @@
        "tier_service": "w1",
        "mean_change": 2.6666666666666665,
        "mean_cost_change": 483.78000000000003,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23031,8 +23031,8 @@
        "tier_service": "w1",
        "mean_change": 3.3333333333333335,
        "mean_cost_change": 525.7333333333333,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23082,8 +23082,8 @@
        "tier_service": "t97",
        "mean_change": 2.3333333333333335,
        "mean_cost_change": 453.5833333333333,
-       "tier_people": "+3",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23133,8 +23133,8 @@
        "tier_service": "t97",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 203.0,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23184,8 +23184,8 @@
        "tier_service": "t95",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 203.0,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23235,8 +23235,8 @@
        "tier_service": "t97",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 244.80000000000018,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23286,8 +23286,8 @@
        "tier_service": "t95",
        "mean_change": 2.0,
        "mean_cost_change": 366.00000000000017,
-       "tier_people": "+1",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23337,8 +23337,8 @@
        "tier_service": "w2",
        "mean_change": 2.0,
        "mean_cost_change": 364.695,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23388,8 +23388,8 @@
        "tier_service": "w1",
        "mean_change": 2.6666666666666665,
        "mean_cost_change": 455.595,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23439,8 +23439,8 @@
        "tier_service": "t95",
        "mean_change": 3.0,
        "mean_cost_change": 666.6999999999999,
-       "tier_people": "+3",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23490,8 +23490,8 @@
        "tier_service": "t97",
        "mean_change": 2.3333333333333335,
        "mean_cost_change": 428.4000000000001,
-       "tier_people": "+3",
-       "tier_cost": "+$300",
+       "tier_people": "+6",
+       "tier_cost": "+$800",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23541,8 +23541,8 @@
        "tier_service": "t95",
        "mean_change": 1.3333333333333333,
        "mean_cost_change": 244.80000000000004,
-       "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23593,7 +23593,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 155.54,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23694,8 +23694,8 @@
        "tier_service": "w2",
        "mean_change": 0.0,
        "mean_cost_change": 88.0,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "same",
+       "tier_cost": "+$1",
        "p3_draft_unfilled": 1,
        "warehouses": [
         {
@@ -23771,8 +23771,8 @@
        "tier_service": "w2",
        "mean_change": -0.6666666666666666,
        "mean_cost_change": 0.0,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "cut",
+       "tier_cost": "same",
        "p3_draft_unfilled": 2,
        "warehouses": [
         {
@@ -23822,8 +23822,8 @@
        "tier_service": "w2",
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 139.20666666666662,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23874,7 +23874,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 136.5,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -23975,8 +23975,8 @@
        "tier_service": "w1",
        "mean_change": 0.3333333333333333,
        "mean_cost_change": 51.0,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+1",
+       "tier_cost": "+$1",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -24026,8 +24026,8 @@
        "tier_service": "w2",
        "mean_change": 0.3333333333333333,
        "mean_cost_change": 222.19999999999996,
-       "tier_people": "w2",
-       "tier_cost": "w2",
+       "tier_people": "+1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 1,
        "warehouses": [
         {
@@ -24077,8 +24077,8 @@
        "tier_service": "w1",
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 195.0,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -24179,8 +24179,8 @@
        "tier_service": "w1",
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 117.31999999999998,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -24231,7 +24231,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 133.32000000000002,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -24333,7 +24333,7 @@
        "mean_change": 0.6666666666666666,
        "mean_cost_change": 117.83333333333333,
        "tier_people": "+1",
-       "tier_cost": "+$1",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {
@@ -24435,8 +24435,8 @@
        "tier_service": "w1",
        "mean_change": -0.6666666666666666,
        "mean_cost_change": -58.333333333333336,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "cut",
+       "tier_cost": "same",
        "p3_draft_unfilled": 1,
        "warehouses": [
         {
@@ -24486,8 +24486,8 @@
        "tier_service": "w1",
        "mean_change": 1.0,
        "mean_cost_change": 215.03999999999996,
-       "tier_people": "w1",
-       "tier_cost": "w1",
+       "tier_people": "+3",
+       "tier_cost": "+$300",
        "p3_draft_unfilled": 0,
        "warehouses": [
         {

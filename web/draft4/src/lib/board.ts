@@ -133,30 +133,34 @@ function sum(bs: Block[], f: (b: Block) => number) {
   return s;
 }
 
-/** Mean change (or cost change) per open block: the People and Labor cost lens measure. */
-const meanOpen = (c: Cell, f: (b: Block) => number) => (c.open.length ? sum(c.open, f) / c.open.length : 0);
-
 /**
- * The cell's tier for a lens. One hue only (the user, 2026-11-05): a block that meets the goal has no fill, and a block
- * below it is red, stronger the further below (90-95%, 80-90%, under 80%, on the lowest chance in the cell). The red
- * tiers override every lens, so the problems are the only colour on the Service board.
+ * The cell's tier for a lens. Service and Below goal colour by chance: a block that meets the goal has no fill, and a
+ * block below it is red, stronger the further below (90-95%, 80-90%, under 80%, on the lowest chance in the cell).
+ * People and Labor cost colour by their own measure (an ink magnitude ramp), so the lens is readable on the holiday
+ * days too; a below-goal cell there keeps a red outline and underline instead of a red fill (see alertOf).
  */
 export function tierOf(c: Cell, lens: Lens): Tier {
   if (!c.isOpen) return "closed";
-  if (c.below.length) {
+  if (c.below.length && (lens === "service" || lens === "below")) {
     const m = c.minChance ?? 0;
     return m < 0.8 ? "w2" : m < 0.9 ? "wm" : "w1";
   }
   if (lens === "service") return "ok";
   if (lens === "below") return "dim";
   if (lens === "people") {
-    const v = meanOpen(c, (b) => b.change);
-    // The legend's wording ("1 to 2 more", "3 to 5 more", "6 or more") read on a fractional All mean: (0, 2], (2, 5], > 5.
+    // The colour follows the figure the cell shows (in All, the 3 warehouses' sum), so "+3" never wears the "+1–2" swatch.
+    const v = c.change;
     return v < 0 ? "cut" : v === 0 ? "same" : v <= 2 ? "p1" : v <= 5 ? "p2" : "p3";
   }
-  const v = meanOpen(c, (b) => b.cost_change);
+  const v = c.costChange;
   return v <= 0 ? "c0" : v < 300 ? "c1" : v < 800 ? "c2" : "c3";
 }
+
+/** People and Labor cost lenses: a below-goal cell keeps its magnitude fill and gets a red outline. */
+export const alertOf = (c: Cell, lens: Lens) => c.isOpen && c.below.length > 0 && (lens === "people" || lens === "cost");
+
+/** Below goal lens: the people the cell is short (need − plan, summed over its below-goal blocks). */
+export const shortOfCell = (c: Cell) => c.below.reduce((s, b) => s + shortOf(b), 0);
 
 /** The cause chip from availability.note (DRAFT4.md 5.8). */
 export function causeChip(note: string | null | undefined): string | null {

@@ -43,10 +43,21 @@ export function StaffBar({ b, compare }: { b: Block; compare: boolean }) {
         )}
       </div>
       <div className="relative mt-1.5 flex h-4 items-center justify-between gap-2 text-[11px] text-muted tnum">
-        <span className="truncate">
-          {parts.map((p) => `${p.label} ${int(p.v)}`).join(" · ")}
+        {/* The key: each part's swatch, so the three greys read without a hover. */}
+        <span className="flex min-w-0 items-center gap-2.5 truncate">
+          {parts.map((p) => (
+            <span key={p.label} className="inline-flex items-center gap-1 whitespace-nowrap">
+              <span aria-hidden className={`inline-block h-2 w-2.5 rounded-full ${p.cls}`} />
+              {p.label} <span className="text-ink-2">{int(p.v)}</span>
+            </span>
+          ))}
         </span>
-        {need > 0 && <span className={`shrink-0 ${needWarn ? "text-ink-2" : ""}`}>need {int(need)}</span>}
+        {need > 0 && (
+          <span className={`inline-flex shrink-0 items-center gap-1 ${needWarn ? "text-ink-2" : ""}`}>
+            <span aria-hidden className={`inline-block h-2.5 w-[2px] rounded-full ${needWarn ? "bg-bad" : "bg-ink/60"}`} />
+            need {int(need)}
+          </span>
+        )}
       </div>
       {compare && (
         <div className="mt-2.5" data-draft-staff>

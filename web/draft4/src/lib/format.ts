@@ -83,3 +83,9 @@ export const hoursExact = (n: number) => `${num1(n)} h`;
 
 /** "1 block", "2 blocks". */
 export const plural = (n: number, word: string) => `${int(n)} ${word}${Math.round(n) === 1 ? "" : "s"}`;
+
+/** Signed compact money for a board cell: +$696, −$1.2k, ±$0. */
+export const signedUsdCompact = (n: number) => {
+  const r = Math.round(n);
+  return r === 0 ? "±$0" : `${r > 0 ? "+" : MINUS}${usdCompact(Math.abs(r))}`;
+};

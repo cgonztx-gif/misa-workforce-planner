@@ -276,7 +276,7 @@ so the Service series and the ranked card's share bars are green; the people / m
 | `tier-low` | `bad` 26% | `bad` 34% | below goal (chance ≥ 80%), every lens; number underlined |
 | `tier-far` | `bad` 42% | `bad` 52% | below goal, chance < 80%, every lens; number **bold** + underlined |
 | `tier-cut` | `ink` 3.5% + `ring-ink/30` | `ink` 5% + `ring-ink/30` | People: fewer than the draft (outlined) |
-| `tier-m1` / `m2` / `m3` | `ink` 5.5 / 10 / 15% | `ink` 8 / 13 / 19% | People +1 / +3 / +6, Labor cost +$1 / +$300 / +$800 (magnitude, never green or red) |
+| `tier-m1` / `m2` / `m3` | `ink` 6 / 12 / 20% | `ink` 10 / 20 / 32% | People +1–2 / +3–5 / +6, Labor cost <$300 / $300–800 / $800+ (magnitude, never green or red; widened in the clarity sweep so the steps read on the dark card) |
 
 In greyscale (light) every red tier is darker than every green or grey tier (`tier-low` relative luminance 0.67 against `tier-ok3` 0.84
 and `tier-m3` 0.72), so intensity grows toward the problem.
@@ -426,10 +426,25 @@ One strip inside the plan card: `grid grid-cols-4` (2x2 on phone), `border-b bor
 
 | Lens | Legend (in order) |
 |---|---|
-| Service | `99%+` · `97%+` · `95%+` · `Below goal` (warn/30, underlined) · `Under 80%` (warn/52, bold underlined) · `Closed` (dashed). In All, prefix "lowest". |
-| Below goal | `Below goal` · `Under 80%` · `Closed` |
-| People | `Cut` · `Same` · `+1` · `+3` · `+6` · `Below goal` · `Closed` |
-| Labor cost | `Same` · `+$1` · `+$300` · `+$800` · `Below goal` · `Closed` |
+| Service | heading **Chance** (All: **Lowest chance**) · `Meets goal` · `90–95%` · `80–90%` · `Under 80%` · `Closed` |
+| Below goal | heading **Below goal** · `90–95%` · `80–90%` · `Under 80%` · `Closed` |
+| People | heading **People vs draft** · `Fewer` · `Same` · `+1–2` · `+3–5` · `+6` · `Below goal` (red outline) · `Closed` |
+| Labor cost | heading **Cost vs draft** · `Same` · `<$300` · `$300–800` · `$800+` · `Below goal` (red outline) · `Closed` |
+
+**Clarity sweep (2026-11-05, dark mode as the reference).** Each lens now changes what the board *says*, not only its colour:
+
+| Lens | Fill | Beside the headcount | Below-goal cells |
+|---|---|---|---|
+| Service | red tiers only; meeting the goal = no fill | nothing (Compare on: the draft change) | red fill, underlined |
+| Below goal | red tiers only; healthy numbers fade to muted | `short N` (need − plan, summed in All) | red fill, underlined |
+| People | ink magnitude ramp on the change | the signed change (`+5`) | **keep the ramp fill**, red 1.5px inset outline, red underline (`data-alert`) |
+| Labor cost | ink magnitude ramp on the cost change | the signed compact cost change (`+$696`) | same as People |
+
+In All, the People and Labor cost colour follows the figure shown (the 3 warehouses' sum), not the per-warehouse mean,
+so `+3` never wears the `+1–2` swatch. Legend labels are no longer underlined (they read as links); a heading names
+the measure. The dashed Unfilled mark shows only with Compare on. Block detail: the staff bar has a swatch key and a
+need-tick key; section labels (Chance, Staff, Chance by day) are ink-2 medium; the Previous key chip draws ⇧ as an
+icon (the glyph rendered as "9"). Evidence: `planning/evidence/draft4/sweep/before` and `after`.
 
 ### 5.6 The schedule board [components.md Heatmap; snippets.md "Heatmap tiers and cells"]
 

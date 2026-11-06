@@ -107,7 +107,7 @@ export function AllCellDetail({ cell, meta, goal, back, strip, onBack, onClose, 
       {cell.isOpen && (
         <div className="mt-4 compact:mt-3" data-mini="chance">
           <div className="mb-1 flex items-center justify-between text-[12px] text-muted">
-            <span>Chance</span>
+            <span className="font-medium text-ink-2">Chance</span>
             <span className="tnum">Goal {g}</span>
           </div>
           <div className="flex flex-col gap-1.5">
