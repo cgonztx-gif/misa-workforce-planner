@@ -1,9 +1,9 @@
 {
  "about": "drive_draft4.py: the rendered draft 4 page against planning/evidence/draft4_known_totals.output.json and outputs/*.csv. Simulated data, not Costco data.",
- "run_at": "2026-11-05 23:05:13",
- "seconds": 120.3,
+ "run_at": "2026-11-05 23:34:07",
+ "seconds": 109.9,
  "viewport": "1440x900",
- "passed": 359,
+ "passed": 365,
  "failed": 0,
  "failures": [],
  "results": [
@@ -11,14 +11,14 @@
    "check": "server --draft4 ready",
    "ok": true,
    "measured": {
-    "ready_s": 17.9,
+    "ready_s": 11.4,
     "health": {
      "ready": true,
-     "seconds": 15.89071,
+     "seconds": 9.378815,
      "error": null,
      "status": "ready",
      "step": "Ready",
-     "elapsed": 15.89071
+     "elapsed": 9.378815
     }
    },
    "expected": null
@@ -3007,6 +3007,63 @@
    "expected": null
   },
   {
+   "check": "Pages: the sidebar opens Cost and service (p=cost) and the header names it",
+   "ok": true,
+   "measured": {
+    "hash": "#s=BASE&w=all&l=service&c=0&p=cost&dd=38&dy=2026-02-14",
+    "h1": "Cost and service"
+   },
+   "expected": null
+  },
+  {
+   "check": "Cost and service (BASE, All): tiles, the goal steps (95% selected), the callout allowance and history agree with the API",
+   "ok": true,
+   "measured": {
+    "cost": "$377.5k",
+    "service": "95.6%",
+    "perpoint": "$6.9k",
+    "overtime": "975 h"
+   },
+   "expected": null
+  },
+  {
+   "check": "Cost and service: a scenario row switches the scenario (Peak's service tile)",
+   "ok": true,
+   "measured": {
+    "service": "87.0%",
+    "want": "87.0%"
+   },
+   "expected": null
+  },
+  {
+   "check": "Playbook (BASE): the PTO lever drives the tiles (level 5 and level 0), the steps, least cushion and people short agree with the API",
+   "ok": true,
+   "measured": {
+    "below": "6",
+    "service": "97.2%",
+    "cost": "$373.1k",
+    "kept": "179"
+   },
+   "expected": null
+  },
+  {
+   "check": "Playbook: a least-cushion row opens its block on the Overview",
+   "ok": true,
+   "measured": "#s=BASE&w=all&l=service&c=0&b=1|92|2026-02-14|EVE",
+   "expected": null
+  },
+  {
+   "check": "Methods: trust tiles, the service cliff (per band), the engine steps and the assumption counts agree with the API",
+   "ok": true,
+   "measured": {
+    "forecast": "2.4%",
+    "brier": "0.024",
+    "submission": "Passes",
+    "tests": "121"
+   },
+   "expected": null
+  },
+  {
    "check": "Fixture W2: 0 warm cells and the list reads 'Closest to goal'",
    "ok": true,
    "measured": {
@@ -3047,7 +3104,7 @@
    "check": "No request leaves 127.0.0.1",
    "ok": true,
    "measured": {
-    "requests": 35,
+    "requests": 41,
     "hosts": [
      "127.0.0.1"
     ],

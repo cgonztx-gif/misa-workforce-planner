@@ -3,7 +3,7 @@
 
 import { keepPreviousData, useQuery, useQueryClient, type QueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import type { CompareResponse, ForecastResponse, Health, Meta, PlanResponse, PlaybookResponse, ScenarioCode, WhatIfResponse, WhatIfSettings } from "./types";
+import type { CompareResponse, DiagnosisResponse, ForecastResponse, Health, Meta, MethodsResponse, PlanResponse, PlaybookResponse, ScenarioCode, TradeoffResponse, WhatIfResponse, WhatIfSettings } from "./types";
 import { whatIfUrl } from "./whatif";
 
 export class ApiError extends Error {
@@ -97,6 +97,14 @@ export function useWhatIf(scenario: ScenarioCode, s: WhatIfSettings, enabled: bo
   });
 }
 
+const tradeoffQuery = { queryKey: ["tradeoff"] as const, queryFn: () => getJson<TradeoffResponse>("/api/tradeoff"), retry, retryDelay };
+const diagnosisQuery = { queryKey: ["diagnosis"] as const, queryFn: () => getJson<DiagnosisResponse>("/api/diagnosis"), retry, retryDelay };
+const methodsQuery = { queryKey: ["methods"] as const, queryFn: () => getJson<MethodsResponse>("/api/methods"), retry, retryDelay };
+
+export const useTradeoff = (enabled: boolean) => useQuery({ ...tradeoffQuery, enabled });
+export const useDiagnosis = (enabled: boolean) => useQuery({ ...diagnosisQuery, enabled });
+export const useMethods = (enabled: boolean) => useQuery({ ...methodsQuery, enabled });
+
 const forecastQuery = { queryKey: ["forecast"] as const, queryFn: () => getJson<ForecastResponse>("/api/forecast"), retry, retryDelay };
 
 export function useForecast(enabled: boolean) {
@@ -123,6 +131,9 @@ export function usePrefetch(ready: boolean) {
     void qc.prefetchQuery(compareQuery);
     void qc.prefetchQuery(playbookQuery);
     void qc.prefetchQuery(forecastQuery);
+    void qc.prefetchQuery(tradeoffQuery);
+    void qc.prefetchQuery(diagnosisQuery);
+    void qc.prefetchQuery(methodsQuery);
   }, [ready, qc]);
 }
 

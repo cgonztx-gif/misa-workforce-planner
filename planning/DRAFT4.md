@@ -996,3 +996,31 @@ default), so a link reproduces a what-if.
 line, the board sum and the header; Compare with submitted shows each cell's change from the API's `changes`; goal
 97.5% moves the legend; Reset returns the known totals, Draft baselines and a clean hash. 359 of 359 pass.
 Screenshots: `planning/evidence/draft4/whatif/`.
+
+
+---
+
+## 15-17. Cost and service, Playbook, Methods (T-99, 2026-11-05)
+
+The user asked for all three remaining pages, fully. They follow the Overview's frame (hero card with 4 read-only tiles
+and the main view, a slot beside it, breakdowns below the fold), read only the API, and always show the submitted plan
+(the what-if is the Overview's). Laptop only (the user, 2026-11-05): checked at 1440 x 900 and 1366 x 657, dark and light.
+Shared pieces: `components/StatTile.tsx` (StatTile, CardHead, Key, ScopeChip, CARD).
+
+| Page | The one question | Hero (tiles · main view) | Slot | Below the fold |
+|---|---|---|---|---|
+| **Cost and service** (`components/cost/`) | What does the service gain cost, and where did we stop? | Labor cost · Service · Cost per point (the 92.5 → 95% step, next step in the sub-line; `/api/tradeoff`, = F-49) · Overtime; columns of cost per point for each step up in the goal, the submitted step solid, the steps past it dashed | Each scenario's draft → plan service as a dumbbell (click = switch scenario); departments' cost and service; hours by source (regular / cross-trained / overtime, plan vs draft) | Callout allowance: rows = what each plan allows for, columns = what happens, cells under the goal in the board's red tiers; history of hours short (red) and above need (grey) by department |
+| **Playbook** (`components/playbook/`) | What should a leader do this week? | Below goal · Service · Labor cost · People kept, all for the chosen PTO level against level 0 (= submitted); the PTO lever: 6 columns (keep 0-5 per block), each a radio, split into below-goal blocks with holiday PTO (solid red) and other causes (pale). Scope chip: Base · all warehouses | The plan to run: scenario tabs (synced with the sidebar), cost / overtime / below goal, the trigger ("When"), the numbered steps | On the day (4 trigger → action rules); Least cushion (its own warehouse filter; a row opens the block on the Overview); People short: departments × days heatmap of `capacity_gaps` |
+| **Methods** (`components/methods/`) | How does it work, and can we trust it? | Forecast error (vs benchmark) · Brier score (vs average rate) · Submission check · Automated tests; the service cliff: share of past blocks meeting target by worked utilization (5-point bands, tails folded into <60 and 100+), green at 95%+, red tiers below, a line at 85% | The engine's 7 steps as a numbered path | Calibration (reliability diagram + bin table); utilization each block can carry at a 95% chance (department × warehouse, plus all nine on one 80-90% scale); independent checks (F-refs); assumptions, ours apart from the case's; documents |
+
+**Words.** Playbook keeps its instructions as sentences (they are the content), with figures that carry a unit
+(money, %, signed changes, "N hours / people / blocks") in semibold ink so they scan first; bare numbers in names and
+dates stay plain. Elsewhere explanations stay in tooltips.
+
+**Navigation.** The sidebar's Pages group lists all five; below 80rem a Menu pill opens the menu sheet with the pages.
+
+**Checks** (`drive_draft4.py`, "Pages", "Cost and service", "Playbook", "Methods"): every tile, the goal steps, the
+allowance cells, the history totals, the PTO lever at levels 5 and 0, the least-cushion order, the people-short total,
+the plan steps, the cliff per band, the engine steps and the assumption counts agree with independent fetches of the
+API; a scenario row switches the scenario; a least-cushion row opens its block on the Overview. 365 of 365 pass.
+Screenshots: `planning/evidence/draft4/pages/`.

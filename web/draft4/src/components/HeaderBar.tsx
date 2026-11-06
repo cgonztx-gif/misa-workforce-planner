@@ -1,4 +1,4 @@
-import { Download, FlaskConical, Info, RotateCcw } from "lucide-react";
+import { Download, FlaskConical, Info, Menu, RotateCcw } from "lucide-react";
 import type { MouseEvent, ReactNode } from "react";
 import type { Meta, ScenarioCode } from "../lib/types";
 import { Segmented } from "./Segmented";
@@ -94,7 +94,7 @@ Re-planned by the same engine under these conditions · the CSV stays the submit
   );
 }
 
-export function HeaderBar({ meta, scenario, onScenario, status, note, onCsvFail, title = "Overview", whatIf }: {
+export function HeaderBar({ meta, scenario, onScenario, status, note, onCsvFail, title = "Overview", whatIf, onMenu }: {
   meta?: Meta;
   scenario: ScenarioCode;
   onScenario: (s: ScenarioCode) => void;
@@ -103,6 +103,8 @@ export function HeaderBar({ meta, scenario, onScenario, status, note, onCsvFail,
   onCsvFail: (offline: boolean) => void;
   title?: string;
   whatIf?: WhatIfHeader | null;
+  /** Below 80rem (no sidebar): opens the menu sheet, the way to the other pages. */
+  onMenu?: () => void;
 }) {
   const name = meta?.scenarios.find((s) => s.code === scenario)?.name;
   return (
@@ -140,6 +142,12 @@ export function HeaderBar({ meta, scenario, onScenario, status, note, onCsvFail,
         {whatIf && status.kind === "ready" ? <WhatIfPills w={whatIf} /> : <StatusPill status={status} />}
         <SimPill meta={meta} />
         <CsvPill onFail={onCsvFail} whatIf={!!whatIf} />
+        {onMenu && (
+          <button type="button" onClick={onMenu} aria-haspopup="dialog" data-menu-button className={`${pillCls} hover:bg-soft min-[80rem]:hidden`} data-tip="Pages, scenario, warehouse">
+            <Menu size={14} strokeWidth={1.75} />
+            Menu
+          </button>
+        )}
       </div>
     </header>
   );

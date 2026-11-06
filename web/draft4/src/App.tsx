@@ -75,6 +75,9 @@
  * D12. What-if (D-33): any adjustment re-plans through /api/what-if and the page shows that plan, re-based on the
  *     submitted one, with "Draft" read as "Submitted" everywhere (lib/base.tsx). The default view never calls it; a
  *     dashed What-if pill and Reset replace the green Submitted plan pill; the CSV stays the submitted file.
+ * D13. Five pages (T-99, DRAFT4.md 13-17): Overview, Demand, Cost and service, Playbook, Methods. The others keep the
+ *     Overview's frame with read-only tiles, always show the submitted plan, and Playbook keeps its instructions as
+ *     sentences (figures in ink). Laptop only: no phone work beyond the existing menu sheet.
  */
 
 import * as Popover from "@radix-ui/react-popover";
@@ -82,7 +85,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Maximize2, SlidersHorizontal } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { allIdOf, blockId, buildBoard, isP3, stepSel, storeOf, type Cell } from "./lib/board";
-import { ApiError, backToPreparing, useCompare, useForecast, useHealth, useMeta, usePlan, usePlaybook, usePrefetch, useWhatIf } from "./lib/api";
+import { ApiError, backToPreparing, useCompare, useDiagnosis, useForecast, useHealth, useMeta, useMethods, usePlan, usePlaybook, usePrefetch, useTradeoff, useWhatIf } from "./lib/api";
 import { BaseContext, DRAFT_BASE, SUBMITTED_BASE } from "./lib/base";
 import { changedChips, isDefault, rebase, WI_DEFAULTS } from "./lib/whatif";
 import type { WhatIfSettings } from "./lib/types";
@@ -91,6 +94,9 @@ import { nextTheme, readTheme, saveTheme, type Theme } from "./lib/theme";
 import type { Block, PlanResponse, ScenarioCode, WarehouseKey } from "./lib/types";
 import { readHash, writeHash, type DeptId, type Lens, type Page, type ViewState } from "./lib/url";
 import { DemandPage } from "./components/demand/DemandPage";
+import { CostPage } from "./components/cost/CostPage";
+import { MethodsPage } from "./components/methods/MethodsPage";
+import { PlaybookPage } from "./components/playbook/PlaybookPage";
 import { GoalRow } from "./components/BelowGoalList";
 import { Board } from "./components/Board";
 import { CompareSwitch } from "./components/CompareSwitch";
@@ -104,7 +110,7 @@ import { PhoneBar } from "./components/PhoneBar";
 import { PhoneMenu } from "./components/PhoneMenu";
 import { Segmented } from "./components/Segmented";
 import { Sheet } from "./components/Sheet";
-import { Sidebar, SCEN } from "./components/Sidebar";
+import { PAGE_TITLE, Sidebar, SCEN } from "./components/Sidebar";
 import { BoardSkeleton, ChartSkeleton, ListSkeleton, TilesSkeleton } from "./components/Skeletons";
 import { Detail, resolveSel, Slot } from "./components/Slot";
 import type { Status } from "./components/StatusPill";
@@ -149,6 +155,9 @@ export function App() {
   const compareQ = useCompare(ready);
   const playbookQ = usePlaybook(ready);
   const forecastQ = useForecast(ready);
+  const tradeoffQ = useTradeoff(ready);
+  const diagnosisQ = useDiagnosis(ready);
+  const methodsQ = useMethods(ready);
   usePrefetch(ready && !!planQ.data && !planQ.isPlaceholderData);
 
   // A 503 mid-session means the server restarted: back to polling health. The data on screen stays.
@@ -204,6 +213,11 @@ export function App() {
   const setDay = useCallback((day: string) => setView((v) => ({ ...v, day })), []);
   const setWi = useCallback((wi: WhatIfSettings) => setView((v) => ({ ...v, wi })), []);
   const resetWi = useCallback(() => setWi(WI_DEFAULTS), [setWi]);
+  // Playbook → Overview: open a block from the least-cushion list ("BASE|1|92|2026-02-14|EVE" → "1|92|2026-02-14|EVE").
+  const openBlock = useCallback(
+    (b: { key: string }) => setView((v) => ({ ...v, page: "overview", sel: b.key.split("|").slice(1).join("|") })),
+    [],
+  );
   const clear = useCallback(() => select(null), [select]);
   const onCell = useCallback((c: Cell) => setView((v) => {
     const id = c.isAll ? c.id : c.blocks[0] ? blockId(c.blocks[0]) : null;
@@ -369,7 +383,7 @@ export function App() {
 
       <main className="min-w-0 flex-1 px-4 pt-3 pb-10 sm:px-6 sm:pt-5 compact:pt-3 min-[112.5rem]:px-8">
         <div className="mx-auto max-w-[2560px]">
-          <PhoneBar meta={meta.data} scenario={view.scenario} wk={view.wk} menuOpen={menuOpen} onMenu={() => setMenuOpen(true)} />
+          <PhoneBar meta={meta.data} scenario={view.scenario} wk={view.wk} menuOpen={menuOpen} onMenu={() => setMenuOpen(true)} title={PAGE_TITLE[view.page]} />
           <HeaderBar
             meta={meta.data}
             scenario={view.scenario}
@@ -377,7 +391,8 @@ export function App() {
             status={status}
             note={bar ? <NoteBar text={bar} onRetry={retryAll} inline /> : null}
             onCsvFail={onCsvFail}
-            title={view.page === "demand" ? "Demand" : "Overview"}
+            title={PAGE_TITLE[view.page]}
+            onMenu={() => setMenuOpen(true)}
             whatIf={view.page === "overview" && wiOn ? { chips: changedChips(view.wi), busy: wiBusy, showing: showWi, onReset: resetWi } : null}
           />
           <div className="mt-4 compact:mt-3">
@@ -387,7 +402,36 @@ export function App() {
                 <NoteBar text={bar} onRetry={retryAll} />
               </div>
             )}
-            {view.page === "demand" ? (
+            {view.page === "playbook" ? (
+              <PlaybookPage
+                playbook={playbookQ.data}
+                compare={compareQ.data}
+                meta={meta.data}
+                scenario={view.scenario}
+                wk={view.wk}
+                wkSeg={wkSeg}
+                dim={staleDim}
+                onWk={setWk}
+                onScenario={setScenario}
+                onOpenBlock={openBlock}
+              />
+            ) : view.page === "methods" ? (
+              <MethodsPage methods={methodsQ.data} diagnosis={diagnosisQ.data} forecast={forecastQ.data} />
+            ) : view.page === "cost" ? (
+              <CostPage
+                plan={submitted && submitted.scenario === view.scenario ? submitted : undefined}
+                compare={compareQ.data}
+                tradeoff={tradeoffQ.data}
+                diagnosis={diagnosisQ.data}
+                scenario={view.scenario}
+                scenarioName={scenName}
+                wk={view.wk}
+                wkSeg={wkSeg}
+                dim={staleDim}
+                onWk={setWk}
+                onScenario={setScenario}
+              />
+            ) : view.page === "demand" ? (
               <DemandPage
                 data={forecastQ.data}
                 meta={meta.data}
@@ -495,7 +539,7 @@ export function App() {
         </div>
       </main>
 
-      <PhoneMenu open={menuOpen} onOpenChange={setMenuOpen} scenario={view.scenario} wk={view.wk} theme={theme} onScenario={setScenario} onWk={setWk} onTheme={cycleTheme} onCsv={onCsv} />
+      <PhoneMenu open={menuOpen} onOpenChange={setMenuOpen} scenario={view.scenario} wk={view.wk} theme={theme} onScenario={setScenario} onWk={setWk} onTheme={cycleTheme} onCsv={onCsv} page={view.page} onPage={setPage} />
 
       {phone && slotProps && (
         <Sheet open={!!(selCell || selBlock)} onClose={clear} title="Block">

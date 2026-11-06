@@ -6,8 +6,8 @@ import type { ScenarioCode, WarehouseKey, WhatIfSettings } from "./types";
 import { snap, WI_DEFAULTS, WI_LIMITS } from "./whatif";
 
 export type Lens = "service" | "below" | "people" | "cost";
-export type Page = "overview" | "demand";
-export const PAGES: Page[] = ["overview", "demand"];
+export type Page = "overview" | "demand" | "cost" | "playbook" | "methods";
+export const PAGES: Page[] = ["overview", "demand", "cost", "playbook", "methods"];
 export type DeptId = 38 | 92 | 95;
 
 export interface ViewState {

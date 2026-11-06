@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { CalendarDays, ChartColumn, LayoutDashboard, LayoutGrid, Monitor, Moon, Sun, TrendingUp, UserMinus } from "lucide-react";
+import { BookOpenCheck, CalendarDays, ChartColumn, CircleDollarSign, LayoutDashboard, LayoutGrid, Microscope, Monitor, Moon, Sun, TrendingUp, UserMinus } from "lucide-react";
 import type { Page } from "../lib/url";
 import { chanceText, int } from "../lib/format";
 import { themeName, type Theme } from "../lib/theme";
@@ -9,7 +9,12 @@ import { Spinner } from "./StatusPill";
 export const PAGE_NAV: { page: Page; label: string; Icon: typeof CalendarDays }[] = [
   { page: "overview", label: "Overview", Icon: LayoutDashboard },
   { page: "demand", label: "Demand", Icon: ChartColumn },
+  { page: "cost", label: "Cost and service", Icon: CircleDollarSign },
+  { page: "playbook", label: "Playbook", Icon: BookOpenCheck },
+  { page: "methods", label: "Methods", Icon: Microscope },
 ];
+
+export const PAGE_TITLE: Record<Page, string> = { overview: "Overview", demand: "Demand", cost: "Cost and service", playbook: "Playbook", methods: "Methods" };
 
 export const SCEN: { code: ScenarioCode; label: string; key: string; Icon: typeof CalendarDays }[] = [
   { code: "BASE", label: "Base", key: "B", Icon: CalendarDays },

@@ -193,10 +193,129 @@ export interface CompareResponse {
   scenarios: CompareScenario[];
 }
 
-/** GET /api/playbook: draft 4 reads only the PTO headline. */
+/** GET /api/playbook (server/API.md). */
+export interface PtoRow {
+  kept_per_block: number;
+  people_kept: number;
+  blocks_below_goal: number;
+  below_goal_with_holiday_pto: number;
+  expected_met: number;
+  cost: number;
+  overtime_hours: number;
+}
+
+export interface TightBlock {
+  key: string;
+  label: string;
+  store_id: number;
+  warehouse: string;
+  plan: number;
+  cushion_people: number | null;
+  cushion_demand: number | null;
+  cushion_text: string;
+  chance: number | null;
+}
+
+export interface CapacityGap {
+  scenario_code: ScenarioCode;
+  day_date: string;
+  dept_id: number;
+  department: string;
+  day: string;
+  gap_people: number;
+  gap_hours: number;
+  blocks_short: number;
+}
+
 export interface PlaybookResponse {
-  pto: { intro?: string; headline: string; assumption?: string };
-  [key: string]: unknown;
+  scenarios: Record<ScenarioCode, { trigger: string; actions: string[]; name: string; description: string }>;
+  on_the_day: { trigger: string; action: string }[];
+  pto: { intro: string; headline: string; assumption: string; rows: PtoRow[] };
+  tightest: Record<ScenarioCode, Record<WarehouseKey, TightBlock[]>>;
+  capacity_gaps: CapacityGap[];
+}
+
+/** GET /api/tradeoff: cost and service at each service goal, and the callout allowance scored three ways. */
+export interface GoalPoint {
+  goal: number;
+  scenario_code: ScenarioCode;
+  hours: number;
+  cost: number;
+  expected_met: number;
+  lowest_chance: number;
+  below_goal: number;
+  overtime_hours: number;
+  flex_hours: number;
+  avg_utilization: number;
+  selected: boolean;
+  /** Extra cost per point of expected service against the previous goal; null for the first. */
+  cost_per_point: number | null;
+}
+
+export interface AllowancePlan {
+  plan: string;
+  scenario_code: ScenarioCode;
+  cost: number;
+  hours: number;
+  met_both_risks: number;
+  met_forecast_error_only: number;
+  met_neither: number;
+}
+
+export interface TradeoffResponse {
+  goal: number;
+  goals: Record<ScenarioCode, GoalPoint[]>;
+  callout_allowance: {
+    plans: AllowancePlan[];
+    worlds: { id: "both_risks" | "forecast_error_only" | "neither"; label: string; text?: string }[];
+    note: string;
+  };
+}
+
+/** GET /api/diagnosis: the six weeks of history. */
+export interface GapValueRow {
+  dept_id: number;
+  department: string;
+  blocks: number;
+  worked_hours: number;
+  required_hours: number;
+  over_hours: number;
+  short_hours: number;
+  over_value: number;
+  missed_blocks: number;
+  labor_cost: number;
+}
+
+export interface ServiceBand {
+  dept_id: number;
+  department: string;
+  band: number;
+  blocks: number;
+  met_target: number;
+  median_ratio: number;
+}
+
+export interface DiagnosisResponse {
+  service_bands: ServiceBand[];
+  gap_value: GapValueRow[];
+  kpi: { pct_met_all: number; over_hours: number; short_hours: number; over_value: number; worked_hours: number; [k: string]: number };
+  notes: Record<string, string>;
+}
+
+/** GET /api/methods. */
+export interface MethodsResponse {
+  notice: string;
+  engine: { step: string; text: string }[];
+  forecast: { backtest_daily: ErrorRow[]; backtest_block: ErrorRow[] };
+  service: {
+    limits: { dept_id: number; store_id: number; u95: number; u90: number; u50: number; department: string; warehouse: string }[];
+    brier: { model: number; base_rate: number };
+    calibration: { bin: string; blocks: number; predicted: number; observed: number }[];
+  };
+  plan: { service_goal: number; validator_problems: string[]; team_id: string };
+  tests: { count: number; files: number; how: string };
+  assumptions: { id: string; text: string; source: "ours" | "case" | string; detail?: string; basis?: string; status?: string }[];
+  documents: { name: string; path: string }[];
 }
 
 /** GET /api/forecast (server/API.md), the fields the Demand page reads. Demand units differ by department. */

@@ -1095,6 +1095,9 @@ def main() -> int:
             # ---- what-if on the Overview (D-33) ----
             check_whatif(page, server.url, run, kt, requests)
 
+            # ---- the other pages (T-99) ----
+            check_pages(page, server.url, run, kt)
+
             # ---- fixture: empty list, P3 mark, P2 tie-break (DRAFT4.md 1.1) ----
             check_fixture(ctx, server.url, run)
 
@@ -1220,6 +1223,160 @@ def check_whatif(page, url, run, kt, requests):
           and not any(x in h for x in ("co=", "dm=", "g=", "av=")) and page.query_selector("[data-card=plan][data-whatif]") is None)
     check("What-if Reset: the known totals, Draft baselines, the Submitted plan pill and a clean hash return", ok,
           {"tiles": {k: t[k]["value"] for k in t}, "sub": t["people"]["sub"], "hash": h})
+
+
+def usd_compact(n: float) -> str:
+    """lib/format.ts usdCompact: $377.5k, $20k, $1.2M (a trailing .0 dropped)."""
+    a = abs(n)
+    sign = MINUS if n < 0 else ""
+    if a >= 999_950:
+        s = f"{a / 1e6:.1f}".removesuffix(".0")
+        return f"{sign}${s}M"
+    if a >= 1000:
+        s = f"{a / 1e3:.1f}".removesuffix(".0")
+        return f"{sign}${s}k"
+    return f"{sign}${js_round(a)}"
+
+
+def check_pages(page, url, run, kt):
+    """The Cost and service, Playbook and Methods pages (T-99, DRAFT4.md 15-17) against independent API fetches."""
+    tradeoff = api_json(url, "api/tradeoff")
+    playbook = api_json(url, "api/playbook")
+    methods = api_json(url, "api/methods")
+    diagnosis = api_json(url, "api/diagnosis")
+    plan = api_json(url, "api/plan?scenario=BASE")
+
+    def stiles():
+        return page.evaluate("""() => Object.fromEntries([...document.querySelectorAll('[data-strip] [data-tile]')].map(t => {
+            const rows = [...t.firstElementChild.children]; return [t.getAttribute('data-tile'), {value: rows[1]?.innerText ?? '', sub: rows[2]?.innerText ?? '',
+            delta: rows[0] && rows[0].children.length > 1 ? rows[0].lastElementChild.innerText : '', tipTitle: t.getAttribute('data-tip-title')}]; }))""")
+
+    # ---- navigation: the sidebar's Pages switch pages and write p= ----
+    page.goto(url + "#s=BASE&w=all&l=service&c=0")
+    run.wait_board()
+    page.click('aside nav[aria-label=Pages] [data-page="cost"]')
+    page.wait_for_selector("[data-page=cost] [data-strip=cost]", timeout=30000)
+    h = page.evaluate("location.hash")
+    check("Pages: the sidebar opens Cost and service (p=cost) and the header names it",
+          "p=cost" in h and page.inner_text("header h1").strip() == "Cost and service", {"hash": h, "h1": page.inner_text("header h1")})
+
+    # ---- Cost and service ----
+    page.wait_for_timeout(500)
+    T = plan["totals"]["all"]
+    t = stiles()
+    pts_sel = tradeoff["goals"]["BASE"]
+    sel_i = next(i for i, p in enumerate(pts_sel) if p["selected"])
+    bad = []
+    if t["cost"]["tipTitle"] != usd(T["plan"]["cost"]) or t["cost"]["sub"] != f"Draft {usd_compact(T['draft']['cost'])}":
+        bad.append(f"Labor cost {t['cost']} vs {usd(T['plan']['cost'])} / draft {usd_compact(T['draft']['cost'])}")
+    if t["service"]["value"] != chance_text(T["plan"]["expected_met"]) or t["service"]["sub"] != f"Draft {chance_text(T['draft']['expected_met'])}":
+        bad.append(f"Service {t['service']}")
+    if t["perpoint"]["value"] != usd_compact(pts_sel[sel_i]["cost_per_point"]) or not t["perpoint"]["sub"].startswith(f"Next point {usd_compact(pts_sel[sel_i + 1]['cost_per_point'])}"):
+        bad.append(f"Cost per point {t['perpoint']} vs {usd_compact(pts_sel[sel_i]['cost_per_point'])}, next {usd_compact(pts_sel[sel_i + 1]['cost_per_point'])}")
+    if t["overtime"]["value"] != f"{int_text(T['plan']['overtime_hours'])} h":
+        bad.append(f"Overtime {t['overtime']['value']!r} vs {T['plan']['overtime_hours']}")
+    steps = page.evaluate("() => [...document.querySelectorAll('[data-chart=goalsteps] [data-step]')].map(s => ({goal: s.getAttribute('data-step'), sel: s.getAttribute('data-selected'), text: s.innerText}))")
+    want_steps = [p for p in pts_sel if p["cost_per_point"] is not None]
+    if [s["goal"] for s in steps] != [str(p["goal"]) for p in want_steps] or [s["goal"] for s in steps if s["sel"]] != ["0.95"]:
+        bad.append(f"goal steps {[(s['goal'], s['sel']) for s in steps]}")
+    for s, p in zip(steps, want_steps):
+        if usd_compact(p["cost_per_point"]) not in s["text"]:
+            bad.append(f"step {p['goal']}: {s['text']!r} lacks {usd_compact(p['cost_per_point'])}")
+    plans = [p for p in tradeoff["callout_allowance"]["plans"] if p["scenario_code"] == "BASE"]
+    cells = page.evaluate("() => [...document.querySelectorAll('[data-table=allowance] [data-plan]')].map(r => [...r.children].slice(2).map(c => c.innerText.trim()))")
+    want_cells = [[chance_text(p["met_both_risks"]), chance_text(p["met_forecast_error_only"]), chance_text(p["met_neither"])] for p in plans]
+    if cells != want_cells:
+        bad.append(f"allowance {cells} vs {want_cells}")
+    hist = page.inner_text("[data-card-body=history]")
+    if f"{int_text(diagnosis['kpi']['short_hours'])} h" not in hist or f"{int_text(diagnosis['kpi']['over_hours'])} h" not in hist:
+        bad.append("history KPIs")
+    check("Cost and service (BASE, All): tiles, the goal steps (95% selected), the callout allowance and history agree with the API",
+          not bad, bad or {k: t[k]["value"] for k in t})
+    page.screenshot(path=str(SHOTS / "page-cost-1440x900.png"))
+    # the scenario rows switch the scenario
+    page.click('[data-list=scenarios] [data-scenario="PEAK"]')
+    page.wait_for_function("(n) => document.querySelector('header').innerText.includes(n)", arg=SCEN_NAME["PEAK"])
+    page.wait_for_timeout(600)
+    t2 = stiles()
+    pk = kt["scenarios"]["PEAK"]["views"]["all"]["tiles"]["service"]["value_text"]
+    check("Cost and service: a scenario row switches the scenario (Peak's service tile)", t2["service"]["value"] == pk, {"service": t2["service"]["value"], "want": pk})
+    page.click('aside nav[aria-label=Scenario] button:has-text("Base")')
+    page.wait_for_timeout(500)
+
+    # ---- Playbook ----
+    page.click('aside nav[aria-label=Pages] [data-page="playbook"]')
+    page.wait_for_selector("[data-page=playbook] [data-strip=pto]", timeout=30000)
+    page.wait_for_timeout(500)
+    rows = playbook["pto"]["rows"]
+    t = stiles()
+    top, r0 = rows[-1], rows[0]
+    bad = []
+    if t["below"]["value"] != int_text(top["blocks_below_goal"]) or t["below"]["sub"] != f"Submitted {int_text(r0['blocks_below_goal'])}":
+        bad.append(f"Below goal {t['below']} vs {top['blocks_below_goal']}")
+    if t["service"]["value"] != chance_text(top["expected_met"]) or t["kept"]["value"] != int_text(top["people_kept"]):
+        bad.append(f"Service/kept {t['service']['value']} {t['kept']['value']}")
+    if t["cost"]["tipTitle"] != usd(top["cost"]):
+        bad.append(f"Cost {t['cost']['tipTitle']} vs {usd(top['cost'])}")
+    page.click('[data-chart=pto] [data-level="0"]')
+    page.wait_for_timeout(300)
+    t0 = stiles()
+    if t0["below"]["value"] != int_text(r0["blocks_below_goal"]) or t0["kept"]["value"] != "0" or t0["below"]["delta"]:
+        bad.append(f"level 0: {t0['below']} kept {t0['kept']['value']}")
+    tight = playbook["tightest"]["BASE"]["all"]
+    lst = page.evaluate("() => [...document.querySelectorAll('[data-card-body=tightest] button[data-key]')].map(b => b.getAttribute('data-key'))")
+    if lst != [x["key"] for x in tight]:
+        bad.append(f"least cushion {lst[:3]} vs {[x['key'] for x in tight][:3]}")
+    gaps = sum(g["gap_people"] for g in playbook["capacity_gaps"] if g["scenario_code"] == "BASE")
+    if f"{int_text(gaps)} people" not in page.inner_text("[data-card-body=gaps]"):
+        bad.append(f"people short total {gaps}")
+    steps_n = page.evaluate("() => document.querySelectorAll('[data-detail=play] [data-actions] li').length")
+    if steps_n != len(playbook["scenarios"]["BASE"]["actions"]):
+        bad.append(f"plan steps {steps_n}")
+    check("Playbook (BASE): the PTO lever drives the tiles (level 5 and level 0), the steps, least cushion and people short agree with the API",
+          not bad, bad or {k: t[k]["value"] for k in t})
+    page.screenshot(path=str(SHOTS / "page-playbook-1440x900.png"))
+    # a least-cushion row opens that block on the Overview
+    first = tight[0]["key"]
+    page.click(f'[data-card-body=tightest] button[data-key="{first}"]')
+    page.wait_for_selector(f'[data-card=slot] [data-detail=block][data-key="{first}"]', timeout=15000)
+    h = page.evaluate("location.hash")
+    check("Playbook: a least-cushion row opens its block on the Overview", "p=" not in h and f"b={first.split('|', 1)[1]}" in h, h)
+
+    # ---- Methods ----
+    page.click('aside nav[aria-label=Pages] [data-page="methods"]')
+    page.wait_for_selector("[data-page=methods] [data-strip=methods]", timeout=30000)
+    page.wait_for_timeout(500)
+    t = stiles()
+    allrow = next(r for r in methods["forecast"]["backtest_daily"] if r["group"] == "All")
+    bad = []
+    if t["forecast"]["value"] != f"{js_round(allrow['model'] * 1000) / 10:.1f}%" or t["brier"]["value"] != f"{methods['service']['brier']['model']:.3f}":
+        bad.append(f"forecast/brier {t['forecast']['value']} {t['brier']['value']}")
+    if t["submission"]["value"] != ("Passes" if not methods["plan"]["validator_problems"] else str(len(methods["plan"]["validator_problems"]))):
+        bad.append(f"submission {t['submission']['value']}")
+    if t["tests"]["value"] != int_text(methods["tests"]["count"]):
+        bad.append(f"tests {t['tests']['value']}")
+    # the cliff: blocks and the met share per band, folded as the page folds them, from /api/diagnosis
+    agg = defaultdict(lambda: [0, 0.0])
+    for b in diagnosis["service_bands"]:
+        k = 0.55 if b["band"] < 0.6 - 1e-9 else 1.0 if b["band"] >= 1 - 1e-9 else round(b["band"], 2)
+        agg[k][0] += b["blocks"]
+        agg[k][1] += b["met_target"] * b["blocks"]
+    bands = page.evaluate("() => [...document.querySelectorAll('[data-chart=cliff] [data-band]')].map(b => [b.getAttribute('data-band'), Number(b.getAttribute('data-met')), b.innerText])")
+    want = [(k, m / n, n) for k, (n, m) in sorted(agg.items())]
+    if len(bands) != len(want) or any(abs(b[1] - w[1]) > 1e-4 or int_text(w[2]) not in b[2] for b, w in zip(bands, want)):
+        bad.append(f"cliff {[(b[0], b[1]) for b in bands]} vs {[(w[0], round(w[1], 4)) for w in want]}")
+    steps_n = page.evaluate("() => document.querySelectorAll('[data-detail=engine] [data-step]').length")
+    if steps_n != len(methods["engine"]):
+        bad.append(f"engine steps {steps_n}")
+    ours = sum(1 for a in methods["assumptions"] if a["source"] == "ours")
+    tabs = page.inner_text("[data-card-body=assumptions] [role=tablist]")
+    if f"Ours {ours}" not in tabs or f"Case {len(methods['assumptions']) - ours}" not in tabs:
+        bad.append(f"assumption tabs {tabs!r}")
+    check("Methods: trust tiles, the service cliff (per band), the engine steps and the assumption counts agree with the API",
+          not bad, bad or {k: t[k]["value"] for k in t})
+    page.screenshot(path=str(SHOTS / "page-methods-1440x900.png"))
+    page.goto(url + "#s=BASE&w=all&l=service&c=0")
+    run.wait_board()
 
 
 def check_fixture(ctx, url, run):

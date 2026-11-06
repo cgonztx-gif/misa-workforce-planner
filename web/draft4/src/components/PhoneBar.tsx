@@ -6,7 +6,7 @@ import { SCEN } from "./Sidebar";
 export const wkShort = (wk: WarehouseKey) => (wk === "all" ? "All" : `W${wk}`);
 
 /** Phones (< 40rem): mark, Overview, a Menu pill; under it a summary pill that also opens the menu. */
-export function PhoneBar({ meta, scenario, wk, menuOpen, onMenu }: { meta?: Meta; scenario: ScenarioCode; wk: WarehouseKey; menuOpen: boolean; onMenu: () => void }) {
+export function PhoneBar({ meta, scenario, wk, menuOpen, onMenu, title = "Overview" }: { meta?: Meta; scenario: ScenarioCode; wk: WarehouseKey; menuOpen: boolean; onMenu: () => void; title?: string }) {
   const label = SCEN.find((s) => s.code === scenario)?.label ?? "";
   return (
     <div className="sm:hidden">
@@ -14,7 +14,7 @@ export function PhoneBar({ meta, scenario, wk, menuOpen, onMenu }: { meta?: Meta
         <span className="grid size-6 shrink-0 place-items-center rounded-lg bg-card text-ink-2 shadow-[var(--shadow-pill)]">
           <LayoutGrid size={14} strokeWidth={2} />
         </span>
-        <h1 className="flex-1 text-[18px] font-semibold tracking-[-.015em]">Overview</h1>
+        <h1 className="flex-1 truncate text-[18px] font-semibold tracking-[-.015em]">{title}</h1>
         <button type="button" onClick={onMenu} aria-haspopup="dialog" aria-expanded={menuOpen} data-menu-button className="inline-flex h-9 items-center gap-2 rounded-full border border-line bg-card px-3.5 text-[14px] text-ink">
           <Menu size={16} strokeWidth={1.75} />
           Menu

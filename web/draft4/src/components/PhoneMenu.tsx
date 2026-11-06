@@ -4,10 +4,11 @@ import type { MouseEvent, ReactNode } from "react";
 import { useReturnFocus } from "../lib/focus";
 import type { Theme } from "../lib/theme";
 import type { ScenarioCode, WarehouseKey } from "../lib/types";
-import { SCEN, ThemeIcon } from "./Sidebar";
+import type { Page } from "../lib/url";
+import { PAGE_NAV, PAGE_TITLE, SCEN, ThemeIcon } from "./Sidebar";
 
-function Item({ icon, label, active, onClick, href }: { icon: ReactNode; label: string; active?: boolean; onClick?: (e?: MouseEvent) => void; href?: string }) {
-  const cls = `flex h-[76px] flex-col items-center justify-center gap-1.5 rounded-2xl text-[14px] ${active ? "bg-card text-ink shadow-[var(--shadow-pill)]" : "text-ink-2"}`;
+function Item({ icon, label, active, onClick, href, small = false }: { icon: ReactNode; label: string; active?: boolean; onClick?: (e?: MouseEvent) => void; href?: string; small?: boolean }) {
+  const cls = `flex ${small ? "h-[68px] text-[12.5px]" : "h-[76px] text-[14px]"} min-w-0 flex-col items-center justify-center gap-1.5 rounded-2xl ${active ? "bg-card text-ink shadow-[var(--shadow-pill)]" : "text-ink-2"}`;
   const inner = (
     <>
       <span className={active ? "text-accent" : "text-muted"}>{icon}</span>
@@ -25,8 +26,15 @@ function Item({ icon, label, active, onClick, href }: { icon: ReactNode; label: 
   );
 }
 
-/** The phone menu grid (phone-menu.jpg): a sheet from the top, 3 columns, icon over label. Closes on any choice. */
-export function PhoneMenu({ open, onOpenChange, scenario, wk, theme, onScenario, onWk, onTheme, onCsv }: {
+const PAGE_SHORT: Record<Page, string> = { overview: "Overview", demand: "Demand", cost: "Cost", playbook: "Playbook", methods: "Methods" };
+
+/**
+ * The menu grid (phone-menu.jpg): a sheet from the top, icon over label, closing on any choice. It is the navigation
+ * wherever the sidebar is hidden (below 80rem): pages 5 across, scenarios 3, warehouses 4, then CSV and Theme.
+ */
+export function PhoneMenu({ open, onOpenChange, scenario, wk, theme, onScenario, onWk, onTheme, onCsv, page, onPage }: {
+  page: Page;
+  onPage: (p: Page) => void;
   open: boolean;
   onOpenChange: (v: boolean) => void;
   scenario: ScenarioCode;
@@ -49,14 +57,19 @@ export function PhoneMenu({ open, onOpenChange, scenario, wk, theme, onScenario,
             <span className="grid size-6 shrink-0 place-items-center rounded-lg bg-card text-ink-2 shadow-[var(--shadow-pill)]">
               <LayoutGrid size={14} strokeWidth={2} />
             </span>
-            <span className="flex-1 text-[18px] font-semibold tracking-[-.015em]">Overview</span>
+            <span className="flex-1 text-[18px] font-semibold tracking-[-.015em]">{PAGE_TITLE[page]}</span>
             <Dialog.Close className="inline-flex h-9 items-center gap-2 rounded-full border border-line bg-card px-3.5 text-[14px] text-ink">
               <X size={16} strokeWidth={1.75} />
               Menu
             </Dialog.Close>
           </div>
-          {/* One row per group (phone-menu.jpg): scenarios 3 across, warehouses 4 across, then CSV and Theme. */}
-          <div className="mt-3 grid grid-cols-3 gap-1.5">
+          {/* One row per group (phone-menu.jpg): pages 5 across, scenarios 3, warehouses 4, then CSV and Theme. */}
+          <div className="mt-3 grid grid-cols-5 gap-1" data-menu="pages">
+            {PAGE_NAV.map(({ page: pg, Icon }) => (
+              <Item key={pg} small icon={<Icon size={19} strokeWidth={1.6} />} label={PAGE_SHORT[pg]} active={pg === page} onClick={() => (onPage(pg), close())} />
+            ))}
+          </div>
+          <div className="mt-1.5 grid grid-cols-3 gap-1.5">
             {SCEN.map(({ code, label, Icon }) => (
               <Item key={code} icon={<Icon size={20} strokeWidth={1.6} />} label={label} active={code === scenario} onClick={() => (onScenario(code), close())} />
             ))}

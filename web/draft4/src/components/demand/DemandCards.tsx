@@ -1,44 +1,13 @@
 import { CircleCheck, CircleMinus, Scale } from "lucide-react";
-import type { ReactNode } from "react";
 import { demandOf, gapOf, MISS, type DemandSummary } from "../../lib/demand";
 import { int, pct1, pctChange, pts, signedPct1, units1 } from "../../lib/format";
 import type { ErrorRow, ForecastResponse, ForecastSeries, ScenarioCode } from "../../lib/types";
 import type { DeptId } from "../../lib/url";
-import { Delta } from "../Delta";
+import { StatTile } from "../StatTile";
 
 // ---- KPI strip --------------------------------------------------------------------------------------------------
 
-function Tile({ label, short, value, delta, tone = "grey", sub, tip, valueCls = "" }: {
-  label: string;
-  /** A shorter label below 90rem, so the delta never truncates it. */
-  short?: string;
-  value: ReactNode;
-  delta?: string;
-  tone?: "good" | "bad" | "grey";
-  sub: ReactNode;
-  tip?: string;
-  valueCls?: string;
-}) {
-  return (
-    <div className="min-w-0 border-line p-2 max-sm:border-b max-sm:[&:nth-child(odd)]:border-r sm:border-r sm:last:border-r-0" data-tile={label} data-tip={tip}>
-      <div className="h-full px-4 py-3 compact:py-2.5 max-sm:px-3">
-        <div className="flex h-5 items-center justify-between gap-2 text-[14px] text-ink-2">
-          {short ? (
-            <span className="truncate">
-              <span className="max-[89.99rem]:hidden">{label}</span>
-              <span className="min-[90rem]:hidden">{short}</span>
-            </span>
-          ) : (
-            <span className="truncate">{label}</span>
-          )}
-          {delta && <Delta text={delta} tone={tone} />}
-        </div>
-        <div className={`mt-0.5 truncate text-[32px] leading-[1.15] font-semibold tracking-[-.03em] tnum compact:text-[28px] max-sm:text-[28px] ${valueCls}`}>{value}</div>
-        <div className="mt-0.5 h-[18px] truncate text-[12.5px] text-muted tnum">{sub}</div>
-      </div>
-    </div>
-  );
-}
+const Tile = StatTile;
 
 export function DemandTiles({ series, sum, scenario, err }: { series: ForecastSeries; sum: DemandSummary; scenario: ScenarioCode; err?: ErrorRow }) {
   const missGap = gapOf(sum.miss, scenario);
