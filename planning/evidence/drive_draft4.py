@@ -1165,6 +1165,24 @@ def check_whatif(page, url, run, kt, requests):
         check(f"What-if {tag}: tiles, baselines, 'without re-planning' tips, board sum and header agree with /api/what-if",
               not bad, bad or {k: t[k]["value"] for k in t})
 
+    def cost_card(tag, totals, base_totals, base_word):
+        """'Where the cost goes': each department's cost and change, and hours by source, against the baseline in view."""
+        got = page.evaluate("""() => ({
+            sub: document.querySelector('[data-card-body=costbreakdown] h2')?.nextElementSibling?.innerText ?? '',
+            depts: [...document.querySelectorAll('[data-list=cost-departments] [data-dept]')].map(d => [Number(d.dataset.dept), Number(d.dataset.cost), Number(d.dataset.change)]),
+            sources: Object.fromEntries([...document.querySelectorAll('[data-list=cost-sources] [data-source]')].map(s => [s.dataset.source, Number(s.dataset.hours)])) })""")
+        base_by = {d["dept_id"]: d["plan"] for d in base_totals["by_department"]}
+        want = [[d["dept_id"], js_round(d["plan"]["cost"]), js_round(d["plan"]["cost"] - base_by[d["dept_id"]]["cost"])] for d in totals["by_department"]]
+        p = totals["plan"]
+        want_src = {"regular": p["regular_hours"], "flex": p["flex_hours"], "overtime": p["overtime_hours"]}
+        ok = got["depts"] == want and got["sources"] == want_src and got["sub"].endswith(f"vs {base_word}")
+        check(f"What-if card 'Where the cost goes' ({tag}): department costs and changes, and hours by source, against the {base_word}",
+              ok, got if not ok else {"depts": got["depts"], "sub": got["sub"]}, {"depts": want, "sources": want_src} if not ok else None)
+
+    # 0. The cost card in the default view: the submitted plan against the draft
+    planb = api_json(url, "api/plan?scenario=BASE")["totals"]["all"]
+    cost_card("default view", planb, {"by_department": [{"dept_id": d["dept_id"], "plan": d["draft"]} for d in planb["by_department"]]}, "draft")
+
     # 1. A preset (the one the server warms at startup)
     page.click('[data-adjust="adjust"] [data-preset="busier"]')
     page.wait_for_selector(ready, timeout=120000)
@@ -1173,6 +1191,7 @@ def check_whatif(page, url, run, kt, requests):
     check("What-if preset 'Busier week': the hash carries co=1.5 and dm=0.1", "co=1.5" in h and "dm=0.1" in h, h)
     api = api_json(url, "api/what-if?scenario=BASE&goal=0.95&callouts=1.5&demand=0.1&availability=0")
     tiles_vs("Busier week (BASE, All)", api, ["Demand +10%", "Callouts 1.5×"])
+    cost_card("Busier week", api["totals"]["all"], planb, "submitted")
     page.screenshot(path=str(SHOTS / "whatif-busier-1440x900.png"))
 
     # 2. Compare with submitted: every open cell's secondary = what-if minus submitted, summed over its warehouses

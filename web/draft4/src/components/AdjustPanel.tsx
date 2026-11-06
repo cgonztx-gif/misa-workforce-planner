@@ -74,7 +74,7 @@ export function AdjustPanel({ value, onChange, busy, id = "adjust" }: {
       </div>
 
       {/* Presets */}
-      <div className="mt-1.5 grid grid-cols-2 gap-1.5 px-1 compact:mt-1 compact:gap-1">
+      <div className="mt-1.5 grid grid-cols-2 gap-1.5 px-1 short:mt-1 short:gap-1">
         {PRESETS.map((p) => {
           const on = sameSettings(pending, p.settings);
           return (
@@ -85,7 +85,7 @@ export function AdjustPanel({ value, onChange, busy, id = "adjust" }: {
               data-preset={p.id}
               data-tip={p.tip}
               onClick={() => commitNow(on ? WI_DEFAULTS : p.settings)}
-              className={`h-7 truncate rounded-full px-2 text-[12px] compact:h-6 transition-colors focus-visible:outline-2 focus-visible:outline-accent ${
+              className={`h-7 truncate rounded-full px-2 text-[12px] short:h-6 transition-colors focus-visible:outline-2 focus-visible:outline-accent ${
                 on ? "bg-accent/[.10] font-medium text-ink ring-1 ring-accent/35 ring-inset" : "border border-line bg-card/60 text-ink-2 hover:bg-card hover:text-ink"
               }`}
             >
@@ -95,11 +95,11 @@ export function AdjustPanel({ value, onChange, busy, id = "adjust" }: {
         })}
       </div>
 
-      <div className="mt-3 flex flex-col gap-3 px-2 compact:mt-2 compact:gap-1.5">
+      <div className="mt-3 flex flex-col gap-3 px-2 short:mt-2 short:gap-1.5">
         {/* Service goal: four fixed values */}
         <div data-control="goal">
           <Row label={LABEL.goal} tip={TIP.goal} value={valueText.goal(pending.goal)} changed={Math.abs(pending.goal - WI_DEFAULTS.goal) > 1e-9} />
-          <div className="mt-1.5 grid grid-cols-4 gap-0.5 rounded-full bg-soft p-0.5 compact:mt-1" role="radiogroup" aria-label={LABEL.goal}>
+          <div className="mt-1.5 grid grid-cols-4 gap-0.5 rounded-full bg-soft p-0.5 short:mt-1" role="radiogroup" aria-label={LABEL.goal}>
             {WI_LIMITS.goal.map((g) => {
               const on = Math.abs(pending.goal - g) < 1e-9;
               return (
@@ -153,7 +153,7 @@ function RangeControl({ k, v, onChange }: { k: RangeKey; v: number; onChange: (v
     <div data-control={k}>
       <Row label={LABEL[k]} tip={TIP[k]} value={valueText[k](v)} changed={changed} />
       <Slider.Root
-        className="relative mt-1 flex h-5 w-full touch-none items-center select-none compact:mt-0 compact:h-4"
+        className="relative mt-1 flex h-5 w-full touch-none items-center select-none short:mt-0 short:h-4"
         min={lim.min}
         max={lim.max}
         step={lim.step}

@@ -113,6 +113,11 @@ export function rebase(w: WhatIfResponse, sub: PlanResponse): PlanResponse {
           const sd = subDays.get(d.date);
           return sd ? { ...d, draft: sd.plan, change: diff(d.plan, sd.plan) } : d;
         }),
+        // Departments too, so "Where the cost goes" compares the what-if with the submitted plan, not the draft.
+        by_department: t.by_department.map((d) => {
+          const sd = st.by_department.find((x) => x.dept_id === d.dept_id);
+          return sd ? { ...d, draft: sd.plan, change: diff(d.plan, sd.plan) } : d;
+        }),
       };
       return [wk, out];
     }),

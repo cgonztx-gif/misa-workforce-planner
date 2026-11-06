@@ -4,6 +4,9 @@
    tints are token + alpha (bg-bad/12), so they follow the theme by themselves. Colour rules (the user, 2026-11-05):
    green = good, red = bad, grey = comparison and neutral, blue = controls only. No amber. */
 
+/* Sidebar only: with five pages, the scenario switch and the what-if panel, it tightens on laptop-height screens.
+   Declared before compact, so compact (the 1366 x 768 projector) wins where both apply. */
+@custom-variant short (@media (max-height: 60rem));
 @custom-variant compact (@media (max-height: 48rem));
 /* Tall wide screens (1920 x 1080 and up): the board grows into the height instead of leaving a band below. */
 @custom-variant tall (@media (min-height: 58rem));

@@ -991,10 +991,23 @@ default), so a link reproduces a what-if.
 - **Legend caption:** the lens heading moved from the toolbar into the board's empty top-left corner ("People / vs
   submitted"), because at 1366 the toolbar had no room for it in a what-if.
 
+**Where the cost goes** (added at the user's request, 2026-11-05; `components/CostBreakdown.tsx`). Below the fold
+beside By day (8 + 4 columns, as the plan card and slot above): the Labor cost tile taken apart, by department
+(cost, change, 3px share bar) and by source of hours (regular / cross-trained / overtime, stacked bars for the plan
+and its baseline, hours and change per source). It follows the what-if, so under Busier week it reads "What-if vs
+submitted": +$33.4k, mostly 381.5 more overtime hours and 52 fewer cross-trained ones. Changes are grey magnitudes;
+the tile carries the red rise. The goal trade-off, callout allowance and history stay on the Cost and service page,
+because they are fixed analyses that no adjustment changes. `rebase` now maps departments to the submitted plan too.
+
+**Sidebar on laptop heights.** With five pages, the scenario switch and the what-if panel, the sidebar tightens up to
+60rem tall (`short` variant) and further at 48rem (`compact`, declared after it so it wins); the theme toggle moved
+beside the mark, and the simulated-data footer gives way at 48rem (the header pill says it). Nothing is cut off at
+1366 x 657, 1366 x 768, 1440 x 790, 1440 x 900 or 1920 x 1000.
+
 **Checks** (`drive_draft4.py`, "What-if"): the default view never calls `/api/what-if`; Busier week and Callouts
 1.75× (by keyboard) agree with independent fetches of `/api/what-if` on every tile, baseline, "without re-planning"
 line, the board sum and the header; Compare with submitted shows each cell's change from the API's `changes`; goal
-97.5% moves the legend; Reset returns the known totals, Draft baselines and a clean hash. 359 of 359 pass.
+97.5% moves the legend; Reset returns the known totals, Draft baselines and a clean hash; Where the cost goes agrees with the plan (vs draft) and with Busier week (vs submitted). 367 of 367 pass.
 Screenshots: `planning/evidence/draft4/whatif/`.
 
 

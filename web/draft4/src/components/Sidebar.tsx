@@ -68,13 +68,23 @@ export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, them
         <span className="grid size-6 shrink-0 place-items-center rounded-lg bg-card text-ink-2 shadow-[var(--shadow-pill)]">
           <LayoutGrid size={14} strokeWidth={2} />
         </span>
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <div className="truncate text-[14px] leading-tight font-semibold">Workforce Planner</div>
           <div className="h-4 text-[12.5px] leading-4 text-muted tnum">{week || <span className="skel inline-block h-3 w-24 rounded" />}</div>
         </div>
+        {/* The theme toggle sits by the mark, so the footer can give way on short screens (1366 x 768 projector). */}
+        <button
+          type="button"
+          onClick={onTheme}
+          aria-label={`Theme · ${themeName(theme)}`}
+          data-tip={`Theme · ${themeName(theme)}`}
+          className="-mr-1 grid size-8 shrink-0 place-items-center rounded-full text-muted hover:bg-soft hover:text-ink focus-visible:outline-2 focus-visible:outline-accent"
+        >
+          <ThemeIcon theme={theme} />
+        </button>
       </div>
 
-      <div className="mt-6 px-2 text-[12px] text-muted compact:mt-3">Pages</div>
+      <div className="mt-6 px-2 text-[12px] text-muted short:mt-3 compact:mt-2">Pages</div>
       <nav className="mt-1.5 flex flex-col gap-0.5" aria-label="Pages">
         {PAGE_NAV.map(({ page: pg, label, Icon }) => {
           const on = pg === page;
@@ -85,7 +95,7 @@ export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, them
               aria-current={on ? "page" : undefined}
               data-page={pg}
               onClick={() => onPage(pg)}
-              className={`flex h-10 items-center gap-2.5 rounded-[10px] px-3 text-left text-[14px] compact:h-8 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent ${
+              className={`flex h-10 items-center gap-2.5 rounded-[10px] px-3 text-left text-[14px] short:h-8 compact:h-[30px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent ${
                 on ? "bg-card font-medium text-ink shadow-[var(--shadow-pill)]" : "text-ink-2 hover:bg-card/60"
               }`}
             >
@@ -98,7 +108,7 @@ export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, them
         })}
       </nav>
 
-      <div className="mt-6 px-2 text-[12px] text-muted compact:mt-3">Scenario</div>
+      <div className="mt-6 px-2 text-[12px] text-muted short:mt-3 compact:mt-2">Scenario</div>
       <nav className="mt-1.5 flex flex-col gap-0.5" aria-label="Scenario">
         {SCEN.map(({ code, label, key, Icon }) => {
           const on = code === scenario;
@@ -109,7 +119,7 @@ export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, them
               aria-pressed={on}
               onClick={() => onScenario(code)}
               data-tip={scenarioTip(code, meta, compare, wk)}
-              className={`flex h-10 items-center gap-2.5 rounded-[10px] px-3 text-left text-[14px] compact:h-8 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent ${
+              className={`flex h-10 items-center gap-2.5 rounded-[10px] px-3 text-left text-[14px] short:h-8 compact:h-[30px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent ${
                 on ? "bg-card font-medium text-ink shadow-[var(--shadow-pill)]" : "text-ink-2 hover:bg-card/60"
               }`}
             >
@@ -123,22 +133,12 @@ export function Sidebar({ meta, scenario, loading, onScenario, compare, wk, them
         })}
       </nav>
 
-      {adjust && <div className="mt-6 border-t border-line pt-4 compact:mt-3 compact:pt-2">{adjust}</div>}
+      {adjust && <div className="mt-6 border-t border-line pt-4 short:mt-3 short:pt-3 compact:mt-2 compact:pt-2">{adjust}</div>}
 
-      <div className="mt-auto flex items-center gap-2 px-2 pt-4 pb-1 compact:pt-2">
-        <div className="min-w-0 flex-1" data-tip={meta?.notice}>
-          <div className="text-[13px] leading-tight text-ink-2">Simulated data</div>
-          <div className="text-[12px] text-muted">Not Costco data</div>
-        </div>
-        <button
-          type="button"
-          onClick={onTheme}
-          aria-label={`Theme · ${themeName(theme)}`}
-          data-tip={`Theme · ${themeName(theme)}`}
-          className="grid size-8 shrink-0 place-items-center rounded-full text-muted hover:bg-soft hover:text-ink focus-visible:outline-2 focus-visible:outline-accent"
-        >
-          <ThemeIcon theme={theme} />
-        </button>
+      {/* The simulated-data note; on short screens the header's Simulated data pill says it instead. */}
+      <div className="mt-auto px-2 pt-4 pb-1 compact:hidden" data-tip={meta?.notice}>
+        <div className="text-[13px] leading-tight text-ink-2">Simulated data</div>
+        <div className="text-[12px] text-muted">Not Costco data</div>
       </div>
       </div>
     </aside>

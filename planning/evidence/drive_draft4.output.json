@@ -1,9 +1,9 @@
 {
  "about": "drive_draft4.py: the rendered draft 4 page against planning/evidence/draft4_known_totals.output.json and outputs/*.csv. Simulated data, not Costco data.",
- "run_at": "2026-11-05 23:34:07",
- "seconds": 109.9,
+ "run_at": "2026-11-05 23:49:04",
+ "seconds": 108.8,
  "viewport": "1440x900",
- "passed": 365,
+ "passed": 367,
  "failed": 0,
  "failures": [],
  "results": [
@@ -11,14 +11,14 @@
    "check": "server --draft4 ready",
    "ok": true,
    "measured": {
-    "ready_s": 11.4,
+    "ready_s": 12.3,
     "health": {
      "ready": true,
-     "seconds": 9.378815,
+     "seconds": 10.570683,
      "error": null,
      "status": "ready",
      "step": "Ready",
-     "elapsed": 9.378815
+     "elapsed": 10.570683
     }
    },
    "expected": null
@@ -2934,6 +2934,31 @@
    "expected": null
   },
   {
+   "check": "What-if card 'Where the cost goes' (default view): department costs and changes, and hours by source, against the draft",
+   "ok": true,
+   "measured": {
+    "depts": [
+     [
+      38,
+      163346,
+      24116
+     ],
+     [
+      92,
+      169456,
+      19783
+     ],
+     [
+      95,
+      44703,
+      4497
+     ]
+    ],
+    "sub": "Plan vs draft"
+   },
+   "expected": null
+  },
+  {
    "check": "What-if preset 'Busier week': the hash carries co=1.5 and dm=0.1",
    "ok": true,
    "measured": "#s=BASE&w=all&l=service&c=0&co=1.5&dm=0.1",
@@ -2947,6 +2972,31 @@
     "below": "64",
     "people": "2,913",
     "cost": "$410.9k"
+   },
+   "expected": null
+  },
+  {
+   "check": "What-if card 'Where the cost goes' (Busier week): department costs and changes, and hours by source, against the submitted",
+   "ok": true,
+   "measured": {
+    "depts": [
+     [
+      38,
+      176158,
+      12812
+     ],
+     [
+      92,
+      183570,
+      14114
+     ],
+     [
+      95,
+      51191,
+      6489
+     ]
+    ],
+    "sub": "What-if vs submitted"
    },
    "expected": null
   },
@@ -3104,7 +3154,7 @@
    "check": "No request leaves 127.0.0.1",
    "ok": true,
    "measured": {
-    "requests": 41,
+    "requests": 40,
     "hosts": [
      "127.0.0.1"
     ],

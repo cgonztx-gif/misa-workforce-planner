@@ -90,6 +90,7 @@ import { BaseContext, DRAFT_BASE, SUBMITTED_BASE } from "./lib/base";
 import { changedChips, isDefault, rebase, WI_DEFAULTS } from "./lib/whatif";
 import type { WhatIfSettings } from "./lib/types";
 import { AdjustPanel } from "./components/AdjustPanel";
+import { CostBreakdown } from "./components/CostBreakdown";
 import { nextTheme, readTheme, saveTheme, type Theme } from "./lib/theme";
 import type { Block, PlanResponse, ScenarioCode, WarehouseKey } from "./lib/types";
 import { readHash, writeHash, type DeptId, type Lens, type Page, type ViewState } from "./lib/url";
@@ -325,7 +326,8 @@ export function App() {
     retry();
     if (wiOn) void wiQ.refetch();
   };
-  const base = showWi ? SUBMITTED_BASE : DRAFT_BASE;
+  // "Submitted" wording is the Overview's alone: the other pages always show the submitted plan against the draft.
+  const base = showWi && view.page === "overview" ? SUBMITTED_BASE : DRAFT_BASE;
   const adjust = (
     <AdjustPanel value={view.wi} onChange={setWi} busy={wiBusy} />
   );
@@ -525,12 +527,16 @@ export function App() {
                 </div>
               </section>
 
-              {/* By day: full width below the fold up to 1800 px, the third column from 112.5rem. The breakdown card was removed (the user, 2026-11-05). */}
+              {/* Below the fold: By day (8 columns) and Where the cost goes (4), as the plan card and slot above; both
+                  stack in the third column from 112.5rem. Both follow the what-if. */}
               <div className="contents min-[112.5rem]:col-span-3 min-[112.5rem]:flex min-[112.5rem]:min-w-0 min-[112.5rem]:flex-col min-[112.5rem]:gap-4">
-                <section data-card="byday" aria-label="By day" className={`${CARD} min-w-0 p-5 md:col-span-2 min-[80rem]:col-span-12 min-[112.5rem]:flex-1 max-sm:p-3`}>
+                <section data-card="byday" aria-label="By day" className={`${CARD} min-w-0 p-5 md:col-span-2 min-[80rem]:col-span-8 min-[112.5rem]:flex-1 max-sm:p-3`}>
                   <div className={`h-full transition-opacity duration-150 ${dim}`}>
                     {loaded ? <DayChart T={T!} meta={meta.data!} lens={view.lens} compare={view.compare} goal={goal} focusDay={focusDay} onDay={(d) => setFocusDay((f) => (f === d ? null : d))} /> : <ChartSkeleton />}
                   </div>
+                </section>
+                <section data-card="costbreakdown" aria-label="Where the cost goes" className={`${CARD} min-w-0 p-5 md:col-span-2 min-[80rem]:col-span-4 max-sm:p-3`}>
+                  <div className={`h-full transition-opacity duration-150 ${dim}`}>{loaded ? <CostBreakdown T={T!} /> : <ChartSkeleton rows />}</div>
                 </section>
               </div>
             </div>
